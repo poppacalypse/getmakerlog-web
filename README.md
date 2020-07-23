@@ -1,5 +1,5 @@
 # area51
-ignore this
+just a weekend project for me
 
 # notes
 - https://blog.nimbleways.com/building-utility-first-design-systems-with-tailwind/
