@@ -4,3 +4,4 @@
 an experiment to improve makerlog
 # notes
 - https://blog.nimbleways.com/building-utility-first-design-systems-with-tailwind/
+- https://www.figma.com/resources/learn-design/
