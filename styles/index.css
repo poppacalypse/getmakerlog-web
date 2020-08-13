@@ -3,4 +3,13 @@
 @tailwind components;
 /* purgecss end ignore */
 
+nav .logo svg {
+  @apply h-8 w-8 !important;
+  color: #00ad71;
+}
+
 @tailwind utilities;
+
+.input {
+  @apply bg-gray-100 border border-gray-200 p-2 rounded-md;
+}
