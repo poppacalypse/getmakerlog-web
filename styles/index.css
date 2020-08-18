@@ -4,8 +4,8 @@
 /* purgecss end ignore */
 
 nav .logo svg {
-  @apply h-8 w-8 !important;
-  color: #00ad71;
+  @apply h-8 w-8 text-gray-900 !important;
+  /*color: #00ad71; */
 }
 
 @tailwind utilities;
