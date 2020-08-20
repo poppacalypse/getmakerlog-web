@@ -4,7 +4,7 @@
 /* purgecss end ignore */
 
 nav .logo svg {
-  @apply h-8 w-8 text-gray-900 !important;
+  @apply h-8 w-8 !important;
   /*color: #00ad71; */
 }
 
@@ -12,4 +12,9 @@ nav .logo svg {
 
 .input {
   @apply bg-gray-100 border border-gray-200 p-2 rounded-md;
+}
+
+.pin-c-x {
+  left: 50%;
+  transform: translateX(-50%);
 }

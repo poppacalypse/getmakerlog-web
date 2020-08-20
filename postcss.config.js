@@ -5,6 +5,7 @@ module.exports = {
       ? [
           "@fullhuman/postcss-purgecss",
           {
+            whitelist: ["mode-dark"],
             content: [
               "./pages/**/*.{js,jsx,ts,tsx}",
               "./components/**/*.{js,jsx,ts,tsx}",

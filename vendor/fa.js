@@ -15,6 +15,7 @@ import { faBell as faBellOutlined } from "@fortawesome/free-regular-svg-icons/fa
 import { faBell } from "@fortawesome/free-solid-svg-icons/faBell";
 import { faClock } from "@fortawesome/free-solid-svg-icons/faClock";
 import { faEdit } from "@fortawesome/free-solid-svg-icons/faEdit";
+import { faRedo } from "@fortawesome/free-solid-svg-icons/faRedo";
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons/faQuestionCircle";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons/faGlobe";
 import { faUsers } from "@fortawesome/free-solid-svg-icons/faUsers";
@@ -58,6 +59,7 @@ import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
 import { faMarkdown } from "@fortawesome/free-brands-svg-icons/faMarkdown";
 import { faEye } from "@fortawesome/free-solid-svg-icons/faEye";
 import { faArrowsAlt } from "@fortawesome/free-solid-svg-icons/faArrowsAlt";
+import { faArrowsAltV } from "@fortawesome/free-solid-svg-icons/faArrowsAltV";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons/faTrophy";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons/faUserCircle";
 import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
@@ -186,5 +188,7 @@ library.add(
   faThumbsUpRegular,
   faFacebook,
   faStar,
-  faStarRegular
+  faStarRegular,
+  faArrowsAltV,
+  faRedo
 );
