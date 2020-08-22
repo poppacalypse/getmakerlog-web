@@ -9,12 +9,12 @@ const IndexPage = () => (
         <div className="flex flex-center items-center justify-center mr-4 md:hidden">
           <FontAwesomeIcon icon="bars" />
         </div>
-        <div className="logo flex flex-center items-center justify-center mr-4 text-main-500">
+        <div className="logo flex flex-center items-center justify-center mr-4 text-green-500">
           <FontAwesomeIcon icon="check-circle" />
         </div>
       </div>
       <div className="navbar-middle flex-grow hidden md:flex flex-row items-center max-w-3xl h-full">
-        <div className="flex-1 flex-grow text-center font-bold border-b-2 border-main-500 text-main-500 h-full flex items-center justify-center">
+        <div className="flex-1 flex-grow text-center font-bold border-b-2 border-green-500 text-green-500 h-full flex items-center justify-center">
           Explore
         </div>
         <div className="flex-1 flex-grow text-center font-semibold text-gray-600 h-full flex items-center justify-center">
@@ -42,16 +42,16 @@ const IndexPage = () => (
       <div>
         <div className="hidden md:block w-72 pt-16 pb-4 flex flex-col flex-grow border-r border-gray-200 max-h-screen bg-white overflow-y-auto h-full left-0 top-0 sticky">
           <div className="py-4">
-            <div className="p-4 py-3 text-gray-800 bg-main-100 font-semibold border-l-2 box-border border-main-500">
+            <div className="p-4 py-3 text-gray-800 bg-green-100 font-semibold border-l-2 box-border border-green-500">
               Log
             </div>
-            <div className="p-4 py-3 text-gray-600 hover:bg-main-100 font-semibold">
+            <div className="p-4 py-3 text-gray-600 hover:bg-green-100 font-semibold">
               Discussions
             </div>
-            <div className="p-4 py-3 text-gray-600 hover:bg-main-100 font-semibold">
+            <div className="p-4 py-3 text-gray-600 hover:bg-green-100 font-semibold">
               Chat
             </div>
-            <div className="p-4 py-3 text-gray-600 hover:bg-main-100 font-semibold">
+            <div className="p-4 py-3 text-gray-600 hover:bg-green-100 font-semibold">
               Leaderboards
             </div>
             <div className="mt-8">
@@ -85,7 +85,7 @@ const IndexPage = () => (
             />
           </div>
 
-          <div class="sticky top-0 z-50" style={{ top: "4rem" }}>
+          <div className="sticky top-0 z-50" style={{ top: "4rem" }}>
             <div className="bg-gray-50 border-b border-r border-l border-gray-200 ">
               <div className="flex p-4">
                 <div className="flex min-w-0">
@@ -95,8 +95,8 @@ const IndexPage = () => (
                     alt=""
                   />
                 </div>
-                <div class="flex-1 min-w-0">
-                  <h2 class="text-xl font-bold text-gray-900  sm:truncate">
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-xl font-bold text-gray-900  sm:truncate">
                     Sergio Mattei{" "}
                     <span className="font-light text-gray-700">@sergio</span>
                   </h2>
@@ -107,17 +107,17 @@ const IndexPage = () => (
                     <span className="mr-2">🔥 2 day streak</span>
                   </small>
                 </div>
-                <div class="ml-4 flex items-center justify-between">
+                <div className="ml-4 flex items-center justify-between">
                   <button
                     type="button"
-                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-main-600 hover:bg-main-500 focus:outline-none active:bg-main-700 transition ease-in-out duration-150"
+                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-500 focus:outline-none active:bg-green-700 transition ease-in-out duration-150"
                   >
                     Follow
                   </button>
                 </div>
               </div>
               <div className="navbar-middle flex-grow flex flex-row items-center h-full">
-                <div className=" flex-1 py-4 pt-2 flex-grow text-center font-bold border-b-2 border-main-500 text-main-500 h-full flex items-center justify-center">
+                <div className=" flex-1 py-4 pt-2 flex-grow text-center font-bold border-b-2 border-green-500 text-green-500 h-full flex items-center justify-center">
                   Log
                 </div>
                 <div className=" flex-1 py-4 pt-2 flex-grow text-center font-semibold text-gray-600 h-full flex items-center justify-center">
@@ -161,7 +161,7 @@ const IndexPage = () => (
                   </div>
                   <div className="object px-4 py-4 pt-0 ">
                     <div className="task text-lg font-semibold mb-1 text-gray-900">
-                      <span className="text-main-500">
+                      <span className="text-green-500">
                         <FontAwesomeIcon icon="check-circle" />
                       </span>{" "}
                       Completed an awesome work sprint
@@ -262,7 +262,7 @@ const IndexPage = () => (
                   </div>
                   <div className="object px-4 py-4 pt-0 ">
                     <div className="task text-lg font-semibold mb-1 text-gray-900">
-                      <span className="text-main-500">
+                      <span className="text-green-500">
                         <FontAwesomeIcon icon="check-circle" />
                       </span>{" "}
                       Completed an awesome work sprint
@@ -363,7 +363,7 @@ const IndexPage = () => (
                   </div>
                   <div className="object px-4 py-4 pt-0 ">
                     <div className="task text-lg font-semibold mb-1 text-gray-900">
-                      <span className="text-main-500">
+                      <span className="text-green-500">
                         <FontAwesomeIcon icon="check-circle" />
                       </span>{" "}
                       Completed an awesome work sprint
@@ -464,7 +464,7 @@ const IndexPage = () => (
                   </div>
                   <div className="object px-4 py-4 pt-0 ">
                     <div className="task text-lg font-semibold mb-1 text-gray-900">
-                      <span className="text-main-500">
+                      <span className="text-green-500">
                         <FontAwesomeIcon icon="check-circle" />
                       </span>{" "}
                       Completed an awesome work sprint

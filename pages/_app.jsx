@@ -9,43 +9,48 @@ import { Provider } from "mobx-react";
 import { isServer } from "../config";
 import config, { onStoreInit } from "stores";
 import { configureMobx } from "vendor/mobx";
+import Shell from "layouts/Shell";
 
 class Makerlog extends App {
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
+	static async getInitialProps({ Component, ctx }) {
+		let pageProps = {};
 
-    /* 
+		/* 
     THIS IS DANGEROUS!
 
-    onStoreInit MUST run before getInitialProps, otherwise cross-request-state pollution may occur!
+    onStoreInit MUST run before getInitialProps, otherwise cross-request state pollution may occur!
     
-    oSI flushes previos request state (tokens) and clears stores. 
+    onStoreInit flushes previos request state (tokens) and clears stores. 
 
     This could be a serious security issue. 
-    Do not touch this initialization code unless you know what you're doing.
+    Do not touch this initialization code.
     */
 
-    if (onStoreInit && isServer) {
-      // Loads onServerLoad - this is the place to put your cookie things.
-      await onStoreInit(ctx);
-    }
+		if (onStoreInit && isServer) {
+			// Loads onStoreInit - this is the place to put your cookie things.
+			await onStoreInit(ctx);
+		}
 
-    if (typeof Component.getInitialProps === "function") {
-      pageProps = await Component.getInitialProps(ctx);
-    }
+		if (typeof Component.getInitialProps === "function") {
+			pageProps = await Component.getInitialProps(ctx);
+		}
 
-    return { pageProps };
-  }
+		return { pageProps };
+	}
 
-  render() {
-    const { Component, pageProps, store } = this.props;
+	render() {
+		const { Component, pageProps, store } = this.props;
+		const { statusCode } = pageProps;
+		const layoutProps = pageProps.layout ? pageProps.layout : {};
 
-    return (
-      <Provider {...store}>
-        <Component {...pageProps} />
-      </Provider>
-    );
-  }
+		return (
+			<Provider {...store}>
+				<Shell statusCode={statusCode} layoutProps={layoutProps}>
+					<Component {...pageProps} />
+				</Shell>
+			</Provider>
+		);
+	}
 }
 
 export default configureMobx(config, Makerlog);

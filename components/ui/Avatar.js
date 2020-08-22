@@ -1,14 +1,12 @@
 import React from "react";
 
-function Avatar({ size, user, ...props }) {
+function Avatar({ size, user, className = "", ...props }) {
   return (
-    <figure>
-      <img
-        className={`h-${size} w-${size} rounded-full`}
-        src={user.avatar}
-        alt={user.username}
-      />
-    </figure>
+    <img
+      className={`h-${size} w-${size} rounded-full ` + className}
+      src={user.avatar}
+      alt={user.username}
+    />
   );
 }
 
