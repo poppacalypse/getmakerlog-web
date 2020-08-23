@@ -5,7 +5,8 @@
 		"dev": "DEBUG='makerlog*,axios' next",
 		"build": "next build",
 		"start": "next start",
-		"type-check": "tsc"
+		"type-check": "tsc",
+		"deploy": "NODE_ENV=production API_URL=https://api.getmakerlog.com next build && eb deploy"
 	},
 	"dependencies": {
 		"@babel/plugin-proposal-class-properties": "^7.10.4",
