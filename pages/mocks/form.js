@@ -4,7 +4,7 @@ import Message from "components/ui/Message";
 import Card from "components/ui/Card";
 import Button from "components/ui/Button";
 import ErrorMessageList from "components/error/ErrorMessageList";
-import { StdErrorCollection } from "vendor/error";
+import { StdErrorCollection } from "utils/error";
 import Form from "components/ui/Form";
 
 const fieldErrors = new StdErrorCollection({

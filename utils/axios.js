@@ -4,8 +4,6 @@ import nookies from "nookies";
 import { isServer } from "config";
 import { StdErrorCollection, prettyAxiosError } from "./error";
 
-require("../node_modules/axios-debug-log");
-
 const client = axios.create({
 	baseURL: appConfig.API_URL,
 });

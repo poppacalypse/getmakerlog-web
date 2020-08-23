@@ -53,6 +53,10 @@ function getSpinnerColor(props) {
 	return "#00AD71";
 }
 
+function ButtonIcon({ children }) {
+	return <span className="-ml-0.5 mr-2 h-4 w-4">{children}</span>;
+}
+
 function Button(props) {
 	const Tag = props.anchor ? `a` : `button`;
 
@@ -95,5 +99,7 @@ function Button(props) {
 		</Tag>
 	);
 }
+
+Button.Icon = ButtonIcon;
 
 export default Button;

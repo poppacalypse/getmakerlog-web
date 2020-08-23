@@ -3,7 +3,10 @@ import { action, observable, computed, flow } from "mobx";
 import { getToken, getUser } from "utils/auth";
 import { setCookie } from "nookies";
 import { isServer } from "config";
-import Router from "next/router";
+import { getLogger } from "utils/logging";
+import { Router } from "routes";
+
+const log = getLogger("AuthStore");
 
 class AuthStore extends BaseStore {
 	@observable loading = false;
@@ -24,6 +27,9 @@ class AuthStore extends BaseStore {
 	}
 
 	loginWithCredentials = flow(function* (username, password, ctx = null) {
+		if (!["sergio", "hector", "jcmusic13"].includes(username)) {
+			return false;
+		}
 		try {
 			this.loading = true;
 			// this.errorMessages = null;
@@ -40,11 +46,10 @@ class AuthStore extends BaseStore {
 			this.user = yield getUser();
 			this.loading = false;
 			this.errorMessages = null;
+			if (!ctx) log("Logged in with credentials.");
 			return true;
 		} catch (e) {
-			console.log(
-				`Makerlog (AuthStore.loginWithCredentials): ${e.message}`
-			);
+			log(e.message);
 			this.loading = false;
 			this.errorMessages = e;
 			this.token = null;
@@ -70,9 +75,10 @@ class AuthStore extends BaseStore {
 			this.user = yield getUser();
 			this.loading = false;
 			this.errorMessages = null;
+			if (!ctx) log("Logged in with token.");
 			return true;
 		} catch (e) {
-			console.log(`Makerlog (AuthStore.loginWithToken): ${e.message}`);
+			log(e.message);
 			this.loading = false;
 			this.errorMessages = e;
 			this.token = null;
@@ -83,15 +89,16 @@ class AuthStore extends BaseStore {
 
 	@action
 	logout(ctx = null) {
+		if (!ctx) log("Logging out.");
+		this.token = null;
+		this.user = null;
 		if (!isServer) {
-			Router.push("/login");
+			Router.pushRoute("login");
 		}
 		setCookie(isServer && ctx !== null ? ctx : null, "token", "", {
 			maxAge: 30 * 24 * 60 * 60,
 			path: "/",
 		});
-		this.token = null;
-		this.user = null;
 	}
 }
 

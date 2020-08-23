@@ -4,6 +4,8 @@ import { observer, inject } from "mobx-react";
 import UserMedia from "components/ui/UserMedia";
 import ErrorCard from "components/ui/ErrorCard";
 import Button from "components/ui/Button";
+import Navbar from "components/nav/Navbar";
+import { Link } from "routes";
 
 @inject("auth")
 @observer
@@ -11,41 +13,7 @@ class AppLayout extends Component {
 	render() {
 		return (
 			<div className="AppLayout Page bg-gray-100 min-h-screen">
-				<nav className="h-16 bg-white border-b border-gray-200  px-4 flex flex-row fixed left-0  w-full top-0 z-50">
-					<div className="navbar-left flex-none flex flex-row md:w-72">
-						<div className="flex flex-center items-center justify-center mr-4 md:hidden">
-							<FontAwesomeIcon icon="bars" />
-						</div>
-						<div className="logo flex flex-center items-center justify-center mr-4 text-green-500">
-							<FontAwesomeIcon icon="check-circle" />
-						</div>
-					</div>
-					<div className="navbar-middle self-center w-full h-full flex justify-center">
-						<div className="menu max-w-3xl  hidden md:flex items-center h-full flex-grow">
-							<div className="hover:bg-green-100 cursor-pointer flex-1 text-center font-semibold border-b-2 border-green-500 text-green-500 h-full flex items-center justify-center  transition ease-in-out duration-150">
-								Explore
-							</div>
-							<div className="hover:bg-green-100 cursor-pointer flex-1 text-center font-semibold text-gray-700 h-full flex items-center justify-center  transition ease-in-out duration-150">
-								Stories
-							</div>
-							<div className="hover:bg-green-100 cursor-pointer flex-1 text-center font-semibold text-gray-700 h-full flex items-center justify-center  transition ease-in-out duration-150">
-								More
-							</div>
-						</div>
-					</div>
-					<div className="navbar-right flex-none flex items-center flex-row justify-end md:w-72">
-						<div className="px-4 text-center font-semibold text-gold-600 h-full flex items-center justify-center">
-							Get Gold
-						</div>
-						<div className="pl-4">
-							<img
-								className="h-8 w-8 rounded-full"
-								src="https://ik.imagekit.io/makerlog/media/uploads/avatars/2020/07/22/IMG-20200623-WA0106.jpg"
-								alt=""
-							/>
-						</div>
-					</div>
-				</nav>
+				<Navbar app />
 
 				<div className="flex">
 					{this.props.auth.isLoggedIn ? (
@@ -102,7 +70,9 @@ class AppLayout extends Component {
 												actions={
 													<small className="text-xs">
 														<a>Settings</a> ·{" "}
-														<a>Log out</a>
+														<Link route="logout">
+															<a>Log out</a>
+														</Link>
 													</small>
 												}
 											/>
@@ -138,10 +108,11 @@ class AppLayout extends Component {
 										src="https://ik.imagekit.io/makerlog/media/uploads/bookings/2020/08/19/makerlog.png"
 										alt=""
 									/>
-									<p className="text-green-700 text-sm">
+									<a className="text-sm">
 										Create attention-grabbing headlines
-										without a marketer.
-									</p>
+										without a marketer.{" "}
+										<FontAwesomeIcon icon="external-link-alt" />
+									</a>
 								</div>
 
 								<div className="mt-8">

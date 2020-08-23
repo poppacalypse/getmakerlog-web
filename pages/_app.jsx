@@ -1,15 +1,21 @@
 import "../styles/index.css";
-import "../vendor/fa";
+import "../utils/fa";
 import "mobx-react-lite/batchingForReactDom";
+import "axios-debug-log";
 
 import React from "react";
 import App from "next/app";
 import { Provider } from "mobx-react";
 
-import { isServer } from "../config";
+import { isServer, isDev } from "../config";
 import config, { onStoreInit } from "stores";
-import { configureMobx } from "vendor/mobx";
+import { configureMobx } from "utils/mobx";
 import Shell from "layouts/Shell";
+import NProgressContainer from "vendor/nprogress";
+
+if (isDev && !isServer) {
+	localStorage.debug = "makerlog*,axios";
+}
 
 class Makerlog extends App {
 	static async getInitialProps({ Component, ctx }) {
@@ -47,6 +53,7 @@ class Makerlog extends App {
 			<Provider {...store}>
 				<Shell statusCode={statusCode} layoutProps={layoutProps}>
 					<Component {...pageProps} />
+					<NProgressContainer spinner={false} />
 				</Shell>
 			</Provider>
 		);

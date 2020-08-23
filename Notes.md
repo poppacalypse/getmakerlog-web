@@ -11,3 +11,7 @@ This means you may have to manually implement error handling.
 
 -   Standardize navbar
 -   Login logout
+-   https://github.com/visionmedia/debug#readme
+-   make serializers
+-   next-seo
+-   next routes

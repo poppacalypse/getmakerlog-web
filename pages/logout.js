@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { requireAuth } from "utils/auth";
 import { inject, observer } from "mobx-react";
 import Card from "components/ui/Card";
 import Spinner from "components/ui/Spinner";
 
 function LogoutPage({ auth }) {
-	auth.logout();
+	useEffect(() => {
+		auth.logout();
+	});
 	return (
 		<Card>
 			<Card.Content>

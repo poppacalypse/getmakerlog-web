@@ -35,7 +35,7 @@ export function FormField({
 		<div className={`col-span-${span} ` + className}>
 			{label ? (
 				<label
-					for={name}
+					htmlFor={name}
 					className="block text-sm font-medium leading-5 text-gray-700"
 				>
 					{label}

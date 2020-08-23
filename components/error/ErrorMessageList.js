@@ -1,5 +1,5 @@
 import React from "react";
-import { StdErrorCollection } from "vendor/error";
+import { StdErrorCollection } from "utils/error";
 import OutboundLink from "components/seo/OutboundLink";
 import { isDev } from "config";
 import Message from "components/ui/Message";
@@ -67,7 +67,6 @@ function renderMultipleErrors(error) {
 
 const ErrorMessageList = ({ error = null }) => {
 	if (error === null || !(error.type === "StdErrorCollection")) return null;
-	console.log(error);
 
 	if (error.getUnknownErrors().length) {
 		return (

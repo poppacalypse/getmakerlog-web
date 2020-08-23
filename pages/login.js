@@ -5,7 +5,7 @@ import Button from "components/ui/Button";
 import { inject, observer } from "mobx-react";
 import ErrorMessageList from "components/error/ErrorMessageList";
 import { requireUnauthed } from "utils/auth";
-import Router from "next/router";
+import { Router } from "routes";
 
 function LoginPage({ auth }) {
 	const [redirecting, setRedirecting] = useState(false);
@@ -20,7 +20,7 @@ function LoginPage({ auth }) {
 						<Form.Controls>
 							<div className="col-span-4">
 								<h1>Sign in</h1>
-								<p className="text-gray-700 mb-4">
+								<p className="text-gray-700">
 									Welcome back to the maker community.
 								</p>
 							</div>
@@ -55,7 +55,7 @@ function LoginPage({ auth }) {
 											password
 										);
 										if (loggedIn) {
-											Router.push("/");
+											Router.pushRoute("home");
 										} else {
 											setRedirecting(false);
 										}

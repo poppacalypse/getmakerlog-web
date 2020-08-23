@@ -1,7 +1,7 @@
-import axios, { axiosWrapper } from "../vendor/axios";
-import Router from "next/router";
+import axios, { axiosWrapper } from "./axios";
 import nookies from "nookies";
 import { Component } from "react";
+import { Router } from "routes";
 
 export async function getToken(username, password) {
 	const { data } = await axiosWrapper(axios.post, "/api-token-auth/", {
@@ -26,7 +26,7 @@ export const auth = (ctx) => {
 	}
 
 	if (!token || token === "") {
-		Router.push("login");
+		Router.pushRoute("login");
 	}
 
 	return token;
@@ -42,7 +42,7 @@ export const unauthed = (ctx) => {
 	}
 
 	if (token && token !== "") {
-		Router.push("/");
+		Router.pushRoute("home");
 	}
 
 	return token;

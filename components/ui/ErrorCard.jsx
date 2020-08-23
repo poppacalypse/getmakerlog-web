@@ -35,10 +35,11 @@ function getActionsForError(code) {
 
 class ErrorCard extends Component {
 	render() {
+		const { title = "Oops, something went wrong." } = this.props;
 		return (
 			<Card className="relative overflow-hidden">
 				<Card.Content>
-					<div className="nyan absolute right-2 top-6 opacity-50">
+					<div className="nyan absolute right-2 top-6 opacity-50 hidden sm:block">
 						<img
 							className="h-20 transform -rotate-45"
 							style={{ "--transform-rotate": "-25deg" }}
@@ -46,9 +47,7 @@ class ErrorCard extends Component {
 							alt=""
 						/>
 					</div>
-					<h1 className="text-xl font-bold text-gray-900">
-						Oops, something went wrong.
-					</h1>
+					<h1 className="text-xl font-bold text-gray-900">{title}</h1>
 					<p className="mb-4 text-gray-700">
 						{this.props.message
 							? this.props.message
@@ -61,6 +60,14 @@ class ErrorCard extends Component {
 						: this.props.statusCode
 						? getActionsForError(this.props.statusCode)
 						: null}
+					{this.props.trace ? (
+						<Button>
+							<Button.Icon>
+								<FontAwesomeIcon icon="external-link-alt" />
+							</Button.Icon>
+							Report error
+						</Button>
+					) : null}
 				</Card.Content>
 			</Card>
 		);
