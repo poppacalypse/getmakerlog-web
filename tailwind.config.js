@@ -1,5 +1,6 @@
 // tailwind.config.js
 module.exports = {
+	purge: ["./**/*.html", "./**/*.vue", "./**/*.jsx", "./**/*.js"],
 	plugins: [
 		require("tailwindcss-dark-mode")(),
 		require("@tailwindcss/ui"),
