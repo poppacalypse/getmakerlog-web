@@ -29,9 +29,9 @@ class Task extends Component {
 	renderAttachments = () => {
 		if (this.state.task.attachment) {
 			return (
-				<div className="attachment inline-block mt-2 rounded-md bg-gray-100 border border-r-0 border-l-0 border-gray-200 bg-center max-w-full w-full">
+				<div className="attachment inline-block mt-2 rounded-md bg-gray-100 border border-r-0 border-l-0 border-gray-200 bg-center max-w-full">
 					<img
-						className="block rounded-md h-64 w-full max-w-full"
+						className="block rounded-md h-64 max-w-full"
 						src={this.state.task.attachment}
 						alt={this.state.task.content}
 					/>
