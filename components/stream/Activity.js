@@ -187,7 +187,8 @@ const ActivityObject = inject((stores) => ({ me: stores.auth.user }))(
 
 		switch (type) {
 			case "task":
-				return <Task task={object} />;
+				// Render without attachments because we're rendering them apart.
+				return <Task withAttachments={false} task={object} />;
 
 			default:
 				return <ActivityTypeUnknown />;
@@ -286,6 +287,22 @@ const ActivityControls = ({ activity }) => {
 	}
 };
 
+const ActivityAttachment = ({ activity }) => {
+	const attachment = activity.getObjectAttachment();
+	if (!attachment) return null;
+	if (activity.getObjectType() === "task") {
+		return (
+			<div className="attachment mb-4 bg-gray-100 border border-r-0 border-l-0 border-gray-200 bg-center">
+				<img
+					className="block max-w-full w-full"
+					src={attachment}
+					alt={"Attachment to task."}
+				/>
+			</div>
+		);
+	}
+};
+
 function Activity({ activity, ...props }) {
 	activity = new ActivityContainer(activity);
 	if (!activity.check()) {
@@ -320,6 +337,7 @@ function Activity({ activity, ...props }) {
 					<ActivityObject activity={activity} />
 				)}
 			</Card.Content>
+			<ActivityAttachment activity={activity} />
 			<ActivityControls activity={activity} />
 		</Card>
 	);

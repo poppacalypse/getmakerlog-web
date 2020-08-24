@@ -118,6 +118,8 @@ export function parseCollectionItem(collectionItem) {
 	return collectionItem.data;
 }
 
+// TODO: Serialize and validate every single object with Joi.
+
 export class Activity {
 	constructor(activity) {
 		this.activity = activity;
@@ -276,6 +278,14 @@ export class Activity {
 
 	getObjectType = () => {
 		return this.getObject().type;
+	};
+
+	getObjectAttachment = () => {
+		const object = this.getObject();
+		if (object && this.getObjectType() === "task") {
+			return object.object.attachment;
+		}
+		return null;
 	};
 
 	getTarget = () => {

@@ -5,7 +5,7 @@ import Avatar from "components/ui/Avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "routes";
 
-function Navbar({ auth, app = false }) {
+function Navbar({ auth, root, app = false }) {
 	return (
 		<nav
 			className={
@@ -14,9 +14,16 @@ function Navbar({ auth, app = false }) {
 			}
 		>
 			<div className="navbar-left flex-none flex flex-row md:w-72">
-				<div className="flex flex-center items-center justify-center mr-4 md:hidden">
-					<FontAwesomeIcon icon="bars" />
-				</div>
+				{app && auth.isLoggedIn && (
+					<a
+						className="flex flex-center items-center justify-center mr-4 md:hidden"
+						onClick={(e) => root.toggleMobileSidebar()}
+					>
+						<FontAwesomeIcon
+							icon={root.mobileSidebarOpen ? "times" : "bars"}
+						/>
+					</a>
+				)}
 				<Link route="home">
 					<a className="logo flex flex-center items-center justify-center mr-4 text-green-500">
 						<FontAwesomeIcon icon="check-circle" />
@@ -58,4 +65,4 @@ function Navbar({ auth, app = false }) {
 	);
 }
 
-export default inject("auth")(observer(Navbar));
+export default inject("auth", "root")(observer(Navbar));

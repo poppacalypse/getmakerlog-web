@@ -1,5 +1,8 @@
 // tailwind.config.js
 module.exports = {
+	future: {
+		removeDeprecatedGapUtilities: true,
+	},
 	purge: ["./**/*.html", "./**/*.vue", "./**/*.jsx", "./**/*.js"],
 	plugins: [
 		require("tailwindcss-dark-mode")(),

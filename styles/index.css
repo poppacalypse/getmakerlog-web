@@ -68,6 +68,10 @@ a {
 	@apply text-green-500;
 }
 
+.force-block {
+	display: block !important;
+}
+
 .bg-people {
 	background: linear-gradient(
 			63deg,

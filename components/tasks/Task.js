@@ -9,7 +9,7 @@ const log = getLogger("Task");
 class Task extends Component {
 	static defaultProps = {
 		plain: false,
-		withAttachment: true,
+		withAttachments: true,
 	};
 
 	constructor(props) {
@@ -65,7 +65,7 @@ class Task extends Component {
 						{task.description}
 					</p>
 				)}
-				{this.props.withAttachment && this.renderAttachments()}
+				{this.props.withAttachments && this.renderAttachments()}
 			</div>
 		);
 	}

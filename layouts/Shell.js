@@ -1,7 +1,6 @@
 import React from "react";
 import AppLayout from "./AppLayout";
 import ErrorCard from "components/ui/ErrorCard";
-import ObjectLayout from "./ObjectLayout";
 import PageLayout from "./PageLayout";
 
 function Shell({ layoutProps = {}, ...props }) {
@@ -14,9 +13,6 @@ function Shell({ layoutProps = {}, ...props }) {
 	switch (layoutProps.layout) {
 		case "app":
 			return <AppLayout {...layoutProps}>{children}</AppLayout>;
-
-		case "object":
-			return <ObjectLayout {...layoutProps}>{children}</ObjectLayout>;
 
 		case "page":
 			return <PageLayout {...layoutProps}>{children}</PageLayout>;

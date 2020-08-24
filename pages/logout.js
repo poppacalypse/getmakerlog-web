@@ -3,11 +3,14 @@ import { requireAuth } from "utils/auth";
 import { inject, observer } from "mobx-react";
 import Card from "components/ui/Card";
 import Spinner from "components/ui/Spinner";
+import { isServer } from "config";
 
 function LogoutPage({ auth }) {
-	useEffect(() => {
-		auth.logout();
-	});
+	if (!isServer) {
+		setTimeout(() => {
+			auth.logout();
+		}, 1000);
+	}
 	return (
 		<Card>
 			<Card.Content>
@@ -21,6 +24,7 @@ LogoutPage.getInitialProps = async () => {
 	return {
 		layout: {
 			layout: "app",
+			allowGuest: true,
 		},
 	};
 };

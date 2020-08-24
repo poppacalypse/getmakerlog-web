@@ -3,7 +3,8 @@ import React from "react";
 export default function Streak({ days, text = false }) {
 	return (
 		<span>
-			<small className="text-xs">🔥</small> {days}
+			<small>{days === 0 ? "😔" : "🔥"}</small>
+			{days}
 			{text ? " day streak" : ""}
 		</span>
 	);
