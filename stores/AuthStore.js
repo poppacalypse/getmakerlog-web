@@ -27,7 +27,16 @@ class AuthStore extends BaseStore {
 	}
 
 	loginWithCredentials = flow(function* (username, password, ctx = null) {
-		if (!["sergio", "hector", "jcmusic13"].includes(username)) {
+		if (
+			![
+				"sergio",
+				"hector",
+				"jcmusic13",
+				"joshmanders",
+				"booligoosh",
+				"Booligoosh",
+			].includes(username)
+		) {
 			return false;
 		}
 		try {
