@@ -254,7 +254,10 @@ class AppLayout extends Component {
 									<a className="text-sm">
 										Create attention-grabbing headlines
 										without a marketer.{" "}
-										<FontAwesomeIcon icon="external-link-alt" />
+										<FontAwesomeIcon
+											icon="external-link-alt"
+											size={14}
+										/>
 									</a>
 								</div>
 
