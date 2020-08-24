@@ -10,6 +10,7 @@ import { getLogger } from "utils/logging";
 import Task from "components/tasks/Task";
 import Button from "components/ui/Button";
 import NotImplemented from "components/error/NotImplemented";
+import TaskActions from "components/tasks/TaskActions";
 
 const log = getLogger("Activity");
 
@@ -208,67 +209,9 @@ const ActivityObjectGroup = ({ activities }) => {
 
 const TaskActivityControls = inject((stores) => ({ me: stores.auth.user }))(
 	observer(({ task, me = {} }) => {
-		const [detailsOpen, setDetailsOpen] = useState(false);
-		const [commentsOpen, setCommentsOpen] = useState(
-			task.comment_count > 0
-		);
-
 		return (
 			<div className="actions p-4 pt-0">
-				<span className="inline-flex">
-					<span className="mr-2">
-						<NotImplemented>
-							<Button xs>
-								<Button.Icon>
-									<FontAwesomeIcon icon="star" />
-								</Button.Icon>
-								Praise{" "}
-								<div className="ml-2 flex relative z-0 overflow-hidden">
-									<img
-										className="relative z-30 inline-block h-4 w-4 rounded-full text-white shadow-solid"
-										src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-										alt=""
-									/>
-									<img
-										className="relative z-20 -ml-1 inline-block h-4 w-4 rounded-full text-white shadow-solid"
-										src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-										alt=""
-									/>
-									<img
-										className="relative z-10 -ml-1 inline-block h-4 w-4 rounded-full text-white shadow-solid"
-										src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
-										alt=""
-									/>
-									<img
-										className="relative z-0 -ml-1 inline-block h-4 w-4 rounded-full text-white shadow-solid"
-										src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-										alt=""
-									/>
-								</div>
-							</Button>
-						</NotImplemented>
-					</span>
-					<span className="mr-2">
-						<NotImplemented>
-							<Button xs>
-								<Button.Icon>
-									<FontAwesomeIcon icon="comment" />
-								</Button.Icon>
-								Comment
-							</Button>
-						</NotImplemented>
-					</span>
-					<span className="mr-2">
-						<NotImplemented>
-							<Button xs>
-								<Button.Icon>
-									<FontAwesomeIcon icon="ellipsis-v" />
-								</Button.Icon>
-								More
-							</Button>
-						</NotImplemented>
-					</span>
-				</span>
+				<TaskActions task={task} />
 			</div>
 		);
 	})

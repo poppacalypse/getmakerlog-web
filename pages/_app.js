@@ -11,6 +11,7 @@ import { isServer, isDev } from "../config";
 import config, { onStoreInit } from "stores";
 import { configureMobx } from "utils/mobx";
 import Shell from "layouts/Shell";
+import { ReactQueryDevtools } from "react-query-devtools";
 import NProgressContainer from "vendor/nprogress";
 
 if (isDev && !isServer) {
@@ -22,15 +23,15 @@ class Makerlog extends App {
 		let pageProps = {};
 
 		/* 
-    THIS IS DANGEROUS!
+		THIS IS DANGEROUS!
 
-    onStoreInit MUST run before getInitialProps, otherwise cross-request state pollution may occur!
-    
-    onStoreInit flushes previos request state (tokens) and clears stores. 
+		onStoreInit MUST run before getInitialProps, otherwise cross-request state pollution may occur!
+		
+		onStoreInit flushes previos request state (tokens) and clears stores. 
 
-    This could be a serious security issue. 
-    Do not touch this initialization code.
-    */
+		This could be a serious security issue. 
+		Do not touch this initialization code.
+		*/
 
 		if (onStoreInit && isServer) {
 			// Loads onStoreInit - this is the place to put your cookie things.
@@ -55,6 +56,7 @@ class Makerlog extends App {
 					<Component {...pageProps} />
 					<NProgressContainer spinner={false} />
 				</Shell>
+				<ReactQueryDevtools />
 			</Provider>
 		);
 	}

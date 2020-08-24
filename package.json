@@ -41,6 +41,8 @@
     "react-hashtag": "^2.1.2",
     "react-infinite-scroll-component": "^5.0.5",
     "react-joi-validation": "^1.7.0",
+    "react-query": "^2.11.1",
+    "react-query-devtools": "^2.4.4",
     "recompose": "^0.30.0",
     "tailwindcss": "^1.5.2",
     "tailwindcss-dark-mode": "^1.1.6",
