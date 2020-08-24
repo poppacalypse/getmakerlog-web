@@ -29,9 +29,9 @@ class Task extends Component {
 	renderAttachments = () => {
 		if (this.state.task.attachment) {
 			return (
-				<div className="attachment inline-block mt-2 rounded-md bg-gray-100 border border-r-0 border-l-0 border-gray-200 bg-center">
+				<div className="attachment inline-block mt-2 rounded-md bg-gray-100 border border-r-0 border-l-0 border-gray-200 bg-center max-w-full w-full">
 					<img
-						className="block rounded-md h-64"
+						className="block rounded-md h-64 w-full max-w-full"
 						src={this.state.task.attachment}
 						alt={this.state.task.content}
 					/>
@@ -53,15 +53,15 @@ class Task extends Component {
 		}
 
 		return (
-			<div className="Task">
-				<div className="task text-base font-medium mb-1 text-gray-900">
+			<div className="Task max-w-full w-full">
+				<div className="task text-base font-medium mb-1 text-gray-900 break-all max-w-full">
 					<span className={`text-${getColorForTask(task)}-500`}>
 						<TaskIcon task={task} />
 					</span>{" "}
 					{task.content}
 				</div>
 				{task.description !== null && task.description.length > 0 && (
-					<p className="text-gray-900 ml-2 p-4 border-l border-gray-200">
+					<p className="text-gray-900 ml-2 p-4 border-l border-gray-200 break-all max-w-full">
 						{task.description}
 					</p>
 				)}

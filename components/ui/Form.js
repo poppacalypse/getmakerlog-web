@@ -59,8 +59,7 @@ export function FormControls({ children, className = "" }) {
 	return (
 		<div
 			className={
-				"grid grid-cols-1 row-gap-4 col-gap-4 sm:grid-cols-6 " +
-				className
+				"grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-6 " + className
 			}
 		>
 			{children}

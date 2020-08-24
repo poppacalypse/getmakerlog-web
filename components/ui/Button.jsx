@@ -57,47 +57,54 @@ function ButtonIcon({ children }) {
 	return <span className="-ml-0.5 mr-2 h-4 w-4">{children}</span>;
 }
 
-function Button(props) {
-	const Tag = props.anchor ? `a` : `button`;
+class Button extends React.Component {
+	render() {
+		const props = this.props;
+		const Tag = props.anchor ? `a` : `button`;
 
-	const extraProps = {};
-	if (props.anchor) {
-		extraProps.href = props.href;
-		extraProps.target = props.target;
+		const extraProps = {};
+		if (props.anchor) {
+			extraProps.href = props.href;
+			extraProps.target = props.target;
+		}
+
+		return (
+			<Tag
+				type="button"
+				disabled={
+					props.disabled
+						? props.disabled
+						: props.loading
+						? true
+						: false
+				}
+				className={getClassNames(props)}
+				style={props.loading ? { color: "transparent" } : {}}
+				{...omit(props, [
+					"className",
+					"loading",
+					"disabled",
+					"primary",
+					"sm",
+					"secondary",
+					"lg",
+					"xs",
+					"xl",
+				])}
+				{...extraProps}
+			>
+				{props.loading ? (
+					<Spinner
+						className="absolute pin-c-x"
+						small
+						size={getSizeForSpinner(props)}
+						color={getSpinnerColor(props)}
+					/>
+				) : null}
+				{props.children}
+			</Tag>
+		);
 	}
-
-	return (
-		<Tag
-			type="button"
-			disabled={
-				props.disabled ? props.disabled : props.loading ? true : false
-			}
-			className={getClassNames(props)}
-			style={props.loading ? { color: "transparent" } : {}}
-			{...omit(props, [
-				"className",
-				"loading",
-				"disabled",
-				"primary",
-				"sm",
-				"secondary",
-				"lg",
-				"xs",
-				"xl",
-			])}
-			{...extraProps}
-		>
-			{props.loading ? (
-				<Spinner
-					className="absolute pin-c-x"
-					small
-					size={getSizeForSpinner(props)}
-					color={getSpinnerColor(props)}
-				/>
-			) : null}
-			{props.children}
-		</Tag>
-	);
 }
 
 Button.Icon = ButtonIcon;

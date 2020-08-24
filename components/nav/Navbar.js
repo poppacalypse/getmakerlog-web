@@ -17,9 +17,11 @@ function Navbar({ auth, app = false }) {
 				<div className="flex flex-center items-center justify-center mr-4 md:hidden">
 					<FontAwesomeIcon icon="bars" />
 				</div>
-				<div className="logo flex flex-center items-center justify-center mr-4 text-green-500">
-					<FontAwesomeIcon icon="check-circle" />
-				</div>
+				<Link route="home">
+					<a className="logo flex flex-center items-center justify-center mr-4 text-green-500">
+						<FontAwesomeIcon icon="check-circle" />
+					</a>
+				</Link>
 			</div>
 			<div className="navbar-middle self-center w-full h-full flex justify-center">
 				{app ? (
