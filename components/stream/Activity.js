@@ -11,6 +11,7 @@ import Task from "components/tasks/Task";
 import Button from "components/ui/Button";
 import NotImplemented from "components/error/NotImplemented";
 import TaskActions from "components/tasks/TaskActions";
+import ErrorCard from "components/ui/ErrorCard";
 
 const log = getLogger("Activity");
 
@@ -166,13 +167,12 @@ function getHumanActivityObject(activity) {
 
 const ActivityTypeUnknown = ({ activity }) => {
 	return (
-		<div>
-			<h4>Unknown activity object type.</h4>
-			<p>
-				Psst, if you see this in prod, wake up Sergio and tell him
-				everything broke again.
-			</p>
-		</div>
+		<ErrorCard
+			title="Unknown activity object type."
+			message="
+		Psst, if you see this in prod, wake up Sergio and tell him
+		everything broke again."
+		/>
 	);
 };
 

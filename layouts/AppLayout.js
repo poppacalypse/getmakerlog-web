@@ -256,7 +256,7 @@ class AppLayout extends Component {
 										without a marketer.{" "}
 										<FontAwesomeIcon
 											icon="external-link-alt"
-											size={14}
+											size={"sm"}
 										/>
 									</a>
 								</div>

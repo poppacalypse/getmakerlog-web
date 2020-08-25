@@ -9,6 +9,7 @@ import FaceStack from "components/ui/FaceStack";
 import uniqBy from "lodash/uniqBy";
 import { isServer } from "config";
 import { Router } from "routes";
+import praiseSchema from "schemas/praise";
 
 const log = getLogger("PraiseButton");
 
@@ -67,9 +68,9 @@ function PraiseButton({ indexUrl, initialCount, user, isLoggedIn, ...props }) {
 			log(`Error praising.`, err);
 			if (rollback) rollback();
 		},
-		// Always refetch after error or success:
 		onSettled: () => {
-			queryCache.invalidateQueries(query);
+			// Honestly let's just not give a flying fuck and just keep it locally
+			// queryCache.invalidateQueries(query);
 		},
 	});
 
@@ -92,34 +93,42 @@ function PraiseButton({ indexUrl, initialCount, user, isLoggedIn, ...props }) {
 
 	// This is the one place where errors are acceptable.
 	// We don't inform the user of errors. They will occur.
+	// Except schema errors, those break the site...
+
+	const { errors, value } = praiseSchema.validate(data);
+	if (errors) return null;
 
 	return (
 		<Button
 			loading={isLoading}
 			xs
 			onClick={onPraise}
-			className={data && data.praised ? "text-yellow-500" : ""}
+			className={
+				value && value.praised
+					? "text-yellow-500 hover:text-yellow-400"
+					: "hover:text-yellow-500"
+			}
 		>
 			<Button.Icon>
 				<FontAwesomeIcon icon="star" />
 			</Button.Icon>
 			<span>
-				{data && data.praised ? (
+				{value && value.praised ? (
 					<span className="font-medium">Praised</span>
 				) : (
 					"Praise"
 				)}
 			</span>
 			<span className="text-gray-500">
-				{data ? (
-					<span className="ml-2">{data.total}</span>
+				{value ? (
+					<span className="ml-2">{value.total}</span>
 				) : (
 					<span className="ml-2">{initialCount}</span>
 				)}
 			</span>
-			{data && data.praised_by !== null && data.praised_by.length > 0 && (
+			{value && value.praised_by !== null && value.praised_by.length > 0 && (
 				<span className="ml-2">
-					<FaceStack size={4} users={data.praised_by} />
+					<FaceStack size={4} users={value.praised_by} />
 				</span>
 			)}
 		</Button>
