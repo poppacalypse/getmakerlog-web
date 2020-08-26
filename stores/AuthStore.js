@@ -35,6 +35,7 @@ class AuthStore extends BaseStore {
 				"joshmanders",
 				"booligoosh",
 				"Booligoosh",
+				"fajarsiddiq",
 			].includes(username)
 		) {
 			return false;
