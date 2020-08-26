@@ -1,4 +1,7 @@
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { config, library } from "@fortawesome/fontawesome-svg-core";
+
+config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
+
 import { faInstagram } from "@fortawesome/free-brands-svg-icons/faInstagram";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons/faTwitter";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons/faFacebook";

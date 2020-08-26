@@ -1,5 +1,6 @@
 import "../styles/index.css";
 import "../utils/fa";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import "mobx-react-lite/batchingForReactDom";
 import "axios-debug-log";
 
