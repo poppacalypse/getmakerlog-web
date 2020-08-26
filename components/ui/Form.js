@@ -68,7 +68,11 @@ export function FormControls({ children, className = "" }) {
 }
 
 function Form({ onSubmit = () => {}, children, ...props }) {
-	return <form onSubmit={props.onSubmit}>{children}</form>;
+	return (
+		<form action="#" onSubmit={onSubmit}>
+			{children}
+		</form>
+	);
 }
 
 Form.Controls = FormControls;

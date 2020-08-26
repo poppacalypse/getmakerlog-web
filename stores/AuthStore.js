@@ -5,6 +5,7 @@ import { setCookie } from "nookies";
 import { isServer } from "config";
 import { getLogger } from "utils/logging";
 import { Router } from "routes";
+import { StdErrorCollection } from "utils/error";
 
 const log = getLogger("AuthStore");
 
@@ -38,6 +39,9 @@ class AuthStore extends BaseStore {
 				"fajarsiddiq",
 			].includes(username)
 		) {
+			this.errorMessages = new StdErrorCollection(
+				"You are not in the whitelist. Contact Sergio to get in."
+			);
 			return false;
 		}
 		try {
