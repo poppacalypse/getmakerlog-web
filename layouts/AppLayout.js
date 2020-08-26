@@ -150,7 +150,7 @@ const AppLayoutContainer = inject((stores) => ({
 	observer(({ children, isLoggedIn, withPaddingTop = true }) => {
 		if (!isLoggedIn) {
 			return (
-				<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex-grow w-full h-full flex flex-col">
+				<div className="max-w-full max-w-7xl mx-auto sm:px-6 lg:px-8 flex-grow w-full h-full flex flex-col">
 					<div className="w-full flex-grow max-w-3xl mx-auto bg-gray-50 border-r border-l border-gray-200 p-4">
 						{children}
 					</div>
@@ -161,7 +161,7 @@ const AppLayoutContainer = inject((stores) => ({
 		return (
 			<div
 				className={
-					"py-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow " +
+					"max-w-full py-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow " +
 					(withPaddingTop ? " pt-20 " : "")
 				}
 			>
@@ -216,7 +216,7 @@ class AppLayout extends Component {
 		}
 
 		return (
-			<div className="AppLayout Page bg-gray-100 min-h-screen">
+			<div className="AppLayout Page bg-gray-100 min-h-screen w-screen max-w-full">
 				<Navbar app />
 
 				<div className="flex">
