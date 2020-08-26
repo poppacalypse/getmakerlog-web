@@ -10,6 +10,7 @@ import uniqBy from "lodash/uniqBy";
 import { isServer } from "config";
 import { Router } from "routes";
 import praiseSchema from "schemas/praise";
+import PraiseIcon from "./PraiseIcon";
 
 const log = getLogger("PraiseButton");
 
@@ -110,7 +111,7 @@ function PraiseButton({ indexUrl, initialCount, user, isLoggedIn, ...props }) {
 			}
 		>
 			<Button.Icon>
-				<FontAwesomeIcon icon="star" />
+				<PraiseIcon />
 			</Button.Icon>
 			<span>
 				{value && value.praised ? (
