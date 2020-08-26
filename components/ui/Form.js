@@ -69,7 +69,7 @@ export function FormControls({ children, className = "" }) {
 
 function Form({ onSubmit = () => {}, children, ...props }) {
 	return (
-		<form action="#" onSubmit={onSubmit}>
+		<form className={props.className} action="#" onSubmit={onSubmit}>
 			{children}
 		</form>
 	);

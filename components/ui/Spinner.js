@@ -5,12 +5,12 @@ function Spinner({
 	small = false,
 	text = null,
 	size = 15,
-	color = "#fff",
+	color = "#00AD71",
 	className = "",
 }) {
 	if (small) {
 		return (
-			<div className={"inline-flex " + className}>
+			<div className={"inline-flex items-center " + className}>
 				<svg
 					width={size}
 					height={size}
