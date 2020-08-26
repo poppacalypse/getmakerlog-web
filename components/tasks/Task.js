@@ -54,14 +54,14 @@ class Task extends Component {
 
 		return (
 			<div className="Task max-w-full w-full">
-				<div className="task text-base font-medium mb-1 text-gray-900 break-all max-w-full">
+				<div className="task text-base font-medium mb-1 text-gray-900 break-words max-w-full">
 					<span className={`text-${getColorForTask(task)}-500`}>
 						<TaskIcon task={task} />
 					</span>{" "}
 					{task.content}
 				</div>
 				{task.description !== null && task.description.length > 0 && (
-					<p className="text-gray-900 ml-2 p-4 border-l border-gray-200 break-all max-w-full">
+					<p className="text-gray-900 ml-2 p-4 border-l border-gray-200 break-words max-w-full">
 						{task.description}
 					</p>
 				)}

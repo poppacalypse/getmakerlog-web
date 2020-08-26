@@ -69,7 +69,7 @@ function TaskComments({ task, auth, focused, ...props }) {
 							</div>
 							<div className="flex-initial">
 								<UserLine user={comment.user} />
-								<div className="bg-gray-100 p-2 shadow-xs rounded-md">
+								<div className="bg-gray-100 p-2 shadow-xs rounded-md break-words">
 									<div>{comment.content}</div>
 								</div>
 								{comment.user.id == auth.user.id ? (
