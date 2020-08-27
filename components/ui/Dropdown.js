@@ -37,7 +37,7 @@ function Dropdown({ children, items, origin = "top-right" }) {
 	return (
 		<div
 			className="relative"
-			onClick={(e) => setOpen(!open)}
+			onClick={() => setOpen(!open)}
 			ref={dropdownRef}
 		>
 			<div>{children}</div>

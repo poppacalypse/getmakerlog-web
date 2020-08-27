@@ -47,7 +47,7 @@ export function useCreateComment(indexUrl, user) {
 	const query = [COMMENT_QUERIES.getComments, { indexUrl }];
 
 	return useMutation(createComment, {
-		onMutate: ({ indexUrl, content }) => {
+		onMutate: ({ content }) => {
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
 			queryCache.cancelQueries(query);
 
@@ -84,7 +84,7 @@ export function useUpdateComment(indexUrl) {
 	const query = [COMMENT_QUERIES.getComments, { indexUrl }];
 
 	return useMutation(updateComment, {
-		onMutate: ({ indexUrl, content, id }) => {
+		onMutate: ({ content, id }) => {
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
 			queryCache.cancelQueries(query);
 
@@ -117,7 +117,7 @@ export function useDeleteComment(indexUrl) {
 	const query = [COMMENT_QUERIES.getComments, { indexUrl }];
 
 	return useMutation(deleteComment, {
-		onMutate: ({ indexUrl, id }) => {
+		onMutate: ({ id }) => {
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
 			queryCache.cancelQueries(query);
 

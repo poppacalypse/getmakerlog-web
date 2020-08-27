@@ -6,6 +6,8 @@
 		"build": "next build",
 		"start": "next start",
 		"type-check": "tsc",
+		"lint": "eslint src --ext .ts,.tsx",
+		"lint:fix": "npm run lint -- --fix",
 		"deploy": "NODE_ENV=production API_URL=https://api.getmakerlog.com next build && eb deploy"
 	},
 	"dependencies": {
@@ -54,6 +56,8 @@
 		"@types/node": "^12.12.21",
 		"@types/react": "^16.9.16",
 		"@types/react-dom": "^16.9.4",
+		"eslint": "^7.7.0",
+		"eslint-plugin-react": "^7.20.6",
 		"typescript": "3.7.3"
 	},
 	"license": "ISC",

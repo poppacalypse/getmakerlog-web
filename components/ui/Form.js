@@ -29,7 +29,6 @@ export function FormField({
 	help = null,
 	error = null,
 	className = "",
-	...props
 }) {
 	return (
 		<div className={`col-span-${span} ` + className}>

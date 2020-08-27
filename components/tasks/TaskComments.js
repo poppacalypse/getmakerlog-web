@@ -6,11 +6,9 @@ import Button from "components/ui/Button";
 import Message from "components/ui/Message";
 import { commentsSchema } from "schemas/comments";
 import orderBy from "lodash/orderBy";
-import { useAuth } from "stores/AuthStore";
 import Comment from "components/comments/Comment";
 
-function TaskComments({ task, focused, ...props }) {
-	const { user, isLoggedIn } = useAuth();
+function TaskComments({ task, focused }) {
 	const indexUrl = `/tasks/${task.id}`;
 	const { data, isLoading, error, refetch } = useComments(indexUrl);
 

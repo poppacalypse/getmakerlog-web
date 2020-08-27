@@ -24,14 +24,10 @@ function CommentEdit({ comment, onSubmit }) {
 
 function Comment({ comment, indexUrl }) {
 	const [editing, setEditing] = useState(false);
-	const { user, isLoggedIn } = useAuth();
+	const { user } = useAuth();
 
-	const [deleteMutation, { isLoading: isDeleting }] = useDeleteComment(
-		indexUrl
-	);
-	const [updateMutation, { isLoading: isUpdating }] = useUpdateComment(
-		indexUrl
-	);
+	const [deleteMutation] = useDeleteComment(indexUrl);
+	const [updateMutation] = useUpdateComment(indexUrl);
 
 	const onEdit = async (content) => {
 		setEditing(false);

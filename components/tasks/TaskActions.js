@@ -1,5 +1,4 @@
-import React, { Component, useState } from "react";
-import NotImplemented from "components/error/NotImplemented";
+import React, { useState } from "react";
 import Button from "components/ui/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PraiseButton from "components/praise/PraiseButton";
@@ -15,7 +14,7 @@ function TaskPermalinkAction({ task }) {
 
 	return (
 		<Dropdown.Item
-			onClick={(e) => {
+			onClick={() => {
 				if (isServer) return;
 				copy(buildAbsoluteUrl(`/tasks/${task.id}`));
 				setCopied(true);
@@ -30,7 +29,7 @@ function TaskPermalinkAction({ task }) {
 	);
 }
 
-function TaskActions({ task, ...props }) {
+function TaskActions({ task }) {
 	// We allow this to be false, favoring a boolean op below.
 	// This allows for autofocus on click.
 	const { user } = useAuth();
@@ -48,7 +47,7 @@ function TaskActions({ task, ...props }) {
 				<span className="mr-2">
 					<Button
 						xs
-						onClick={(e) => {
+						onClick={() => {
 							setCommentsOpen(true);
 						}}
 					>
