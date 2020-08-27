@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserMedia from "components/ui/UserMedia";
 import ErrorCard from "components/ui/ErrorCard";
@@ -202,7 +202,7 @@ function AppLayout({ allowGuest, contained, ...props }) {
 	}
 
 	return (
-		<div className="AppLayout Page bg-gray-100 min-h-screen w-screen max-w-full">
+		<div className="AppLayout Page bg-gray-100 min-h-screen w-screen max-w-full mb-16 md:mb-0">
 			<Navbar app />
 
 			<div className="flex">

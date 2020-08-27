@@ -21,7 +21,7 @@ function Navbar({ app = false }) {
 				{app && isLoggedIn && (
 					<a
 						className="flex flex-center items-center justify-center mr-4 md:hidden"
-						onClick={(e) => toggleMobileSidebar()}
+						onClick={() => toggleMobileSidebar()}
 					>
 						<FontAwesomeIcon
 							icon={mobileSidebarOpen ? "times" : "bars"}
@@ -36,16 +36,16 @@ function Navbar({ app = false }) {
 			</div>
 			<div className="navbar-middle self-center w-full h-full flex justify-center">
 				{app ? (
-					<div className="menu max-w-3xl  hidden md:flex items-center h-full flex-grow">
+					<div className="menu max-w-3xl fixed w-full left-0 bottom-0 flex items-center bg-white border-t border-gray-200 md:border-t-0 md:bg-transparent md:static md:h-full flex-grow">
 						<Link route="home">
-							<a className="hover:bg-green-100 cursor-pointer flex-1 text-center font-semibold border-b-2 border-green-500 text-green-500 h-full flex items-center justify-center  transition ease-in-out duration-150">
+							<a className="p-4 md:p-0 hover:bg-green-100 cursor-pointer flex-1 text-center font-semibold border-b-2 border-green-500 text-green-500 h-full flex items-center justify-center  transition ease-in-out duration-150">
 								Explore
 							</a>
 						</Link>
-						<div className="hover:bg-green-100 cursor-pointer flex-1 text-center font-semibold text-gray-700 h-full flex items-center justify-center  transition ease-in-out duration-150">
+						<div className="p-4 md:p-0 hover:bg-green-100 cursor-pointer flex-1 text-center font-semibold text-gray-700 h-full flex items-center justify-center  transition ease-in-out duration-150">
 							Stories
 						</div>
-						<div className="hover:bg-green-100 cursor-pointer flex-1 text-center font-semibold text-gray-700 h-full flex items-center justify-center  transition ease-in-out duration-150">
+						<div className="p-4 md:p-0 hover:bg-green-100 cursor-pointer flex-1 text-center font-semibold text-gray-700 h-full flex items-center justify-center  transition ease-in-out duration-150">
 							More
 						</div>
 					</div>
