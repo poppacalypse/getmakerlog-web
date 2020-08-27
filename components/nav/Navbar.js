@@ -1,11 +1,15 @@
 import React from "react";
 import Button from "components/ui/Button";
-import { inject, observer } from "mobx-react";
 import Avatar from "components/ui/Avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "routes";
+import { useAuth } from "stores/AuthStore";
+import { useRoot } from "stores/RootStore";
 
-function Navbar({ auth, root, app = false }) {
+function Navbar({ app = false }) {
+	const { isLoggedIn, user } = useAuth();
+	const { mobileSidebarOpen, toggleMobileSidebar } = useRoot();
+
 	return (
 		<nav
 			className={
@@ -14,13 +18,13 @@ function Navbar({ auth, root, app = false }) {
 			}
 		>
 			<div className="navbar-left flex-none flex flex-row md:w-72">
-				{app && auth.isLoggedIn && (
+				{app && isLoggedIn && (
 					<a
 						className="flex flex-center items-center justify-center mr-4 md:hidden"
-						onClick={(e) => root.toggleMobileSidebar()}
+						onClick={(e) => toggleMobileSidebar()}
 					>
 						<FontAwesomeIcon
-							icon={root.mobileSidebarOpen ? "times" : "bars"}
+							icon={mobileSidebarOpen ? "times" : "bars"}
 						/>
 					</a>
 				)}
@@ -48,13 +52,13 @@ function Navbar({ auth, root, app = false }) {
 				) : null}
 			</div>
 			<div className="navbar-right flex-none flex items-center flex-row justify-end md:w-72">
-				{auth.isLoggedIn ? (
+				{isLoggedIn ? (
 					<>
 						<div className="px-4 text-center font-semibold text-gold-600 h-full flex items-center justify-center">
 							Get Gold
 						</div>
 						<div className="pl-4">
-							<Avatar user={auth.user} size={8} />
+							<Avatar user={user} size={8} />
 						</div>
 					</>
 				) : (
@@ -65,4 +69,4 @@ function Navbar({ auth, root, app = false }) {
 	);
 }
 
-export default inject("auth", "root")(observer(Navbar));
+export default Navbar;

@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import { requireAuth } from "utils/auth";
-import { inject, observer } from "mobx-react";
 import Card from "components/ui/Card";
 import Spinner from "components/ui/Spinner";
 import { isServer } from "config";
+import { useAuth } from "stores/AuthStore";
 
-function LogoutPage({ auth }) {
+function LogoutPage() {
+	const { logout } = useAuth();
 	if (!isServer) {
 		setTimeout(() => {
-			auth.logout();
+			logout();
 		}, 1000);
 	}
 	return (
@@ -29,4 +30,4 @@ LogoutPage.getInitialProps = async () => {
 	};
 };
 
-export default requireAuth(inject("auth")(observer(LogoutPage)));
+export default requireAuth(LogoutPage);

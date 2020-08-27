@@ -1,6 +1,7 @@
 import axios, { axiosWrapper } from "utils/axios";
 import { queryCache, useQuery, useMutation } from "react-query";
 import { getLogger } from "utils/logging";
+import uniqBy from "lodash/uniqBy";
 
 const log = getLogger("praise");
 

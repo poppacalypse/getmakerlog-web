@@ -6,6 +6,8 @@ import { isServer } from "config";
 import { getLogger } from "utils/logging";
 import { Router } from "routes";
 import { StdErrorCollection } from "utils/error";
+import { useStores } from "utils/hooks";
+import { useObserver } from "mobx-react";
 
 const log = getLogger("AuthStore");
 
@@ -15,11 +17,11 @@ class AuthStore extends BaseStore {
 	@observable user = null;
 	@observable errorMessages = null;
 
-	@action setToken(value) {
+	@action.bound setToken(value) {
 		this.token = value;
 	}
 
-	@action setUser(value) {
+	@action.bound setUser(value) {
 		this.user = value;
 	}
 
@@ -101,13 +103,13 @@ class AuthStore extends BaseStore {
 		}
 	});
 
-	@action
+	@action.bound
 	logout(ctx = null) {
 		if (!ctx) log("Logging out.");
 		this.token = null;
 		this.user = null;
 		if (!isServer) {
-			Router.pushRoute("login");
+			Router.pushRoute("home");
 		}
 		setCookie(isServer && ctx !== null ? ctx : null, "token", "", {
 			maxAge: 30 * 24 * 60 * 60,
@@ -117,3 +119,18 @@ class AuthStore extends BaseStore {
 }
 
 export const getAuthStore = getOrCreateStore("auth", AuthStore);
+
+// Hooks
+
+export function useAuth() {
+	const { auth } = useStores();
+	return useObserver(() => ({
+		loading: auth.loading,
+		user: auth.user,
+		isLoggedIn: auth.isLoggedIn,
+		errorMessages: auth.errorMessages,
+		loginWithCredentials: auth.loginWithCredentials.bind(auth),
+		loginWithToken: auth.loginWithToken.bind(auth),
+		logout: auth.logout.bind(auth),
+	}));
+}

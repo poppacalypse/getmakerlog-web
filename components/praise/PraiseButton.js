@@ -1,28 +1,20 @@
 import React, { Component, useState, useEffect } from "react";
-import { inject, observer } from "mobx-react";
 import Button from "components/ui/Button";
-import { useQuery, queryCache, useMutation } from "react-query";
-import {
-	PRAISE_QUERIES,
-	getPraise,
-	setPraise,
-	usePraise,
-	usePraiseMutation,
-} from "queries/praise";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { usePraise, usePraiseMutation } from "queries/praise";
 import { getLogger } from "utils/logging";
 import FaceStack from "components/ui/FaceStack";
-import uniqBy from "lodash/uniqBy";
 import { isServer } from "config";
 import { Router } from "routes";
 import praiseSchema from "schemas/praise";
 import PraiseIcon from "./PraiseIcon";
+import { useAuth } from "stores/AuthStore";
 
 const log = getLogger("PraiseButton");
 
 // TODO: On click, redirect to sign in if not logged in.
 
-function PraiseButton({ indexUrl, initialCount, user, isLoggedIn, ...props }) {
+function PraiseButton({ indexUrl, initialCount, disabled = false, ...props }) {
+	const { isLoggedIn, user } = useAuth();
 	const [clicked, setClicked] = useState(false);
 	const { isLoading, error, data } = usePraise(
 		indexUrl,
@@ -56,6 +48,7 @@ function PraiseButton({ indexUrl, initialCount, user, isLoggedIn, ...props }) {
 	return (
 		<Button
 			loading={isLoading}
+			disabled={disabled}
 			xs
 			onClick={onPraise}
 			className={
@@ -90,7 +83,4 @@ function PraiseButton({ indexUrl, initialCount, user, isLoggedIn, ...props }) {
 	);
 }
 
-export default inject((stores) => ({
-	isLoggedIn: stores.auth.isLoggedIn,
-	user: stores.auth.user,
-}))(observer(PraiseButton));
+export default PraiseButton;

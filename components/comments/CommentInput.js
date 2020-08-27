@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from "react";
-import { inject, observer } from "mobx-react";
 import { usePrevious } from "utils/hooks";
 import Form from "components/ui/Form";
 import Avatar from "components/ui/Avatar";
 import Spinner from "components/ui/Spinner";
+import { useAuth } from "stores/AuthStore";
 
 // TODO: Guest state.
 
@@ -13,10 +13,10 @@ function CommentInput({
 	onSubmit,
 	loading,
 	disabled,
-	auth,
 	focused,
 	...props
 }) {
+	const { user, isLoggedIn } = useAuth();
 	const textInput = useRef(null);
 	const prevFocused = usePrevious(focused);
 
@@ -27,10 +27,12 @@ function CommentInput({
 		}
 	}, [focused]);
 
+	if (!isLoggedIn) return null;
+
 	return (
 		<Form className="flex w-full items-center" onSubmit={onSubmit}>
 			<div className="flex-none mr-2">
-				<Avatar size={8} user={auth.user} />
+				<Avatar size={8} user={user} />
 			</div>
 			<div className="flex-grow mr-2">
 				<input
@@ -51,4 +53,4 @@ function CommentInput({
 	);
 }
 
-export default inject("auth")(observer(CommentInput));
+export default CommentInput;

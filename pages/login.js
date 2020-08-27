@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import Form from "components/ui/Form";
 import Button from "components/ui/Button";
-import { inject, observer } from "mobx-react";
 import ErrorMessageList from "components/error/ErrorMessageList";
 import { requireUnauthed } from "utils/auth";
 import { Router } from "routes";
+import { useAuth } from "stores/AuthStore";
 
-function LoginPage({ auth }) {
+function LoginPage() {
+	const { loginWithCredentials, loading, errorMessages } = useAuth();
 	const [redirecting, setRedirecting] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
 	const onLogin = async () => {
 		setRedirecting(true);
-		const loggedIn = await auth.loginWithCredentials(username, password);
+		const loggedIn = await loginWithCredentials(username, password);
 		if (loggedIn) {
 			Router.pushRoute("home");
 		} else {
@@ -40,7 +41,7 @@ function LoginPage({ auth }) {
 								</p>
 							</div>
 							<div className="col-span-4">
-								<ErrorMessageList error={auth.errorMessages} />
+								<ErrorMessageList error={errorMessages} />
 							</div>
 							<Form.Field span={4} label="Username">
 								<input
@@ -62,7 +63,7 @@ function LoginPage({ auth }) {
 							<Form.Actions span={4}>
 								<Button
 									primary
-									loading={auth.loading || redirecting}
+									loading={loading || redirecting}
 									type="submit"
 								>
 									Sign in
@@ -85,4 +86,4 @@ LoginPage.getInitialProps = async () => {
 	};
 };
 
-export default requireUnauthed(inject("auth")(observer(LoginPage)));
+export default requireUnauthed(LoginPage);

@@ -4,7 +4,6 @@ import { Activity as ActivityContainer } from "utils/getstream";
 import UserMedia from "components/ui/UserMedia";
 import { Link } from "routes";
 import pluralize from "pluralize";
-import { inject, observer } from "mobx-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getLogger } from "utils/logging";
 import Task from "components/tasks/Task";
@@ -12,65 +11,64 @@ import Button from "components/ui/Button";
 import NotImplemented from "components/error/NotImplemented";
 import TaskActions from "components/tasks/TaskActions";
 import ErrorCard from "components/ui/ErrorCard";
+import { useAuth } from "stores/AuthStore";
 
 const log = getLogger("Activity");
 
 // TODO: Fix ItemLink routes.
 
-const ItemLink = inject((stores) => ({ isLoggedIn: stores.auth.isLoggedIn }))(
-	observer(
-		({ type, item, children, loggedInOnly = false, isLoggedIn = true }) => {
-			if (!item) return children;
+function ItemLink({ type, item, children, loggedInOnly = false }) {
+	const { isLoggedIn } = useAuth();
 
-			if (loggedInOnly && !isLoggedIn) {
-				return (
-					/*<Link route="start">*/
-					<a target="_blank" rel="noopener noreferrer">
-						{children}
-					</a>
-					/*</Link> */
-				);
-			}
+	if (!item) return children;
 
-			switch (type) {
-				case "task":
-					return (
-						/* <Link route="task-page" params={{ id: item.id }}> */
-						<a target="_blank" rel="noopener noreferrer">
-							{children}
-						</a>
-						/*</Link>*/
-					);
+	if (loggedInOnly && !isLoggedIn) {
+		return (
+			/*<Link route="start">*/
+			<a target="_blank" rel="noopener noreferrer">
+				{children}
+			</a>
+			/*</Link> */
+		);
+	}
 
-				case "thread":
-					return (
-						/* <Link
-							route="discussion-page"
-							params={{ slug: item.slug }}
-						> */
-						<a target="_blank" rel="noopener noreferrer">
-							{children}
-						</a>
-						/* </Link>*/
-					);
+	switch (type) {
+		case "task":
+			return (
+				/* <Link route="task-page" params={{ id: item.id }}> */
+				<a target="_blank" rel="noopener noreferrer">
+					{children}
+				</a>
+				/*</Link>*/
+			);
 
-				case "reply":
-					return (
-						/* <Link
-							href={`/discussions/${item.parent}/#reply-${item.id}`}
-						>*/
-						<a target="_blank" rel="noopener noreferrer">
-							{children}
-						</a>
-						/* </Link>*/
-					);
+		case "thread":
+			return (
+				/* <Link
+					route="discussion-page"
+					params={{ slug: item.slug }}
+				> */
+				<a target="_blank" rel="noopener noreferrer">
+					{children}
+				</a>
+				/* </Link>*/
+			);
 
-				default:
-					return children;
-			}
-		}
-	)
-);
+		case "reply":
+			return (
+				/* <Link
+					href={`/discussions/${item.parent}/#reply-${item.id}`}
+				>*/
+				<a target="_blank" rel="noopener noreferrer">
+					{children}
+				</a>
+				/* </Link>*/
+			);
+
+		default:
+			return children;
+	}
+}
 
 function getTargetTitle(type, target) {
 	if (!target) return null;
@@ -180,22 +178,21 @@ const ActivityDeleted = ({ activity }) => {
 	return <div className="ActivityItemContainer">Content deleted.</div>;
 };
 
-const ActivityObject = inject((stores) => ({ me: stores.auth.user }))(
-	observer(({ activity, ...props }) => {
-		if (!activity.getObject()) return <ActivityDeleted />;
-		const { object, type } = activity.getObject();
-		const target = activity.getTarget();
+function ActivityObject({ activity, ...props }) {
+	const { user } = useAuth();
+	if (!activity.getObject()) return <ActivityDeleted />;
+	const { object, type } = activity.getObject();
+	const target = activity.getTarget();
 
-		switch (type) {
-			case "task":
-				// Render without attachments because we're rendering them apart.
-				return <Task withAttachments={false} task={object} />;
+	switch (type) {
+		case "task":
+			// Render without attachments because we're rendering them apart.
+			return <Task withAttachments={false} task={object} />;
 
-			default:
-				return <ActivityTypeUnknown />;
-		}
-	})
-);
+		default:
+			return <ActivityTypeUnknown />;
+	}
+}
 
 const ActivityObjectGroup = ({ activities }) => {
 	if (activities.length === 0) return null;
@@ -207,15 +204,13 @@ const ActivityObjectGroup = ({ activities }) => {
 	return activities.map((a) => <ActivityObject key={a.id} activity={a} />);
 };
 
-const TaskActivityControls = inject((stores) => ({ me: stores.auth.user }))(
-	observer(({ task, me = {} }) => {
-		return (
-			<div className="actions p-4 pt-0">
-				<TaskActions task={task} />
-			</div>
-		);
-	})
-);
+function TaskActivityControls({ task }) {
+	return (
+		<div className="actions p-4 pt-0">
+			<TaskActions task={task} />
+		</div>
+	);
+}
 
 const ActivityControls = ({ activity }) => {
 	if (!activity.getObject() || activity.getType() === "aggregated")

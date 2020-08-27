@@ -6,7 +6,7 @@ import "axios-debug-log";
 
 import React from "react";
 import App from "next/app";
-import { Provider } from "mobx-react";
+import { Provider, useStaticRendering } from "mobx-react";
 
 import { isServer, isDev } from "../config";
 import config, { onStoreInit } from "stores";
@@ -14,10 +14,14 @@ import { configureMobx } from "utils/mobx";
 import Shell from "layouts/Shell";
 import { ReactQueryDevtools } from "react-query-devtools";
 import NProgressContainer from "vendor/nprogress";
+import { configure } from "mobx";
 
 if (isDev && !isServer) {
 	localStorage.debug = "makerlog*,axios";
 }
+
+configure({ enforceActions: "observed" });
+useStaticRendering(isServer); // NOT `true` value
 
 class Makerlog extends App {
 	static async getInitialProps({ Component, ctx }) {

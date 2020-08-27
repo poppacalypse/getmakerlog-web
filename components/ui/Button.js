@@ -36,6 +36,10 @@ function getClassNames(props) {
 			" border-gray-300 text-gray-700 bg-white hover:text-gray-500 active:text-gray-800 active:bg-gray-50 ";
 	}
 
+	if (props.disabled) {
+		classNames += " opacity-75 cursor-not-allowed ";
+	}
+
 	classNames += props.className ? props.className : "";
 	return classNames;
 }
