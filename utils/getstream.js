@@ -1,6 +1,6 @@
 import client from "getstream";
 import config from "config";
-import { axiosWrapper } from "utils/error";
+import { axiosWrapper } from "utils/axios";
 import axios from "utils/axios";
 import orderBy from "lodash/orderBy";
 import { toDate } from "date-fns-tz";
@@ -70,7 +70,7 @@ export function normalizeTimezones(activities, tzname = null) {
 	});
 }
 
-export function orderActivities(activities, tz = null) {
+export function orderActivities(activities) {
 	return orderBy(
 		activities,
 		["time", "created_at", "updated_at"],

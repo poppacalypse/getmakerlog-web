@@ -80,15 +80,6 @@ function errorArray(obj) {
 	}
 }
 
-export async function axiosWrapper(fn, ...args) {
-	try {
-		return await fn(...args);
-	} catch (e) {
-		console.log(`Makerlog: ${e.message}`);
-		prettyAxiosError(e);
-	}
-}
-
 export function errorStruct(
 	type,
 	message,
@@ -206,9 +197,8 @@ export const getGhIssueUrl = (error, tag = "error-ocurred") => {
 };
 
 export class StdErrorCollection {
-	type = "StdErrorCollection";
-
 	constructor(e) {
+		this.type = "StdErrorCollection";
 		this.errors = error(e);
 		this.message = this.message();
 		this.code = this.code();
