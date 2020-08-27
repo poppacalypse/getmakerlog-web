@@ -67,9 +67,20 @@ export function FormControls({ children, className = "" }) {
 	);
 }
 
-function Form({ onSubmit = () => {}, children, ...props }) {
+function Form({ onSubmit = null, stopPropagation = true, children, ...props }) {
 	return (
-		<form className={props.className} action="#" onSubmit={onSubmit}>
+		<form
+			className={props.className}
+			action="#"
+			onSubmit={(e) => {
+				if (!onSubmit) return null;
+				if (stopPropagation) {
+					e.preventDefault();
+					e.stopPropagation();
+				}
+				onSubmit(e);
+			}}
+		>
 			{children}
 		</form>
 	);

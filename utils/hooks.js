@@ -6,6 +6,23 @@ export function useStores() {
 	return React.useContext(MobXProviderContext);
 }
 
+export function useOutsideClick(ref, callback, tracking) {
+	const handleClick = (e) => {
+		if (ref.current && !ref.current.contains(e.target)) {
+			callback();
+		}
+	};
+
+	useEffect(() => {
+		if (!tracking) return;
+		document.addEventListener("click", handleClick);
+
+		return () => {
+			document.removeEventListener("click", handleClick);
+		};
+	}, [tracking]);
+}
+
 export function usePrevious(value) {
 	const ref = useRef();
 	useEffect(() => {

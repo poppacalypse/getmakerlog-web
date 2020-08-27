@@ -5,6 +5,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PraiseButton from "components/praise/PraiseButton";
 import TaskComments from "./TaskComments";
 import { useAuth } from "stores/AuthStore";
+import Dropdown from "components/ui/Dropdown";
+import copy from "clipboard-copy";
+import { isServer } from "config";
+import { buildAbsoluteUrl } from "utils/random";
+
+function TaskPermalinkAction({ task }) {
+	const [copied, setCopied] = useState(false);
+
+	return (
+		<Dropdown.Item
+			onClick={(e) => {
+				if (isServer) return;
+				copy(buildAbsoluteUrl(`/tasks/${task.id}`));
+				setCopied(true);
+				setInterval(() => setCopied(false), 1000);
+			}}
+		>
+			<Dropdown.Item.Icon>
+				<FontAwesomeIcon icon="link" />
+			</Dropdown.Item.Icon>
+			{copied ? "Copied!" : "Permalink"}
+		</Dropdown.Item>
+	);
+}
 
 function TaskActions({ task, ...props }) {
 	// We allow this to be false, favoring a boolean op below.
@@ -35,14 +59,20 @@ function TaskActions({ task, ...props }) {
 					</Button>
 				</span>
 				<span className="mr-2">
-					<NotImplemented>
+					<Dropdown
+						items={
+							<>
+								<TaskPermalinkAction task={task} />
+							</>
+						}
+					>
 						<Button xs>
 							<Button.Icon>
 								<FontAwesomeIcon icon="ellipsis-v" />
 							</Button.Icon>
 							More
 						</Button>
-					</NotImplemented>
+					</Dropdown>
 				</span>
 			</span>
 			{(commentsOpen || task.comment_count > 0) && (

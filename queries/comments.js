@@ -13,10 +13,21 @@ export async function getComments(key, { indexUrl }) {
 	return data;
 }
 
-export async function postComment({ indexUrl, content }) {
+export async function createComment({ indexUrl, content }) {
 	const { data } = await axiosWrapper(axios.post, `${indexUrl}/comments/`, {
 		content,
 	});
+	return data;
+}
+
+export async function updateComment({ indexUrl, content, id }) {
+	const { data } = await axiosWrapper(
+		axios.patch,
+		`${indexUrl}/comments/${id}`,
+		{
+			content,
+		}
+	);
 	return data;
 }
 
@@ -32,10 +43,10 @@ export function useComments(indexUrl) {
 	return useQuery([COMMENT_QUERIES.getComments, { indexUrl }], getComments);
 }
 
-export function usePostComment(indexUrl, user) {
+export function useCreateComment(indexUrl, user) {
 	const query = [COMMENT_QUERIES.getComments, { indexUrl }];
 
-	return useMutation(postComment, {
+	return useMutation(createComment, {
 		onMutate: ({ indexUrl, content }) => {
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
 			queryCache.cancelQueries(query);
@@ -59,7 +70,40 @@ export function usePostComment(indexUrl, user) {
 		},
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err, content, rollback) => {
-			log(`Failed to post comment. (${err})`);
+			log(`Failed to create comment. (${err})`);
+			if (rollback) rollback();
+		},
+		// Always refetch after error or success:
+		onSettled: () => {
+			queryCache.invalidateQueries(query);
+		},
+	});
+}
+
+export function useUpdateComment(indexUrl) {
+	const query = [COMMENT_QUERIES.getComments, { indexUrl }];
+
+	return useMutation(updateComment, {
+		onMutate: ({ indexUrl, content, id }) => {
+			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+			queryCache.cancelQueries(query);
+
+			// Snapshot the previous value
+			const previousComments = queryCache.getQueryData(query);
+
+			// Optimistically update to the new value
+			queryCache.setQueryData(query, (old) =>
+				old.map((comment) =>
+					comment.id === id ? { ...comment, content } : comment
+				)
+			);
+
+			// Return the snapshotted value
+			return () => queryCache.setQueryData(query, previousComments);
+		},
+		// If the mutation fails, use the value returned from onMutate to roll back
+		onError: (err, content, rollback) => {
+			log(`Failed to update comment. (${err})`);
 			if (rollback) rollback();
 		},
 		// Always refetch after error or success:
