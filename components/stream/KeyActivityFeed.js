@@ -16,14 +16,6 @@ const INITIAL_QUERY = {
 	enriched: true,
 };
 
-function getFeedUrl(key, following = false, token = "") {
-	let extra = "";
-	if (following) {
-		extra += "?following=1&token=${token}";
-	}
-	return `/feeds/${key}/${extra}`;
-}
-
 @inject("auth")
 @observer
 class KeyActivityFeed extends Component {

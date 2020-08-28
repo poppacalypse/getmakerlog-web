@@ -37,7 +37,7 @@ function Spinner({
 				</svg>
 
 				{text ? (
-					<span className="font-semibold text-sm ml-2">{text}</span>
+					<span className="ml-2 text-sm font-semibold">{text}</span>
 				) : null}
 			</div>
 		);
@@ -80,7 +80,7 @@ function Spinner({
 				)}
 			</div>
 			{text ? (
-				<span className="font-semibold text-sm mt-2">{text}</span>
+				<span className="mt-2 text-sm font-semibold">{text}</span>
 			) : null}
 		</center>
 	);

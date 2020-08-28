@@ -23,8 +23,8 @@ function LoginPage() {
 	};
 
 	return (
-		<div className="w-full flex-grow h-full bg-gray-50 border-b border-r border-l border-gray-200 p-0 flex">
-			<div className="flex-initial w-full p-4 px-8 flex flex-col justify-center">
+		<div className="flex flex-grow w-full h-full p-0 border-b border-l border-r border-gray-200 bg-gray-50">
+			<div className="flex flex-col justify-center flex-initial w-full p-4 px-8">
 				<div>
 					<Form
 						onSubmit={(e) => {
@@ -73,7 +73,7 @@ function LoginPage() {
 					</Form>
 				</div>
 			</div>
-			<div className="flex-initial w-full bg-people hidden md:block"></div>
+			<div className="flex-initial hidden w-full bg-people md:block"></div>
 		</div>
 	);
 }

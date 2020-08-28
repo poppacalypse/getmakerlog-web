@@ -5,10 +5,9 @@ import Button from "components/ui/Button";
 import { ErrorBoundary } from "react-error-boundary";
 import Spinner from "components/ui/Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { isServer } from "config";
 import Activity from "./Activity";
 
-function ErrorFallback({ error, componentStack, resetErrorBoundary }) {
+function ErrorFallback({ componentStack }) {
 	return <ErrorCard trace={componentStack} />;
 }
 
@@ -49,7 +48,7 @@ class ActivityFeed extends React.Component {
 					)}
 
 					<ErrorBoundary FallbackComponent={ErrorFallback}>
-						{Object.entries(data).map(([key, activity]) => {
+						{Object.entries(data).map(([, activity]) => {
 							return (
 								<Activity
 									key={activity.id}

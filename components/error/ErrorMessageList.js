@@ -1,23 +1,8 @@
 import React from "react";
-import { StdErrorCollection } from "utils/error";
 import OutboundLink from "components/seo/OutboundLink";
 import { isDev } from "config";
 import Message from "components/ui/Message";
 import Button from "components/ui/Button";
-import ErrorCard from "components/ui/ErrorCard";
-
-// Test error display
-/* const messageError = new StdErrorCollection("Something went wrong.");
-const multipleErrors = new StdErrorCollection([
-    "Many things went wrong",
-    "Multiple things went wrong"
-]);
-const fieldErrors = new StdErrorCollection({
-    password: "Wrong password input",
-    bitches: "Many of them"
-});
-const jsError = new StdErrorCollection(new Error("Hai"));
-*/
 
 function renderError(error) {
 	switch (error.type) {
@@ -57,7 +42,7 @@ function renderMultipleErrors(error) {
 	let res = [];
 	error.errors.map((e) => (res = [...res, renderError(e)]));
 	return (
-		<ul className="list-disc pl-5">
+		<ul className="pl-5 list-disc">
 			{res.map((r, idx) => (
 				<li key={idx}>{r}</li>
 			))}
@@ -76,7 +61,7 @@ const ErrorMessageList = ({ error = null }) => {
 					danger
 					title="An unknown error ocurred."
 				>
-					<div className="nyan absolute right-2 top-6 opacity-50">
+					<div className="absolute opacity-50 nyan right-2 top-6">
 						<img
 							className="h-20 transform -rotate-45"
 							style={{ "--transform-rotate": "-25deg" }}

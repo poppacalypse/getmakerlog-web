@@ -39,7 +39,7 @@ class ErrorCard extends Component {
 		return (
 			<Card className="relative overflow-hidden">
 				<Card.Content>
-					<div className="nyan absolute right-2 top-6 opacity-50 hidden sm:block">
+					<div className="absolute hidden opacity-50 nyan right-2 top-6 sm:block">
 						<img
 							className="h-20 transform -rotate-45"
 							style={{ "--transform-rotate": "-25deg" }}

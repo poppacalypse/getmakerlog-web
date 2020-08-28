@@ -4,7 +4,7 @@ import { useOutsideClick } from "utils/hooks";
 
 function DropdownItemIcon({ children }) {
 	return (
-		<span className="mr-3 h-3 w-3 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500">
+		<span className="w-3 h-3 mr-3 text-gray-400 group-hover:text-gray-500 group-focus:text-gray-500">
 			{children}
 		</span>
 	);
@@ -14,7 +14,7 @@ function DropdownItem({ children, ...props }) {
 	return (
 		<div
 			{...props}
-			className="cursor-pointer block px-3.5 py-1.5 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+			className="block text-sm text-gray-700 cursor-pointer px-3.5 py-1.5 leading-5 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
 		>
 			{children}
 		</div>
@@ -56,7 +56,7 @@ function Dropdown({ children, items, origin = "top-right" }) {
 						ref={ref}
 						className={`origin-${origin} absolute right-0 mt-2 w-56 rounded-md shadow-lg`}
 					>
-						<div className="rounded-md bg-white shadow-xs">
+						<div className="bg-white rounded-md shadow-xs">
 							<div
 								className="py-1"
 								role="menu"

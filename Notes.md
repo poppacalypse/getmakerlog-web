@@ -15,3 +15,7 @@ This means you may have to manually implement error handling.
 -   make serializers
 -   next-seo
 -   next routes
+
+# Eslint
+
+You need to install all plugins globally.

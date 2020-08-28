@@ -82,45 +82,45 @@ function MainSidebar({ user, open, toggleOpen }) {
 				" md:block md:w-72 pt-16 pb-0 md:sticky flex flex-col flex-grow border-r border-gray-200 max-h-screen bg-white overflow-y-auto h-full left-0 top-0 "
 			}
 		>
-			<div className="pt-4 flex flex-col h-full">
-				<div className="cursor-pointer p-4 py-3 text-gray-900 bg-green-100 font-semibold border-l-2 box-border border-green-500 ">
+			<div className="flex flex-col h-full pt-4">
+				<div className="p-4 py-3 font-semibold text-gray-900 bg-green-100 border-l-2 border-green-500 cursor-pointer box-border">
 					Log
 				</div>
-				<div className="cursor-pointer p-4 py-3 text-gray-700 hover:bg-green-100 font-semibold">
+				<div className="p-4 py-3 font-semibold text-gray-700 cursor-pointer hover:bg-green-100">
 					Discussions
 				</div>
-				<div className="cursor-pointer p-4 py-3 text-gray-700 hover:bg-green-100 font-semibold">
+				<div className="p-4 py-3 font-semibold text-gray-700 cursor-pointer hover:bg-green-100">
 					Chat
 				</div>
-				<div className="cursor-pointer p-4 py-3 text-gray-700 hover:bg-green-100 font-semibold">
+				<div className="p-4 py-3 font-semibold text-gray-700 cursor-pointer hover:bg-green-100">
 					Leaderboards
 				</div>
 				<div className="mt-8">
 					<h3
-						className="px-4 pb-2 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider"
+						className="px-4 pb-2 text-xs font-semibold tracking-wider text-gray-500 uppercase leading-4"
 						id="projects-headline"
 					>
 						Gold
 					</h3>
-					<div className="mx-2 px-4 py-2 text-gray-700 text-sm hover:bg-gray-100 rounded-md font-semibold mb-1">
+					<div className="px-4 py-2 mx-2 mb-1 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-md">
 						Club
 					</div>
-					<div className="mx-2 px-4 py-2 text-gray-700 text-sm hover:bg-gray-100 rounded-md font-semibold mb-1">
+					<div className="px-4 py-2 mx-2 mb-1 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-md">
 						Ads
 					</div>
 					<h3
-						className="mt-8 px-4 pb-2 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider"
+						className="px-4 pb-2 mt-8 text-xs font-semibold tracking-wider text-gray-500 uppercase leading-4"
 						id="projects-headline"
 					>
 						You
 					</h3>
-					<div className="mx-2 px-4 py-2 text-gray-700 text-sm hover:bg-gray-100 rounded-md font-semibold mb-1">
+					<div className="px-4 py-2 mx-2 mb-1 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-md">
 						Tasks
 					</div>
-					<div className="mx-2 px-4 py-2 text-gray-700 text-sm hover:bg-gray-100 rounded-md font-semibold mb-1">
+					<div className="px-4 py-2 mx-2 mb-1 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-md">
 						Products
 					</div>
-					<div className="mx-2 px-4 py-2 text-gray-700 text-sm hover:bg-gray-100 rounded-md font-semibold mb-1">
+					<div className="px-4 py-2 mx-2 mb-1 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-md">
 						Integrations
 					</div>
 				</div>
@@ -151,8 +151,8 @@ function AppLayoutContainer({ children, withPaddingTop = true }) {
 
 	if (!isLoggedIn) {
 		return (
-			<div className="max-w-full max-w-7xl mx-auto sm:px-6 lg:px-8 flex-grow w-full h-full flex flex-col">
-				<div className="w-full flex-grow max-w-3xl mx-auto bg-gray-50 border-r border-l border-gray-200 p-4">
+			<div className="flex flex-col flex-grow w-full h-full max-w-full mx-auto max-w-7xl sm:px-6 lg:px-8">
+				<div className="flex-grow w-full max-w-3xl p-4 mx-auto border-l border-r border-gray-200 bg-gray-50">
 					{children}
 				</div>
 			</div>
@@ -166,7 +166,7 @@ function AppLayoutContainer({ children, withPaddingTop = true }) {
 				(withPaddingTop ? " pt-20 " : "")
 			}
 		>
-			<div className="Container max-w-3xl mx-auto">{children}</div>
+			<div className="max-w-3xl mx-auto Container">{children}</div>
 		</div>
 	);
 }
@@ -185,9 +185,9 @@ function AppLayout({ allowGuest, contained, ...props }) {
 
 	if (!isLoggedIn) {
 		return (
-			<div className="bg-gray-100 min-h-screen flex flex-col">
-				<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 w-full">
-					<div className="max-w-3xl mx-auto border-r border-l border-gray-200">
+			<div className="flex flex-col min-h-screen bg-gray-100">
+				<div className="w-full mx-auto max-w-7xl sm:px-6 lg:px-8">
+					<div className="max-w-3xl mx-auto border-l border-r border-gray-200">
 						<Navbar />
 					</div>
 				</div>
@@ -202,7 +202,7 @@ function AppLayout({ allowGuest, contained, ...props }) {
 	}
 
 	return (
-		<div className="AppLayout Page bg-gray-100 min-h-screen w-screen max-w-full mb-16 md:mb-0">
+		<div className="w-screen max-w-full min-h-screen mb-16 bg-gray-100 AppLayout Page md:mb-0">
 			<Navbar app />
 
 			<div className="flex">
@@ -224,16 +224,16 @@ function AppLayout({ allowGuest, contained, ...props }) {
 
 				{isLoggedIn ? (
 					<div>
-						<div className="hidden max-h-screen p-4 pt-20 pb-4 sticky w-72 md:flex flex-col flex-grow border-l border-gray-200 bg-white overflow-y-auto min-h-screen h-full right-0 top-0">
+						<div className="sticky top-0 right-0 flex-col flex-grow hidden h-full max-h-screen min-h-screen p-4 pt-20 pb-4 overflow-y-auto bg-white border-l border-gray-200 w-72 md:flex">
 							<h3
-								className="mb-2 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider"
+								className="mb-2 text-xs font-semibold tracking-wider text-gray-500 uppercase leading-4"
 								id="projects-headline"
 							>
 								Indie ad
 							</h3>
 							<div className="ad-case">
 								<img
-									className=" rounded-md border border-gray-200 mb-2"
+									className="mb-2 border border-gray-200 rounded-md"
 									src="https://ik.imagekit.io/makerlog/media/uploads/bookings/2020/08/19/makerlog.png"
 									alt=""
 								/>
@@ -249,18 +249,18 @@ function AppLayout({ allowGuest, contained, ...props }) {
 
 							<div className="mt-8">
 								<h3
-									className="pb-2 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider"
+									className="pb-2 text-xs font-semibold tracking-wider text-gray-500 uppercase leading-4"
 									id="projects-headline"
 								>
 									Groups
 								</h3>
-								<div className="mx-2 py-2 text-gray-700 text-sm hover:bg-gray-100 rounded-md font-semibold mb-1">
+								<div className="py-2 mx-2 mb-1 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-md">
 									Marketers
 								</div>
-								<div className="mx-2 py-2 text-gray-700 text-sm hover:bg-gray-100 rounded-md font-semibold mb-1">
+								<div className="py-2 mx-2 mb-1 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-md">
 									Young Makers
 								</div>
-								<div className="mx-2 py-2 text-gray-700 text-sm hover:bg-gray-100 rounded-md font-semibold mb-1">
+								<div className="py-2 mx-2 mb-1 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-md">
 									Makers en Español
 								</div>
 							</div>

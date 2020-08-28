@@ -52,7 +52,7 @@ function Comment({ comment, indexUrl }) {
 			</div>
 			<div className="flex-initial">
 				<UserLine user={comment.user} />
-				<div className="bg-gray-100 p-2 shadow-xs rounded-md break-words">
+				<div className="p-2 break-words bg-gray-100 shadow-xs rounded-md">
 					{editing ? (
 						<CommentEdit comment={comment} onSubmit={onEdit} />
 					) : (
@@ -62,13 +62,13 @@ function Comment({ comment, indexUrl }) {
 				{comment.user.id == user.id && !editing ? (
 					<div className="inline-flex text-xs">
 						<a
-							className="mr-2 last:mr-0 cursor-pointer"
+							className="mr-2 cursor-pointer last:mr-0"
 							onClick={() => setEditing(true)}
 						>
 							Edit
 						</a>
 						<a
-							className="mr-2 last:mr-0 cursor-pointer"
+							className="mr-2 cursor-pointer last:mr-0"
 							onClick={onDelete}
 						>
 							Delete

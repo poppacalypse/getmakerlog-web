@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "components/ui/Card";
 import { Activity as ActivityContainer } from "utils/getstream";
 import UserMedia from "components/ui/UserMedia";
-import { Link } from "routes";
 import pluralize from "pluralize";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getLogger } from "utils/logging";
 import Task from "components/tasks/Task";
-import Button from "components/ui/Button";
-import NotImplemented from "components/error/NotImplemented";
 import TaskActions from "components/tasks/TaskActions";
 import ErrorCard from "components/ui/ErrorCard";
 import { useAuth } from "stores/AuthStore";
@@ -128,7 +125,7 @@ function getHumanTargetType(activity) {
 		}
 		return (
 			<ItemLink item={target} type={targetType}>
-				{getPrefix(count)} {typeText}
+				{getPrefix(1)} {typeText}
 			</ItemLink>
 		);
 	}
@@ -163,7 +160,7 @@ function getHumanActivityObject(activity) {
 	}
 }
 
-const ActivityTypeUnknown = ({ activity }) => {
+const ActivityTypeUnknown = () => {
 	return (
 		<ErrorCard
 			title="Unknown activity object type."
@@ -174,15 +171,13 @@ const ActivityTypeUnknown = ({ activity }) => {
 	);
 };
 
-const ActivityDeleted = ({ activity }) => {
+const ActivityDeleted = () => {
 	return <div className="ActivityItemContainer">Content deleted.</div>;
 };
 
-function ActivityObject({ activity, ...props }) {
-	const { user } = useAuth();
+function ActivityObject({ activity }) {
 	if (!activity.getObject()) return <ActivityDeleted />;
 	const { object, type } = activity.getObject();
-	const target = activity.getTarget();
 
 	switch (type) {
 		case "task":
@@ -206,7 +201,7 @@ const ActivityObjectGroup = ({ activities }) => {
 
 function TaskActivityControls({ task }) {
 	return (
-		<div className="actions p-4 pt-0">
+		<div className="p-4 pt-0 actions">
 			<TaskActions task={task} />
 		</div>
 	);
@@ -230,9 +225,9 @@ const ActivityAttachment = ({ activity }) => {
 	if (!attachment) return null;
 	if (activity.getObjectType() === "task") {
 		return (
-			<div className="attachment mb-4 bg-gray-100 border border-r-0 border-l-0 border-gray-200 bg-center">
+			<div className="mb-4 bg-gray-100 bg-center border border-l-0 border-r-0 border-gray-200 attachment">
 				<img
-					className="block max-w-full w-full"
+					className="block w-full max-w-full"
 					src={attachment}
 					alt={"Attachment to task."}
 				/>
@@ -241,7 +236,7 @@ const ActivityAttachment = ({ activity }) => {
 	}
 };
 
-function Activity({ activity, ...props }) {
+function Activity({ activity }) {
 	activity = new ActivityContainer(activity);
 	if (!activity.check()) {
 		log(`An activity failed a integrity check. ${activity.getId()}`);
@@ -249,7 +244,7 @@ function Activity({ activity, ...props }) {
 	}
 	return (
 		<Card>
-			<div className="actor p-4 pb-0 text-gray-50 flex">
+			<div className="flex p-4 pb-0 actor text-gray-50">
 				{activity.getActorObject() &&
 					activity.getActorObject().username && (
 						<UserMedia

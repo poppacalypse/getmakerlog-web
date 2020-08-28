@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "components/ui/Button";
 import { usePraise, usePraiseMutation } from "queries/praise";
 import { getLogger } from "utils/logging";
@@ -13,7 +13,7 @@ const log = getLogger("PraiseButton");
 
 // TODO: On click, redirect to sign in if not logged in.
 
-function PraiseButton({ indexUrl, initialCount, disabled = false, ...props }) {
+function PraiseButton({ indexUrl, initialCount, disabled = false }) {
 	const { isLoggedIn, user } = useAuth();
 	const [clicked, setClicked] = useState(false);
 	const { isLoading, error, data } = usePraise(

@@ -58,7 +58,7 @@ function getSpinnerColor(props) {
 }
 
 function ButtonIcon({ children }) {
-	return <span className="-ml-0.5 mr-2 h-4 w-4">{children}</span>;
+	return <span className="w-4 h-4 mr-2 -ml-0.5">{children}</span>;
 }
 
 class Button extends React.Component {

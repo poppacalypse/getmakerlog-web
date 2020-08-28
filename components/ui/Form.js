@@ -35,12 +35,12 @@ export function FormField({
 			{label ? (
 				<label
 					htmlFor={name}
-					className="block text-sm font-medium leading-5 text-gray-700"
+					className="block text-sm font-medium text-gray-700 leading-5"
 				>
 					{label}
 				</label>
 			) : null}
-			<div className="mt-1 w-full">{children}</div>
+			<div className="w-full mt-1">{children}</div>
 			{help || error ? (
 				<p
 					className={`mt-2 text-sm text-${

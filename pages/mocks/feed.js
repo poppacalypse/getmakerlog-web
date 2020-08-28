@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default () => (
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="max-w-3xl mx-auto flex-col min-h-screen border-r border-l border-gray-200">
-      <div className="flex-auto w-full h-full ">x</div>
-    </div>
-  </div>
+const Feed = () => (
+	<div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+		<div className="flex-col max-w-3xl min-h-screen mx-auto border-l border-r border-gray-200">
+			<div className="flex-auto w-full h-full ">x</div>
+		</div>
+	</div>
 );
+
+export default Feed;

@@ -32,12 +32,12 @@ function IndexPage() {
 							<div className="mr-2 font-medium text-green-700">
 								Task
 							</div>
-							<div className="text-gray-500 font-medium">
+							<div className="font-medium text-gray-500">
 								Discussion
 							</div>
 						</small>
 					</div>
-					<div className="input-flex flex items-center">
+					<div className="flex items-center input-flex">
 						<span className="mr-2">
 							<Avatar
 								size={8}
@@ -49,7 +49,7 @@ function IndexPage() {
 							/>
 						</span>
 						<input
-							className="w-full flex-grow"
+							className="flex-grow w-full"
 							type="text"
 							placeholder="Start typing something you've done or made..."
 						/>
@@ -81,7 +81,7 @@ function IndexPage() {
 			<Card>
 				<Card.Content>
 					<h3
-						className="mb-2 text-sm leading-4 font-medium text-gray-700"
+						className="mb-2 text-sm font-medium text-gray-700 leading-4"
 						id="projects-headline"
 					>
 						Top shippers today
@@ -145,7 +145,7 @@ function IndexPage() {
 	);
 }
 
-IndexPage.getInitialProps = async (ctx) => {
+IndexPage.getInitialProps = async () => {
 	return {
 		layout: {
 			layout: "app",

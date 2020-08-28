@@ -8,7 +8,7 @@ import { useCreateComment } from "queries/comments";
 
 // TODO: Guest state.
 
-function CommentInput({ indexUrl, disabled, focused, ...props }) {
+function CommentInput({ indexUrl, focused }) {
 	const [content, setContent] = useState("");
 	const { user, isLoggedIn } = useAuth();
 	const textInput = useRef(null);
@@ -37,7 +37,7 @@ function CommentInput({ indexUrl, disabled, focused, ...props }) {
 	if (!isLoggedIn) return null;
 
 	return (
-		<Form className="flex w-full items-center" onSubmit={onSubmit}>
+		<Form className="flex items-center w-full" onSubmit={onSubmit}>
 			<div className="flex-none mr-2">
 				<Avatar size={8} user={user} />
 			</div>
