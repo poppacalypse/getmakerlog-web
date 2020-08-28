@@ -22,7 +22,7 @@ function NotImplementedPage() {
 	);
 }
 
-NotImplementedPage.getInitialProps = async (ctx) => {
+NotImplementedPage.getInitialProps = async () => {
 	return {
 		layout: {
 			layout: "app",

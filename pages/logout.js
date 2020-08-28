@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { requireAuth } from "utils/auth";
 import Card from "components/ui/Card";
 import Spinner from "components/ui/Spinner";

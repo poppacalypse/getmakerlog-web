@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import taskSchema from "schemas/Task";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getLogger } from "utils/logging";
 import TaskIcon, { getColorForTask } from "./TaskIcon";
 

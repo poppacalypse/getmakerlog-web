@@ -1,6 +1,5 @@
 import React from "react";
 import AppLayout from "layouts/AppLayout";
-import Message from "components/ui/Message";
 import Card from "components/ui/Card";
 import Button from "components/ui/Button";
 import ErrorMessageList from "components/error/ErrorMessageList";

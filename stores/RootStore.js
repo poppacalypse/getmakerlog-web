@@ -1,5 +1,5 @@
 import { BaseStore, getOrCreateStore } from "next-mobx-wrapper";
-import { action, observable, computed } from "mobx";
+import { action, observable } from "mobx";
 import { getLogger } from "utils/logging";
 import { useStores } from "utils/hooks";
 import { useObserver } from "mobx-react";
