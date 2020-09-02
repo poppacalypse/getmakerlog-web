@@ -7,20 +7,21 @@ export function useStores() {
 }
 
 export function useOutsideClick(ref, callback, tracking) {
-	const handleClick = (e) => {
-		if (ref.current && !ref.current.contains(e.target)) {
-			callback();
-		}
-	};
-
 	useEffect(() => {
 		if (!tracking) return;
+
+		const handleClick = (e) => {
+			if (ref.current && !ref.current.contains(e.target)) {
+				callback();
+			}
+		};
+
 		document.addEventListener("click", handleClick);
 
 		return () => {
 			document.removeEventListener("click", handleClick);
 		};
-	}, [tracking]);
+	}, [callback, ref, tracking]);
 }
 
 export function usePrevious(value) {

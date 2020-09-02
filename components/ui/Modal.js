@@ -1,6 +1,6 @@
 import ReactModal from "react-modal";
 
-function Modal({ children, onRequestClose, open }) {
+function Modal({ onRequestClose, open }) {
 	return (
 		<ReactModal
 			isOpen={open}

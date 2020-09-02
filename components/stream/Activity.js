@@ -3,7 +3,6 @@ import Card from "components/ui/Card";
 import { Activity as ActivityContainer } from "utils/getstream";
 import UserMedia from "components/ui/UserMedia";
 import pluralize from "pluralize";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getLogger } from "utils/logging";
 import Task from "components/tasks/Task";
 import TaskActions from "components/tasks/TaskActions";

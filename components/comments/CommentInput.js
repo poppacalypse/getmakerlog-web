@@ -34,7 +34,7 @@ function CommentInput({ indexUrl, focused }) {
 		if (!prevFocused && focused) {
 			textInput.current.focus();
 		}
-	}, [focused]);
+	}, [focused, prevFocused]);
 
 	if (!isLoggedIn)
 		return (

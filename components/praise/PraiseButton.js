@@ -36,7 +36,7 @@ function PraiseButton({ indexUrl, initialCount, disabled = false }) {
 		if (error) {
 			log(`Failed to load praise for ${indexUrl}.`, error);
 		}
-	}, [error]);
+	}, [error, indexUrl]);
 
 	// This is the one place where errors are acceptable.
 	// We don't inform the user of errors. They will occur.

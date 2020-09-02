@@ -22,6 +22,9 @@ if (isDev && !isServer) {
 }
 
 configure({ enforceActions: "observed" });
+
+// This is not a hook.
+// eslint-disable-next-line react-hooks/rules-of-hooks
 useStaticRendering(isServer); // NOT `true` value
 
 class Makerlog extends App {

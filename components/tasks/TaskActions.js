@@ -143,9 +143,9 @@ function TaskMoreDropdown({ task }) {
 function TaskActions({ task, stream = false, onUpdate = () => {} }) {
 	// We allow this to be false, favoring a boolean op below.
 	// This allows for autofocus on click.
-	if (!task) return;
 	const { user } = useAuth();
 	const [commentsOpen, setCommentsOpen] = useState(false);
+	if (!task) return;
 
 	if (stream) {
 		return (

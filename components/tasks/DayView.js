@@ -40,7 +40,7 @@ function TaskGroupCard({
 		<>
 			<h3 className="mb-2 text-sm font-medium text-gray-700 leading-4">
 				{getHumanStateFromDoneState(doneState)}{" "}
-				<span className="text-gray-500">({tasks.length} tasks)</span>
+				<span className="text-gray-500">{tasks.length}</span>
 			</h3>
 			{failed && !isLoading ? (
 				<ErrorCard
@@ -55,7 +55,7 @@ function TaskGroupCard({
 						)}
 						{!isLoading && !failed && tasks.length === 0 ? (
 							<span className="text-gray-500">
-								✅ Nothing to see here...
+								Nothing to see here...
 							</span>
 						) : null}
 						{tasks &&
