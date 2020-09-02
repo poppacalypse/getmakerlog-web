@@ -2,6 +2,7 @@ import React from "react";
 import FullName from "components/users/FullName";
 import Streak from "./Streak";
 import Avatar from "./Avatar";
+import { isNewUser } from "utils/user";
 
 function UserMedia({
 	user,
@@ -25,6 +26,11 @@ function UserMedia({
 					<span className="mr-2">
 						<Streak text={extraStreakText} days={user.streak} />
 					</span>
+					{isNewUser(user) && (
+						<span className="mr-2">
+							<small>👋</small> Say hi!
+						</span>
+					)}
 					{extra ? extra : null}
 				</p>
 				{actions ? actions : null}
