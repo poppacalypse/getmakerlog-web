@@ -109,7 +109,7 @@ class AuthStore extends BaseStore {
 		this.token = null;
 		this.user = null;
 		if (!isServer) {
-			Router.pushRoute("home");
+			Router.pushRoute("index");
 		}
 		setCookie(isServer && ctx !== null ? ctx : null, "token", "", {
 			maxAge: 30 * 24 * 60 * 60,

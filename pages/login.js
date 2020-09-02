@@ -16,7 +16,7 @@ function LoginPage() {
 		setRedirecting(true);
 		const loggedIn = await loginWithCredentials(username, password);
 		if (loggedIn) {
-			Router.pushRoute("home");
+			Router.pushRoute("index");
 		} else {
 			setRedirecting(false);
 		}

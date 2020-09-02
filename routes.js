@@ -1,11 +1,14 @@
 import routes from "@fuelrats/next-named-routes";
 
 // Destructure what you need
-const { Link, Router, useRouter, withRouter } = routes()
-	.add("home", "/")
+const routerHelper = routes()
+	.add("index", "/")
 	.add("login", "/login")
 	.add("logout", "/logout")
+	.add("tasks", "/tasks")
 	.add("not-implemented", "/not-implemented");
 
+const { Link, Router, useRouter, withRouter } = routerHelper;
+
 // export what you need
-export { Link, Router, useRouter, withRouter };
+export { Link, Router, useRouter, withRouter, routerHelper };

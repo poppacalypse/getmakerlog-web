@@ -42,7 +42,7 @@ export const unauthed = (ctx) => {
 	}
 
 	if (token && token !== "") {
-		Router.pushRoute("home");
+		Router.pushRoute("index");
 	}
 
 	return token;

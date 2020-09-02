@@ -202,7 +202,7 @@ const ActivityObjectGroup = ({ activities }) => {
 function TaskActivityControls({ task }) {
 	return (
 		<div className="p-4 pt-0 actions">
-			<TaskActions task={task} />
+			<TaskActions stream task={task} />
 		</div>
 	);
 }
@@ -259,9 +259,6 @@ function Activity({ activity }) {
 						/>
 					)}
 				<div className="flex-grow"></div>
-				<div className="text-gray-300">
-					<FontAwesomeIcon icon="caret-down" />
-				</div>
 			</div>
 			<Card.Content>
 				{activity.getType() === "aggregated" ? (

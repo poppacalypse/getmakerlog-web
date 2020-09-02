@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import taskSchema from "schemas/Task";
 import { getLogger } from "utils/logging";
 import TaskIcon, { getColorForTask } from "./TaskIcon";
+import TaskActions from "./TaskActions";
 
 const log = getLogger("Task");
 
@@ -12,6 +13,7 @@ class Task extends Component {
 	static defaultProps = {
 		plain: false,
 		withAttachments: true,
+		withActions: false,
 	};
 
 	constructor(props) {
@@ -27,6 +29,10 @@ class Task extends Component {
 			this.setState({ task: this.props.task });
 		}
 	}
+
+	renderActions = () => {
+		return <TaskActions task={this.state.task} onUpdate={this.onUpdate} />;
+	};
 
 	renderAttachments = () => {
 		if (this.state.task.attachment) {
@@ -44,6 +50,15 @@ class Task extends Component {
 		}
 	};
 
+	onUpdate = (delta) => {
+		this.setState({ task: { ...this.state.task, ...delta } }, () => {
+			log(`Task #${this.state.task.id} has been updated. (${delta})`);
+			if (this.props.onUpdate) {
+				this.props.onUpdate(delta, this.state.task);
+			}
+		});
+	};
+
 	render() {
 		const { errors, value } = taskSchema.validate(this.state.task);
 		const task = value;
@@ -56,11 +71,19 @@ class Task extends Component {
 
 		return (
 			<div className="w-full max-w-full Task">
-				<div className="max-w-full mb-1 text-base font-medium text-gray-900 break-all task">
-					<span className={`text-${getColorForTask(task)}-500`}>
-						<TaskIcon task={task} />
-					</span>{" "}
-					{task.content}
+				<div className="flex flex-col content-center md:items-center md:flex-row">
+					<div className="flex flex-row items-center flex-grow max-w-full mb-1 text-base font-medium text-gray-900 break-all task">
+						<span
+							className={`text-${getColorForTask(task)}-500 mr-1`}
+						>
+							<TaskIcon task={task} />
+						</span>
+						<div className="flex-grow">{task.content}</div>
+					</div>
+
+					<div className="flex-none ml-1">
+						{this.props.withActions && this.renderActions()}
+					</div>
 				</div>
 				{task.description !== null && task.description.length > 0 && (
 					<p className="max-w-full p-4 ml-2 text-gray-900 break-words border-l border-gray-200">

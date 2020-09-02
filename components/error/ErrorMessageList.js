@@ -53,7 +53,7 @@ function renderMultipleErrors(error) {
 const ErrorMessageList = ({ error = null }) => {
 	if (error === null || !(error.type === "StdErrorCollection")) return null;
 
-	if (error.getUnknownErrors().length) {
+	if (error.getUnknownErrors && error.getUnknownErrors().length) {
 		return (
 			<>
 				<Message

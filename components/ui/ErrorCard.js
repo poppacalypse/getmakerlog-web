@@ -10,6 +10,7 @@ function getMessageForError(code) {
 
 		case 403:
 			return "You must sign in to do this.";
+
 		case 500:
 			return "A server error ocurred.";
 

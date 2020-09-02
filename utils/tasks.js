@@ -1,4 +1,55 @@
 import orderBy from "lodash/orderBy";
+import groupBy from "lodash/groupBy";
+
+export const DoneStates = {
+	DONE: 0,
+	IN_PROGRESS: 1,
+	REMAINING: 2,
+};
+
+export function getDoneState(task) {
+	if (task.done && !task.in_progress) return DoneStates.DONE;
+	if (!task.done && task.in_progress) return DoneStates.IN_PROGRESS;
+	return DoneStates.REMAINING;
+}
+
+export function getHumanStateFromDoneState(ds) {
+	switch (ds) {
+		case DoneStates.DONE:
+			return "Completed";
+		case DoneStates.IN_PROGRESS:
+			return "In progress";
+		case DoneStates.REMAINING:
+			return "To-do";
+		default:
+			"Task";
+	}
+}
+
+export function getHumanStateFromTask(task) {
+	const ds = getDoneState(task);
+	return getHumanStateFromDoneState(ds);
+}
+
+export function getDeltaFromDoneState(doneState) {
+	// Loose comparison in case input is string.
+	return {
+		done: doneState == DoneStates.DONE,
+		in_progress: doneState == DoneStates.IN_PROGRESS,
+	};
+}
+
+export function groupTasksByDone(tasks) {
+	tasks = orderBy(tasks, "created_at", "desc");
+	let resultObj = {};
+	resultObj[DoneStates.DONE] = [];
+	resultObj[DoneStates.IN_PROGRESS] = [];
+	resultObj[DoneStates.REMAINING] = [];
+	let newObj = groupBy(tasks, (task) => {
+		return getDoneState(task);
+	});
+	return { ...resultObj, ...newObj };
+}
 
 export function getTwitterShareUrl(tasks, me = null) {
 	// We assume it has been serialized and validated.

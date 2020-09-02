@@ -9,6 +9,7 @@ import { getLogger } from "utils/logging";
 import { isServer } from "config";
 import { useAuth } from "stores/AuthStore";
 import { useRoot } from "stores/RootStore";
+import ActiveLink from "components/router/ActiveLink";
 
 const log = getLogger("AppLayout");
 
@@ -83,9 +84,14 @@ function MainSidebar({ user, open, toggleOpen }) {
 			}
 		>
 			<div className="flex flex-col h-full pt-4">
-				<div className="p-4 py-3 font-semibold text-gray-900 bg-green-100 border-l-2 border-green-500 cursor-pointer box-border">
-					Log
-				</div>
+				<ActiveLink
+					route="index"
+					activeClassName="text-gray-900 bg-green-100 border-l-2 border-green-500"
+				>
+					<a className="p-4 py-3 font-semibold text-gray-700 cursor-pointer hover:bg-green-100 box-border">
+						Log
+					</a>
+				</ActiveLink>
 				<div className="p-4 py-3 font-semibold text-gray-700 cursor-pointer hover:bg-green-100">
 					Discussions
 				</div>
@@ -114,9 +120,15 @@ function MainSidebar({ user, open, toggleOpen }) {
 					>
 						You
 					</h3>
-					<div className="px-4 py-2 mx-2 mb-1 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-md">
-						Tasks
-					</div>
+
+					<ActiveLink
+						route="tasks"
+						activeClassName="text-gray-900 bg-green-100"
+					>
+						<a className="block px-4 py-2 mx-2 mb-1 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-md">
+							Tasks
+						</a>
+					</ActiveLink>
 					<div className="px-4 py-2 mx-2 mb-1 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-md">
 						Products
 					</div>
@@ -146,14 +158,25 @@ function MainSidebar({ user, open, toggleOpen }) {
 	);
 }
 
-function AppLayoutContainer({ children, withPaddingTop = true }) {
+function AppLayoutContainer({
+	children,
+	withPaddingTop = true,
+	preContained = null,
+	className = "",
+}) {
 	const { isLoggedIn } = useAuth();
 
 	if (!isLoggedIn) {
 		return (
-			<div className="flex flex-col flex-grow w-full h-full max-w-full mx-auto max-w-7xl sm:px-6 lg:px-8">
-				<div className="flex-grow w-full max-w-3xl p-4 mx-auto border-l border-r border-gray-200 bg-gray-50">
-					{children}
+			<div
+				className={
+					"flex flex-col flex-grow w-full h-full max-w-full mx-auto max-w-7xl sm:px-6 lg:px-8" +
+					` ${className}`
+				}
+			>
+				<div className="flex-grow w-full max-w-3xl mx-auto border-l border-r border-gray-200 bg-gray-50">
+					{preContained}
+					<div className=" p-4 ">{children}</div>
 				</div>
 			</div>
 		);
@@ -162,12 +185,26 @@ function AppLayoutContainer({ children, withPaddingTop = true }) {
 	return (
 		<div
 			className={
-				"max-w-full py-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow " +
-				(withPaddingTop ? " pt-20 " : "")
+				"max-w-full max-w-7xl mx-auto flex-grow" +
+				(withPaddingTop ? " pt-16 " : "") +
+				` ${className}`
 			}
 		>
-			<div className="max-w-3xl mx-auto Container">{children}</div>
+			{preContained}
+			<div className=" px-4 sm:px-6 lg:px-8">
+				<div className="max-w-3xl py-4 mx-auto Container ">
+					{children}
+				</div>
+			</div>
 		</div>
+	);
+}
+
+function AppLayoutWithTopBar({ children, topBar = null }) {
+	return (
+		<AppLayoutContainer preContained={topBar}>
+			{children}
+		</AppLayoutContainer>
 	);
 }
 
@@ -295,5 +332,6 @@ AppLayout.defaultProps = {
 };
 
 AppLayout.Container = AppLayoutContainer;
+AppLayout.WithTopBar = AppLayoutWithTopBar;
 
 export default AppLayout;

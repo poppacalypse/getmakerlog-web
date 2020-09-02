@@ -31,6 +31,7 @@ import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
 import { faStream } from "@fortawesome/free-solid-svg-icons/faStream";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons/faChevronLeft";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons/faChevronRight";
 import { faHome } from "@fortawesome/free-solid-svg-icons/faHome";
 import { faCalendarCheck } from "@fortawesome/free-solid-svg-icons/faCalendarCheck";
 import { faShip } from "@fortawesome/free-solid-svg-icons/faShip";
@@ -195,5 +196,6 @@ library.add(
 	faStarRegular,
 	faArrowsAltV,
 	faRedo,
-	faTimes
+	faTimes,
+	faChevronRight
 );
