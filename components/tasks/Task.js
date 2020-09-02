@@ -5,6 +5,9 @@ import TaskIcon, { getColorForTask } from "./TaskIcon";
 
 const log = getLogger("Task");
 
+// TODO: When link parsing is implemented, break-all anchor tags only.
+// go back to break-words.
+
 class Task extends Component {
 	static defaultProps = {
 		plain: false,
@@ -53,7 +56,7 @@ class Task extends Component {
 
 		return (
 			<div className="w-full max-w-full Task">
-				<div className="max-w-full mb-1 text-base font-medium text-gray-900 break-words task">
+				<div className="max-w-full mb-1 text-base font-medium text-gray-900 break-all task">
 					<span className={`text-${getColorForTask(task)}-500`}>
 						<TaskIcon task={task} />
 					</span>{" "}

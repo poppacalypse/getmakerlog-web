@@ -36,7 +36,7 @@ function Navbar({ app = false }) {
 			</div>
 			<div className="flex self-center justify-center w-full h-full navbar-middle">
 				{app && !mobileSidebarOpen ? (
-					<div className="fixed bottom-0 left-0 z-20 flex items-center flex-grow w-full max-w-3xl bg-white border-t border-gray-200 menu md:border-t-0 md:bg-transparent md:static md:h-full">
+					<div className="fixed bottom-0 left-0 z-20 flex items-center flex-grow w-full bg-white border-t border-gray-200 md:max-w-3xl menu md:border-t-0 md:bg-transparent md:static md:h-full">
 						<Link route="home">
 							<a className="flex items-center justify-center flex-1 h-full p-4 font-semibold text-center text-green-500 border-b-2 border-green-500 cursor-pointer md:p-0 hover:bg-green-100 transition ease-in-out duration-150">
 								Explore

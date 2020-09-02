@@ -8,6 +8,7 @@ import Dropdown from "components/ui/Dropdown";
 import copy from "clipboard-copy";
 import { isServer } from "config";
 import { buildAbsoluteUrl } from "utils/random";
+import { getTwitterShareUrl } from "utils/tasks";
 
 function TaskPermalinkAction({ task }) {
 	const [copied, setCopied] = useState(false);
@@ -34,6 +35,7 @@ function TaskActions({ task }) {
 	// This allows for autofocus on click.
 	const { user } = useAuth();
 	const [commentsOpen, setCommentsOpen] = useState(false);
+
 	return (
 		<div>
 			<span className="inline-flex">
@@ -62,6 +64,18 @@ function TaskActions({ task }) {
 						items={
 							<>
 								<TaskPermalinkAction task={task} />
+
+								<Dropdown.Item
+									href={getTwitterShareUrl([task])}
+									target="_blank"
+								>
+									<Dropdown.Item.Icon>
+										<FontAwesomeIcon
+											icon={["fab", "twitter"]}
+										/>
+									</Dropdown.Item.Icon>
+									Tweet
+								</Dropdown.Item>
 							</>
 						}
 					>

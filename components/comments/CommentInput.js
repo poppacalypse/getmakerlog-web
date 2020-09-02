@@ -5,6 +5,8 @@ import Avatar from "components/ui/Avatar";
 import Spinner from "components/ui/Spinner";
 import { useAuth } from "stores/AuthStore";
 import { useCreateComment } from "queries/comments";
+import Button from "components/ui/Button";
+import { Link } from "routes";
 
 // TODO: Guest state.
 
@@ -34,7 +36,23 @@ function CommentInput({ indexUrl, focused }) {
 		}
 	}, [focused]);
 
-	if (!isLoggedIn) return null;
+	if (!isLoggedIn)
+		return (
+			<Form className="flex items-center w-full" onSubmit={onSubmit}>
+				<div className="flex-grow mr-2">
+					<input
+						value={"You must be logged in to comment."}
+						disabled={true}
+					/>
+				</div>
+
+				<div className="flex-none">
+					<Link route="login">
+						<Button primary>Get started &raquo;</Button>
+					</Link>
+				</div>
+			</Form>
+		);
 
 	return (
 		<Form className="flex items-center w-full" onSubmit={onSubmit}>

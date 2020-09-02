@@ -10,14 +10,15 @@ function DropdownItemIcon({ children }) {
 	);
 }
 
-function DropdownItem({ children, ...props }) {
+function DropdownItem({ children, elem = "a", ...props }) {
+	const Elem = elem;
 	return (
-		<div
+		<Elem
 			{...props}
 			className="block text-sm text-gray-700 cursor-pointer px-3.5 py-1.5 leading-5 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
 		>
 			{children}
-		</div>
+		</Elem>
 	);
 }
 

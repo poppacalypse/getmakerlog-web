@@ -1,4 +1,5 @@
 import "../styles/index.css";
+import "../styles/images.css";
 import "../utils/fa";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "mobx-react-lite/batchingForReactDom";
