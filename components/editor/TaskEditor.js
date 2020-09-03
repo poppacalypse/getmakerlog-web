@@ -13,13 +13,42 @@ import Dropdown from "components/ui/Dropdown";
 import { useCreateTask } from "queries/tasks";
 import ErrorMessageList from "components/error/ErrorMessageList";
 import { useEffect } from "react";
+import { useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 
 function TaskEditor() {
 	const { user } = useAuth();
 	const [content, setContent] = useState("");
 	const [description, setDescription] = useState("");
+	const [attachmentState, setAttachmentState] = useState({
+		attachment: null,
+		name: null,
+		preview: null,
+	});
 	const [doneState, setDoneState] = useState(DoneStates.DONE);
 	const [mutate, { isSuccess, isLoading, error }] = useCreateTask();
+	const onDrop = useCallback((acceptedFiles) => {
+		const reader = new FileReader();
+		const attachment = acceptedFiles[0];
+
+		reader.onloadend = () => {
+			setAttachmentState({
+				attachment,
+				name: attachment.name,
+				preview: reader.result,
+			});
+		};
+
+		if (attachment) {
+			reader.readAsDataURL(attachment);
+		}
+	}, []);
+	const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
+		onDrop,
+		noClick: true,
+		noKeyboard: true,
+		accept: "image/jpeg, image/png",
+	});
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -33,6 +62,8 @@ function TaskEditor() {
 		e.stopPropagation();
 		let payload = { content, ...getDeltaFromDoneState(doneState) };
 		if (description.length > 0) payload["description"] = description;
+		if (attachmentState.attachment)
+			payload["attachment"] = attachmentState.attachment;
 		await mutate(payload);
 	};
 
@@ -54,7 +85,7 @@ function TaskEditor() {
 	};
 
 	return (
-		<form onSubmit={(e) => onCreate(e)}>
+		<form onSubmit={(e) => onCreate(e)} {...getRootProps()}>
 			<div className="flex items-center input-flex">
 				<span
 					className="relative flex-none mr-2 cursor-pointer"
@@ -128,14 +159,22 @@ function TaskEditor() {
 			</div>
 			{content.length > 0 && (
 				<>
-					<textarea
-						value={description}
-						onChange={(e) => setDescription(e.target.value)}
-						onKeyDown={onTextareaKeyPress}
-						rows={4}
-						className="w-full mt-2"
-						placeholder="Write a description or drop images here..."
-					/>
+					{isDragActive ? (
+						<div className="flex items-center justify-center h-32 mt-2 bg-gray-100 border border-gray-200 border-dashed rounded-md">
+							<span className="text-gray-300">
+								Drop an image here.
+							</span>
+						</div>
+					) : (
+						<textarea
+							value={description}
+							onChange={(e) => setDescription(e.target.value)}
+							onKeyDown={onTextareaKeyPress}
+							rows={4}
+							className="w-full h-32 mt-2"
+							placeholder="Write a description or drop images here..."
+						/>
+					)}
 					{error && (
 						<div className="mt-2">
 							<ErrorMessageList error={error} />
@@ -143,11 +182,14 @@ function TaskEditor() {
 					)}
 					<div className="flex flex-row w-full mt-4">
 						<div className="flex-none">
-							<Button sm>
+							<input {...getInputProps()}></input>
+							<Button sm onClick={open}>
 								<Button.Icon>
 									<FontAwesomeIcon icon="camera" />
 								</Button.Icon>
-								Add image
+								{attachmentState.name
+									? attachmentState.name
+									: "Add image"}
 							</Button>
 						</div>
 						<div className="flex-grow"></div>

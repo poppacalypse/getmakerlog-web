@@ -80,8 +80,14 @@ function TaskGroupCard({
 
 function DayView() {
 	const [currentDate, setCurrentDate] = useState(new Date());
-	const { data, isLoading, error, refetch } = useTasks(currentDate);
-	const [mutate] = useUpdateTask({ date: currentDate });
+	const { data, isLoading, error, refetch } = useTasks(
+		currentDate,
+		currentDate
+	);
+	const [mutate] = useUpdateTask({
+		startDate: currentDate,
+		endDate: currentDate,
+	});
 
 	const rewindDate = () => {
 		setCurrentDate(subDays(currentDate, 1));

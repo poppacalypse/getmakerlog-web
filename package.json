@@ -40,6 +40,7 @@
 		"pluralize": "^8.0.0",
 		"react": "^16.12.0",
 		"react-dom": "^16.12.0",
+		"react-dropzone": "^11.0.3",
 		"react-error-boundary": "^2.3.1",
 		"react-hashtag": "^2.1.2",
 		"react-infinite-scroll-component": "^5.0.5",

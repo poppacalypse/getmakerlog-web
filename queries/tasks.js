@@ -53,22 +53,28 @@ export async function updateTask({ id, payload }) {
 	return data;
 }
 
-function getQueryForDate(date) {
+function getQueryForDate(startDate, endDate) {
 	return [
 		TASK_QUERIES.getTasks,
 		{
-			startDate: encodeURIComponent(`${format(date, "yyyy-MM-dd")} 0:00`),
-			endDate: encodeURIComponent(`${format(date, "yyyy-MM-dd")} 23:59`),
+			startDate: encodeURIComponent(
+				`${format(startDate, "yyyy-MM-dd")} 0:00`
+			),
+			endDate: encodeURIComponent(
+				`${format(endDate, "yyyy-MM-dd")} 23:59`
+			),
 		},
 	];
 }
 
-export function useTasks(date) {
-	return useQuery(getQueryForDate(date), getTasksForDateRange);
+export function useTasks(startDate, endDate) {
+	return useQuery(getQueryForDate(startDate, endDate), getTasksForDateRange);
 }
 
-export function useUpdateTask({ date = null }) {
-	const queries = [date ? getQueryForDate(date) : null];
+export function useUpdateTask({ startDate = null, endDate = null }) {
+	const queries = [
+		startDate && endDate ? getQueryForDate(startDate, endDate) : null,
+	];
 
 	return useMutation(updateTask, {
 		onMutate: ({ payload, id }) => {
