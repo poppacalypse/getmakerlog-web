@@ -30,22 +30,6 @@ class AuthStore extends BaseStore {
 	}
 
 	loginWithCredentials = flow(function* (username, password, ctx = null) {
-		if (
-			![
-				"sergio",
-				"hector",
-				"jcmusic13",
-				"joshmanders",
-				"booligoosh",
-				"Booligoosh",
-				"fajarsiddiq",
-			].includes(username)
-		) {
-			this.errorMessages = new StdErrorCollection(
-				"You are not in the whitelist. Contact Sergio to get in."
-			);
-			return false;
-		}
 		try {
 			this.loading = true;
 			// this.errorMessages = null;
