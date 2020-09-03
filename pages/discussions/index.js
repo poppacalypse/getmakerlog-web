@@ -16,8 +16,8 @@ import ActiveLink from "components/router/ActiveLink";
 import ErrorCard from "components/ui/ErrorCard";
 import Spinner from "components/ui/Spinner";
 
-function ThreadReplyFaces({ size = 4, threadSlug }) {
-	const { data } = useThreadRepliers(threadSlug);
+function ThreadReplyFaces({ size = 4, thread }) {
+	const { data } = useThreadRepliers(thread.slug, thread.reply_count > 0);
 	if (!data) return null;
 	return <FaceStack size={size} users={data.slice(0, 5)} />;
 }
@@ -62,11 +62,11 @@ function Discussion({ thread, withActionBar = true }) {
 								</Button.Icon>
 								Reply{" "}
 								<span
-									className={thread.reply_count > 0 && "ml-2"}
+									className={
+										thread.reply_count > 0 ? "ml-2" : ""
+									}
 								>
-									<ThreadReplyFaces
-										threadSlug={thread.slug}
-									/>
+									<ThreadReplyFaces thread={thread} />
 								</span>
 							</Button>
 						</div>

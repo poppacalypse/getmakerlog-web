@@ -36,9 +36,10 @@ export function useLatestDiscussions() {
 	);
 }
 
-export function useThreadRepliers(slug) {
+export function useThreadRepliers(slug, enabled = true) {
 	const query = [DISCUSSION_QUERIES.getThreadRepliers, { slug }];
 	return useQuery(query, getThreadRepliers, {
 		staleTime: 1000 * 60 * 5,
+		enabled,
 	});
 }
