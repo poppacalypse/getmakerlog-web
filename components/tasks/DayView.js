@@ -145,16 +145,16 @@ function DayView() {
 				isLoading={isLoading}
 				failed={error}
 				onRetry={refetch}
-				tasks={taskGroups[DoneStates.REMAINING]}
-				doneState={DoneStates.REMAINING}
+				tasks={taskGroups[DoneStates.IN_PROGRESS]}
+				doneState={DoneStates.IN_PROGRESS}
 				onUpdateTask={onUpdateTask}
 			/>
 			<TaskGroupCard
 				isLoading={isLoading}
 				failed={error}
 				onRetry={refetch}
-				tasks={taskGroups[DoneStates.IN_PROGRESS]}
-				doneState={DoneStates.IN_PROGRESS}
+				tasks={taskGroups[DoneStates.REMAINING]}
+				doneState={DoneStates.REMAINING}
 				onUpdateTask={onUpdateTask}
 			/>
 			<TaskGroupCard
