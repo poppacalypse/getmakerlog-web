@@ -5,7 +5,6 @@ import { setCookie } from "nookies";
 import { isServer } from "config";
 import { getLogger } from "utils/logging";
 import { Router } from "routes";
-import { StdErrorCollection } from "utils/error";
 import { useStores } from "utils/hooks";
 import { useObserver } from "mobx-react";
 
