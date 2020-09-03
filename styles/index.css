@@ -73,6 +73,10 @@ a {
 	@apply text-green-500;
 }
 
+.remaining {
+	@apply bg-orange-100 text-orange-700 !important;
+}
+
 .Modal {
 }
 

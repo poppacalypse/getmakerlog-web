@@ -16,7 +16,7 @@ export function getDoneState(task) {
 export function getHumanStateFromDoneState(ds) {
 	switch (ds) {
 		case DoneStates.DONE:
-			return "Completed";
+			return "Done";
 		case DoneStates.IN_PROGRESS:
 			return "In progress";
 		case DoneStates.REMAINING:

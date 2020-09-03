@@ -9,6 +9,20 @@ export const TASK_QUERIES = {
 	getTasks: "tasks.getTasks",
 };
 
+export async function createTask(payload) {
+	let data = new FormData();
+	const headers = {
+		"Content-Type": "multipart/form-data",
+	};
+	for (const [key, value] of Object.entries(payload)) {
+		data.append(key, value);
+	}
+	const response = await axiosWrapper(axios.post, "/tasks/", data, {
+		headers,
+	});
+	return response.data;
+}
+
 export async function getTasksForDateRange(key, { startDate, endDate }) {
 	let page = 0;
 	log(
@@ -95,6 +109,22 @@ export function useUpdateTask({ date = null }) {
 			queries.map((query) => {
 				if (query) queryCache.invalidateQueries(query);
 			});
+		},
+	});
+}
+
+export function useCreateTask() {
+	return useMutation(createTask, {
+		onSuccess: (newTask) => {
+			log(`Created new task #${newTask.id}.`);
+			queryCache.setQueryData([TASK_QUERIES.getTasks], (old) => {
+				if (!old) return old;
+				return [...old, newTask];
+			});
+		},
+		// If the mutation fails, use the value returned from onMutate to roll back
+		onError: (err) => {
+			log(`Failed to create task. (${err})`);
 		},
 	});
 }

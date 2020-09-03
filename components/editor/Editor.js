@@ -1,61 +1,6 @@
 import React, { useState } from "react";
 import Card from "components/ui/Card";
-import Avatar from "components/ui/Avatar";
-import { useAuth } from "stores/AuthStore";
-import Button from "components/ui/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-function TaskEditor() {
-	const { user } = useAuth();
-	const [content, setContent] = useState("");
-
-	return (
-		<div>
-			<div className="flex items-center input-flex">
-				<span className="relative flex-none mr-2">
-					<Avatar size={8} user={user} />
-					<FontAwesomeIcon
-						className="absolute text-green-500 bg-white rounded-full"
-						style={{ right: "-4px", top: "-4px" }}
-						icon="check-circle"
-					/>
-				</span>
-				<input
-					value={content}
-					onChange={(e) => setContent(e.target.value)}
-					className="flex-grow w-full"
-					type="text"
-					placeholder="Start typing something you've done or made..."
-				/>
-			</div>
-			{content.length > 0 && (
-				<>
-					<textarea
-						rows={4}
-						className="w-full mt-2"
-						placeholder="Write a description or drop images here..."
-					/>
-					<div className="flex flex-row w-full mt-4">
-						<div className="flex-none mr-2">
-							<Button sm>
-								Completed
-								<Button.Icon right>
-									<FontAwesomeIcon icon="caret-down" />
-								</Button.Icon>
-							</Button>
-						</div>
-						<div className="flex-grow"></div>
-						<div className="flex-none">
-							<Button primary sm>
-								Post
-							</Button>
-						</div>
-					</div>
-				</>
-			)}
-		</div>
-	);
-}
+import TaskEditor from "./TaskEditor";
 
 function Editor() {
 	/**

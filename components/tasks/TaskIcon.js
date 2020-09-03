@@ -67,7 +67,7 @@ export function getAppIcon(app) {
 	return icon;
 }
 
-function TaskIcon({ task }) {
+function TaskIcon({ task, className, style }) {
 	let doneIcon = "check-circle";
 	let remainingIcon = "dot-circle";
 	let doneColor = "#27ae60";
@@ -79,11 +79,26 @@ function TaskIcon({ task }) {
 	}
 
 	return task.done ? (
-		<FontAwesomeIcon icon={doneIcon} color={doneColor} />
+		<FontAwesomeIcon
+			className={className}
+			icon={doneIcon}
+			color={doneColor}
+			style={style}
+		/>
 	) : task.in_progress ? (
-		<FontAwesomeIcon icon={remainingIcon} color={remainingColor} />
+		<FontAwesomeIcon
+			className={className}
+			icon={remainingIcon}
+			color={remainingColor}
+			style={style}
+		/>
 	) : (
-		<FontAwesomeIcon icon={["far", "circle"]} color={remainingColor} />
+		<FontAwesomeIcon
+			className={className}
+			icon={["far", "circle"]}
+			color={remainingColor}
+			style={style}
+		/>
 	);
 }
 

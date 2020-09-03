@@ -22,7 +22,7 @@ function DropdownItem({ children, elem = "a", ...props }) {
 	);
 }
 
-function Dropdown({ children, items, origin = "top-right" }) {
+function Dropdown({ children, items, origin = "top-right", className = "" }) {
 	const [open, setOpen] = useState(false);
 
 	const dropdownRef = useRef();
@@ -55,7 +55,10 @@ function Dropdown({ children, items, origin = "top-right" }) {
 				{(ref) => (
 					<div
 						ref={ref}
-						className={`origin-${origin} absolute right-0 mt-2 w-56 rounded-md shadow-lg z-20`}
+						className={
+							`origin-${origin} absolute right-0 mt-2 w-56 rounded-md shadow-lg z-20 ` +
+							className
+						}
 					>
 						<div className="bg-white rounded-md shadow-xs">
 							<div
