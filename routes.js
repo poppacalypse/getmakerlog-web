@@ -6,6 +6,8 @@ const routerHelper = routes()
 	.add("login", "/login")
 	.add("logout", "/logout")
 	.add("tasks", "/tasks")
+	.add("discussions", "/discussions")
+	.add("discussions-thread", "/discussions/[slug]")
 	.add("not-implemented", "/not-implemented");
 
 const { Link, Router, useRouter, withRouter } = routerHelper;

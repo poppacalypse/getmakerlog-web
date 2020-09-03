@@ -23,6 +23,7 @@ export async function axiosWrapper(fn, ...args) {
 	try {
 		return await fn(...args);
 	} catch (e) {
+		// eslint-disable-next-line no-console
 		console.log(`Makerlog (axios): ${e.message}`);
 		throw new StdErrorCollection(prettyAxiosError(e));
 	}

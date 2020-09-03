@@ -3,12 +3,13 @@ import { useAuth } from "stores/AuthStore";
 
 // Note: this is a bit of a layout hack to make it work with dual layouts seamlessly.
 
-function StickyNav({ children }) {
+function StickyNav({ sticky = true, children }) {
 	const { isLoggedIn } = useAuth();
 	return (
 		<div
 			className={
-				"sticky top-16 z-30 w-full border-b border-gray-200 bg-gray-50" +
+				(sticky ? " sticky " : "") +
+				"top-16 z-30 w-full border-b border-gray-200 bg-gray-50" +
 				(isLoggedIn ? " px-4 sm:px-6 lg:px-8 " : " px-4 ")
 			}
 		>

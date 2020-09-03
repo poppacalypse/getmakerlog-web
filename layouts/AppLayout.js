@@ -83,7 +83,10 @@ function MainSidebar({ user, open, toggleOpen }) {
 				" md:block md:w-72 pt-16 pb-0 md:sticky flex flex-col flex-grow border-r border-gray-200 max-h-screen bg-white overflow-y-auto h-full left-0 top-0 "
 			}
 		>
-			<div className="flex flex-col h-full pt-4">
+			<div
+				className="flex flex-col h-full pt-4"
+				onClick={open ? () => toggleOpen(false) : () => {}}
+			>
 				<ActiveLink
 					route="index"
 					activeClassName="text-gray-900 bg-green-100 border-l-2 border-green-500"
@@ -92,9 +95,14 @@ function MainSidebar({ user, open, toggleOpen }) {
 						Log
 					</a>
 				</ActiveLink>
-				<div className="p-4 py-3 font-semibold text-gray-700 cursor-pointer hover:bg-green-100">
-					Discussions
-				</div>
+				<ActiveLink
+					route="discussions"
+					activeClassName="text-gray-900 bg-green-100 border-l-2 border-green-500"
+				>
+					<div className="p-4 py-3 font-semibold text-gray-700 cursor-pointer hover:bg-green-100">
+						Discussions
+					</div>
+				</ActiveLink>
 				<div className="p-4 py-3 font-semibold text-gray-700 cursor-pointer hover:bg-green-100">
 					Chat
 				</div>
