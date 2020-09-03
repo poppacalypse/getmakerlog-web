@@ -86,7 +86,7 @@ class Task extends Component {
 					</div>
 				</div>
 				{task.description !== null && task.description.length > 0 && (
-					<p className="max-w-full p-4 ml-2 text-gray-900 break-words border-l border-gray-200">
+					<p className="max-w-full p-4 ml-2 text-gray-900 break-words whitespace-pre-line border-l border-gray-200">
 						{task.description}
 					</p>
 				)}
