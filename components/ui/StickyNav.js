@@ -8,7 +8,7 @@ function StickyNav({ children }) {
 	return (
 		<div
 			className={
-				"sticky top-16 z-50 w-full border-b border-gray-200 bg-gray-50" +
+				"sticky top-16 z-30 w-full border-b border-gray-200 bg-gray-50" +
 				(isLoggedIn ? " px-4 sm:px-6 lg:px-8 " : " px-4 ")
 			}
 		>

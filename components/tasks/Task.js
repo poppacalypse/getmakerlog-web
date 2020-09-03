@@ -72,7 +72,7 @@ class Task extends Component {
 		return (
 			<div className="w-full max-w-full Task">
 				<div className="flex flex-col content-center md:items-center md:flex-row">
-					<div className="flex flex-row items-center flex-grow max-w-full mb-1 text-base font-medium text-gray-900 break-all task">
+					<div className="flex flex-row flex-grow max-w-full mb-1 text-base font-medium text-gray-900 break-all task">
 						<span
 							className={`text-${getColorForTask(task)}-500 mr-1`}
 						>

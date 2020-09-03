@@ -72,7 +72,7 @@ function MainSidebar({ user, open, toggleOpen }) {
 	// Always open on mobile viewports.
 	const isOpen = isMobile ? open : true;
 	const openClassNames = isMobile
-		? " fixed top-0 left-0 w-full min-h-screen z-30 force-block "
+		? " fixed top-0 left-0 w-full min-h-screen z-40 force-block "
 		: "";
 
 	return (

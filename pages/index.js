@@ -5,6 +5,7 @@ import KeyActivityFeed from "components/stream/KeyActivityFeed";
 import ErrorCard from "components/ui/ErrorCard";
 import { Link } from "routes";
 import { useAuth } from "stores/AuthStore";
+import Editor from "components/editor/Editor";
 
 function IndexPage() {
 	const { isLoggedIn } = useAuth();
@@ -25,37 +26,7 @@ function IndexPage() {
 
 	return (
 		<div>
-			<Card>
-				<Card.Content>
-					<div className="mb-2">
-						<small className="inline-flex">
-							<div className="mr-2 font-medium text-green-700">
-								Task
-							</div>
-							<div className="font-medium text-gray-500">
-								Discussion
-							</div>
-						</small>
-					</div>
-					<div className="flex items-center input-flex">
-						<span className="mr-2">
-							<Avatar
-								size={8}
-								user={{
-									username: "sergio",
-									avatar:
-										"https://ik.imagekit.io/makerlog/media/uploads/avatars/2020/07/22/IMG-20200623-WA0106.jpg",
-								}}
-							/>
-						</span>
-						<input
-							className="flex-grow w-full"
-							type="text"
-							placeholder="Start typing something you've done or made..."
-						/>
-					</div>
-				</Card.Content>
-			</Card>
+			<Editor />
 
 			<Card>
 				<Card.Content>

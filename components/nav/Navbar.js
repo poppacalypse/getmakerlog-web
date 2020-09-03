@@ -20,12 +20,15 @@ function Navbar({ app = false }) {
 			<div className="flex flex-row flex-none navbar-left md:w-72">
 				{app && isLoggedIn && (
 					<a
-						className="flex items-center justify-center w-2 mr-4 flex-center md:hidden"
+						className="flex items-center justify-center mr-4 flex-center md:hidden"
 						onClick={() => toggleMobileSidebar()}
 					>
-						<FontAwesomeIcon
-							icon={mobileSidebarOpen ? "times" : "bars"}
-						/>
+						<Button sm className="w-10">
+							<FontAwesomeIcon
+								size="lg"
+								icon={mobileSidebarOpen ? "times" : "bars"}
+							/>
+						</Button>
 					</a>
 				)}
 				<Link route="index">
