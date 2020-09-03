@@ -66,6 +66,7 @@ export function useUpdateTask({ date = null }) {
 
 				// Optimistically update to the new value
 				queryCache.setQueryData(query, (old) => {
+					if (!old) return old;
 					return old.map((task) =>
 						task.id === id ? { ...task, ...payload } : task
 					);
