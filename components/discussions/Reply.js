@@ -4,7 +4,7 @@ import UserLine from "components/ui/UserLine";
 import Button from "components/ui/Button";
 import orderBy from "lodash/orderBy";
 
-function Reply({ reply, child, childrenReplies }) {
+function Reply({ reply, child, childrenReplies, withUserLine = true }) {
 	childrenReplies = orderBy(childrenReplies, "created_at", "asc");
 
 	return (
@@ -15,7 +15,7 @@ function Reply({ reply, child, childrenReplies }) {
 					: "mb-8 last:mb-0 break-words whitespace-pre-line"
 			}
 		>
-			<UserLine user={reply.owner} />
+			{withUserLine ? <UserLine user={reply.owner} /> : null}
 			<div
 				className={
 					child ? "p-2 " : "px-4 py-2 border-l border-gray-200 ml-2.5"

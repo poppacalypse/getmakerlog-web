@@ -8,6 +8,8 @@ import Task from "components/tasks/Task";
 import TaskActions from "components/tasks/TaskActions";
 import ErrorCard from "components/ui/ErrorCard";
 import { useAuth } from "stores/AuthStore";
+import Thread from "components/discussions/Thread";
+import Reply from "components/discussions/Reply";
 
 const log = getLogger("Activity");
 
@@ -182,6 +184,12 @@ function ActivityObject({ activity }) {
 		case "task":
 			// Render without attachments because we're rendering them apart.
 			return <Task withAttachments={false} task={object} />;
+
+		case "thread":
+			return <Thread thread={object} />;
+
+		case "reply":
+			return <Reply withUserLine={false} reply={object} />;
 
 		default:
 			return <ActivityTypeUnknown />;
