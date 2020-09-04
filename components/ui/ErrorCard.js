@@ -2,11 +2,15 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "./Card";
 import Button from "./Button";
+import { Link } from "routes";
 
 function getMessageForError(code) {
 	switch (code) {
 		case 400:
 			return "A request error ocurred.";
+
+		case 404:
+			return "This wasn't found or it just vanished magically.";
 
 		case 403:
 			return "You must sign in to do this.";
@@ -24,8 +28,16 @@ function getActionsForError(code) {
 		case 400:
 			return <Button>Report error</Button>;
 
+		case 404:
+			return (
+				<Link route="index">
+					<Button>Go home</Button>
+				</Link>
+			);
+
 		case 403:
 			return <Button primary>Sign in</Button>;
+
 		case 500:
 			return <Button>Report error</Button>;
 
@@ -35,19 +47,25 @@ function getActionsForError(code) {
 }
 
 class ErrorCard extends Component {
+	static defaultProps = {
+		nyan: true,
+	};
+
 	render() {
 		const { title = "Oops, something went wrong." } = this.props;
 		return (
 			<Card className="relative overflow-hidden">
 				<Card.Content>
-					<div className="absolute hidden opacity-50 nyan right-2 top-6 sm:block">
-						<img
-							className="h-20 transform -rotate-45"
-							style={{ "--transform-rotate": "-25deg" }}
-							src="/img/nyan.png"
-							alt=""
-						/>
-					</div>
+					{this.props.nyan ? (
+						<div className="absolute hidden opacity-50 nyan right-2 top-6 sm:block">
+							<img
+								className="h-20 transform -rotate-45"
+								style={{ "--transform-rotate": "-25deg" }}
+								src="/img/nyan.png"
+								alt=""
+							/>
+						</div>
+					) : null}
 					<h1 className="text-xl font-bold text-gray-900">{title}</h1>
 					<p className="mb-4 text-gray-700">
 						{this.props.message

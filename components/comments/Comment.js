@@ -51,7 +51,7 @@ function Comment({ comment, indexUrl }) {
 				<Avatar size={8} user={comment.user} />
 			</div>
 			<div className="flex-initial">
-				<UserLine user={comment.user} />
+				<UserLine withAvatar={false} user={comment.user} />
 				<div className="p-2 break-all bg-gray-100 shadow-xs rounded-md">
 					{editing ? (
 						<CommentEdit comment={comment} onSubmit={onEdit} />

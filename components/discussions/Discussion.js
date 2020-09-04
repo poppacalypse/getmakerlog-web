@@ -8,20 +8,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ActiveLink from "components/router/ActiveLink";
 import ThreadReplyFaces from "components/discussions/ThreadReplyFaces";
 
-function Discussion({ thread, withActionBar = true }) {
+function Discussion({ thread, full = false, withActionBar = true }) {
 	return (
 		<Card className="break-all">
 			<Card.Content>
 				<div className="flex flex-row items-center mb-2">
-					<div className="mr-2">
-						<Avatar size={6} user={thread.owner} />
-					</div>
-					<div>
-						<UserLine
-							style={{ marginBottom: 0 }}
-							user={thread.owner}
-						/>
-					</div>
+					<UserLine style={{ marginBottom: 0 }} user={thread.owner} />
 				</div>
 				<ActiveLink
 					route="discussions-thread"
@@ -35,7 +27,9 @@ function Discussion({ thread, withActionBar = true }) {
 							{thread.title}
 						</h3>
 						<p className="text-gray-700 whitespace-pre-line">
-							{truncate(thread.body, { length: 144 })}
+							{full
+								? thread.body
+								: truncate(thread.body, { length: 144 })}
 						</p>
 					</a>
 				</ActiveLink>

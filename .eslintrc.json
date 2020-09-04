@@ -25,7 +25,19 @@
 		"react/prop-types": 0,
 		"react/no-unescaped-entities": 0,
 		"react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
-		"react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
+		"react-hooks/exhaustive-deps": "warn", // Checks effect dependencies,
+		"no-restricted-imports": [
+			"error",
+			{
+				"paths": [
+					{
+						"name": "react-query",
+						"importNames": ["queryCache"],
+						"message": "Use useQueryCache instead."
+					}
+				]
+			}
+		]
 	},
 	"globals": {
 		"React": "writable"

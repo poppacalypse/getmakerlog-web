@@ -1,5 +1,5 @@
 import axios, { axiosWrapper } from "utils/axios";
-import { useQuery, useMutation, queryCache } from "react-query";
+import { useQuery, useMutation, useQueryCache } from "react-query";
 import { getLogger } from "utils/logging";
 
 const log = getLogger("commments");
@@ -44,6 +44,7 @@ export function useComments(indexUrl) {
 }
 
 export function useCreateComment(indexUrl, user) {
+	const queryCache = useQueryCache();
 	const query = [COMMENT_QUERIES.getComments, { indexUrl }];
 
 	return useMutation(createComment, {
@@ -55,15 +56,26 @@ export function useCreateComment(indexUrl, user) {
 			const previousComments = queryCache.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) => [
-				...old,
-				{
-					id: -1,
-					user,
-					content,
-					created_at: new Date(),
-				},
-			]);
+			queryCache.setQueryData(query, (old) => {
+				if (!old)
+					return [
+						{
+							id: -1,
+							user,
+							content,
+							created_at: new Date(),
+						},
+					];
+				return [
+					...old,
+					{
+						id: -1,
+						user,
+						content,
+						created_at: new Date(),
+					},
+				];
+			});
 
 			// Return the snapshotted value
 			return () => queryCache.setQueryData(query, previousComments);
@@ -81,6 +93,7 @@ export function useCreateComment(indexUrl, user) {
 }
 
 export function useUpdateComment(indexUrl) {
+	const queryCache = useQueryCache();
 	const query = [COMMENT_QUERIES.getComments, { indexUrl }];
 
 	return useMutation(updateComment, {
@@ -92,11 +105,11 @@ export function useUpdateComment(indexUrl) {
 			const previousComments = queryCache.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) =>
-				old.map((comment) =>
+			queryCache.setQueryData(query, (old) => {
+				return old.map((comment) =>
 					comment.id === id ? { ...comment, content } : comment
-				)
-			);
+				);
+			});
 
 			// Return the snapshotted value
 			return () => queryCache.setQueryData(query, previousComments);
@@ -114,6 +127,7 @@ export function useUpdateComment(indexUrl) {
 }
 
 export function useDeleteComment(indexUrl) {
+	const queryCache = useQueryCache();
 	const query = [COMMENT_QUERIES.getComments, { indexUrl }];
 
 	return useMutation(deleteComment, {

@@ -16,6 +16,8 @@ import Shell from "layouts/Shell";
 import { ReactQueryDevtools } from "react-query-devtools";
 import NProgressContainer from "vendor/nprogress";
 import { configure } from "mobx";
+import { ReactQueryCacheProvider } from "react-query";
+import { Hydrate } from "react-query/hydration";
 
 if (isDev && !isServer) {
 	localStorage.debug = "makerlog*,axios";
@@ -60,13 +62,20 @@ class Makerlog extends App {
 		const layoutProps = pageProps.layout ? pageProps.layout : {};
 
 		return (
-			<Provider {...store}>
-				<Shell statusCode={statusCode} layoutProps={layoutProps}>
-					<Component {...pageProps} />
-					<NProgressContainer spinner={false} />
-				</Shell>
-				<ReactQueryDevtools />
-			</Provider>
+			<ReactQueryCacheProvider>
+				<Hydrate state={pageProps.dehydratedState}>
+					<Provider {...store}>
+						<Shell
+							statusCode={statusCode}
+							layoutProps={layoutProps}
+						>
+							<Component {...pageProps} />
+							<NProgressContainer spinner={false} />
+						</Shell>
+						<ReactQueryDevtools />
+					</Provider>
+				</Hydrate>
+			</ReactQueryCacheProvider>
 		);
 	}
 }

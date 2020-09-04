@@ -1,5 +1,5 @@
 import axios, { axiosWrapper } from "utils/axios";
-import { useQuery, useMutation, queryCache } from "react-query";
+import { useQuery, useMutation, useQueryCache } from "react-query";
 import { getLogger } from "utils/logging";
 import { format } from "date-fns";
 
@@ -72,6 +72,7 @@ export function useTasks(startDate, endDate) {
 }
 
 export function useUpdateTask({ startDate = null, endDate = null }) {
+	const queryCache = useQueryCache();
 	const queries = [
 		startDate && endDate ? getQueryForDate(startDate, endDate) : null,
 	];
@@ -120,6 +121,7 @@ export function useUpdateTask({ startDate = null, endDate = null }) {
 }
 
 export function useCreateTask() {
+	const queryCache = useQueryCache();
 	return useMutation(createTask, {
 		onSuccess: (newTask) => {
 			log(`Created new task #${newTask.id}.`);

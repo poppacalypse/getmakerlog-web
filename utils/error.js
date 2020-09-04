@@ -212,6 +212,12 @@ export class StdErrorCollection {
 		return getErrorCodeString(this.errors);
 	};
 
+	intCode = () => {
+		return Math.max(this.errors.map((e) => e.code))
+			? Math.max(this.errors.map((e) => e.code))
+			: -1;
+	};
+
 	getFieldErrors = () => {
 		return this.errors.filter((e) => e.type === "field");
 	};

@@ -1,5 +1,5 @@
 import axios, { axiosWrapper } from "utils/axios";
-import { queryCache, useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, useQueryCache } from "react-query";
 import { getLogger } from "utils/logging";
 import uniqBy from "lodash/uniqBy";
 
@@ -27,6 +27,7 @@ export function usePraise(indexUrl, enabled) {
 }
 
 export function usePraiseMutation(initialCount, user) {
+	const queryCache = useQueryCache();
 	return useMutation(setPraise, {
 		// When mutate is called:
 		onMutate: (indexUrl) => {
