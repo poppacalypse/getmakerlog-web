@@ -38,59 +38,59 @@ function ThreadReplyForm({ thread, parentReply = null }) {
 		);
 	}
 
-	return (
+	let Container = ({ children }) => (
 		<Card>
-			<Card.Content>
-				<Form>
-					<div className="mb-2">
-						<UserLine user={user} />
-					</div>
-
-					<Form.Controls>
-						<Form.Field span={6}>
-							<textarea
-								value={body}
-								onChange={(e) => setBody(e.target.value)}
-								onKeyDown={(e) =>
-									onCmdEnter(e, () => onCreate())
-								}
-								className="h-32 mb-4"
-								placeholder="Say something nice..."
-							></textarea>
-						</Form.Field>
-					</Form.Controls>
-
-					{error && <ErrorMessageList error={error} />}
-
-					<div className="flex flex-row items-center w-full">
-						<div className="flex-none">
-							<small>
-								<OutboundLink
-									className="text-gray-500"
-									icon
-									to="https://www.markdowntutorial.com/"
-								>
-									<FontAwesomeIcon
-										icon={["fab", "markdown"]}
-									/>{" "}
-									Markdown is enabled.
-								</OutboundLink>
-							</small>
-						</div>
-						<div className="flex-grow"></div>
-						<div className="flex-none">
-							<Button
-								primary
-								loading={isLoading}
-								onClick={onCreate}
-							>
-								Post
-							</Button>
-						</div>
-					</div>
-				</Form>
-			</Card.Content>
+			<Card.Content>{children}</Card.Content>
 		</Card>
+	);
+
+	if (parentReply) {
+		Container = ({ children }) => children;
+	}
+
+	return (
+		<Container>
+			<Form>
+				<div className="mb-2">
+					<UserLine user={user} />
+				</div>
+
+				<Form.Controls>
+					<Form.Field span={6}>
+						<textarea
+							value={body}
+							onChange={(e) => setBody(e.target.value)}
+							onKeyDown={(e) => onCmdEnter(e, () => onCreate())}
+							className="h-32 mb-4"
+							placeholder="Say something nice..."
+						></textarea>
+					</Form.Field>
+				</Form.Controls>
+
+				{error && <ErrorMessageList error={error} />}
+
+				<div className="flex flex-row items-center w-full">
+					<div className="flex-none">
+						<small>
+							<OutboundLink
+								className="text-gray-500"
+								icon
+								to="https://www.markdowntutorial.com/"
+							>
+								<FontAwesomeIcon icon={["fab", "markdown"]} />{" "}
+								Markdown is enabled.
+							</OutboundLink>
+						</small>
+					</div>
+					<div className="flex-grow"></div>
+					<div className="flex-none">
+						<Button primary loading={isLoading} onClick={onCreate}>
+							Post
+						</Button>
+					</div>
+				</div>
+			</Form>
+		</Container>
 	);
 }
 
