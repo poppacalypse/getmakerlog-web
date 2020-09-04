@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserLine from "components/ui/UserLine";
 import Button from "components/ui/Button";
 import orderBy from "lodash/orderBy";
+import ThreadReplyForm from "./ThreadReplyForm";
 
-function Reply({ reply, child, childrenReplies, withUserLine = true }) {
+function Reply({
+	reply,
+	child,
+	childrenReplies,
+	thread,
+	onReplyTo = null,
+	withUserLine = true,
+}) {
+	const [replyingTo, setReplyingTo] = useState(null);
 	childrenReplies = orderBy(childrenReplies, "created_at", "asc");
 
 	return (
@@ -23,7 +32,14 @@ function Reply({ reply, child, childrenReplies, withUserLine = true }) {
 			>
 				<p>{reply.body}</p>
 				<div className="mt-4">
-					<Button xs>
+					<Button
+						xs
+						onClick={() => {
+							onReplyTo
+								? onReplyTo(reply.owner)
+								: setReplyingTo(reply.owner);
+						}}
+					>
 						<Button.Icon>
 							<FontAwesomeIcon icon="reply" />
 						</Button.Icon>{" "}
@@ -34,9 +50,25 @@ function Reply({ reply, child, childrenReplies, withUserLine = true }) {
 					{childrenReplies &&
 						childrenReplies.map((r) => (
 							<div key={r.id} className="mt-4">
-								<Reply child reply={r} />
+								<Reply
+									child
+									reply={r}
+									onReplyTo={setReplyingTo}
+								/>
 							</div>
 						))}
+					{!child && replyingTo ? (
+						<div className="mt-4">
+							<ThreadReplyForm
+								replyingTo={replyingTo}
+								parentReply={reply}
+								thread={thread}
+								onFinish={() => {
+									setReplyingTo(null);
+								}}
+							/>
+						</div>
+					) : null}
 				</div>
 			</div>
 		</div>

@@ -9,6 +9,7 @@ import Thread from "components/discussions/Thread";
 import { Link } from "routes";
 import ThreadReplies from "components/discussions/ThreadReplies";
 import ThreadReplyForm from "components/discussions/ThreadReplyForm";
+import Card from "components/ui/Card";
 
 function DiscussionThreadPage() {
 	const router = useRouter();
@@ -32,7 +33,11 @@ function DiscussionThreadPage() {
 				<Thread full withActionBar={false} thread={data} />
 			</div>
 			<div>
-				<ThreadReplyForm thread={data} />
+				<Card>
+					<Card.Content>
+						<ThreadReplyForm thread={data} />
+					</Card.Content>
+				</Card>
 			</div>
 			<div className="mt-4">
 				<h4 className="mb-2 font-semibold text-gray-700">
