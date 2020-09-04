@@ -3,12 +3,11 @@ import Button from "components/ui/Button";
 import truncate from "lodash/truncate";
 import Card from "components/ui/Card";
 import UserLine from "components/ui/UserLine";
-import Avatar from "components/ui/Avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ActiveLink from "components/router/ActiveLink";
 import ThreadReplyFaces from "components/discussions/ThreadReplyFaces";
 
-function Discussion({ thread, full = false, withActionBar = true }) {
+function Thread({ thread, full = false, withActionBar = true }) {
 	return (
 		<Card className="break-all">
 			<Card.Content>
@@ -61,4 +60,4 @@ function Discussion({ thread, full = false, withActionBar = true }) {
 	);
 }
 
-export default Discussion;
+export default Thread;

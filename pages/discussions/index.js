@@ -2,7 +2,7 @@ import React from "react";
 import Button from "components/ui/Button";
 import AppLayout from "layouts/AppLayout";
 import StickyNav from "components/ui/StickyNav";
-import LatestDiscussions from "components/discussions/LatestDiscussions";
+import LatestThreads from "components/discussions/LatestThreads";
 
 function DiscussionsPage() {
 	return (
@@ -19,7 +19,7 @@ function DiscussionsPage() {
 				</StickyNav>
 			}
 		>
-			<LatestDiscussions />
+			<LatestThreads />
 		</AppLayout.WithTopBar>
 	);
 }

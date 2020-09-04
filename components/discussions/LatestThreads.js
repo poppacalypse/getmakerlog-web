@@ -1,14 +1,14 @@
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useLatestDiscussions } from "queries/discussions";
+import { useLatestThreads } from "queries/discussions";
 import Button from "components/ui/Button";
 import { extractResultsFromGroups } from "utils/random";
 import orderBy from "lodash/orderBy";
 import ErrorCard from "components/ui/ErrorCard";
 import Spinner from "components/ui/Spinner";
-import Discussion from "components/discussions/Discussion";
+import Thread from "components/discussions/Thread";
 
-function LatestDiscussions() {
+function LatestThreads() {
 	const {
 		error,
 		data,
@@ -16,7 +16,7 @@ function LatestDiscussions() {
 		isFetchingMore,
 		fetchMore,
 		canFetchMore,
-	} = useLatestDiscussions();
+	} = useLatestThreads();
 
 	const discussions = orderBy(
 		extractResultsFromGroups(data),
@@ -33,7 +33,7 @@ function LatestDiscussions() {
 			//key={isServer}
 		>
 			{discussions.map((d) => (
-				<Discussion key={d.slug} thread={d} />
+				<Thread key={d.slug} thread={d} />
 			))}
 
 			{canFetchMore && discussions.length > 0 && (
@@ -70,4 +70,4 @@ function LatestDiscussions() {
 	);
 }
 
-export default LatestDiscussions;
+export default LatestThreads;

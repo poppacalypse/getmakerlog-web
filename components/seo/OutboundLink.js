@@ -17,7 +17,13 @@ const OutboundLink = ({
 		className={className}
 		style={style}
 	>
-		{children} <FontAwesomeIcon size="xs" icon="external-link-alt" />
+		{children}
+		{icon ? (
+			<span>
+				{" "}
+				<FontAwesomeIcon size="xs" icon="external-link-alt" />
+			</span>
+		) : null}
 	</a>
 );
 

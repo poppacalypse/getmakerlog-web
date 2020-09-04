@@ -10,13 +10,13 @@ import { getLogger } from "utils/logging";
 const log = getLogger("discussions");
 
 export const DISCUSSION_QUERIES = {
-	getLatestDiscussions: "discussions.getLatestDiscussions",
+	getLatestThreads: "discussions.getLatestThreads",
 	getThread: "discussions.getThread",
 	getThreadReplies: "discussions.getThreadReplies",
 	getThreadRepliers: "discussions.getThreadRepliers",
 };
 
-export async function getLatestDiscussions(key, next = null) {
+export async function getLatestThreads(key, next = null) {
 	const { data } = await axiosWrapper(
 		axios.get,
 		next ? next : `/discussions/`
@@ -58,10 +58,10 @@ export async function createThreadReply({ slug, body, parentReply = null }) {
 	return response.data;
 }
 
-export function useLatestDiscussions() {
+export function useLatestThreads() {
 	return useInfiniteQuery(
-		DISCUSSION_QUERIES.getLatestDiscussions,
-		getLatestDiscussions,
+		DISCUSSION_QUERIES.getLatestThreads,
+		getLatestThreads,
 		{
 			getFetchMore: (lastGroup) => {
 				return lastGroup.next;
