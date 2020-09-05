@@ -4,8 +4,8 @@ import truncate from "lodash/truncate";
 import Card from "components/ui/Card";
 import UserLine from "components/ui/UserLine";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ActiveLink from "components/router/ActiveLink";
 import ThreadReplyFaces from "components/discussions/ThreadReplyFaces";
+import { Link } from "routes";
 
 function Thread({ thread, full = false, withActionBar = true }) {
 	return (
@@ -14,10 +14,7 @@ function Thread({ thread, full = false, withActionBar = true }) {
 				<div className="flex flex-row items-center mb-2">
 					<UserLine style={{ marginBottom: 0 }} user={thread.owner} />
 				</div>
-				<ActiveLink
-					route="discussions-thread"
-					params={{ slug: thread.slug }}
-				>
+				<Link route="discussions-thread" params={{ slug: thread.slug }}>
 					<a>
 						<h3 className="mb-2 font-semibold text-gray-900">
 							{thread.pinned && (
@@ -31,23 +28,28 @@ function Thread({ thread, full = false, withActionBar = true }) {
 								: truncate(thread.body, { length: 144 })}
 						</p>
 					</a>
-				</ActiveLink>
+				</Link>
 				{withActionBar && (
 					<div className="flex flex-row items-center mt-4">
 						<div className="mr-2">
-							<Button sm>
-								<Button.Icon>
-									<FontAwesomeIcon icon="reply" />
-								</Button.Icon>
-								Reply{" "}
-								<span
-									className={
-										thread.reply_count > 0 ? "ml-2" : ""
-									}
-								>
-									<ThreadReplyFaces thread={thread} />
-								</span>
-							</Button>
+							<Link
+								route="discussions-thread"
+								params={{ slug: thread.slug }}
+							>
+								<Button sm>
+									<Button.Icon>
+										<FontAwesomeIcon icon="reply" />
+									</Button.Icon>
+									Reply{" "}
+									<span
+										className={
+											thread.reply_count > 0 ? "ml-2" : ""
+										}
+									>
+										<ThreadReplyFaces thread={thread} />
+									</span>
+								</Button>
+							</Link>
 						</div>
 
 						<div className="mr-2 text-gray-500">

@@ -8,7 +8,7 @@ import { dehydrate } from "react-query/hydration";
 import Thread from "components/discussions/Thread";
 import { Link } from "routes";
 import ThreadReplies from "components/discussions/ThreadReplies";
-import ThreadReplyForm from "components/discussions/ThreadReplyForm";
+import { ThreadReplyCreateForm } from "components/discussions/ThreadReplyForm";
 import Card from "components/ui/Card";
 
 function DiscussionThreadPage() {
@@ -35,7 +35,7 @@ function DiscussionThreadPage() {
 			<div>
 				<Card>
 					<Card.Content>
-						<ThreadReplyForm thread={data} />
+						<ThreadReplyCreateForm thread={data} />
 					</Card.Content>
 				</Card>
 			</div>

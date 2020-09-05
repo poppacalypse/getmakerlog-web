@@ -14,33 +14,14 @@ import { onCmdEnter } from "utils/random";
 import { usePrevious } from "utils/hooks";
 
 function ThreadReplyForm({
-	thread,
-	replyingTo = null,
-	parentReply = null,
-	onFinish = () => {},
+	body,
+	onChange,
+	isLoading,
+	error,
+	onSubmit,
+	withUserLine = true,
 }) {
 	const { user, isLoggedIn } = useAuth();
-	const [body, setBody] = useState("");
-	const [mutate, { isLoading, error, isSuccess }] = useCreateThreadReply();
-	const prevReplyingTo = usePrevious(replyingTo);
-
-	const onCreate = async () => {
-		await mutate({
-			slug: thread.slug,
-			body,
-			parentReply: parentReply ? parentReply.id : null,
-		});
-		onFinish();
-	};
-
-	useEffect(() => {
-		if (isSuccess) setBody("");
-	}, [isSuccess]);
-
-	useEffect(() => {
-		if (!prevReplyingTo && replyingTo)
-			setBody(`@${replyingTo.username} ${body}`);
-	}, [prevReplyingTo, body, replyingTo]);
 
 	if (!isLoggedIn) {
 		// TODO: Make a dedicated marketing component for this case
@@ -56,16 +37,18 @@ function ThreadReplyForm({
 
 	return (
 		<Form>
-			<div className="mb-2">
-				<UserLine user={user} />
-			</div>
+			{withUserLine ? (
+				<div className="mb-2">
+					<UserLine user={user} />
+				</div>
+			) : null}
 
 			<Form.Controls>
 				<Form.Field span={6}>
 					<textarea
 						value={body}
-						onChange={(e) => setBody(e.target.value)}
-						onKeyDown={(e) => onCmdEnter(e, () => onCreate())}
+						onChange={onChange}
+						onKeyDown={(e) => onCmdEnter(e, () => onSubmit())}
 						className="h-32 mb-4"
 						placeholder="Say something nice..."
 					></textarea>
@@ -89,12 +72,53 @@ function ThreadReplyForm({
 				</div>
 				<div className="flex-grow"></div>
 				<div className="flex-none">
-					<Button primary loading={isLoading} onClick={onCreate}>
+					<Button primary loading={isLoading} onClick={onSubmit}>
 						Post
 					</Button>
 				</div>
 			</div>
 		</Form>
+	);
+}
+
+export function ThreadReplyCreateForm({
+	thread,
+	replyingTo = null,
+	parentReply = null,
+	withUserLine = true,
+	onFinish = () => {},
+}) {
+	const [body, setBody] = useState("");
+	const [mutate, { isLoading, error, isSuccess }] = useCreateThreadReply();
+	const prevReplyingTo = usePrevious(replyingTo);
+
+	const onCreate = async () => {
+		await mutate({
+			slug: thread.slug,
+			body,
+			parentReply: parentReply ? parentReply.id : null,
+		});
+		onFinish();
+	};
+
+	useEffect(() => {
+		if (isSuccess) setBody("");
+	}, [isSuccess]);
+
+	useEffect(() => {
+		if (!prevReplyingTo && replyingTo)
+			setBody(`@${replyingTo.username} ${body}`);
+	}, [prevReplyingTo, body, replyingTo]);
+
+	return (
+		<ThreadReplyForm
+			body={body}
+			onChange={(e) => setBody(e.target.value)}
+			isLoading={isLoading}
+			error={error}
+			onSubmit={onCreate}
+			withUserLine={withUserLine}
+		/>
 	);
 }
 

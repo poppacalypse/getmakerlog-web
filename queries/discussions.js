@@ -58,6 +58,23 @@ export async function createThreadReply({ slug, body, parentReply = null }) {
 	return response.data;
 }
 
+export async function updateThreadReply({ slug, id, body }) {
+	const response = await axiosWrapper(
+		axios.patch,
+		`/discussions/${slug}/replies/${id}/`,
+		{ body }
+	);
+	return response.data;
+}
+
+export async function deleteThreadReply({ slug, id }) {
+	const response = await axiosWrapper(
+		axios.delete,
+		`/discussions/${slug}/replies/${id}/`
+	);
+	return response.data;
+}
+
 export function useLatestThreads() {
 	return useInfiniteQuery(
 		DISCUSSION_QUERIES.getLatestThreads,
@@ -102,6 +119,72 @@ export function useCreateThreadReply() {
 					return [...oldData, data];
 				}
 			);
+		},
+	});
+}
+
+export function useUpdateThreadReply(slug) {
+	const queryCache = useQueryCache();
+	const query = [DISCUSSION_QUERIES.getThreadReplies, { slug }];
+
+	return useMutation(updateThreadReply, {
+		onMutate: ({ id, body }) => {
+			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+			queryCache.cancelQueries(query);
+
+			// Snapshot the previous value
+			const previousReplies = queryCache.getQueryData(query);
+
+			// Optimistically update to the new value
+			queryCache.setQueryData(query, (old) => {
+				return old.map((reply) =>
+					reply.id === id ? { ...reply, body } : reply
+				);
+			});
+
+			// Return the snapshotted value
+			return () => queryCache.setQueryData(query, previousReplies);
+		},
+		// If the mutation fails, use the value returned from onMutate to roll back
+		onError: (err, content, rollback) => {
+			log(`Failed to update reply. (${err})`);
+			if (rollback) rollback();
+		},
+		// Always refetch after error or success:
+		onSettled: () => {
+			queryCache.invalidateQueries(query);
+		},
+	});
+}
+
+export function useDeleteThreadReply(slug) {
+	const queryCache = useQueryCache();
+	const query = [DISCUSSION_QUERIES.getThreadReplies, { slug }];
+
+	return useMutation(deleteThreadReply, {
+		onMutate: ({ id }) => {
+			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+			queryCache.cancelQueries(query);
+
+			// Snapshot the previous value
+			const previousReplies = queryCache.getQueryData(query);
+
+			// Optimistically update to the new value
+			queryCache.setQueryData(query, (old) =>
+				old.filter((reply) => reply.id !== id)
+			);
+
+			// Return the snapshotted value
+			return () => queryCache.setQueryData(query, previousReplies);
+		},
+		// If the mutation fails, use the value returned from onMutate to roll back
+		onError: (err, payload, rollback) => {
+			log(`Failed to delete reply. (${err})`);
+			if (rollback) rollback();
+		},
+		// Always refetch after error or success:
+		onSettled: () => {
+			queryCache.invalidateQueries(query);
 		},
 	});
 }
