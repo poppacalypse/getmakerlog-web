@@ -72,7 +72,6 @@ export function useTasks(startDate, endDate) {
 }
 
 export function useUpdateTask({ startDate = null, endDate = null }) {
-	console.log("hai");
 	const queryCache = useQueryCache();
 	const queries = [
 		startDate && endDate ? getQueryForDate(startDate, endDate) : null,
