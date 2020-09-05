@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import taskSchema from "schemas/Task";
+import taskSchema from "schemas/task";
 import { getLogger } from "utils/logging";
 import TaskIcon, { getColorForTask } from "./TaskIcon";
 import TaskActions from "./TaskActions";
