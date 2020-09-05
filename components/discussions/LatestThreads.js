@@ -7,6 +7,7 @@ import orderBy from "lodash/orderBy";
 import ErrorCard from "components/ui/ErrorCard";
 import Spinner from "components/ui/Spinner";
 import Thread from "components/discussions/Thread";
+import { threadsSchema } from "schemas/discussions";
 
 function LatestThreads() {
 	const {
@@ -18,11 +19,13 @@ function LatestThreads() {
 		canFetchMore,
 	} = useLatestThreads();
 
-	const discussions = orderBy(
-		extractResultsFromGroups(data),
-		"created_at",
-		"desc"
+	const { errors, value } = threadsSchema.validate(
+		orderBy(extractResultsFromGroups(data), "created_at", "desc")
 	);
+
+	const discussions = value;
+
+	if (errors) return null;
 
 	return (
 		<InfiniteScroll

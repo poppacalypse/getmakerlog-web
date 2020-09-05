@@ -11,6 +11,7 @@ import {
 } from "queries/discussions";
 import { useAuth } from "stores/AuthStore";
 import Dropdown from "components/ui/Dropdown";
+import { replySchema } from "schemas/discussions";
 
 function Reply({
 	reply,
@@ -27,6 +28,9 @@ function Reply({
 	const [deleteReply] = useDeleteThreadReply(reply.parent);
 	const [update, { isLoading, error }] = useUpdateThreadReply(reply.parent);
 	childrenReplies = orderBy(childrenReplies, "created_at", "asc");
+
+	const { errors } = replySchema.validate(reply);
+	if (errors) return null;
 
 	const onEdit = async () => {
 		await update({ slug: reply.parent, id: reply.id, body });
