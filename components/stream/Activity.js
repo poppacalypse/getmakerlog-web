@@ -10,6 +10,7 @@ import ErrorCard from "components/ui/ErrorCard";
 import { useAuth } from "stores/AuthStore";
 import Thread from "components/discussions/Thread";
 import Reply from "components/discussions/Reply";
+import { Link } from "routes";
 
 const log = getLogger("Activity");
 
@@ -34,33 +35,22 @@ function ItemLink({ type, item, children, loggedInOnly = false }) {
 		case "task":
 			return (
 				/* <Link route="task-page" params={{ id: item.id }}> */
-				<a target="_blank" rel="noopener noreferrer">
-					{children}
-				</a>
+				<a>{children}</a>
 				/*</Link>*/
 			);
 
 		case "thread":
 			return (
-				/* <Link
-					route="discussion-page"
-					params={{ slug: item.slug }}
-				> */
-				<a target="_blank" rel="noopener noreferrer">
-					{children}
-				</a>
-				/* </Link>*/
+				<Link route="discussions-thread" params={{ slug: item.slug }}>
+					<a>{children}</a>
+				</Link>
 			);
 
 		case "reply":
 			return (
-				/* <Link
-					href={`/discussions/${item.parent}/#reply-${item.id}`}
-				>*/
-				<a target="_blank" rel="noopener noreferrer">
-					{children}
-				</a>
-				/* </Link>*/
+				<Link href={`/discussions/${item.parent}/#reply-${item.id}`}>
+					<a>{children}</a>
+				</Link>
 			);
 
 		default:

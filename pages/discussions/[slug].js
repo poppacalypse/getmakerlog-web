@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useThread, getThread, DISCUSSION_QUERIES } from "queries/discussions";
 import { useRouter } from "next/router";
 import ErrorCard from "components/ui/ErrorCard";
@@ -15,6 +15,7 @@ function DiscussionThreadPage() {
 	const router = useRouter();
 	const { slug } = router.query;
 	const { isLoading, data, error } = useThread(slug);
+	const repliesEnd = useRef(null);
 
 	if (isLoading) return <Spinner text="Loading discussion..." />;
 
@@ -35,7 +36,16 @@ function DiscussionThreadPage() {
 			<div>
 				<Card>
 					<Card.Content>
-						<ThreadReplyCreateForm thread={data} />
+						<ThreadReplyCreateForm
+							thread={data}
+							onFinish={() => {
+								if (repliesEnd) {
+									repliesEnd.current.scrollIntoView({
+										behavior: "smooth",
+									});
+								}
+							}}
+						/>
 					</Card.Content>
 				</Card>
 			</div>
@@ -44,6 +54,7 @@ function DiscussionThreadPage() {
 					{data.reply_count} replies
 				</h4>
 				<ThreadReplies thread={data} />
+				<div ref={repliesEnd}></div>
 			</div>
 		</div>
 	);
