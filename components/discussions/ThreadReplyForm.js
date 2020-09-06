@@ -1,17 +1,16 @@
 import React from "react";
 import { useCreateThreadReply } from "queries/discussions";
 import ErrorCard from "components/ui/ErrorCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserLine from "components/ui/UserLine";
 import { useAuth } from "stores/AuthStore";
 import Form from "components/ui/Form";
 import Button from "components/ui/Button";
-import OutboundLink from "components/seo/OutboundLink";
 import { useState } from "react";
 import { useEffect } from "react";
 import ErrorMessageList from "components/error/ErrorMessageList";
 import { onCmdEnter } from "utils/random";
 import { usePrevious } from "utils/hooks";
+import MarkdownEnabled from "components/ui/MarkdownEnabled";
 
 function ThreadReplyForm({
 	body,
@@ -59,16 +58,7 @@ function ThreadReplyForm({
 
 			<div className="flex flex-row items-center w-full">
 				<div className="flex-none">
-					<small>
-						<OutboundLink
-							className="text-gray-500"
-							icon
-							to="https://www.markdowntutorial.com/"
-						>
-							<FontAwesomeIcon icon={["fab", "markdown"]} />{" "}
-							Markdown is enabled.
-						</OutboundLink>
-					</small>
+					<MarkdownEnabled />
 				</div>
 				<div className="flex-grow"></div>
 				<div className="flex-none">

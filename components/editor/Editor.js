@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Card from "components/ui/Card";
 import TaskEditor from "./TaskEditor";
+import DiscussionEditor from "./DiscussionEditor";
 
 function Editor() {
 	/**
@@ -38,6 +39,7 @@ function Editor() {
 					</small>
 				</div>
 				{tab === 0 && <TaskEditor />}
+				{tab === 1 && <DiscussionEditor />}
 			</Card.Content>
 		</Card>
 	);

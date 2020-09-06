@@ -75,6 +75,15 @@ export async function deleteThreadReply({ slug, id }) {
 	return response.data;
 }
 
+export async function createThread({ title, body, type = "TEXT" }) {
+	const response = await axiosWrapper(axios.post, `/discussions/`, {
+		title,
+		body,
+		type,
+	});
+	return response.data;
+}
+
 export function useLatestThreads() {
 	return useInfiniteQuery(
 		DISCUSSION_QUERIES.getLatestThreads,
@@ -103,6 +112,14 @@ export function useThread(slug) {
 export function useThreadReplies(slug) {
 	const query = [DISCUSSION_QUERIES.getThreadReplies, { slug }];
 	return useQuery(query, getThreadReplies);
+}
+
+export function useCreateThread() {
+	return useMutation(createThread, {
+		onSuccess: (data) => {
+			log(`Created new thread (#${data.slug})`);
+		},
+	});
 }
 
 export function useCreateThreadReply() {
