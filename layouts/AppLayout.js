@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserMedia from "components/ui/UserMedia";
 import ErrorCard from "components/ui/ErrorCard";
 import Navbar from "components/nav/Navbar";
@@ -10,6 +9,7 @@ import { isServer } from "config";
 import { useAuth } from "stores/AuthStore";
 import { useRoot } from "stores/RootStore";
 import ActiveLink from "components/router/ActiveLink";
+import Ad from "components/ads/Ad";
 
 const log = getLogger("AppLayout");
 
@@ -270,27 +270,24 @@ function AppLayout({ allowGuest, contained, ...props }) {
 				{isLoggedIn ? (
 					<div>
 						<div className="sticky top-0 right-0 flex-col flex-grow hidden h-full max-h-screen min-h-screen p-4 pt-20 pb-4 overflow-y-auto bg-white border-l border-gray-200 w-72 md:flex">
-							<h3
-								className="mb-2 text-xs font-semibold tracking-wider text-gray-500 uppercase leading-4"
-								id="projects-headline"
-							>
-								Indie ad
-							</h3>
-							<div className="ad-case">
-								<img
-									className="mb-2 border border-gray-200 rounded-md"
-									src="https://ik.imagekit.io/makerlog/media/uploads/bookings/2020/08/19/makerlog.png"
-									alt=""
-								/>
-								<a className="text-sm">
-									Create attention-grabbing headlines without
-									a marketer.{" "}
-									<FontAwesomeIcon
-										icon="external-link-alt"
-										size={"sm"}
-									/>
-								</a>
-							</div>
+							<span className="inline-flex flex-row">
+								<h3
+									className="flex-none mb-2 text-xs font-semibold tracking-wider text-gray-500 uppercase leading-4"
+									id="projects-headline"
+								>
+									Indie ad
+								</h3>
+								<span className="flex-grow"></span>
+								<h3
+									className="flex-none mb-2 text-xs text-gray-500 leading-4"
+									id="projects-headline"
+								>
+									<Link route="not-implemented">
+										Advertise here!
+									</Link>
+								</h3>
+							</span>
+							<Ad />
 
 							<div className="mt-8">
 								<h3
