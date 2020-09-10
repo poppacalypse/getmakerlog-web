@@ -11,5 +11,7 @@ export async function getAd() {
 }
 
 export function useAd() {
-	return useQuery([AD_QUERIES.getAd], getAd);
+	return useQuery([AD_QUERIES.getAd], getAd, {
+		staleTime: 1000 * 60 * 5,
+	});
 }
