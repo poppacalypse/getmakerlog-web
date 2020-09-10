@@ -131,11 +131,12 @@ function TaskDeleteAction({ task, onDelete = () => {} }) {
 }
 
 function TaskMoreDropdown({ task, onDelete }) {
+	const { isLoggedIn, user } = useAuth();
+
 	return (
 		<Dropdown
 			items={
 				<>
-					<TaskDeleteAction task={task} onDelete={onDelete} />
 					<TaskPermalinkAction task={task} />
 
 					<Dropdown.Item
@@ -147,6 +148,10 @@ function TaskMoreDropdown({ task, onDelete }) {
 						</Dropdown.Item.Icon>
 						Tweet
 					</Dropdown.Item>
+					{isLoggedIn && user.id === task.user.id && (
+						<div className="mt-2 mb-2 border-b border-gray-200"></div>
+					)}
+					<TaskDeleteAction task={task} onDelete={onDelete} />
 				</>
 			}
 		>
