@@ -17,6 +17,8 @@ jobs:
                   npm install
                   npm run build
                   zip -r deploy.zip .
+              env:
+                  NODE_ENV: production
             - name: Deploy to EB
               uses: einaregilsson/beanstalk-deploy@v10
               with:
