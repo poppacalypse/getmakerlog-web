@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "components/ui/Button";
 import truncate from "lodash/truncate";
 import Card from "components/ui/Card";
 import UserLine from "components/ui/UserLine";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ThreadReplyFaces from "components/discussions/ThreadReplyFaces";
-import { Link } from "routes";
+import { Link, Router } from "routes";
+import ThreadEditForm from "./ThreadEditForm";
+import ThreadActions from "./ThreadActions";
+import { useDeleteThread } from "queries/discussions";
+import { isServer } from "config";
 
-function Thread({ thread, full = false, withActionBar = true }) {
+function Thread({
+	thread,
+	full = false,
+	withActionBar = true,
+	withActionBarPage = false,
+}) {
+	const [editing, setEditing] = useState(false);
+	const [deleted, setDeleted] = useState(false);
+	const [deleteMutation] = useDeleteThread();
+
+	const onDelete = async () => {
+		await deleteMutation({ slug: thread.slug });
+		setDeleted(true);
+		if (!isServer) Router.pushRoute("discussions");
+	};
+
 	return (
 		<Card className="break-all">
 			<Card.Content>
@@ -22,13 +41,33 @@ function Thread({ thread, full = false, withActionBar = true }) {
 							)}{" "}
 							{thread.title}
 						</h3>
-						<p className="text-gray-700 whitespace-pre-line">
-							{full
-								? thread.body
-								: truncate(thread.body, { length: 144 })}
-						</p>
+						{deleted ? (
+							<div className="italic text-gray-600">
+								Content deleted.
+							</div>
+						) : editing ? (
+							<div className="text-gray-900">
+								<ThreadEditForm
+									thread={thread}
+									onFinish={() => setEditing(false)}
+								/>
+							</div>
+						) : (
+							<p className="text-gray-700 whitespace-pre-line">
+								{full
+									? thread.body
+									: truncate(thread.body, { length: 144 })}
+							</p>
+						)}
 					</a>
 				</Link>
+				{withActionBarPage && !editing && (
+					<ThreadActions
+						thread={thread}
+						onEdit={() => setEditing(true)}
+						onDelete={() => onDelete()}
+					/>
+				)}
 				{withActionBar && (
 					<div className="flex flex-row items-center mt-4">
 						<div className="mr-2">

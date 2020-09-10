@@ -6,6 +6,7 @@ import {
 	useQueryCache,
 } from "react-query";
 import { getLogger } from "utils/logging";
+import omit from "lodash/omit";
 
 const log = getLogger("discussions");
 
@@ -58,12 +59,25 @@ export async function createThreadReply({ slug, body, parentReply = null }) {
 	return response.data;
 }
 
+export async function updateThread({ slug, title, body }) {
+	const response = await axiosWrapper(axios.patch, `/discussions/${slug}/`, {
+		title,
+		body,
+	});
+	return response.data;
+}
+
 export async function updateThreadReply({ slug, id, body }) {
 	const response = await axiosWrapper(
 		axios.patch,
 		`/discussions/${slug}/replies/${id}/`,
 		{ body }
 	);
+	return response.data;
+}
+
+export async function deleteThread({ slug }) {
+	const response = await axiosWrapper(axios.delete, `/discussions/${slug}/`);
 	return response.data;
 }
 
@@ -165,6 +179,72 @@ export function useUpdateThreadReply(slug) {
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err, content, rollback) => {
 			log(`Failed to update reply. (${err})`);
+			if (rollback) rollback();
+		},
+		// Always refetch after error or success:
+		onSettled: () => {
+			queryCache.invalidateQueries(query);
+		},
+	});
+}
+
+export function useUpdateThread(slug) {
+	const queryCache = useQueryCache();
+	const query = [DISCUSSION_QUERIES.getThread, { slug }];
+
+	return useMutation(updateThread, {
+		onMutate: (payload) => {
+			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+			queryCache.cancelQueries(query);
+
+			// Snapshot the previous value
+			const previousThread = queryCache.getQueryData(query);
+
+			// Optimistically update to the new value
+			queryCache.setQueryData(query, (old) => {
+				if (!old) return old;
+				return { ...old, ...omit(payload, "slug") };
+			});
+
+			// Return the snapshotted value
+			return () => queryCache.setQueryData(query, previousThread);
+		},
+		// If the mutation fails, use the value returned from onMutate to roll back
+		onError: (err, content, rollback) => {
+			log(`Failed to update thread. (${err})`);
+			if (rollback) rollback();
+		},
+		// Always refetch after error or success:
+		onSettled: () => {
+			queryCache.invalidateQueries(query);
+		},
+	});
+}
+
+export function useDeleteThread() {
+	const query = [DISCUSSION_QUERIES.getLatestThreads];
+
+	const queryCache = useQueryCache();
+	return useMutation(deleteThread, {
+		onMutate: ({ slug }) => {
+			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+			queryCache.cancelQueries(query);
+
+			// Snapshot the previous value
+			const previousThreads = queryCache.getQueryData(query);
+
+			// Optimistically update to the new value
+			queryCache.setQueryData(query, (old) => {
+				if (!old) return old;
+				return old.filter((t) => t.slug !== slug);
+			});
+
+			// Return the snapshotted value
+			return () => queryCache.setQueryData(query, previousThreads);
+		},
+		// If the mutation fails, use the value returned from onMutate to roll back
+		onError: (err, content, rollback) => {
+			log(`Failed to delete thread. (${err})`);
 			if (rollback) rollback();
 		},
 		// Always refetch after error or success:

@@ -15,6 +15,7 @@ import ErrorMessageList from "components/error/ErrorMessageList";
 import { useEffect } from "react";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import { onCmdEnter } from "utils/random";
 
 function TaskEditor() {
 	const { user } = useAuth();
@@ -77,13 +78,6 @@ function TaskEditor() {
 		}
 	};
 
-	const onTextareaKeyPress = (e) => {
-		if ((e.ctrlKey || e.metaKey) && e.keyCode == 13) {
-			e.preventDefault();
-			onCreate(e);
-		}
-	};
-
 	return (
 		<form onSubmit={(e) => onCreate(e)} {...getRootProps()}>
 			<div className="flex items-center input-flex">
@@ -101,6 +95,7 @@ function TaskEditor() {
 				<input
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
+					onKeyDown={(e) => onCmdEnter(e, () => onCreate(e))}
 					className="flex-grow w-full mr-2"
 					type="text"
 					placeholder="Start typing something you've done or made..."
@@ -169,7 +164,7 @@ function TaskEditor() {
 						<textarea
 							value={description}
 							onChange={(e) => setDescription(e.target.value)}
-							onKeyDown={onTextareaKeyPress}
+							onKeyDown={(e) => onCmdEnter(e, () => onCreate(e))}
 							rows={4}
 							className="w-full h-32 mt-2"
 							placeholder="Write a description or drop images here..."

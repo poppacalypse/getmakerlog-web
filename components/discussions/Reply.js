@@ -110,7 +110,7 @@ function Reply({
 													<Dropdown.Item.Icon>
 														<FontAwesomeIcon icon="trash" />
 													</Dropdown.Item.Icon>{" "}
-													Trash
+													Delete
 												</Dropdown.Item>
 											</>
 										}

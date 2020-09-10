@@ -31,7 +31,12 @@ function DiscussionThreadPage() {
 				</Link>
 			</div>
 			<div className="mb-4">
-				<Thread full withActionBar={false} thread={data} />
+				<Thread
+					full
+					withActionBar={false}
+					withActionBarPage
+					thread={data}
+				/>
 			</div>
 			<div>
 				<Card>
