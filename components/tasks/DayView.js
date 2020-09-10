@@ -5,7 +5,7 @@ import { differenceInCalendarDays, format, subDays, addDays } from "date-fns";
 import Button from "components/ui/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "components/ui/Card";
-import { useTasks, useUpdateTask } from "queries/tasks";
+import { useTasks } from "queries/tasks";
 import Spinner from "components/ui/Spinner";
 import Task from "./Task";
 import {
@@ -28,14 +28,7 @@ function getRelativeDate(date) {
 	return calendarDate;
 }
 
-function TaskGroupCard({
-	isLoading,
-	failed,
-	onRetry,
-	tasks,
-	doneState,
-	onUpdateTask,
-}) {
+function TaskGroupCard({ isLoading, failed, onRetry, tasks, doneState }) {
 	return (
 		<>
 			<h3 className="mb-2 text-sm font-medium text-gray-700 leading-4">
@@ -67,7 +60,6 @@ function TaskGroupCard({
 										task={t}
 										withAttachments={false}
 										withActions={true}
-										onUpdate={onUpdateTask}
 									/>
 								</div>
 							))}
@@ -84,10 +76,6 @@ function DayView() {
 		currentDate,
 		currentDate
 	);
-	const [mutate] = useUpdateTask({
-		startDate: currentDate,
-		endDate: currentDate,
-	});
 
 	const rewindDate = () => {
 		setCurrentDate(subDays(currentDate, 1));
@@ -95,10 +83,6 @@ function DayView() {
 
 	const forwardDate = () => {
 		setCurrentDate(addDays(currentDate, 1));
-	};
-
-	const onUpdateTask = async (payload, newTask) => {
-		await mutate({ id: newTask.id, payload });
 	};
 
 	const taskGroups = groupTasksByDone(data ? data : []);
@@ -147,7 +131,6 @@ function DayView() {
 				onRetry={refetch}
 				tasks={taskGroups[DoneStates.IN_PROGRESS]}
 				doneState={DoneStates.IN_PROGRESS}
-				onUpdateTask={onUpdateTask}
 			/>
 			<TaskGroupCard
 				isLoading={isLoading}
@@ -155,7 +138,6 @@ function DayView() {
 				onRetry={refetch}
 				tasks={taskGroups[DoneStates.REMAINING]}
 				doneState={DoneStates.REMAINING}
-				onUpdateTask={onUpdateTask}
 			/>
 			<TaskGroupCard
 				isLoading={isLoading}
@@ -163,7 +145,6 @@ function DayView() {
 				onRetry={refetch}
 				tasks={taskGroups[DoneStates.DONE]}
 				doneState={DoneStates.DONE}
-				onUpdateTask={onUpdateTask}
 			/>
 		</AppLayout.WithTopBar>
 	);

@@ -14,6 +14,10 @@ import {
 	DoneStates,
 	getDeltaFromDoneState,
 } from "utils/tasks";
+import { useDeleteTask, useUpdateTask } from "queries/tasks";
+import { getLogger } from "utils/logging";
+
+const log = getLogger("TaskActions");
 
 function TaskStateDropdown({ task, onUpdate }) {
 	const ds = getDoneState(task);
@@ -111,11 +115,27 @@ function TaskPermalinkAction({ task }) {
 	);
 }
 
-function TaskMoreDropdown({ task }) {
+function TaskDeleteAction({ task, onDelete = () => {} }) {
+	const { isLoggedIn, user } = useAuth();
+
+	if (!isLoggedIn || user.id !== task.user.id) return null;
+
+	return (
+		<Dropdown.Item onClick={onDelete}>
+			<Dropdown.Item.Icon>
+				<FontAwesomeIcon icon="trash" />
+			</Dropdown.Item.Icon>
+			Delete
+		</Dropdown.Item>
+	);
+}
+
+function TaskMoreDropdown({ task, onDelete }) {
 	return (
 		<Dropdown
 			items={
 				<>
+					<TaskDeleteAction task={task} onDelete={onDelete} />
 					<TaskPermalinkAction task={task} />
 
 					<Dropdown.Item
@@ -131,6 +151,9 @@ function TaskMoreDropdown({ task }) {
 			}
 		>
 			<Button xs>
+				<Button.Icon>
+					<FontAwesomeIcon icon="ellipsis-v" />
+				</Button.Icon>
 				More
 				<Button.Icon right>
 					<FontAwesomeIcon icon="caret-down" />
@@ -140,12 +163,24 @@ function TaskMoreDropdown({ task }) {
 	);
 }
 
-function TaskActions({ task, stream = false, onUpdate = () => {} }) {
+function TaskActions({ task, stream = false }) {
 	// We allow this to be false, favoring a boolean op below.
 	// This allows for autofocus on click.
 	const { user } = useAuth();
+	const [updateMutation] = useUpdateTask(task);
+	const [deleteMutation] = useDeleteTask(task);
 	const [commentsOpen, setCommentsOpen] = useState(false);
 	if (!task) return;
+
+	const updateTask = async (delta) => {
+		await updateMutation({ payload: delta, id: task.id });
+		log(`Task #${task.id} has been updated. (${delta})`);
+	};
+
+	const deleteTask = async () => {
+		await deleteMutation({ id: task.id });
+		log(`Task #${task.id} has been deleted.`);
+	};
 
 	if (stream) {
 		return (
@@ -187,10 +222,10 @@ function TaskActions({ task, stream = false, onUpdate = () => {} }) {
 			<div>
 				<span className="inline-flex">
 					<span className="mr-2">
-						<TaskStateDropdown task={task} onUpdate={onUpdate} />
+						<TaskStateDropdown task={task} onUpdate={updateTask} />
 					</span>
 					<span className="mr-2">
-						<TaskMoreDropdown task={task} />
+						<TaskMoreDropdown task={task} onDelete={deleteTask} />
 					</span>
 				</span>
 			</div>

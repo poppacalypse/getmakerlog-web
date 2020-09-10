@@ -23,6 +23,11 @@ export async function createTask(payload) {
 	return response.data;
 }
 
+export async function deleteTask({ id }) {
+	const response = await axiosWrapper(axios.delete, `/tasks/${id}`);
+	return response.data;
+}
+
 export async function getTasksForDateRange(key, { startDate, endDate }) {
 	let page = 0;
 	log(
@@ -71,10 +76,17 @@ export function useTasks(startDate, endDate) {
 	return useQuery(getQueryForDate(startDate, endDate), getTasksForDateRange);
 }
 
-export function useUpdateTask({ startDate = null, endDate = null }) {
+export function useUpdateTask(task, startDate = null, endDate = null) {
 	const queryCache = useQueryCache();
 	const queries = [
 		startDate && endDate ? getQueryForDate(startDate, endDate) : null,
+		!startDate || !endDate
+			? getQueryForDate(
+					task.created_at ? new Date(task.created_at) : new Date(),
+					task.created_at ? new Date(task.created_at) : new Date()
+					// eslint-disable-next-line
+			  )
+			: null,
 	];
 
 	return useMutation(updateTask, {
@@ -113,6 +125,8 @@ export function useUpdateTask({ startDate = null, endDate = null }) {
 		},
 		// Always refetch after error or success:
 		onSettled: () => {
+			// CAUTION! Not doing this, keeping the optimistic task behind, could cause problems
+			// e.g. key duplication (duplicate task ids)
 			queries.map((query) => {
 				if (query) queryCache.invalidateQueries(query);
 			});
@@ -133,6 +147,60 @@ export function useCreateTask() {
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err) => {
 			log(`Failed to create task. (${err})`);
+		},
+	});
+}
+
+export function useDeleteTask(task, startDate = null, endDate = null) {
+	const queryCache = useQueryCache();
+	const queries = [
+		startDate && endDate ? getQueryForDate(startDate, endDate) : null,
+		!startDate && !endDate
+			? getQueryForDate(
+					task.created_at ? new Date(task.created_at) : new Date(),
+					task.created_at ? new Date(task.created_at) : new Date()
+					// eslint-disable-next-line
+			  )
+			: null,
+	];
+
+	return useMutation(deleteTask, {
+		onMutate: ({ id }) => {
+			const rollbacks = queries.map((query) => {
+				if (!query) return;
+				log(`Task mutation (delete), updating query '${query}'.`);
+				// Snapshot the previous value
+				const previousTasks = queryCache.getQueryData(query);
+
+				// Optimistically update to the new value
+				queryCache.setQueryData(query, (old) => {
+					if (!old) return old;
+					return old.filter((t) => t.id !== id);
+				});
+
+				// Return the snapshotted value
+				return () => queryCache.setQueryData(query, previousTasks);
+			});
+
+			return () => {
+				rollbacks.map((rollback) => {
+					if (rollback) {
+						log(`Rolling back query. (${rollback})`);
+						rollback();
+					}
+				});
+			};
+		},
+		// If the mutation fails, use the value returned from onMutate to roll back
+		onError: (err, content, rollback) => {
+			log(`Failed to delete task. (${err})`);
+			if (rollback) rollback();
+		},
+		// Always refetch after error or success:
+		onSettled: () => {
+			queries.map((query) => {
+				if (query) queryCache.invalidateQueries(query);
+			});
 		},
 	});
 }
