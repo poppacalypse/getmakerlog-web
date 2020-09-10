@@ -8,7 +8,7 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/setup-node@v2
+            - uses: actions/setup-node@v2-beta
               with:
                 node-version: '12.16.x'
                 check-latest: true
