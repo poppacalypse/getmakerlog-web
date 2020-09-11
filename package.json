@@ -48,6 +48,7 @@
 		"react-query": "^2.14.1",
 		"react-query-devtools": "^2.4.4",
 		"react-responsive-modal": "^5.1.0",
+		"react-use-websocket": "^2.1.1",
 		"recompose": "^0.30.0",
 		"tailwindcss": "^1.5.2",
 		"tailwindcss-dark-mode": "^1.1.6",

@@ -7,6 +7,7 @@ const routerHelper = routes()
 	.add("logout", "/logout")
 	.add("tasks", "/tasks")
 	.add("discussions", "/discussions")
+	.add("notifications", "/notifications")
 	.add("discussions-thread", "/discussions/[slug]")
 	.add("not-implemented", "/not-implemented");
 

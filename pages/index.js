@@ -26,7 +26,11 @@ function IndexPage() {
 
 	return (
 		<div>
-			<Editor />
+			<Card>
+				<Card.Content>
+					<Editor />
+				</Card.Content>
+			</Card>
 
 			<Card>
 				<Card.Content>

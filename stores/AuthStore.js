@@ -110,6 +110,7 @@ export function useAuth() {
 	return useObserver(() => ({
 		loading: auth.loading,
 		user: auth.user,
+		token: auth.token,
 		isLoggedIn: auth.isLoggedIn,
 		errorMessages: auth.errorMessages,
 		loginWithCredentials: auth.loginWithCredentials.bind(auth),

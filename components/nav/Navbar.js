@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "routes";
 import { useAuth } from "stores/AuthStore";
 import { useRoot } from "stores/RootStore";
+import NotificationsLink from "components/notifications/NotificationsLink";
 
 function Navbar({ app = false }) {
 	const { isLoggedIn, user } = useAuth();
@@ -57,10 +58,13 @@ function Navbar({ app = false }) {
 			<div className="flex flex-row items-center justify-end flex-none navbar-right md:w-72">
 				{isLoggedIn ? (
 					<>
-						<div className="flex items-center justify-center h-full px-4 font-semibold text-center text-gold-600">
-							Get Gold
-						</div>
-						<div className="pl-4">
+						{!user.gold && (
+							<div className="flex items-center justify-center h-full px-2 font-semibold text-center text-gold-600">
+								Get Gold
+							</div>
+						)}
+						<NotificationsLink />
+						<div className="pl-2">
 							<Avatar user={user} size={8} />
 						</div>
 					</>

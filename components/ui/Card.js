@@ -9,7 +9,7 @@ class Card extends Component {
 		return (
 			<div
 				className={
-					"Card bg-white rounded-md mb-4 shadow-xs " +
+					"Card bg-white rounded-md mb-4 shadow-xs last:mb-0 " +
 					(this.props.className ? this.props.className : "")
 				}
 			>
