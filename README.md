@@ -1,7 +1,8 @@
-![ml](https://i.imgur.com/fOvvzdh.png)
+![ml](https://i.imgur.com/22Ejdmt.png)
 
-# area51
-an experiment to improve makerlog
+# alpha
+the next version of makerlog 
+
 # notes
 - https://blog.nimbleways.com/building-utility-first-design-systems-with-tailwind/
 - https://www.figma.com/resources/learn-design/
