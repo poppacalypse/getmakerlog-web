@@ -52,10 +52,19 @@ export async function getTasksForDateRange(key, { startDate, endDate }) {
 }
 
 export async function updateTask({ id, payload }) {
-	const { data } = await axiosWrapper(axios.patch, `/tasks/${id}/`, {
-		...payload,
+	let data = new FormData();
+	const headers = {
+		"Content-Type": "multipart/form-data",
+	};
+	for (const [key, value] of Object.entries(payload)) {
+		if ((key === "attachment" || key === "description") && value === null)
+			break;
+		data.append(key, value);
+	}
+	const response = await axiosWrapper(axios.patch, `/tasks/${id}/`, data, {
+		headers,
 	});
-	return data;
+	return response.data;
 }
 
 function getQueryForDate(startDate, endDate) {

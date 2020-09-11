@@ -7,49 +7,29 @@ import {
 	DoneStates,
 	getDeltaFromDoneState,
 	getHumanStateFromDoneState,
+	useAttachmentInput,
 } from "utils/tasks";
 import TaskIcon from "components/tasks/TaskIcon";
 import Dropdown from "components/ui/Dropdown";
 import { useCreateTask } from "queries/tasks";
 import ErrorMessageList from "components/error/ErrorMessageList";
 import { useEffect } from "react";
-import { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
 import { onCmdEnter } from "utils/random";
 
 function TaskEditor() {
 	const { user } = useAuth();
 	const [content, setContent] = useState("");
 	const [description, setDescription] = useState("");
-	const [attachmentState, setAttachmentState] = useState({
-		attachment: null,
-		name: null,
-		preview: null,
-	});
 	const [doneState, setDoneState] = useState(DoneStates.DONE);
 	const [mutate, { isSuccess, isLoading, error }] = useCreateTask();
-	const onDrop = useCallback((acceptedFiles) => {
-		const reader = new FileReader();
-		const attachment = acceptedFiles[0];
 
-		reader.onloadend = () => {
-			setAttachmentState({
-				attachment,
-				name: attachment.name,
-				preview: reader.result,
-			});
-		};
-
-		if (attachment) {
-			reader.readAsDataURL(attachment);
-		}
-	}, []);
-	const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
-		onDrop,
-		noClick: true,
-		noKeyboard: true,
-		accept: "image/jpeg, image/png",
-	});
+	const {
+		attachmentState,
+		getRootProps,
+		getInputProps,
+		open,
+		isDragActive,
+	} = useAttachmentInput();
 
 	useEffect(() => {
 		if (isSuccess) {

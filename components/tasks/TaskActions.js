@@ -13,9 +13,15 @@ import {
 	getDoneState,
 	DoneStates,
 	getDeltaFromDoneState,
+	useAttachmentInput,
 } from "utils/tasks";
 import { useDeleteTask, useUpdateTask } from "queries/tasks";
 import { getLogger } from "utils/logging";
+import Modal from "components/ui/Modal";
+import Form from "components/ui/Form";
+import ErrorMessageList from "components/error/ErrorMessageList";
+import { useEffect } from "react";
+import { usePrevious } from "utils/hooks";
 
 const log = getLogger("TaskActions");
 
@@ -115,7 +121,7 @@ function TaskPermalinkAction({ task }) {
 	);
 }
 
-function TaskDeleteAction({ task, onDelete = () => {} }) {
+function TaskDeleteAction({ task, onDelete }) {
 	const { isLoggedIn, user } = useAuth();
 
 	if (!isLoggedIn || user.id !== task.user.id) return null;
@@ -130,41 +136,146 @@ function TaskDeleteAction({ task, onDelete = () => {} }) {
 	);
 }
 
-function TaskMoreDropdown({ task, onDelete }) {
-	const { isLoggedIn, user } = useAuth();
+function TaskEditModal({ task, open, onClose }) {
+	const [updateMutation, { isLoading, error, isSuccess }] = useUpdateTask(
+		task
+	);
+	const [content, setContent] = useState(task.content);
+	const [description, setDescription] = useState(
+		task.description ? task.description : ""
+	);
+	const {
+		attachmentState,
+		getInputProps,
+		open: openAttachmentSelect,
+	} = useAttachmentInput();
+	const previousIsSuccess = usePrevious(isSuccess);
+
+	useEffect(() => {
+		if (!previousIsSuccess && isSuccess) onClose();
+	}, [previousIsSuccess, isSuccess, onClose]);
+
+	const onSubmit = async () => {
+		await updateMutation({
+			id: task.id,
+			payload: {
+				content,
+				description: description,
+				attachment:
+					attachmentState.attachment !== null
+						? attachmentState.attachment
+						: null,
+			},
+		});
+	};
 
 	return (
-		<Dropdown
-			items={
-				<>
-					<TaskPermalinkAction task={task} />
+		<Modal open={open} onClose={onClose}>
+			<Modal.Header title="Edit task" />
+			<Form onSubmit={onSubmit}>
+				<Form.Controls>
+					<Form.Field span={6} label="Content">
+						<input
+							value={content}
+							onChange={(e) => setContent(e.target.value)}
+							placeholder="Did something today #life"
+						></input>
+					</Form.Field>
+					<Form.Field span={6} label="Description">
+						<textarea
+							value={description}
+							onChange={(e) => setDescription(e.target.value)}
+							placeholder="Describe your work..."
+						></textarea>
+					</Form.Field>
+					<Form.Field span={6} label="Attachment">
+						<input {...getInputProps()}></input>
+						<Button sm onClick={openAttachmentSelect}>
+							<Button.Icon>
+								<FontAwesomeIcon icon="camera" />
+							</Button.Icon>
+							{attachmentState.name
+								? attachmentState.name
+								: `${task.attachment ? "Change" : "Add"} image`}
+						</Button>
+					</Form.Field>
+				</Form.Controls>
 
-					<Dropdown.Item
-						href={getTwitterShareUrl([task])}
-						target="_blank"
-					>
-						<Dropdown.Item.Icon>
-							<FontAwesomeIcon icon={["fab", "twitter"]} />
-						</Dropdown.Item.Icon>
-						Tweet
-					</Dropdown.Item>
-					{isLoggedIn && user.id === task.user.id && (
-						<div className="mt-2 mb-2 border-b border-gray-200"></div>
-					)}
-					<TaskDeleteAction task={task} onDelete={onDelete} />
-				</>
-			}
-		>
-			<Button xs>
-				<Button.Icon>
-					<FontAwesomeIcon icon="ellipsis-v" />
-				</Button.Icon>
-				More
-				<Button.Icon right>
-					<FontAwesomeIcon icon="caret-down" />
-				</Button.Icon>
-			</Button>
-		</Dropdown>
+				{error && (
+					<div className="mt-4">
+						<ErrorMessageList error={error} />
+					</div>
+				)}
+
+				<Form.Actions span={4}>
+					<div className="ml-2">
+						<Button onClick={onClose}>Cancel</Button>
+					</div>
+					<div className="ml-2">
+						<Button primary loading={isLoading} type="submit">
+							Submit
+						</Button>
+					</div>
+				</Form.Actions>
+			</Form>
+		</Modal>
+	);
+}
+
+function TaskMoreDropdown({ task, onDelete, onUpdate }) {
+	const { isLoggedIn, user } = useAuth();
+	const [editing, setEditing] = useState(false);
+
+	return (
+		<>
+			{isLoggedIn && user.id === task.user.id && (
+				<TaskEditModal
+					task={task}
+					open={editing}
+					onUpdate={onUpdate}
+					onClose={() => setEditing(!editing)}
+				/>
+			)}
+			<Dropdown
+				items={
+					<>
+						<TaskPermalinkAction task={task} />
+
+						<Dropdown.Item
+							href={getTwitterShareUrl([task])}
+							target="_blank"
+						>
+							<Dropdown.Item.Icon>
+								<FontAwesomeIcon icon={["fab", "twitter"]} />
+							</Dropdown.Item.Icon>
+							Tweet
+						</Dropdown.Item>
+						{isLoggedIn && user.id === task.user.id && (
+							<div className="mt-2 mb-2 border-b border-gray-200"></div>
+						)}
+						{isLoggedIn && user.id === task.user.id && (
+							<Dropdown.Item onClick={() => setEditing(true)}>
+								<Dropdown.Item.Icon>
+									<FontAwesomeIcon icon="edit" />
+								</Dropdown.Item.Icon>
+								Edit
+							</Dropdown.Item>
+						)}
+						<TaskDeleteAction task={task} onDelete={onDelete} />
+					</>
+				}
+			>
+				<Button xs>
+					<Button.Icon>
+						<FontAwesomeIcon icon="ellipsis-v" />
+					</Button.Icon>
+					More
+					<Button.Icon right>
+						<FontAwesomeIcon icon="caret-down" />
+					</Button.Icon>
+				</Button>
+			</Dropdown>
+		</>
 	);
 }
 
@@ -212,7 +323,11 @@ function TaskActions({ task, stream = false }) {
 						</Button>
 					</span>
 					<span className="mr-2">
-						<TaskMoreDropdown task={task} />
+						<TaskMoreDropdown
+							task={task}
+							onUpdate={updateTask}
+							onDelete={deleteTask}
+						/>
 					</span>
 				</span>
 				{(commentsOpen || task.comment_count > 0) && (
@@ -230,7 +345,11 @@ function TaskActions({ task, stream = false }) {
 						<TaskStateDropdown task={task} onUpdate={updateTask} />
 					</span>
 					<span className="mr-2">
-						<TaskMoreDropdown task={task} onDelete={deleteTask} />
+						<TaskMoreDropdown
+							task={task}
+							onUpdate={updateTask}
+							onDelete={deleteTask}
+						/>
 					</span>
 				</span>
 			</div>

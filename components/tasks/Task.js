@@ -15,6 +15,12 @@ function Task({
 	withAttachments = true,
 	withActions = false,
 }) {
+	const { errors } = taskSchema.validate(task);
+	if (errors) {
+		log(`Task #${task.id ? task.id : null} failed validation. ${errors}`);
+		return null;
+	}
+
 	const renderActions = () => {
 		return <TaskActions task={task} />;
 	};
@@ -34,12 +40,6 @@ function Task({
 			return null;
 		}
 	};
-
-	const { errors } = taskSchema.validate(task);
-	if (errors) {
-		log(`Task #${task.id ? task.id : null} failed validation. ${errors}`);
-		return null;
-	}
 
 	return (
 		<div className="w-full max-w-full Task">

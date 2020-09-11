@@ -1,5 +1,7 @@
 import orderBy from "lodash/orderBy";
 import groupBy from "lodash/groupBy";
+import { useState, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 
 export const DoneStates = {
 	DONE: 0,
@@ -65,4 +67,44 @@ export function getTwitterShareUrl(tasks, me = null) {
 		return true;
 	});
 	return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+}
+
+export function useAttachmentInput() {
+	const [attachmentState, setAttachmentState] = useState({
+		attachment: null,
+		name: null,
+		preview: null,
+	});
+
+	const onDrop = useCallback((acceptedFiles) => {
+		const reader = new FileReader();
+		const attachment = acceptedFiles[0];
+
+		reader.onloadend = () => {
+			setAttachmentState({
+				attachment,
+				name: attachment.name,
+				preview: reader.result,
+			});
+		};
+
+		if (attachment) {
+			reader.readAsDataURL(attachment);
+		}
+	}, []);
+
+	const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
+		onDrop,
+		noClick: true,
+		noKeyboard: true,
+		accept: "image/jpeg, image/png",
+	});
+
+	return {
+		getRootProps,
+		getInputProps,
+		open,
+		isDragActive,
+		attachmentState,
+	};
 }
