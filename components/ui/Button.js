@@ -70,10 +70,10 @@ function ButtonIcon({ children, right = false }) {
 class Button extends React.Component {
 	render() {
 		const props = this.props;
-		const Tag = props.anchor ? `a` : `button`;
+		const Tag = props.anchorElem ? `a` : `button`;
 
 		const extraProps = {};
-		if (props.anchor) {
+		if (props.anchorElem) {
 			extraProps.href = props.href;
 			extraProps.target = props.target;
 		}

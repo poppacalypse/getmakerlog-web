@@ -12,7 +12,13 @@ function getColorForProps(props) {
 	}
 }
 
-function Message({ title = null, className = "", children, ...props }) {
+function Message({
+	title = null,
+	titleHint = null,
+	className = "",
+	children,
+	...props
+}) {
 	const color = getColorForProps(props);
 	return (
 		<div
@@ -25,6 +31,7 @@ function Message({ title = null, className = "", children, ...props }) {
 				<div>
 					{title !== null && (
 						<h5
+							title={titleHint}
 							className={`mb-2 leading-5 font-medium text-${color}-800 last:mb-0`}
 						>
 							{title}

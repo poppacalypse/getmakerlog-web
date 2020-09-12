@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { useCallback } from "react";
 import { buildSocketUrl } from "utils/random";
 import { isServer } from "config";
+import { notificationsSchema } from "schemas/notifications";
+import { StdErrorCollection } from "utils/error";
 
 const log = getLogger("notifications");
 
@@ -16,7 +18,9 @@ const NOTIFICATION_QUERIES = {
 
 export async function getNotifications() {
 	const { data } = await axiosWrapper(axios.get, "/notifications/");
-	return data;
+	const { value, error } = notificationsSchema.validate(data);
+	if (error) throw new StdErrorCollection(error);
+	return value;
 }
 
 export async function markAllRead() {

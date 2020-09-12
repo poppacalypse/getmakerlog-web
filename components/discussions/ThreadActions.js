@@ -13,7 +13,7 @@ function ThreadActions({ thread, onEdit, onDelete }) {
 			<div className="mr-2">
 				<Button
 					sm
-					anchor
+					anchorElem
 					href={getTwitterShareUrl(thread)}
 					target="_blank"
 				>

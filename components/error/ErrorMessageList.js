@@ -60,7 +60,13 @@ const ErrorMessageList = ({ error = null }) => {
 					className="relative overflow-hidden"
 					danger
 					title="An unknown error ocurred."
+					titleHint={error.getUnknownErrors()[0].message}
 				>
+					{isDev && (
+						<p className="mb-2">
+							{error.getUnknownErrors()[0].message}
+						</p>
+					)}
 					<div className="absolute opacity-50 nyan right-2 top-6">
 						<img
 							className="h-20 transform -rotate-45"
@@ -72,7 +78,7 @@ const ErrorMessageList = ({ error = null }) => {
 					{error.getUnknownErrors()[0].link !== null ? (
 						<Button
 							sm
-							anchor
+							anchorElem
 							href={error.getUnknownErrors()[0].link}
 						>
 							Report error

@@ -8,25 +8,39 @@ import {
 import Spinner from "components/ui/Spinner";
 import orderBy from "lodash/orderBy";
 import ErrorMessageList from "components/error/ErrorMessageList";
-import Button from "components/ui/Button";
 import Message from "components/ui/Message";
+import AppLayout from "layouts/AppLayout";
+import StickyNav from "components/ui/StickyNav";
+import { useEffect } from "react";
+import { useCallback } from "react";
+import Notification from "components/notifications/Notification";
 
 function NotificationsPage() {
 	const { isLoading, data, error } = useNotifications();
-	const [
-		markAllReadMutation,
-		{ isLoading: isMarkingRead },
-	] = useMarkAllReadNotifications();
+	const [markAllReadMutation] = useMarkAllReadNotifications();
 
-	const onClickMarkAllRead = async () => {
+	const markAllRead = useCallback(async () => {
 		await markAllReadMutation();
-	};
+	}, [markAllReadMutation]);
+
+	useEffect(() => {
+		markAllRead();
+	}, [markAllRead]);
 
 	return (
-		<>
+		<AppLayout.WithTopBar
+			topBar={
+				<StickyNav sticky={false}>
+					<div className="flex flex-row items-center">
+						<h2 className="font-bold">Notifications</h2>
+						<div className="flex-grow"></div>
+					</div>
+				</StickyNav>
+			}
+		>
 			<Message warning>
-				<strong>Heads up!</strong> This isn't finished yet, and is only
-				a proof of concept.
+				<strong>Heads up!</strong> This isn't finished yet, here be
+				dragons.
 			</Message>
 			<Card className="text-sm">
 				<Card.Content>
@@ -35,32 +49,15 @@ function NotificationsPage() {
 					)}
 					{data && (
 						<div>
-							<div className="mb-4">
-								<Button
-									loading={isMarkingRead}
-									onClick={onClickMarkAllRead}
-								>
-									Mark all read
-								</Button>
-							</div>
 							{orderBy(data, "created_at", "desc").map((n) => (
-								<pre key={n.id} className="w-full break-all">
-									{n.actor
-										? JSON.stringify(n.actor.username)
-										: null}{" "}
-									{n.verb}{" "}
-									{n.target
-										? JSON.stringify(n.target_type)
-										: null}{" "}
-									({n.read ? "read" : "unread"})
-								</pre>
+								<Notification notification={n} key={n.id} />
 							))}
 						</div>
 					)}
 					{error && <ErrorMessageList error={error} />}
 				</Card.Content>
 			</Card>
-		</>
+		</AppLayout.WithTopBar>
 	);
 }
 
@@ -68,6 +65,7 @@ NotificationsPage.getInitialProps = async () => {
 	return {
 		layout: {
 			layout: "app",
+			contained: false,
 		},
 	};
 };
