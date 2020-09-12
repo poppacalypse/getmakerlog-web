@@ -1,5 +1,6 @@
 import React from "react";
 
+// TODO: Fix PostCSS erasing these classnames
 function getColorForProps(props) {
 	if (props.danger) {
 		return "red";
