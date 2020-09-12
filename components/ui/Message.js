@@ -1,15 +1,39 @@
 import React from "react";
 
 // TODO: Fix PostCSS erasing these classnames
-function getColorForProps(props) {
+function getClassForProps(props) {
 	if (props.danger) {
-		return "red";
+		return "border-red-200 bg-red-50";
 	} else if (props.success) {
-		return "green";
+		return "border-green-200 bg-green-50";
 	} else if (props.warning) {
-		return "yellow";
+		return "border-yellow-200 bg-yellow-50";
 	} else {
-		return "blue";
+		return "border-blue-200 bg-blue-50";
+	}
+}
+
+function getStrongTextColor(props) {
+	if (props.danger) {
+		return "text-red-800";
+	} else if (props.success) {
+		return "text-green-800";
+	} else if (props.warning) {
+		return "text-yellow-800";
+	} else {
+		return "text-blue-800";
+	}
+}
+
+function getSemiStrongTextColor(props) {
+	if (props.danger) {
+		return "text-red-700";
+	} else if (props.success) {
+		return "text-green-700";
+	} else if (props.warning) {
+		return "text-yellow-700";
+	} else {
+		return "text-blue-700";
 	}
 }
 
@@ -20,12 +44,12 @@ function Message({
 	children,
 	...props
 }) {
-	const color = getColorForProps(props);
 	return (
 		<div
 			className={
-				`rounded-md border border-${color}-200 bg-${color}-50 p-4 mb-4 last:mb-0 ` +
-				className
+				`rounded-md border p-4 mb-4 last:mb-0 ` +
+				getClassForProps(props) +
+				` ${className}`
 			}
 		>
 			<div className="flex">
@@ -33,13 +57,21 @@ function Message({
 					{title !== null && (
 						<h5
 							title={titleHint}
-							className={`mb-2 leading-5 font-medium text-${color}-800 last:mb-0`}
+							className={
+								`mb-2 leading-5 font-medium last:mb-0 ` +
+								getStrongTextColor(props)
+							}
 						>
 							{title}
 						</h5>
 					)}
 					{children && (
-						<div className={`text-sm leading-5 text-${color}-700`}>
+						<div
+							className={
+								`text-sm leading-5 ` +
+								getSemiStrongTextColor(props)
+							}
+						>
 							{children}
 						</div>
 					)}
