@@ -8,16 +8,6 @@ import Task from "components/tasks/Task";
 import Message from "components/ui/Message";
 import Comment from "components/comments/Comment";
 
-function getActorLink(actor) {
-	return (
-		<Link route="not-implemented">
-			<a>
-				<FullName user={actor} />
-			</a>
-		</Link>
-	);
-}
-
 function getTargetLink(type, target) {
 	if (!type || !target) return null;
 	switch (type) {
@@ -93,17 +83,16 @@ function getNotificationContent(notification) {
 				</div>
 			);
 
+		case "thread_replied":
+		case "received_praise":
 		case "mention_discussion":
 		case "user_mentioned":
 		case "task_commented":
 			return (
 				<div>
-					<div className="mb-2">
-						<UserLine user={notification.actor} />
-					</div>
 					<h5 className="mb-4 text-base font-medium">
 						<span className="font-semibold">
-							{getActorLink(notification.actor)}
+							<FullName user={notification.actor} />
 						</span>{" "}
 						{notification.verb.substring(
 							0,
@@ -116,68 +105,20 @@ function getNotificationContent(notification) {
 							)}
 						</span>
 					</h5>
-					{getObjectComponent(
-						notification.obj_type,
-						notification.obj
-					)}
+					{notification.obj
+						? getObjectComponent(
+								notification.obj_type,
+								notification.obj
+								// eslint-disable-next-line
+						  )
+						: getObjectComponent(
+								notification.target_type,
+								notification.target
+								// eslint-disable-next-line
+						  )}
 				</div>
 			);
 
-		case "received_praise":
-			return (
-				<div>
-					<div className="mb-2">
-						<UserLine user={notification.actor} />
-					</div>
-					<h5 className="mb-4 text-base font-medium">
-						<span className="font-semibold">
-							{getActorLink(notification.actor)}
-						</span>{" "}
-						{notification.verb.substring(
-							0,
-							notification.verb.lastIndexOf(" ")
-						)}{" "}
-						<span className="font-semibold">
-							{getTargetLink(
-								notification.target_type,
-								notification.target
-							)}
-						</span>
-					</h5>
-					{getObjectComponent(
-						notification.target_type,
-						notification.target
-					)}
-				</div>
-			);
-		case "thread_replied":
-			return (
-				<div>
-					<div className="mb-2">
-						<UserLine user={notification.actor} />
-					</div>
-					<h5 className="mb-4 text-base font-medium">
-						<span className="font-semibold">
-							{getActorLink(notification.actor)}
-						</span>{" "}
-						{notification.verb.substring(
-							0,
-							notification.verb.lastIndexOf(" ")
-						)}{" "}
-						<span className="font-semibold">
-							{getTargetLink(
-								notification.target_type,
-								notification.target
-							)}
-						</span>
-					</h5>
-					{notification.obj ? (
-						<Reply withUserLine={false} reply={notification.obj} />
-					) : (
-						<Thread thread={notification.target} />
-					)}
-				</div>
-			);
 		default:
 			return (
 				<Message warning title="Oops, something went wrong.">
@@ -194,7 +135,17 @@ function Notification({ notification }) {
 	if (!content) return null;
 
 	return (
-		<div className="py-6 border-b border-gray-200 first:pt-0 last:border-0">
+		<div
+			className={
+				"py-6 border-b border-gray-200 first:pt-0 last:border-0 " +
+				(notification.read ? "opacity-75" : "")
+			}
+		>
+			{notification.actor !== null && (
+				<div className="mb-2">
+					<UserLine user={notification.actor} />
+				</div>
+			)}
 			{content}
 		</div>
 	);

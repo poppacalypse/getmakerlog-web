@@ -8,7 +8,6 @@ import {
 import Spinner from "components/ui/Spinner";
 import orderBy from "lodash/orderBy";
 import ErrorMessageList from "components/error/ErrorMessageList";
-import Message from "components/ui/Message";
 import AppLayout from "layouts/AppLayout";
 import StickyNav from "components/ui/StickyNav";
 import { useEffect } from "react";
@@ -24,7 +23,9 @@ function NotificationsPage() {
 	}, [markAllReadMutation]);
 
 	useEffect(() => {
-		markAllRead();
+		return () => {
+			markAllRead();
+		};
 	}, [markAllRead]);
 
 	return (
@@ -38,10 +39,6 @@ function NotificationsPage() {
 				</StickyNav>
 			}
 		>
-			<Message warning>
-				<strong>Heads up!</strong> This isn't finished yet, here be
-				dragons.
-			</Message>
 			<Card className="text-sm">
 				<Card.Content>
 					{isLoading && (
