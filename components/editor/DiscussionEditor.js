@@ -8,7 +8,7 @@ import MarkdownEnabled from "components/ui/MarkdownEnabled";
 import { useCreateThread } from "queries/discussions";
 import ErrorMessageList from "components/error/ErrorMessageList";
 
-function DiscussionEditor() {
+function DiscussionEditor({ onFinish }) {
 	const { user } = useAuth();
 	const [title, setTitle] = useState("");
 	const [body, setBody] = useState("");
@@ -22,8 +22,9 @@ function DiscussionEditor() {
 		if (isSuccess) {
 			setTitle("");
 			setBody("");
+			if (onFinish) onFinish();
 		}
-	}, [isSuccess]);
+	}, [isSuccess, onFinish]);
 
 	return (
 		<div>

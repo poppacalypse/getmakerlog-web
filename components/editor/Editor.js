@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TaskEditor from "./TaskEditor";
 import DiscussionEditor from "./DiscussionEditor";
 
-function Editor() {
+function Editor({ onFinish = () => {} }) {
 	/**
 	 * Four tabs!
 	 * - Completed
@@ -36,8 +36,8 @@ function Editor() {
 					</a>
 				</small>
 			</div>
-			{tab === 0 && <TaskEditor />}
-			{tab === 1 && <DiscussionEditor />}
+			{tab === 0 && <TaskEditor onFinish={onFinish} />}
+			{tab === 1 && <DiscussionEditor onFinish={onFinish} />}
 		</div>
 	);
 }

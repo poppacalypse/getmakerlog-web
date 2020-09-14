@@ -16,7 +16,7 @@ import ErrorMessageList from "components/error/ErrorMessageList";
 import { useEffect } from "react";
 import { onCmdEnter } from "utils/random";
 
-function TaskEditor() {
+function TaskEditor({ onFinish }) {
 	const { user } = useAuth();
 	const [content, setContent] = useState("");
 	const [description, setDescription] = useState("");
@@ -35,8 +35,9 @@ function TaskEditor() {
 		if (isSuccess) {
 			setContent("");
 			setDescription("");
+			if (onFinish) onFinish();
 		}
-	}, [isSuccess]);
+	}, [isSuccess, onFinish]);
 
 	const onCreate = async (e) => {
 		e.preventDefault();

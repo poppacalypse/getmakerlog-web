@@ -5,7 +5,7 @@ import Editor from "./Editor";
 function EditorModal({ open, onClose }) {
 	return (
 		<Modal open={open} onClose={onClose}>
-			<Editor />
+			<Editor onFinish={onClose} />
 		</Modal>
 	);
 }
