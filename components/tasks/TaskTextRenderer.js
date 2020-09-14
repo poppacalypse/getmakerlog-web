@@ -10,7 +10,7 @@ import { Link } from "routes";
 
 const URLComponent = (key, result) => {
 	return (
-		<OutboundLink icon to={result[0]} key={key}>
+		<OutboundLink icon to={result[0]} key={key} className="break-all">
 			{result[0]}
 		</OutboundLink>
 	);

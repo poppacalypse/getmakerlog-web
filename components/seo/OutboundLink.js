@@ -14,7 +14,7 @@ const OutboundLink = ({
 		href={to || href}
 		target={"_blank"}
 		rel="noopener noreferrer"
-		className={className + " break-all"}
+		className={className}
 		style={style}
 	>
 		{children}
