@@ -10,6 +10,7 @@ const taskSchema = Joi.object({
 	updated_at: Joi.date().iso().required(),
 	done_at: Joi.alternatives(Joi.date().iso(), Joi.allow(null)),
 	description: Joi.alternatives(Joi.string(), Joi.allow(null)),
+	product_set: Joi.array(),
 	project_set: Joi.array(),
 	praise: Joi.number().required(),
 	comment_count: Joi.number().required(),

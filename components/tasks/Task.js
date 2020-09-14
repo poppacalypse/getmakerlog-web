@@ -4,6 +4,8 @@ import { getLogger } from "utils/logging";
 import TaskIcon, { getColorForTask } from "./TaskIcon";
 import TaskActions from "./TaskActions";
 
+import TaskTextRenderer from "./TaskTextRenderer";
+
 const log = getLogger("Task");
 
 // TODO: When link parsing is implemented, break-all anchor tags only.
@@ -44,11 +46,13 @@ function Task({
 	return (
 		<div className="w-full max-w-full Task">
 			<div className="flex flex-col content-center md:items-center md:flex-row">
-				<div className="flex flex-row flex-grow max-w-full mb-1 text-base font-medium text-gray-900 break-all task">
+				<div className="flex flex-row flex-grow max-w-full mb-1 text-base font-medium text-gray-900 task">
 					<span className={`text-${getColorForTask(task)}-500 mr-1`}>
 						<TaskIcon task={task} />
 					</span>
-					<div className="flex-grow">{task.content}</div>
+					<div className="flex-grow">
+						<TaskTextRenderer task={task} />
+					</div>
 				</div>
 
 				<div className="flex-none ml-1">

@@ -69,6 +69,12 @@ export function getTwitterShareUrl(tasks, me = null) {
 	return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
 }
 
+export function findProductInTaskSet(task, tag) {
+	return task.product_set.find((x) =>
+		x.projects.find((n) => n.name.toLowerCase() === tag.toLowerCase())
+	);
+}
+
 export function useAttachmentInput() {
 	const [attachmentState, setAttachmentState] = useState({
 		attachment: null,
