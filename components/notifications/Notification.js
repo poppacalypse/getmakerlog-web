@@ -7,6 +7,7 @@ import Reply from "components/discussions/Reply";
 import Task from "components/tasks/Task";
 import Message from "components/ui/Message";
 import Comment from "components/comments/Comment";
+import TimeAgo from "react-timeago";
 
 function getTargetLink(type, target) {
 	if (!type || !target) return null;
@@ -137,8 +138,7 @@ function Notification({ notification }) {
 	return (
 		<div
 			className={
-				"py-6 border-b border-gray-200 first:pt-0 last:border-0 " +
-				(notification.read ? "opacity-75" : "")
+				"py-6 border-b border-gray-200 first:pt-0 last:border-0 "
 			}
 		>
 			{notification.actor !== null && (
@@ -147,6 +147,13 @@ function Notification({ notification }) {
 				</div>
 			)}
 			{content}
+			{notification.created !== null && (
+				<div className="mt-2">
+					<small className="text-xs text-gray-500">
+						<TimeAgo date={notification.created} />
+					</small>
+				</div>
+			)}
 		</div>
 	);
 }

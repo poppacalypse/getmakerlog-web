@@ -23,9 +23,7 @@ function NotificationsPage() {
 	}, [markAllReadMutation]);
 
 	useEffect(() => {
-		return () => {
-			markAllRead();
-		};
+		markAllRead();
 	}, [markAllRead]);
 
 	return (
