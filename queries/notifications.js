@@ -94,14 +94,14 @@ export function useStreamNotifications(token) {
 }
 
 export function useTitleCounts(count) {
-	const setCount = (count) => {
+	const setCount = (x) => {
 		if (isServer) return;
 		let initialTitle = document.title
 			.substring(document.title.indexOf(")") + 1)
 			.trim();
-		if (count > 0) {
+		if (x > 0) {
 			// remove any previous parentheses. still a hack.
-			document.title = `(${count}) ${initialTitle}`;
+			document.title = `(${x}) ${initialTitle}`;
 		} else {
 			document.title = initialTitle;
 		}
