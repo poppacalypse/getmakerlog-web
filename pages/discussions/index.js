@@ -1,26 +1,20 @@
 import React from "react";
 import Button from "components/ui/Button";
-import AppLayout from "layouts/AppLayout";
-import StickyNav from "components/ui/StickyNav";
 import LatestThreads from "components/discussions/LatestThreads";
+import PageHeader from "components/ui/PageHeader";
 
 function DiscussionsPage() {
 	return (
-		<AppLayout.WithTopBar
-			topBar={
-				<StickyNav sticky={false}>
-					<div className="flex flex-row items-center">
-						<h2 className="font-bold">Discussions</h2>
-						<div className="flex-grow"></div>
-						<div>
-							<Button secondary>New discussion</Button>
-						</div>
-					</div>
-				</StickyNav>
-			}
-		>
+		<div>
+			<PageHeader>
+				<h2 className="font-bold">Discussions</h2>
+				<div className="flex-grow"></div>
+				<div>
+					<Button secondary>New discussion</Button>
+				</div>
+			</PageHeader>
 			<LatestThreads />
-		</AppLayout.WithTopBar>
+		</div>
 	);
 }
 

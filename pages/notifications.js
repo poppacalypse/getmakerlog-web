@@ -8,11 +8,10 @@ import {
 import Spinner from "components/ui/Spinner";
 import orderBy from "lodash/orderBy";
 import ErrorMessageList from "components/error/ErrorMessageList";
-import AppLayout from "layouts/AppLayout";
-import StickyNav from "components/ui/StickyNav";
 import { useEffect } from "react";
 import { useCallback } from "react";
 import Notification from "components/notifications/Notification";
+import PageHeader from "components/ui/PageHeader";
 
 function NotificationsPage() {
 	const { isLoading, data, error } = useNotifications();
@@ -27,16 +26,11 @@ function NotificationsPage() {
 	}, [markAllRead]);
 
 	return (
-		<AppLayout.WithTopBar
-			topBar={
-				<StickyNav sticky={false}>
-					<div className="flex flex-row items-center">
-						<h2 className="font-bold">Notifications</h2>
-						<div className="flex-grow"></div>
-					</div>
-				</StickyNav>
-			}
-		>
+		<div>
+			<PageHeader>
+				<h2 className="font-bold">Notifications</h2>
+				<div className="flex-grow"></div>
+			</PageHeader>
 			<Card className="text-sm">
 				<Card.Content>
 					{isLoading && (
@@ -52,7 +46,7 @@ function NotificationsPage() {
 					{error && <ErrorMessageList error={error} />}
 				</Card.Content>
 			</Card>
-		</AppLayout.WithTopBar>
+		</div>
 	);
 }
 
@@ -60,7 +54,6 @@ NotificationsPage.getInitialProps = async () => {
 	return {
 		layout: {
 			layout: "app",
-			contained: false,
 		},
 	};
 };
