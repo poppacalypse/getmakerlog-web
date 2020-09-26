@@ -22,7 +22,13 @@ function DropdownItem({ children, elem = "a", ...props }) {
 	);
 }
 
-function Dropdown({ children, items, origin = "top-right", className = "" }) {
+function Dropdown({
+	children,
+	items,
+	origin = "top-right",
+	className = "",
+	hover = false,
+}) {
 	const [open, setOpen] = useState(false);
 
 	const dropdownRef = useRef();
@@ -38,7 +44,9 @@ function Dropdown({ children, items, origin = "top-right", className = "" }) {
 	return (
 		<div
 			className="relative"
-			onClick={() => setOpen(!open)}
+			onClick={!hover ? () => setOpen(!open) : () => {}}
+			onMouseEnter={hover ? () => setOpen(true) : () => {}}
+			onMouseLeave={hover ? () => setOpen(false) : () => {}}
 			ref={dropdownRef}
 		>
 			<div>{children}</div>

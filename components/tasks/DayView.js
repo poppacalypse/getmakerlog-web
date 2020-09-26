@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import StickyNav from "components/ui/StickyNav";
-import AppLayout from "layouts/AppLayout";
 import { differenceInCalendarDays, format, subDays, addDays } from "date-fns";
 import Button from "components/ui/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,6 +12,7 @@ import {
 	getHumanStateFromDoneState,
 } from "utils/tasks";
 import ErrorCard from "components/ui/ErrorCard";
+import PageHeader from "components/ui/PageHeader";
 
 function getRelativeDate(date) {
 	const calendarDate = format(date, "MMMM d, yyyy");
@@ -88,43 +87,38 @@ function DayView() {
 	const taskGroups = groupTasksByDone(data ? data : []);
 
 	return (
-		<AppLayout.WithTopBar
-			topBar={
-				<StickyNav>
-					<div className="flex flex-col">
-						<h2 className="mb-2 font-bold">
-							{getRelativeDate(currentDate)}
-						</h2>
-						<div className="flex flex-row w-full">
-							<div className="flex-none">
-								<Button sm onClick={rewindDate}>
-									<Button.Icon>
-										<FontAwesomeIcon icon="chevron-left" />
+		<div>
+			<PageHeader>
+				<div>
+					<h2 className="mb-2 font-bold">
+						{getRelativeDate(currentDate)}
+					</h2>
+					<div className="flex flex-row w-full">
+						<div className="flex-none">
+							<Button sm onClick={rewindDate}>
+								<Button.Icon>
+									<FontAwesomeIcon icon="chevron-left" />
+								</Button.Icon>
+								{getRelativeDate(subDays(currentDate, 1))}
+							</Button>
+						</div>
+						<div className="flex-grow"></div>
+						<div className="flex-none">
+							{differenceInCalendarDays(
+								new Date(),
+								currentDate
+							) == 0 ? null : (
+								<Button sm onClick={forwardDate}>
+									{getRelativeDate(addDays(currentDate, 1))}
+									<Button.Icon right>
+										<FontAwesomeIcon icon="chevron-right" />
 									</Button.Icon>
-									{getRelativeDate(subDays(currentDate, 1))}
 								</Button>
-							</div>
-							<div className="flex-grow"></div>
-							<div className="flex-none">
-								{differenceInCalendarDays(
-									new Date(),
-									currentDate
-								) == 0 ? null : (
-									<Button sm onClick={forwardDate}>
-										{getRelativeDate(
-											addDays(currentDate, 1)
-										)}
-										<Button.Icon right>
-											<FontAwesomeIcon icon="chevron-right" />
-										</Button.Icon>
-									</Button>
-								)}
-							</div>
+							)}
 						</div>
 					</div>
-				</StickyNav>
-			}
-		>
+				</div>
+			</PageHeader>
 			<TaskGroupCard
 				isLoading={isLoading}
 				failed={error}
@@ -146,7 +140,7 @@ function DayView() {
 				tasks={taskGroups[DoneStates.DONE]}
 				doneState={DoneStates.DONE}
 			/>
-		</AppLayout.WithTopBar>
+		</div>
 	);
 }
 

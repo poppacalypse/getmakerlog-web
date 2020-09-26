@@ -10,6 +10,7 @@ import { Link } from "routes";
 import ThreadReplies from "components/discussions/ThreadReplies";
 import { ThreadReplyCreateForm } from "components/discussions/ThreadReplyForm";
 import Card from "components/ui/Card";
+import NarrowLayout from "layouts/NarrowLayout";
 
 function DiscussionThreadPage() {
 	const router = useRouter();
@@ -24,7 +25,7 @@ function DiscussionThreadPage() {
 	}
 
 	return (
-		<div>
+		<NarrowLayout>
 			<div className="flex flex-row w-full mb-2 text-sm">
 				<Link route="discussions">
 					<a>← Discussions</a>
@@ -61,7 +62,7 @@ function DiscussionThreadPage() {
 				<ThreadReplies thread={data} />
 				<div ref={repliesEnd}></div>
 			</div>
-		</div>
+		</NarrowLayout>
 	);
 }
 

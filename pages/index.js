@@ -1,11 +1,11 @@
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
-import Avatar from "components/ui/Avatar";
 import KeyActivityFeed from "components/stream/KeyActivityFeed";
 import ErrorCard from "components/ui/ErrorCard";
 import { Link } from "routes";
 import { useAuth } from "stores/AuthStore";
 import Editor from "components/editor/Editor";
+import NarrowLayout from "layouts/NarrowLayout";
 
 function IndexPage() {
 	const { isLoggedIn } = useAuth();
@@ -25,7 +25,7 @@ function IndexPage() {
 	}
 
 	return (
-		<div>
+		<NarrowLayout>
 			<Card>
 				<Card.Content>
 					<Editor />
@@ -52,71 +52,8 @@ function IndexPage() {
 					</div>
 				</Card.Content>
 			</Card>
-
-			<Card>
-				<Card.Content>
-					<h3
-						className="mb-2 text-sm font-medium text-gray-700 leading-4"
-						id="projects-headline"
-					>
-						Top shippers today
-					</h3>
-					<div className="flex">
-						<span className="mr-2">
-							<Avatar
-								size={10}
-								user={{
-									username: "sergio",
-									avatar:
-										"https://ik.imagekit.io/makerlog/media/uploads/avatars/2020/07/22/IMG-20200623-WA0106.jpg",
-								}}
-							/>
-						</span>
-						<span className="mr-2">
-							<Avatar
-								size={10}
-								user={{
-									username: "sergio",
-									avatar:
-										"https://ik.imagekit.io/makerlog/media/uploads/avatars/2020/07/22/IMG-20200623-WA0106.jpg",
-								}}
-							/>
-						</span>
-						<span className="mr-2">
-							<Avatar
-								size={10}
-								user={{
-									username: "sergio",
-									avatar:
-										"https://ik.imagekit.io/makerlog/media/uploads/avatars/2020/07/22/IMG-20200623-WA0106.jpg",
-								}}
-							/>
-						</span>
-						<span className="mr-2">
-							<Avatar
-								size={10}
-								user={{
-									username: "sergio",
-									avatar:
-										"https://ik.imagekit.io/makerlog/media/uploads/avatars/2020/07/22/IMG-20200623-WA0106.jpg",
-								}}
-							/>
-						</span>
-						<span className="mr-2">
-							<Avatar
-								size={10}
-								user={{
-									username: "sergio",
-									avatar:
-										"https://ik.imagekit.io/makerlog/media/uploads/avatars/2020/07/22/IMG-20200623-WA0106.jpg",
-								}}
-							/>
-						</span>
-					</div>
-				</Card.Content>
-			</Card>
 			<KeyActivityFeed userId={-1} feed="timeline" />
-		</div>
+		</NarrowLayout>
 	);
 }
 
