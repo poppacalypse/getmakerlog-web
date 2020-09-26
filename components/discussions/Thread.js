@@ -28,7 +28,7 @@ function Thread({
 	};
 
 	return (
-		<Card className="break-all">
+		<Card className="break-word">
 			<Card.Content>
 				<div className="flex flex-row items-center mb-2">
 					<UserLine style={{ marginBottom: 0 }} user={thread.owner} />
@@ -53,12 +53,12 @@ function Thread({
 								/>
 							</div>
 						) : (
-							<p className="text-gray-700 whitespace-pre-line">
-								{full
-									? thread.body
-									: truncate(thread.body, { length: 144 })}
-							</p>
-						)}
+									<p className="text-gray-700 whitespace-pre-line">
+										{full
+											? thread.body
+											: truncate(thread.body, { length: 144 })}
+									</p>
+								)}
 					</a>
 				</Link>
 				{withActionBarPage && !editing && (

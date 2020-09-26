@@ -98,14 +98,14 @@ function Navbar() {
 								</div>
 							</>
 						) : (
-							<Button primary>Join Makerlog</Button>
-						)}
+								<Button primary>Join Makerlog</Button>
+							)}
 					</div>
 				</div>
 			</div>
 			<div className="border-b border-gray-200">
 				<div className="px-4 py-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-					<div className="flex flex-auto">
+					<div className="flex flex-auto max-w-full overflow-x-auto">
 						<ActiveLink
 							route="index"
 							activeClassName="text-green-500"
@@ -131,6 +131,19 @@ function Navbar() {
 						<div className="mr-4 font-medium text-gray-500">
 							Events
 						</div>
+						{isLoggedIn && (
+							<>
+								<div className="flex-grow"></div>
+								<ActiveLink
+									route="tasks"
+									activeClassName="text-green-500"
+								>
+									<a className="flex-none font-medium text-gray-500">
+										Your Tasks
+							</a>
+								</ActiveLink>
+							</>
+						)}
 					</div>
 				</div>
 			</div>
