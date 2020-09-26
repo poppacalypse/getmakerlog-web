@@ -5,6 +5,8 @@ import ErrorMessageList from "components/error/ErrorMessageList";
 import { requireUnauthed } from "utils/auth";
 import { Router } from "routes";
 import { useAuth } from "stores/AuthStore";
+import NarrowLayout from "layouts/NarrowLayout";
+import Card from "components/ui/Card";
 
 function LoginPage() {
 	const { loginWithCredentials, loading, errorMessages } = useAuth();
@@ -23,9 +25,9 @@ function LoginPage() {
 	};
 
 	return (
-		<div className="flex flex-grow w-full h-full p-0 border-b border-l border-r border-gray-200 bg-gray-50">
-			<div className="flex flex-col justify-center flex-initial w-full p-4 px-8">
-				<div>
+		<NarrowLayout leftSidebar={null} rightSidebar={null}>
+			<Card>
+				<Card.Content>
 					<Form
 						onSubmit={(e) => {
 							e.preventDefault();
@@ -34,16 +36,16 @@ function LoginPage() {
 						}}
 					>
 						<Form.Controls>
-							<div className="col-span-4">
+							<div className="col-span-6">
 								<h1>Sign in</h1>
 								<p className="text-gray-700">
 									Welcome back to the maker community.
 								</p>
 							</div>
-							<div className="col-span-4">
+							<div className="col-span-6">
 								<ErrorMessageList error={errorMessages} />
 							</div>
-							<Form.Field span={4} label="Username">
+							<Form.Field span={6} label="Username">
 								<input
 									value={username}
 									onChange={(e) =>
@@ -51,7 +53,7 @@ function LoginPage() {
 									}
 								/>
 							</Form.Field>
-							<Form.Field span={4} label="Password">
+							<Form.Field span={6} label="Password">
 								<input
 									value={password}
 									onChange={(e) =>
@@ -60,7 +62,7 @@ function LoginPage() {
 									type="password"
 								/>
 							</Form.Field>
-							<Form.Actions span={4}>
+							<Form.Actions span={6}>
 								<Button
 									primary
 									loading={loading || redirecting}
@@ -71,10 +73,9 @@ function LoginPage() {
 							</Form.Actions>
 						</Form.Controls>
 					</Form>
-				</div>
-			</div>
-			<div className="flex-initial hidden w-full bg-people md:block"></div>
-		</div>
+				</Card.Content>
+			</Card>
+		</NarrowLayout>
 	);
 }
 

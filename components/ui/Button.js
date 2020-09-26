@@ -30,7 +30,7 @@ function getClassNames(props) {
 			" bg-green-600 hover:bg-green-500 active:bg-green-700 text-white";
 	} else if (props.secondary) {
 		classNames +=
-			" text-green-700 bg-green-100 hover:bg-green-50 focus:border-green-300 active:bg-green-200 ";
+			" text-green-700 bg-green-100 border border-green-200 hover:bg-green-50 focus:border-green-300 active:bg-green-200 ";
 	} else {
 		classNames +=
 			" border-gray-300 text-gray-700 bg-white hover:text-gray-500 active:text-gray-800 active:bg-gray-50 ";
@@ -100,6 +100,7 @@ class Button extends React.Component {
 					"lg",
 					"xs",
 					"xl",
+					"div",
 				])}
 				{...extraProps}
 			>

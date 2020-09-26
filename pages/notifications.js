@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { useCallback } from "react";
 import Notification from "components/notifications/Notification";
 import PageHeader from "components/ui/PageHeader";
+import NarrowLayout from "layouts/NarrowLayout";
 
 function NotificationsPage() {
 	const { isLoading, data, error } = useNotifications();
@@ -26,7 +27,7 @@ function NotificationsPage() {
 	}, [markAllRead]);
 
 	return (
-		<div>
+		<NarrowLayout leftSidebar={null} rightSidebar={null}>
 			<PageHeader>
 				<h2 className="font-bold">Notifications</h2>
 				<div className="flex-grow"></div>
@@ -46,7 +47,7 @@ function NotificationsPage() {
 					{error && <ErrorMessageList error={error} />}
 				</Card.Content>
 			</Card>
-		</div>
+		</NarrowLayout>
 	);
 }
 

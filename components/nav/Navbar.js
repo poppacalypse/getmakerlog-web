@@ -7,15 +7,12 @@ import { useAuth } from "stores/AuthStore";
 import { useRoot } from "stores/RootStore";
 import NotificationsLink from "components/notifications/NotificationsLink";
 import EditorModal from "components/editor/EditorModal";
+import ActiveLink from "components/router/ActiveLink";
+import Dropdown from "components/ui/Dropdown";
 
-function Navbar({ app = false }) {
+function Navbar() {
 	const { isLoggedIn, user } = useAuth();
-	const {
-		mobileSidebarOpen,
-		toggleMobileSidebar,
-		toggleEditor,
-		editorOpen,
-	} = useRoot();
+	const { toggleEditor, editorOpen } = useRoot();
 
 	return (
 		<nav className="flex-none bg-white">
@@ -29,18 +26,31 @@ function Navbar({ app = false }) {
 							</a>
 						</Link>
 						<input
-							style={{ width: "20rem" }}
+							style={{ width: "500px" }}
 							className="hidden w-64 mr-4 md:block"
 							placeholder="Search products, makers, stories..."
 						/>
-						<Link route="index">
-							<a className="mr-4 font-semibold">Community</a>
-						</Link>
-						<div className="mr-4 font-semibold text-gray-700 ">
-							Stories
-						</div>
-						<div className="mr-4 font-semibold text-gray-700 ">
-							More
+						<div
+							className={
+								"fixed sm:static flex flex-row bottom-0 left-0 w-full bg-white sm:bg-transparent z-40 border-t border-gray-200 sm:border-none"
+							}
+						>
+							<ActiveLink
+								route="index"
+								wildcard
+								notPath={["stories", "more", "_error"]}
+								activeClassName="text-green-500"
+							>
+								<a className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
+									Community
+								</a>
+							</ActiveLink>
+							<div className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
+								Stories
+							</div>
+							<div className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
+								More
+							</div>
 						</div>
 					</div>
 					<div className="flex justify-end flex-1">
@@ -67,8 +77,24 @@ function Navbar({ app = false }) {
 									<FontAwesomeIcon icon="plus" />
 								</button>
 								<NotificationsLink />
-								<div className="pl-2">
-									<Avatar user={user} size={8} />
+								<div className="pl-2 cursor-pointer">
+									<Dropdown
+										hover
+										items={
+											<>
+												<Link route="logout">
+													<Dropdown.Item>
+														<Dropdown.Item.Icon>
+															<FontAwesomeIcon icon="sign-out-alt" />
+														</Dropdown.Item.Icon>{" "}
+														Log out
+													</Dropdown.Item>
+												</Link>
+											</>
+										}
+									>
+										<Avatar user={user} size={8} />
+									</Dropdown>
 								</div>
 							</>
 						) : (
@@ -80,12 +106,22 @@ function Navbar({ app = false }) {
 			<div className="border-b border-gray-200">
 				<div className="px-4 py-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
 					<div className="flex flex-auto">
-						<div className="mr-4 font-medium text-green-500">
-							Feed
-						</div>
-						<div className="mr-4 font-medium text-gray-500">
-							Discussions
-						</div>
+						<ActiveLink
+							route="index"
+							activeClassName="text-green-500"
+						>
+							<a className="mr-4 font-medium text-gray-500">
+								Feed
+							</a>
+						</ActiveLink>
+						<ActiveLink
+							route="discussions"
+							activeClassName="text-green-500"
+						>
+							<a className="mr-4 font-medium text-gray-500">
+								Discussions
+							</a>
+						</ActiveLink>
 						<div className="mr-4 font-medium text-gray-500">
 							Groups
 						</div>

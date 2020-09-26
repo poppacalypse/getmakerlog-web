@@ -9,6 +9,8 @@ function ActiveLink({
 	route,
 	params,
 	activeClassName,
+	notPath = [],
+	wildcard = false,
 	children,
 	...props
 }) {
@@ -19,7 +21,9 @@ function ActiveLink({
 	let className = child.props.className || "";
 	if (
 		(router.pathname === href ||
-			routerHelper.resolveRoute(route).href == router.pathname) &&
+			routerHelper.resolveRoute(route).href == router.pathname ||
+			wildcard) &&
+		!notPath.some((v) => router.pathname.includes(v)) &&
 		activeClassName
 	) {
 		className = `${className} ${activeClassName}`.trim();
