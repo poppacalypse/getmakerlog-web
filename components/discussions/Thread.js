@@ -10,6 +10,7 @@ import ThreadEditForm from "./ThreadEditForm";
 import ThreadActions from "./ThreadActions";
 import { useDeleteThread } from "queries/discussions";
 import { isServer } from "config";
+import ModStatus from "./ModStatus";
 
 function Thread({
 	thread,
@@ -53,11 +54,14 @@ function Thread({
 								/>
 							</div>
 						) : (
-									<p className="text-gray-700 whitespace-pre-line">
-										{full
-											? thread.body
-											: truncate(thread.body, { length: 144 })}
-									</p>
+									thread.hidden ? null : (
+										<p className="text-gray-700 whitespace-pre-line">
+											{full && <ModStatus thread={thread} />}
+											{full
+												? thread.body
+												: truncate(thread.body, { length: 144 })}
+										</p>
+									)
 								)}
 					</a>
 				</Link>

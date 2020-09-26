@@ -2,7 +2,7 @@ import React from "react";
 
 function PageHeader({ children }) {
 	return (
-		<div div className="flex flex-row mb-4">
+		<div className="flex flex-row mb-4">
 			{children}
 		</div>
 	);

@@ -123,9 +123,6 @@ function Navbar() {
 							</a>
 						</ActiveLink>
 						<div className="mr-4 font-medium text-gray-500">
-							Groups
-						</div>
-						<div className="mr-4 font-medium text-gray-500">
 							Products
 						</div>
 						<div className="mr-4 font-medium text-gray-500">

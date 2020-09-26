@@ -29,7 +29,7 @@ function ThreadReplies({ thread }) {
 		);
 	}
 
-	let replies = orderBy(data, ["praise", "created_at"], ["desc", "desc"]);
+	let replies = orderBy(data, ["praise", "created_at", "hidden"], ["desc", "desc", "asc"]);
 
 	return (
 		<Card>

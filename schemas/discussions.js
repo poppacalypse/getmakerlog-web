@@ -11,6 +11,9 @@ export const threadSchema = Joi.object({
 	created_at: Joi.date().iso().required(),
 	updated_at: Joi.date().iso().required(),
 	reply_count: Joi.number().required(),
+	hidden: Joi.bool().required(),
+	locked: Joi.bool().required(),
+	mod_reason: Joi.string().required().allow(null),
 });
 
 export const threadsSchema = Joi.array().items(threadSchema);
@@ -23,6 +26,9 @@ export const replySchema = Joi.object({
 	created_at: Joi.date().iso().required(),
 	updated_at: Joi.date().iso().required(),
 	praise: Joi.number().required(),
+	hidden: Joi.bool().required(),
+	locked: Joi.bool().required(),
+	mod_reason: Joi.string().required().allow(null),
 });
 
 export const repliesSchema = Joi.array().items(threadSchema);

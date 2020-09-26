@@ -27,13 +27,13 @@ function getStrongTextColor(props) {
 
 function getSemiStrongTextColor(props) {
 	if (props.danger) {
-		return "text-red-700";
+		return "text-red-500";
 	} else if (props.success) {
-		return "text-green-700";
+		return "text-green-500";
 	} else if (props.warning) {
-		return "text-yellow-700";
+		return "text-yellow-500";
 	} else {
-		return "text-blue-700";
+		return "text-blue-500";
 	}
 }
 

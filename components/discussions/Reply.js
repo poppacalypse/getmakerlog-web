@@ -12,6 +12,7 @@ import {
 import { useAuth } from "stores/AuthStore";
 import Dropdown from "components/ui/Dropdown";
 import { replySchema } from "schemas/discussions";
+import ModStatus from "./ModStatus";
 
 function Reply({
 	reply,
@@ -65,71 +66,72 @@ function Reply({
 						withUserLine={false}
 					/>
 				) : (
-					<>
-						<p>{reply.body}</p>
-						<div className="mt-4">
-							<div className="flex flex-row items-center">
-								<div className="mr-2">
-									<PraiseButton
-										initialCount={reply.praise}
-										indexUrl={`/discussions/${reply.parent}/replies/${reply.id}`}
-									/>
-								</div>
-								<div className="mr-2">
-									<Button
-										xs
-										onClick={() => {
-											onReplyTo
-												? onReplyTo(reply.owner)
-												: setReplyingTo(reply.owner);
-										}}
-									>
-										<Button.Icon>
-											<FontAwesomeIcon icon="reply" />
-										</Button.Icon>{" "}
+						<>
+							<ModStatus reply={reply} />
+							<p>{!reply.hidden ? reply.body : null}</p>
+							<div className="mt-4">
+								<div className="flex flex-row items-center">
+									<div className="mr-2">
+										<PraiseButton
+											initialCount={reply.praise}
+											indexUrl={`/discussions/${reply.parent}/replies/${reply.id}`}
+										/>
+									</div>
+									<div className="mr-2">
+										<Button
+											xs
+											onClick={() => {
+												onReplyTo
+													? onReplyTo(reply.owner)
+													: setReplyingTo(reply.owner);
+											}}
+										>
+											<Button.Icon>
+												<FontAwesomeIcon icon="reply" />
+											</Button.Icon>{" "}
 										Reply
 									</Button>
-								</div>
-								{isLoggedIn && user.id === reply.owner.id ? (
-									<Dropdown
-										items={
-											<>
-												<Dropdown.Item
-													onClick={() =>
-														setEditing(true)
-													}
-												>
-													<Dropdown.Item.Icon>
-														<FontAwesomeIcon icon="edit" />
-													</Dropdown.Item.Icon>{" "}
+									</div>
+									{isLoggedIn && user.id === reply.owner.id ? (
+										<Dropdown
+											items={
+												<>
+													<Dropdown.Item
+														onClick={() =>
+															setEditing(true)
+														}
+													>
+														<Dropdown.Item.Icon>
+															<FontAwesomeIcon icon="edit" />
+														</Dropdown.Item.Icon>{" "}
 													Edit
 												</Dropdown.Item>
-												<Dropdown.Item
-													onClick={onDelete}
-												>
-													<Dropdown.Item.Icon>
-														<FontAwesomeIcon icon="trash" />
-													</Dropdown.Item.Icon>{" "}
+													<Dropdown.Item
+														onClick={onDelete}
+													>
+														<Dropdown.Item.Icon>
+															<FontAwesomeIcon icon="trash" />
+														</Dropdown.Item.Icon>{" "}
 													Delete
 												</Dropdown.Item>
-											</>
-										}
-									>
-										<Button xs>
-											<Button.Icon>
-												<FontAwesomeIcon icon="ellipsis-v" />
-											</Button.Icon>
+												</>
+											}
+										>
+											<Button xs>
+												<Button.Icon>
+													<FontAwesomeIcon icon="ellipsis-v" />
+												</Button.Icon>
 											More
 											<Button.Icon right>
-												<FontAwesomeIcon icon="caret-down" />
-											</Button.Icon>
-										</Button>
-									</Dropdown>
-								) : null}
+													<FontAwesomeIcon icon="caret-down" />
+												</Button.Icon>
+											</Button>
+										</Dropdown>
+									) : null}
+								</div>
 							</div>
-						</div>
-					</>
-				)}
+						</>
+					)}
 				<div className="px-4 border-l border-gray-200">
 					{childrenReplies &&
 						childrenReplies.map((r) => (
