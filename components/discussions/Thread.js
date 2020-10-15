@@ -35,8 +35,8 @@ function Thread({
 				<div className="flex flex-row items-center mb-2">
 					<UserLine style={{ marginBottom: 0 }} user={thread.owner} />
 				</div>
-				<Link route="discussions-thread" params={{ slug: thread.slug }}>
-					<a>
+				{full ? (
+					<div>
 						<h3 className="mb-2 font-semibold text-gray-900">
 							{thread.pinned && (
 								<FontAwesomeIcon size="xs" icon="thumbtack" />
@@ -55,17 +55,57 @@ function Thread({
 								/>
 							</div>
 						) : thread.hidden ? null : (
-							<p className="text-gray-700 whitespace-pre-line">
+							<div className="text-gray-700">
 								{full && <ModStatus thread={thread} />}
 								{full ? (
 									<DiscussionsTextRenderer object={thread} />
 								) : (
 									truncate(thread.body, { length: 144 })
 								)}
-							</p>
+							</div>
 						)}
-					</a>
-				</Link>
+					</div>
+				) : (
+					<Link
+						route="discussions-thread"
+						params={{ slug: thread.slug }}
+					>
+						<a>
+							<h3 className="mb-2 font-semibold text-gray-900">
+								{thread.pinned && (
+									<FontAwesomeIcon
+										size="xs"
+										icon="thumbtack"
+									/>
+								)}{" "}
+								{thread.title}
+							</h3>
+							{deleted ? (
+								<div className="italic text-gray-600">
+									Content deleted.
+								</div>
+							) : editing ? (
+								<div className="text-gray-900">
+									<ThreadEditForm
+										thread={thread}
+										onFinish={() => setEditing(false)}
+									/>
+								</div>
+							) : thread.hidden ? null : (
+								<div className="text-gray-700">
+									{full && <ModStatus thread={thread} />}
+									{full ? (
+										<DiscussionsTextRenderer
+											object={thread}
+										/>
+									) : (
+										truncate(thread.body, { length: 144 })
+									)}
+								</div>
+							)}
+						</a>
+					</Link>
+				)}
 				{withActionBarPage && !editing && (
 					<ThreadActions
 						thread={thread}

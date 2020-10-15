@@ -69,11 +69,11 @@ function Reply({
 				) : (
 					<>
 						<ModStatus reply={reply} />
-						<p>
+						<div>
 							{!reply.hidden ? (
 								<DiscussionsTextRenderer object={reply} />
 							) : null}
-						</p>
+						</div>
 						<div className="mt-4">
 							<div className="flex flex-row items-center">
 								<div className="mr-2">

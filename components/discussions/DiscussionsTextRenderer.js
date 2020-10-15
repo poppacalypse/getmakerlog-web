@@ -9,6 +9,7 @@ function DiscussionsTextRenderer({ object }) {
 	// https://github.com/remarkjs/react-markdown/issues/278
 	return (
 		<ReactMarkdown
+			className="whitespace-pre-line"
 			linkTarget="_blank"
 			renderers={{
 				link: ({ href, ...props }) => {
