@@ -12,8 +12,19 @@ function Shell({ contained, ...props }) {
 		<ErrorCard statusCode={props.statusCode} />
 	);
 
+	if (props.layoutProps && props.layoutProps.withoutShell && !errored) {
+		return children;
+	}
+
 	return (
-		<div className="flex flex-col min-h-screen bg-gray-100">
+		<div
+			className={
+				"flex flex-col min-h-screen bg-gray-100 " +
+				(props.layoutProps && props.layoutProps.className
+					? props.layoutProps.className
+					: "")
+			}
+		>
 			<Navbar />
 			<div className="flex-grow">
 				{contained ? (

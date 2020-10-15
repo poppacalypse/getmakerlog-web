@@ -98,8 +98,10 @@ function Navbar() {
 								</div>
 							</>
 						) : (
+							<Link route="register">
 								<Button primary>Join Makerlog</Button>
-							)}
+							</Link>
+						)}
 					</div>
 				</div>
 			</div>
@@ -137,7 +139,7 @@ function Navbar() {
 								>
 									<a className="flex-none font-medium text-gray-500">
 										Your Tasks
-							</a>
+									</a>
 								</ActiveLink>
 							</>
 						)}

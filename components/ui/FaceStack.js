@@ -1,7 +1,10 @@
 import React from "react";
 import Avatar from "./Avatar";
 
-function FaceStack({ users = [], size = 10 }) {
+function FaceStack({ users = [], size = 10, limit = null }) {
+	if (limit !== null) {
+		users = users.slice(0, limit);
+	}
 	return (
 		<div className="relative z-0 flex overflow-hidden">
 			{users.map((u, idx) => (

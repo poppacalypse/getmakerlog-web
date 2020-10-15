@@ -21,6 +21,7 @@ class AuthStore extends BaseStore {
 	}
 
 	@action.bound setUser(value) {
+		// temporarily set user as "requiring setup"
 		this.user = value;
 	}
 
@@ -113,6 +114,7 @@ export function useAuth() {
 		token: auth.token,
 		isLoggedIn: auth.isLoggedIn,
 		errorMessages: auth.errorMessages,
+		setUser: auth.setUser.bind(auth),
 		loginWithCredentials: auth.loginWithCredentials.bind(auth),
 		loginWithToken: auth.loginWithToken.bind(auth),
 		logout: auth.logout.bind(auth),

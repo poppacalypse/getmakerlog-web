@@ -67,16 +67,6 @@ function getNotificationContent(notification) {
 		case "user_joined":
 			return (
 				<div>
-					<div className="mb-2">
-						<UserLine
-							user={{
-								username: "makerlog",
-								first_name: "Makerlog",
-								last_name: "",
-								avatar: "/img/logo-icon.png",
-							}}
-						/>
-					</div>
 					<h5 className="text-base font-medium">
 						Welcome to Makerlog!
 					</h5>
@@ -138,12 +128,23 @@ function Notification({ notification }) {
 	return (
 		<div
 			className={
-				"py-6 border-b border-gray-200 first:pt-0 last:border-0 "
+				"py-6 border-b border-gray-200 first:pt-0 last:border-none "
 			}
 		>
 			{notification.actor !== null && (
 				<div className="mb-2">
-					<UserLine user={notification.actor} />
+					{notification.key && notification.key === "user_joined" ? (
+						<UserLine
+							user={{
+								username: "makerlog",
+								first_name: "Makerlog",
+								last_name: "",
+								avatar: "/img/logo-icon.png",
+							}}
+						/>
+					) : (
+						<UserLine user={notification.actor} />
+					)}
 				</div>
 			)}
 			{content}

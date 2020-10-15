@@ -100,6 +100,7 @@ class Button extends React.Component {
 					"lg",
 					"xs",
 					"xl",
+					"anchorElem",
 					"div",
 				])}
 				{...extraProps}
