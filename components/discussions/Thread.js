@@ -11,6 +11,7 @@ import ThreadActions from "./ThreadActions";
 import { useDeleteThread } from "queries/discussions";
 import { isServer } from "config";
 import ModStatus from "./ModStatus";
+import DiscussionsTextRenderer from "./DiscussionsTextRenderer";
 
 function Thread({
 	thread,
@@ -53,16 +54,16 @@ function Thread({
 									onFinish={() => setEditing(false)}
 								/>
 							</div>
-						) : (
-									thread.hidden ? null : (
-										<p className="text-gray-700 whitespace-pre-line">
-											{full && <ModStatus thread={thread} />}
-											{full
-												? thread.body
-												: truncate(thread.body, { length: 144 })}
-										</p>
-									)
+						) : thread.hidden ? null : (
+							<p className="text-gray-700 whitespace-pre-line">
+								{full && <ModStatus thread={thread} />}
+								{full ? (
+									<DiscussionsTextRenderer object={thread} />
+								) : (
+									truncate(thread.body, { length: 144 })
 								)}
+							</p>
+						)}
 					</a>
 				</Link>
 				{withActionBarPage && !editing && (
