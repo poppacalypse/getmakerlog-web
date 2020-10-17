@@ -59,7 +59,7 @@ function Comment({ comment, indexUrl }) {
 						<div>{comment.content}</div>
 					)}
 				</div>
-				{comment.user.id == user.id && !editing ? (
+				{user && comment.user.id == user.id && !editing ? (
 					<div className="inline-flex text-xs">
 						<a
 							className="mr-2 cursor-pointer last:mr-0"
