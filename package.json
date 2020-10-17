@@ -61,7 +61,7 @@
 		"tailwindcss": "^1.5.2",
 		"tailwindcss-dark-mode": "^1.1.6",
 		"tailwindcss-font-inter": "^1.0.8",
-		"url-regex": "^5.0.0"
+		"url-regex": "^3.2.0"
 	},
 	"devDependencies": {
 		"@types/node": "^12.12.21",
