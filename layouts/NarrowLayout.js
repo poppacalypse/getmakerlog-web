@@ -19,11 +19,25 @@ function NarrowLayout({
 }) {
 	return (
 		<div className="flex mx-auto">
-			<div className="flex-1 hidden h-full md:block">{leftSidebar}</div>
-			<div className={`w-full mx-0 ${getClassName(maxWidthMultiplier)}`}>
+			<div
+				className="flex-1 hidden h-full md:block"
+				style={{ width: 0, maxWidth: "100%" }}
+			>
+				{leftSidebar}
+			</div>
+			<div
+				className={`w-full max-w-full mx-0 ${getClassName(
+					maxWidthMultiplier
+				)}`}
+			>
 				{children}
 			</div>
-			<div className="flex-1 hidden h-full md:block">{rightSidebar}</div>
+			<div
+				className="flex-1 hidden h-full md:block"
+				style={{ width: 0, maxWidth: "100%" }}
+			>
+				{rightSidebar}
+			</div>
 		</div>
 	);
 }

@@ -9,6 +9,7 @@ import NotificationsLink from "components/notifications/NotificationsLink";
 import EditorModal from "components/editor/EditorModal";
 import ActiveLink from "components/router/ActiveLink";
 import Dropdown from "components/ui/Dropdown";
+import Container from "components/ui/Container";
 
 function Navbar() {
 	const { isLoggedIn, user } = useAuth();
@@ -18,7 +19,7 @@ function Navbar() {
 		<nav className="flex-none bg-white">
 			<div className="border-t border-green-500 border-1.5"></div>
 			<div className="border-b border-gray-200">
-				<div className="flex items-center px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+				<Container className="flex items-center py-4">
 					<div className="flex items-center flex-1">
 						<Link route="index">
 							<a className="flex items-center mr-4 text-green-500 logo">
@@ -56,11 +57,6 @@ function Navbar() {
 					<div className="flex justify-end flex-1">
 						{isLoggedIn ? (
 							<>
-								{!user.gold && (
-									<div className="flex items-center justify-center h-full px-2 font-semibold text-center text-gold-600">
-										Get Gold
-									</div>
-								)}
 								<button
 									className={
 										"flex md:hidden items-center justify-center w-8 h-8 p-2 mx-2 font-semibold text-gray-700 border border-gray-200 hover:bg-gray-100  text-center rounded-full hover:bg-gray-200 text-gray-700"
@@ -82,6 +78,19 @@ function Navbar() {
 										hover
 										items={
 											<>
+												<Link
+													route="profile"
+													params={{
+														username: user.username,
+													}}
+												>
+													<Dropdown.Item>
+														<Dropdown.Item.Icon>
+															<FontAwesomeIcon icon="user-circle" />
+														</Dropdown.Item.Icon>{" "}
+														You
+													</Dropdown.Item>
+												</Link>
 												<Link route="logout">
 													<Dropdown.Item>
 														<Dropdown.Item.Icon>
@@ -103,10 +112,10 @@ function Navbar() {
 							</Link>
 						)}
 					</div>
-				</div>
+				</Container>
 			</div>
 			<div className="border-b border-gray-200">
-				<div className="px-4 py-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+				<Container className="py-2">
 					<div className="flex flex-auto max-w-full overflow-x-auto">
 						<ActiveLink
 							route="index"
@@ -144,7 +153,7 @@ function Navbar() {
 							</>
 						)}
 					</div>
-				</div>
+				</Container>
 			</div>
 
 			{isLoggedIn && (

@@ -7,7 +7,7 @@ import { Link, useRouter, routerHelper } from "routes";
 function ActiveLink({
 	href,
 	route,
-	params,
+	params = {},
 	activeClassName,
 	notPath = [],
 	wildcard = false,
@@ -21,7 +21,8 @@ function ActiveLink({
 	let className = child.props.className || "";
 	if (
 		(router.pathname === href ||
-			routerHelper.resolveRoute(route).href == router.pathname ||
+			routerHelper.resolveRoute(route).getRouteData(params).href
+				.pathname == router.pathname ||
 			wildcard) &&
 		!notPath.some((v) => router.pathname.includes(v)) &&
 		activeClassName

@@ -11,11 +11,4 @@ function TasksPage() {
 	);
 }
 
-TasksPage.getInitialProps = async () => ({
-	layout: {
-		layout: "app",
-		contained: false,
-	},
-});
-
 export default requireAuth(TasksPage);

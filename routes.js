@@ -1,5 +1,7 @@
 import routes from "@fuelrats/next-named-routes";
 
+// https://github.com/FuelRats/next-named-routes
+
 // Destructure what you need
 const routerHelper = routes()
 	.add("index", "/")
@@ -7,6 +9,20 @@ const routerHelper = routes()
 	.add("register", "/start")
 	.add("forgot-password", "/auth/forgot/")
 	.add("auth-complete", "/auth/complete/[method]")
+	.add("profile", ({ username, ...query }) => {
+		return {
+			href: "/users/[username]",
+			as: `/@${username}`,
+			query,
+		};
+	})
+	.add("profile-products", ({ username, ...query }) => {
+		return {
+			href: "/users/[username]/products",
+			as: `/@${username}/products`,
+			query,
+		};
+	})
 	.add("logout", "/logout")
 	.add("tasks", "/tasks")
 	.add("discussions", "/discussions")

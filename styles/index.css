@@ -3,9 +3,26 @@
 @tailwind components;
 /* purgecss end ignore */
 
+:root {
+	--c-heatmap-0: #eee;
+	--c-heatmap-1: #b3e8d8;
+	--c-heatmap-2: #80d9be;
+	--c-heatmap-3: #33c297;
+	--c-heatmap-4: #008f64;
+}
+
+[data-theme="dark"] {
+	--c-heatmap-0: #142e25;
+	--c-heatmap-1: #143a2d;
+	--c-heatmap-2: #114130;
+	--c-heatmap-3: #0f513a;
+	--c-heatmap-4: #0d5f42;
+}
+
 html {
 	font-family: "Inter", sans-serif;
 }
+
 @supports (font-variation-settings: normal) {
 	html {
 		font-family: "Inter var", sans-serif;
@@ -85,4 +102,54 @@ a {
 
 .force-block {
 	display: block !important;
+}
+
+.react-calendar-heatmap text {
+	font-size: 10px;
+	fill: #aaa;
+}
+
+.react-calendar-heatmap .react-calendar-heatmap-small-text {
+	font-size: 5px;
+}
+
+.react-calendar-heatmap rect:hover {
+	stroke: #555;
+	stroke-width: 1px;
+}
+
+/*
+ * Default color scale
+ */
+
+.react-calendar-heatmap .color-empty {
+	fill: #eeeeee;
+}
+
+.react-calendar-heatmap .color-filled {
+	fill: #8cc665;
+}
+
+.react-calendar-heatmap .is-today {
+	stroke: gray;
+}
+
+.react-calendar-heatmap .color-scale-0 {
+	fill: var(--c-heatmap-0);
+}
+
+.react-calendar-heatmap .color-scale-1 {
+	fill: var(--c-heatmap-1);
+}
+
+.react-calendar-heatmap .color-scale-2 {
+	fill: var(--c-heatmap-2);
+}
+
+.react-calendar-heatmap .color-scale-3 {
+	fill: var(--c-heatmap-3);
+}
+
+.react-calendar-heatmap .color-scale-4 {
+	fill: var(--c-heatmap-4);
 }

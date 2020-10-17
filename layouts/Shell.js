@@ -1,10 +1,11 @@
 import React from "react";
 import ErrorCard from "components/ui/ErrorCard";
 import Navbar from "components/nav/Navbar";
+import Container from "components/ui/Container";
 
 // TODO: refactor, make nicer
 
-function Shell({ contained, ...props }) {
+function Shell({ layoutProps, ...props }) {
 	const errored = props.statusCode && props.statusCode >= 400;
 	const children = !errored ? (
 		props.children
@@ -12,7 +13,7 @@ function Shell({ contained, ...props }) {
 		<ErrorCard statusCode={props.statusCode} />
 	);
 
-	if (props.layoutProps && props.layoutProps.withoutShell && !errored) {
+	if (layoutProps && layoutProps.withoutShell && !errored) {
 		return children;
 	}
 
@@ -20,35 +21,37 @@ function Shell({ contained, ...props }) {
 		<div
 			className={
 				"flex flex-col min-h-screen bg-gray-100 " +
-				(props.layoutProps && props.layoutProps.className
-					? props.layoutProps.className
+				(layoutProps && layoutProps.className
+					? layoutProps.className
 					: "")
 			}
 		>
 			<Navbar />
 			<div className="flex-grow">
-				{contained ? (
-					<div className="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-						{children}
-					</div>
+				{!layoutProps ||
+				(layoutProps && layoutProps.contained === undefined) ||
+				(layoutProps && layoutProps.contained) ? (
+					<Container className="py-4">{children}</Container>
 				) : (
 					children
 				)}
 			</div>
 			<div className="flex-none">
-				<div className="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+				<Container className="py-4">
 					<small className="text-gray-500">
 						&copy; Makerlog, LLC. Footer goes here.
 					</small>
-				</div>
+				</Container>
 			</div>
 		</div>
 	);
 }
 
 Shell.defaultProps = {
-	// Whether to display the narrow container by default.
-	contained: true,
+	// Whether to display the container by default.
+	layoutProps: {
+		contained: true,
+	},
 };
 
 export default Shell;

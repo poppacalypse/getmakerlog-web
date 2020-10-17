@@ -43,6 +43,7 @@ module.exports = {
 			"group-focus",
 			"focus-within",
 		],
+		borderStyle: ["responsive", "last"],
 		padding: ["responsive", "last", "first"],
 		margin: ["responsive", "last", "first"],
 		textColor: [

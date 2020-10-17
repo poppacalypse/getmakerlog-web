@@ -22,9 +22,7 @@ function DiscussionsPage() {
 DiscussionsPage.getInitialProps = async () => {
 	return {
 		layout: {
-			layout: "app",
 			allowGuest: true,
-			contained: false,
 		},
 	};
 };
