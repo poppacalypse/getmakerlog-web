@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 
 export const STATS_QUERIES = {
 	getUserHeatmap: "stats.getUserHeatmap",
+	getUserStats: "stats.getUserStats",
 };
 
 export async function getUserHeatmap(key, { username }) {
@@ -13,9 +14,18 @@ export async function getUserHeatmap(key, { username }) {
 	return data;
 }
 
+export async function getUserStats(key, { username }) {
+	const { data } = await axiosWrapper(axios.get, `/users/${username}/stats/`);
+	return data;
+}
+
 export function useUserHeatmap(username) {
 	return useQuery(
 		[STATS_QUERIES.getUserHeatmap, { username }],
 		getUserHeatmap
 	);
+}
+
+export function useUserStats(username) {
+	return useQuery([STATS_QUERIES.getUserStats, { username }], getUserStats);
 }

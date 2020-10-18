@@ -16,7 +16,8 @@ import ProfileSidebar from "components/sidebars/ProfileSidebar";
 import Container from "components/ui/Container";
 import KeyActivityFeed from "components/stream/KeyActivityFeed";
 import ProfileHeader from "components/users/ProfileHeader";
-import ActiveLink from "components/router/ActiveLink";
+import ProfileMenu from "components/users/ProfileMenu";
+import { getUserStats, STATS_QUERIES, useUserStats } from "queries/stats";
 
 // TODO: make sure profiles only work if it's at the last of the routing stack
 // TODO: make sure they throw 404 for user not found cause fuck bitches
@@ -30,50 +31,25 @@ function ProfilePage() {
 		data: products,
 		error: productsError,
 	} = useUserProducts(username);
+	const {
+		isLoading: isLoadingStats,
+		data: stats,
+		error: statsError,
+	} = useUserStats(username);
 
-	if (error || productsError) {
+	if (error || productsError || statsError) {
 		return <ErrorCard statusCode={error.intCode ? error.intCode() : 400} />;
 	}
 
-	if (isLoading || isLoadingProducts)
+	if (isLoading || isLoadingProducts || isLoadingStats)
 		return <Spinner text="Loading user..." />;
 
 	return (
 		<div>
 			<ProfileHeader
 				user={user}
-				products={products}
-				bottomNav={
-					<div className="flex flex-row items-center justify-center flex-grow h-full sm:flex-none">
-						<ActiveLink
-							route="profile"
-							params={{ username: user.username }}
-							activeClassName="text-green-500 border-b-2 border-green-500"
-						>
-							<a className="flex items-center justify-center flex-1 h-full px-6 py-4 pt-2 font-semibold text-center text-gray-500">
-								Feed
-							</a>
-						</ActiveLink>
-						<ActiveLink
-							route="profile-products"
-							params={{ username: user.username }}
-							activeClassName="text-green-500 border-b-2 border-green-500"
-						>
-							<a className="flex items-center justify-center flex-1 h-full px-6 py-4 pt-2 font-semibold text-center text-gray-500">
-								Products
-							</a>
-						</ActiveLink>
-						<ActiveLink
-							route="not-implemented"
-							params={{ username: user.username }}
-							activeClassName="text-green-500 border-b-2 border-green-500"
-						>
-							<a className="flex items-center justify-center flex-1 h-full px-6 py-4 pt-2 font-semibold text-center text-gray-500">
-								Discussions
-							</a>
-						</ActiveLink>
-					</div>
-				}
+				stats={stats}
+				bottomNav={<ProfileMenu user={user} />}
 			/>
 
 			<Container className="py-4">
@@ -103,6 +79,11 @@ ProfilePage.getInitialProps = async ({ query: { username } }) => {
 	await queryCache.prefetchQuery(
 		[USER_QUERIES.getUserProducts, { username }],
 		getUserProducts
+	);
+
+	await queryCache.prefetchQuery(
+		[STATS_QUERIES.getUserStats, { username }],
+		getUserStats
 	);
 
 	return {

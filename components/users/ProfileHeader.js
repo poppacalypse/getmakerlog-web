@@ -3,7 +3,7 @@ import Container from "components/ui/Container";
 import React from "react";
 import FullName from "./FullName";
 
-function ProfileHeader({ user, products = null, bottomNav = null }) {
+function ProfileHeader({ user, stats = null, bottomNav = null }) {
 	return (
 		<>
 			<div className="bg-white border-b">
@@ -41,14 +41,13 @@ function ProfileHeader({ user, products = null, bottomNav = null }) {
 								{user.description}
 							</p>
 						)}
-						<small className="text-sm text-gray-500">
-							<span className="mr-2 last:mr-0">
-								🔥 {user.streak} day streak
-							</span>
-							{products && (
-								<span className="mr-2 last:mr-0">
-									🛠 {products.length} products
-								</span>
+						<small className="text-sm text-gray-500 space-x-3">
+							<span>🔥 {user.streak} day streak</span>
+							{stats && (
+								<span>🛠 {stats.products_made} products</span>
+							)}
+							{stats && (
+								<span>👏 {stats.praise_received} praise</span>
 							)}
 						</small>
 					</div>

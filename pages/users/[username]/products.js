@@ -16,7 +16,7 @@ import Container from "components/ui/Container";
 import ProfileHeader from "components/users/ProfileHeader";
 import ProductMedia from "components/products/ProductMedia";
 import Card from "components/ui/Card";
-import ActiveLink from "components/router/ActiveLink";
+import ProfileMenu from "components/users/ProfileMenu";
 
 function ProfileProductsPage() {
 	const router = useRouter();
@@ -40,31 +40,7 @@ function ProfileProductsPage() {
 			<ProfileHeader
 				user={user}
 				products={products}
-				bottomNav={
-					<div className="flex flex-row items-center justify-center flex-grow h-full sm:flex-none">
-						<ActiveLink
-							route="profile"
-							params={{ username: user.username }}
-							activeClassName="text-green-500 border-b-2 border-green-500"
-						>
-							<a className="flex items-center justify-center flex-1 h-full px-6 py-4 pt-2 font-semibold text-center text-gray-500">
-								Feed
-							</a>
-						</ActiveLink>
-						<ActiveLink
-							route="profile-products"
-							params={{ username: user.username }}
-							activeClassName="text-green-500 border-b-2 border-green-500"
-						>
-							<a className="flex items-center justify-center flex-1 h-full px-6 py-4 pt-2 font-semibold text-center text-gray-500">
-								Products
-							</a>
-						</ActiveLink>
-						<div className="flex items-center justify-center flex-1 h-full px-6 py-4 pt-2 font-semibold text-center text-gray-500">
-							Discussions
-						</div>
-					</div>
-				}
+				bottomNav={<ProfileMenu user={user} />}
 			/>
 
 			<Container className="py-4">

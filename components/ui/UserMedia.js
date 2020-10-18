@@ -3,6 +3,7 @@ import FullName from "components/users/FullName";
 import Streak from "./Streak";
 import Avatar from "./Avatar";
 import { isNewUser } from "utils/user";
+import { Link } from "routes";
 
 function UserMedia({
 	user,
@@ -13,10 +14,18 @@ function UserMedia({
 }) {
 	return (
 		<div className="flex items-center justify-between space-x-3">
-			<Avatar size={10} user={user} className="flex-shrink-0" />
+			<Link route="profile" params={{ username: user.username }}>
+				<a className="flex-shrink-0">
+					<Avatar size={10} user={user} />
+				</a>
+			</Link>
 			<div className="flex-1">
 				<h2 className="text-sm font-medium text-gray-900 leading-5">
-					<FullName user={user} />{" "}
+					<Link route="profile" params={{ username: user.username }}>
+						<a className="text-gray-900 unstyled-a">
+							<FullName user={user} />
+						</a>
+					</Link>{" "}
 					{action ? (
 						<span className="text-gray-700">{action}</span>
 					) : null}
