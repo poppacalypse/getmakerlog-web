@@ -1,6 +1,6 @@
 import { BaseStore, getOrCreateStore } from "next-mobx-wrapper";
 import { action, observable, computed, flow } from "mobx";
-import { getToken, getUser } from "utils/auth";
+import { getToken, getUser, patchUser } from "utils/auth";
 import { setCookie } from "nookies";
 import { isServer } from "config";
 import { getLogger } from "utils/logging";
@@ -12,6 +12,7 @@ const log = getLogger("AuthStore");
 
 class AuthStore extends BaseStore {
 	@observable loading = false;
+	@observable patching = false;
 	@observable token = null;
 	@observable user = null;
 	@observable errorMessages = null;
@@ -88,6 +89,23 @@ class AuthStore extends BaseStore {
 	});
 
 	@action.bound
+	patchUser = flow(function* (payload) {
+		try {
+			this.patching = true;
+			this.errorMessages = null;
+			this.user = yield patchUser(payload);
+			this.patching = false;
+			this.errorMessages = null;
+			return true;
+		} catch (e) {
+			log(e.message);
+			this.patching = false;
+			this.errorMessages = e;
+			return false;
+		}
+	});
+
+	@action.bound
 	logout(ctx = null) {
 		if (!ctx) log("Logging out.");
 		this.token = null;
@@ -110,6 +128,7 @@ export function useAuth() {
 	const { auth } = useStores();
 	return useObserver(() => ({
 		loading: auth.loading,
+		patching: auth.patching,
 		user: auth.user,
 		token: auth.token,
 		isLoggedIn: auth.isLoggedIn,
@@ -118,5 +137,6 @@ export function useAuth() {
 		loginWithCredentials: auth.loginWithCredentials.bind(auth),
 		loginWithToken: auth.loginWithToken.bind(auth),
 		logout: auth.logout.bind(auth),
+		patchUser: auth.patchUser.bind(auth),
 	}));
 }
