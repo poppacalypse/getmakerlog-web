@@ -5,7 +5,7 @@ import NarrowLayout from "layouts/NarrowLayout";
 
 function TasksPage() {
 	return (
-		<NarrowLayout rightSidebar={null}>
+		<NarrowLayout>
 			<DayView />
 		</NarrowLayout>
 	);

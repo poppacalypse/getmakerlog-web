@@ -23,6 +23,7 @@ const routerHelper = routes()
 			query,
 		};
 	})
+	.add("settings", "/settings")
 	.add("logout", "/logout")
 	.add("tasks", "/tasks")
 	.add("discussions", "/discussions")

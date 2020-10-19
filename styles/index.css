@@ -86,8 +86,16 @@ input:focus {
 	@apply border-green-300;
 }
 
+input[type="checkbox"] {
+	@apply w-4 h-4 text-green-500 transition duration-150 ease-in-out;
+}
+
 a {
 	@apply text-green-500;
+}
+
+p.help {
+	@apply text-xs text-gray-500;
 }
 
 .remaining {

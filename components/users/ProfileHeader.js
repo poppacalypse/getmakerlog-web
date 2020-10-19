@@ -3,7 +3,12 @@ import Container from "components/ui/Container";
 import React from "react";
 import FullName from "./FullName";
 
-function ProfileHeader({ user, stats = null, bottomNav = null }) {
+function ProfileHeader({
+	user,
+	stats = null,
+	bottomNav = null,
+	halfWidth = false,
+}) {
 	return (
 		<>
 			<div className="bg-white border-b">
@@ -12,7 +17,9 @@ function ProfileHeader({ user, stats = null, bottomNav = null }) {
 				) : (
 					<img
 						src={user.header}
-						className="object-cover w-full h-64"
+						className={`object-cover w-full ${
+							halfWidth ? "h-32" : "h-64"
+						}`}
 						alt=""
 					/>
 				)}
