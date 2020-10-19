@@ -179,7 +179,13 @@ function ActivityObject({ activity }) {
 			return <Thread thread={object} />;
 
 		case "reply":
-			return <Reply withUserLine={false} reply={object} />;
+			return (
+				<Reply
+					withUserLine={false}
+					reply={object}
+					thread={activity.getTarget().object}
+				/>
+			);
 
 		default:
 			return <ActivityTypeUnknown />;
