@@ -6,8 +6,14 @@ import { format } from "date-fns";
 const log = getLogger("tasks");
 
 export const TASK_QUERIES = {
+	getTask: "tasks.getTask",
 	getTasks: "tasks.getTasks",
 };
+
+export async function getTask(key, { id }) {
+	const { data } = await axiosWrapper(axios.get, `/tasks/${id}`);
+	return data;
+}
 
 export async function createTask(payload) {
 	let data = new FormData();
@@ -79,6 +85,10 @@ function getQueryForDate(startDate, endDate) {
 			),
 		},
 	];
+}
+
+export function useTask(id) {
+	return useQuery([TASK_QUERIES.getTask, { id }], getTask);
 }
 
 export function useTasks(startDate, endDate) {

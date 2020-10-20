@@ -11,12 +11,11 @@ import { dehydrate } from "react-query/dist/hydration/react-query-hydration.deve
 import { useRouter } from "next/router";
 import Spinner from "components/ui/Spinner";
 import ErrorCard from "components/ui/ErrorCard";
-import NarrowLayout from "layouts/NarrowLayout";
-import Container from "components/ui/Container";
-import ProfileHeader from "components/users/ProfileHeader";
 import ProductMedia from "components/products/ProductMedia";
 import Card from "components/ui/Card";
 import ProfileMenu from "components/users/ProfileMenu";
+import { getUserStats, STATS_QUERIES } from "queries/stats";
+import ProfileLayout from "components/users/ProfileLayout";
 
 function ProfileProductsPage() {
 	const router = useRouter();
@@ -28,38 +27,34 @@ function ProfileProductsPage() {
 		error: productsError,
 	} = useUserProducts(username);
 
-	if (error || productsError) {
-		return <ErrorCard statusCode={error.intCode ? error.intCode() : 400} />;
+	const err = error || productsError;
+	if (err) {
+		return <ErrorCard statusCode={err.intCode ? err.intCode() : 400} />;
 	}
 
 	if (isLoading || isLoadingProducts)
 		return <Spinner text="Loading user..." />;
 
 	return (
-		<div>
-			<ProfileHeader
-				user={user}
-				products={products}
-				bottomNav={<ProfileMenu user={user} />}
-			/>
-
-			<Container className="py-4">
-				<NarrowLayout>
-					<Card>
-						<Card.Content>
-							<div className="space-y-2">
-								{products.map((product) => (
-									<ProductMedia
-										key={product.slug}
-										product={product}
-									/>
-								))}
-							</div>
-						</Card.Content>
-					</Card>
-				</NarrowLayout>
-			</Container>
-		</div>
+		<ProfileLayout
+			user={user}
+			headerProps={{
+				bottomNav: <ProfileMenu user={user} />,
+			}}
+		>
+			<Card>
+				<Card.Content>
+					<div className="space-y-2">
+						{products.map((product) => (
+							<ProductMedia
+								key={product.slug}
+								product={product}
+							/>
+						))}
+					</div>
+				</Card.Content>
+			</Card>
+		</ProfileLayout>
 	);
 }
 
@@ -74,6 +69,11 @@ ProfileProductsPage.getInitialProps = async ({ query: { username } }) => {
 	await queryCache.prefetchQuery(
 		[USER_QUERIES.getUserProducts, { username }],
 		getUserProducts
+	);
+
+	await queryCache.prefetchQuery(
+		[STATS_QUERIES.getUserStats, { username }],
+		getUserStats
 	);
 
 	return {

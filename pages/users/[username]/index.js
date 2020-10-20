@@ -11,13 +11,11 @@ import { dehydrate } from "react-query/dist/hydration/react-query-hydration.deve
 import { useRouter } from "next/router";
 import Spinner from "components/ui/Spinner";
 import ErrorCard from "components/ui/ErrorCard";
-import NarrowLayout from "layouts/NarrowLayout";
 import ProfileSidebar from "components/sidebars/ProfileSidebar";
-import Container from "components/ui/Container";
 import KeyActivityFeed from "components/stream/KeyActivityFeed";
-import ProfileHeader from "components/users/ProfileHeader";
 import ProfileMenu from "components/users/ProfileMenu";
-import { getUserStats, STATS_QUERIES, useUserStats } from "queries/stats";
+import { getUserStats, STATS_QUERIES } from "queries/stats";
+import ProfileLayout from "components/users/ProfileLayout";
 
 // TODO: make sure profiles only work if it's at the last of the routing stack
 // TODO: make sure they throw 404 for user not found cause fuck bitches
@@ -31,40 +29,33 @@ function ProfilePage() {
 		data: products,
 		error: productsError,
 	} = useUserProducts(username);
-	const {
-		isLoading: isLoadingStats,
-		data: stats,
-		error: statsError,
-	} = useUserStats(username);
 
-	if (error || productsError || statsError) {
-		return <ErrorCard statusCode={error.intCode ? error.intCode() : 400} />;
+	const err = error || productsError;
+	if (err) {
+		return <ErrorCard statusCode={err.intCode ? err.intCode() : 400} />;
 	}
 
-	if (isLoading || isLoadingProducts || isLoadingStats)
+	if (isLoading || isLoadingProducts)
 		return <Spinner text="Loading user..." />;
 
 	return (
-		<div>
-			<ProfileHeader
-				user={user}
-				stats={stats}
-				bottomNav={<ProfileMenu user={user} />}
-			/>
+		<ProfileLayout
+			user={user}
+			layoutProps={{
+				leftSidebar: (
+					<ProfileSidebar left user={user} products={products} />
+				),
 
-			<Container className="py-4">
-				<NarrowLayout
-					leftSidebar={
-						<ProfileSidebar left user={user} products={products} />
-					}
-					rightSidebar={
-						<ProfileSidebar user={user} products={products} />
-					}
-				>
-					<KeyActivityFeed userId={user.id} feed={"user"} />
-				</NarrowLayout>
-			</Container>
-		</div>
+				rightSidebar: (
+					<ProfileSidebar user={user} products={products} />
+				),
+			}}
+			headerProps={{
+				bottomNav: <ProfileMenu user={user} />,
+			}}
+		>
+			<KeyActivityFeed userId={user.id} feed={"user"} />
+		</ProfileLayout>
 	);
 }
 

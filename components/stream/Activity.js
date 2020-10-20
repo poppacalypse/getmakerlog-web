@@ -34,9 +34,9 @@ function ItemLink({ type, item, children, loggedInOnly = false }) {
 	switch (type) {
 		case "task":
 			return (
-				/* <Link route="task-page" params={{ id: item.id }}> */
-				<a>{children}</a>
-				/*</Link>*/
+				<Link route="task" params={{ id: item.id }}>
+					<a>{children}</a>
+				</Link>
 			);
 
 		case "thread":

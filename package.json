@@ -27,7 +27,7 @@
 		"clipboard-copy": "^3.1.0",
 		"date-fns": "^2.15.0",
 		"date-fns-tz": "^1.0.10",
-		"debug": "^4.1.1",
+		"debug": "^4.3.0",
 		"emotion": "^10.0.27",
 		"getstream": "^5.0.5",
 		"hashtag-regex": "^2.1.0",

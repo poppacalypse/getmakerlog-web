@@ -10,17 +10,22 @@ function DropdownItemIcon({ children }) {
 	);
 }
 
-function DropdownItem({ children, elem = "a", ...props }) {
-	const Elem = elem;
-	return (
-		<Elem
-			{...props}
-			className="block text-sm text-gray-700 cursor-pointer px-3.5 py-1.5 leading-5 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-		>
-			{children}
-		</Elem>
-	);
-}
+const DropdownItem = React.forwardRef(
+	({ children, elem = "a", ...props }, ref) => {
+		const Elem = elem;
+		return (
+			<Elem
+				{...props}
+				ref={ref}
+				className="block text-sm text-gray-700 cursor-pointer px-3.5 py-1.5 leading-5 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+			>
+				{children}
+			</Elem>
+		);
+	}
+);
+
+DropdownItem.displayName = "DropdownItem";
 
 function Dropdown({
 	children,

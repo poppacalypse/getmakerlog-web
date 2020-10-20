@@ -21,7 +21,7 @@ function getTargetLink(type, target) {
 
 		case "task":
 			return (
-				<Link route="not-implemented">
+				<Link route="task" params={{ id: target.id }}>
 					<a>"{target.content}"</a>
 				</Link>
 			);
