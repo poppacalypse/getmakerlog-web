@@ -5,7 +5,7 @@ import { Link } from "routes";
 
 function UserLine({ user, className = "", withAvatar = true, style = {} }) {
 	return (
-		<Link route="profile" params={{ user: user.username }}>
+		<Link route="profile" params={{ username: user.username }}>
 			<div
 				style={style}
 				className={
