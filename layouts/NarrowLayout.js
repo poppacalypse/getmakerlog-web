@@ -20,7 +20,7 @@ function NarrowLayout({
 	return (
 		<div className="flex mx-auto">
 			<div
-				className="flex-1 hidden h-full md:block"
+				className="flex-auto hidden h-full md:block"
 				style={{ width: 0, maxWidth: "100%" }}
 			>
 				{leftSidebar}
@@ -33,7 +33,7 @@ function NarrowLayout({
 				{children}
 			</div>
 			<div
-				className="flex-1 hidden h-full md:block"
+				className="flex-auto hidden h-full md:block"
 				style={{ width: 0, maxWidth: "100%" }}
 			>
 				{rightSidebar}
