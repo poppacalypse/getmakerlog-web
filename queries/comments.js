@@ -23,7 +23,7 @@ export async function createComment({ indexUrl, content }) {
 export async function updateComment({ indexUrl, content, id }) {
 	const { data } = await axiosWrapper(
 		axios.patch,
-		`${indexUrl}/comments/${id}`,
+		`${indexUrl}/comments/${id}/`,
 		{
 			content,
 		}
@@ -34,7 +34,7 @@ export async function updateComment({ indexUrl, content, id }) {
 export async function deleteComment({ indexUrl, id }) {
 	const { data } = await axiosWrapper(
 		axios.delete,
-		`${indexUrl}/comments/${id}`
+		`${indexUrl}/comments/${id}/`
 	);
 	return data;
 }
