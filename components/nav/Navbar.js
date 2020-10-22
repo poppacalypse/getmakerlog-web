@@ -115,9 +115,14 @@ function Navbar() {
 								</div>
 							</>
 						) : (
-							<Link route="register">
-								<Button primary>Join Makerlog</Button>
-							</Link>
+							<>
+								<Link route="register">
+									<Button primary>Join Makerlog</Button>
+								</Link>
+								<Link route="login">
+									<Button className="ml-2">Log in</Button>
+								</Link>
+							</>
 						)}
 					</div>
 				</Container>

@@ -1,12 +1,6 @@
 import React from "react";
 import { makeQueryCache } from "react-query";
-import {
-	getUser,
-	getUserProducts,
-	USER_QUERIES,
-	useUser,
-	useUserProducts,
-} from "queries/users";
+import { getUser, USER_QUERIES, useUser } from "queries/users";
 import { dehydrate } from "react-query/dist/hydration/react-query-hydration.development";
 import { useRouter } from "next/router";
 import Spinner from "components/ui/Spinner";
@@ -16,6 +10,11 @@ import Card from "components/ui/Card";
 import ProfileMenu from "components/users/ProfileMenu";
 import { getUserStats, STATS_QUERIES } from "queries/stats";
 import ProfileLayout from "components/users/ProfileLayout";
+import {
+	getUserProducts,
+	PRODUCT_QUERIES,
+	useUserProducts,
+} from "queries/products";
 
 function ProfileProductsPage() {
 	const router = useRouter();
@@ -67,7 +66,7 @@ ProfileProductsPage.getInitialProps = async ({ query: { username } }) => {
 	);
 
 	await queryCache.prefetchQuery(
-		[USER_QUERIES.getUserProducts, { username }],
+		[PRODUCT_QUERIES.getUserProducts, { username }],
 		getUserProducts
 	);
 

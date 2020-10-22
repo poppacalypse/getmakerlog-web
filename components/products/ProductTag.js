@@ -4,7 +4,7 @@ import { Link } from "routes";
 function ProductTag({ product, tag }) {
 	tag = tag.replace("#", "");
 	return (
-		<Link route="not-implemented">
+		<Link route="product" params={{ slug: product.slug }}>
 			<a
 				style={{ height: 20 }}
 				className="inline-flex flex-row items-baseline px-1 font-medium cursor-pointer"

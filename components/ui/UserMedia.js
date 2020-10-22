@@ -19,7 +19,7 @@ function UserMedia({
 					<Avatar size={10} user={user} />
 				</a>
 			</Link>
-			<div className="flex-1">
+			<div className="flex-1" style={{ minWidth: 0 }}>
 				<h2 className="text-sm font-medium text-gray-900 leading-5">
 					<Link route="profile" params={{ username: user.username }}>
 						<a className="text-gray-900 unstyled-a">
@@ -32,7 +32,7 @@ function UserMedia({
 				</h2>
 				<p className="text-sm text-gray-500 truncate leading-5">
 					<span className="mr-2">@{user.username}</span>
-					<span className="mr-2">
+					<span className="mr-2 ">
 						<Streak text={extraStreakText} days={user.streak} />
 					</span>
 					{isNewUser(user) && (
