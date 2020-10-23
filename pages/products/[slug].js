@@ -11,6 +11,7 @@ import { makeQueryCache } from "react-query";
 import TimeAgo from "react-timeago";
 import NarrowLayout from "layouts/NarrowLayout";
 import ProductSidebar from "components/sidebars/ProductSidebar";
+import KeyActivityFeed from "components/stream/KeyActivityFeed";
 
 function ProductPage() {
 	const router = useRouter();
@@ -22,7 +23,7 @@ function ProductPage() {
 		return <ErrorCard statusCode={error.intCode ? error.intCode() : 400} />;
 	}
 
-	if (isLoading) return <Spinner text="Loading user..." />;
+	if (isLoading) return <Spinner text="Loading product..." />;
 
 	const makerCount = 1 + product.team.length;
 
@@ -39,7 +40,7 @@ function ProductPage() {
 							<ProductIcon product={product} size={16} />
 						</div>
 						<div>
-							<div className="mb-2 last:mb-0">
+							<div className="mb-2 sm:max-w-lg last:mb-0">
 								<h2 className="text-xl font-bold text-gray-900 sm:truncate">
 									{product.name}
 								</h2>
@@ -77,7 +78,12 @@ function ProductPage() {
 					rightSidebar={
 						<ProductSidebar product={product} left={false} />
 					}
-				></NarrowLayout>
+				>
+					<KeyActivityFeed
+						userId={`product_${product.id}`}
+						feed="product"
+					/>
+				</NarrowLayout>
 			</Container>
 		</div>
 	);

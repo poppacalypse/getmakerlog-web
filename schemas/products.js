@@ -27,6 +27,7 @@ export const productSchema = Joi.object().keys({
 	accent: Joi.string().required().allow(null, ""),
 	created_at: Joi.string().required(),
 	launched_at: Joi.string().required().allow(null, ""),
+	tags: Joi.array().allow(null),
 });
 
 export const productsSchema = Joi.array().items(productSchema);

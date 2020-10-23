@@ -8,6 +8,7 @@ export const PRODUCT_QUERIES = {
 	getProductMakers: "products.getProductMakers",
 	getProductStats: "products.getProductStats",
 	getUserProducts: "products.getUserProducts",
+	getRelatedProducts: "products.getRelatedProducts",
 };
 
 export async function getProduct(key, { slug }) {
@@ -19,6 +20,14 @@ export async function getProduct(key, { slug }) {
 
 export async function getProductMakers(key, { slug }) {
 	const { data } = await axiosWrapper(axios.get, `/products/${slug}/people/`);
+	return data;
+}
+
+export async function getRelatedProducts(key, { slug }) {
+	const { data } = await axiosWrapper(
+		axios.get,
+		`/products/${slug}/related_products/`
+	);
 	return data;
 }
 
@@ -45,6 +54,13 @@ export function useProductMakers(slug) {
 	return useQuery(
 		[PRODUCT_QUERIES.getProductMakers, { slug }],
 		getProductMakers
+	);
+}
+
+export function useRelatedProducts(slug) {
+	return useQuery(
+		[PRODUCT_QUERIES.getRelatedProducts, { slug }],
+		getRelatedProducts
 	);
 }
 
