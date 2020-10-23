@@ -9,11 +9,19 @@ export const PRODUCT_QUERIES = {
 	getProductStats: "products.getProductStats",
 	getUserProducts: "products.getUserProducts",
 	getRelatedProducts: "products.getRelatedProducts",
+	getMyProducts: "products.getMyProducts",
 };
 
 export async function getProduct(key, { slug }) {
 	const { data } = await axiosWrapper(axios.get, `/products/${slug}/`);
 	const { value, error } = productSchema.validate(data);
+	if (error) throw new StdErrorCollection(error);
+	return value;
+}
+
+export async function getMyProducts() {
+	const { data } = await axiosWrapper(axios.get, `/products/me/`);
+	const { value, error } = productsSchema.validate(data);
 	if (error) throw new StdErrorCollection(error);
 	return value;
 }
@@ -76,4 +84,8 @@ export function useUserProducts(username) {
 		[PRODUCT_QUERIES.getUserProducts, { username }],
 		getUserProducts
 	);
+}
+
+export function useMyProducts() {
+	return useQuery([PRODUCT_QUERIES.getUserProducts], getMyProducts);
 }

@@ -146,9 +146,14 @@ function Navbar() {
 								Discussions
 							</a>
 						</ActiveLink>
-						<div className="mr-4 font-medium text-gray-500">
-							Products
-						</div>
+						<ActiveLink
+							route="products"
+							activeClassName="text-green-500"
+						>
+							<a className="mr-4 font-medium text-gray-500">
+								Products
+							</a>
+						</ActiveLink>
 						<div className="mr-4 font-medium text-gray-500">
 							Events
 						</div>

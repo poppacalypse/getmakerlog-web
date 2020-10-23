@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-const CardContent = ({ children }) => {
-	return <div className="p-4">{children}</div>;
+const CardContent = ({ children, className = "" }) => {
+	return <div className={"p-4 " + className}>{children}</div>;
 };
 
 class Card extends Component {

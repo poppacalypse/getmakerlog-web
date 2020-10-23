@@ -30,6 +30,7 @@ const routerHelper = routes()
 	.add("discussions", "/discussions")
 	.add("notifications", "/notifications")
 	.add("discussions-thread", "/discussions/[slug]")
+	.add("products", "/products")
 	.add("product", "/products/[slug]")
 	.add("not-implemented", "/not-implemented");
 
