@@ -57,7 +57,7 @@ function IndexPage() {
 							</div>
 						</Card.Content>
 					</Card>
-					<KeyActivityFeed userId={-1} feed="timeline" />
+					<KeyActivityFeed userId={-1} feed="site" />
 				</>
 			)}
 		</NarrowLayout>

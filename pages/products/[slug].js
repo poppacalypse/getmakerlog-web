@@ -33,10 +33,7 @@ function ProductPage() {
 						<ProductSidebar product={product} left={false} />
 					}
 				>
-					<KeyActivityFeed
-						userId={`product_${product.id}`}
-						feed="product"
-					/>
+					<KeyActivityFeed userId={product.id} feed="product" />
 				</NarrowLayout>
 			</Container>
 		</div>
