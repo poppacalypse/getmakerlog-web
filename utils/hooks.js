@@ -2,6 +2,8 @@ import React, { useCallback, useState } from "react";
 import { useRef, useEffect } from "react";
 import { MobXProviderContext } from "mobx-react";
 import { useDropzone } from "react-dropzone";
+import { useCommonTags, useSuggestedTags } from "queries/tags";
+import union from "lodash/union";
 
 export function useStores() {
 	return React.useContext(MobXProviderContext);
@@ -105,4 +107,60 @@ export function useEventListener(eventName, handler, element = window) {
 		},
 		[eventName, element] // Re-run if eventName or element changes
 	);
+}
+
+export function useDebounce(value, delay) {
+	// State and setters for debounced value
+	const [debouncedValue, setDebouncedValue] = useState(value);
+
+	useEffect(
+		() => {
+			// Update debounced value after delay
+			const handler = setTimeout(() => {
+				setDebouncedValue(value);
+			}, delay);
+
+			// Cancel the timeout if value changes (also on delay change or unmount)
+			// This is how we prevent debounced value from updating if value is changed ...
+			// .. within the delay period. Timeout gets cleared and restarted.
+			return () => {
+				clearTimeout(handler);
+			};
+		},
+		[value, delay] // Only re-call effect if value or delay changes
+	);
+
+	return debouncedValue;
+}
+
+export function useTagAutocomplete(type, initialTags = []) {
+	const [query, setQuery] = useState("");
+	const debouncedQuery = useDebounce(query, 300);
+	const [tags, setTags] = useState(initialTags);
+	const { data: commonTags } = useCommonTags(type);
+	const { data: suggestedTags } = useSuggestedTags(type, debouncedQuery);
+
+	const onAddition = (tag) => {
+		setTags([].concat(tags, tag));
+	};
+
+	const onDelete = (i) => {
+		const newTags = tags.slice(0);
+		newTags.splice(i, 1);
+		setTags(newTags);
+	};
+
+	let suggestions = union(
+		commonTags ? commonTags : [],
+		suggestedTags ? suggestedTags : []
+	);
+	suggestions = suggestions.map((name, id) => ({ id, name }));
+
+	return {
+		suggestions,
+		tags,
+		onAddition,
+		onDelete,
+		onInput: (query) => setQuery(query),
+	};
 }

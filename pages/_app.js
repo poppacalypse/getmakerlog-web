@@ -3,6 +3,7 @@ import "../styles/images.css";
 import "../utils/fa";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "react-responsive-modal/styles.css";
+import "react-colorful/dist/index.css";
 import "mobx-react-lite/batchingForReactDom";
 import "axios-debug-log";
 

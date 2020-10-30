@@ -31,6 +31,9 @@ function getClassNames(props) {
 	} else if (props.secondary) {
 		classNames +=
 			" text-green-700 bg-green-100 border border-green-200 hover:bg-green-50 focus:border-green-300 active:bg-green-200 ";
+	} else if (props.danger) {
+		classNames +=
+			" text-red-700 bg-red-100 border border-red-200 hover:bg-red-50 focus:border-red-300 active:bg-red-200 ";
 	} else {
 		classNames +=
 			" border-gray-300 text-gray-700 bg-white hover:text-gray-500 active:text-gray-800 active:bg-gray-50 ";
@@ -53,7 +56,7 @@ function getSizeForSpinner(props) {
 }
 
 function getSpinnerColor(props) {
-	if (props.primary || props.secondary) return "#fff";
+	if (props.primary || props.secondary || props.danger) return "#fff";
 	return "#00AD71";
 }
 
@@ -102,6 +105,7 @@ class Button extends React.Component {
 					"xl",
 					"anchorElem",
 					"div",
+					"danger",
 				])}
 				{...extraProps}
 			>

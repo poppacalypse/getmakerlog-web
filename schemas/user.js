@@ -24,7 +24,7 @@ export const userSchema = Joi.object().keys({
 	is_staff: Joi.boolean(),
 	donor: Joi.boolean(),
 	shipstreams_handle: Joi.string().allow(null, ""),
-	website: Joi.string().uri().allow(null, ""),
+	website: Joi.string().allow(null, ""),
 	tester: Joi.boolean(),
 	is_live: Joi.boolean(),
 	digest: Joi.boolean(),

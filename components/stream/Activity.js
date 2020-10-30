@@ -11,6 +11,7 @@ import { useAuth } from "stores/AuthStore";
 import Thread from "components/discussions/Thread";
 import Reply from "components/discussions/Reply";
 import { Link } from "routes";
+import TimeAgo from "react-timeago";
 
 const log = getLogger("Activity");
 
@@ -258,6 +259,11 @@ function Activity({ activity }) {
 									{getHumanTargetType(activity) ||
 										getHumanActivityObject(activity)}
 								</>
+							}
+							extra={
+								<span className="text-gray-300">
+									· <TimeAgo date={activity.getTime()} />
+								</span>
 							}
 						/>
 					)}

@@ -12,7 +12,7 @@ export const productSchema = Joi.object().keys({
 	),
 	product_hunt: Joi.string().uri().allow(null, ""),
 	twitter: Joi.string().allow(null, ""),
-	website: Joi.string().uri().allow(null, ""),
+	website: Joi.string().allow(null, ""),
 	projects: Joi.array().items(
 		Joi.object().keys({
 			id: Joi.number().integer().required(),

@@ -94,7 +94,7 @@ function DayView() {
 						{getRelativeDate(currentDate)}
 					</h2>
 					<div className="flex flex-row w-full">
-						<div className="flex-none">
+						<div className="flex-none mr-2">
 							<Button sm onClick={rewindDate}>
 								<Button.Icon>
 									<FontAwesomeIcon icon="chevron-left" />

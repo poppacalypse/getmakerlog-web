@@ -66,6 +66,21 @@ export function FormControls({ children, className = "" }) {
 	);
 }
 
+export function FormGroup({ children, title, className = "" }) {
+	return (
+		<>
+			{title && <strong>{title}</strong>}
+			<FormControls
+				className={
+					"p-2 mb-4 border-l border-gray-200 last:mb-0 " + className
+				}
+			>
+				{children}
+			</FormControls>
+		</>
+	);
+}
+
 function Form({ onSubmit = null, stopPropagation = true, children, ...props }) {
 	return (
 		<form
@@ -88,5 +103,6 @@ function Form({ onSubmit = null, stopPropagation = true, children, ...props }) {
 Form.Controls = FormControls;
 Form.Actions = FormActions;
 Form.Field = FormField;
+Form.Group = FormGroup;
 
 export default Form;

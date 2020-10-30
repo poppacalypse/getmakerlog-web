@@ -6,7 +6,9 @@ import React from "react";
 import { useAuth } from "stores/AuthStore";
 import orderBy from "lodash/orderBy";
 import Card from "components/ui/Card";
-import ProductMedia from "components/products/ProductMedia";
+import PageHeader from "components/ui/PageHeader";
+import { Link } from "routes";
+import ProductCard from "components/products/ProductCard";
 
 /*
 Grid layout:
@@ -21,7 +23,14 @@ function MyProductsList() {
 
 	return (
 		<div>
-			<h3 className="font-bold">Your Products</h3>
+			<PageHeader>
+				<h2 className="flex-grow font-bold">Your Products</h2>
+				<div>
+					<Link route="products-create">
+						<Button secondary>Add product</Button>
+					</Link>
+				</div>
+			</PageHeader>
 			{isLoading && <Spinner text="Loading your products..." />}
 			{error && (
 				<ErrorCard
@@ -30,14 +39,15 @@ function MyProductsList() {
 				/>
 			)}
 			{products && (
-				<Card className="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+				<Card>
 					<Card.Content className="space-y-2">
-						{orderBy(products, "created_at").map((product) => (
-							<ProductMedia
-								product={product}
-								key={product.slug}
-							/>
-						))}
+						<ul className="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+							{orderBy(products, "created_at").map((product) => (
+								<li key={product.slug}>
+									<ProductCard product={product} />
+								</li>
+							))}
+						</ul>
 					</Card.Content>
 				</Card>
 			)}

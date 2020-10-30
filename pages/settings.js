@@ -68,8 +68,7 @@ function SettingsPage() {
 			<Card>
 				<Card.Content>
 					<Form onSubmit={onSubmit}>
-						<strong>You</strong>
-						<Form.Controls className="p-2 mb-4 border-l border-gray-200 last:mb-0">
+						<Form.Group title="You">
 							<Form.Field span={3} label="First name">
 								<input
 									onChange={(e) => {
@@ -100,10 +99,9 @@ function SettingsPage() {
 									attachmentState={avatarState}
 								/>
 							</Form.Field>
-						</Form.Controls>
+						</Form.Group>
 
-						<strong>Profile</strong>
-						<Form.Controls className="p-2 mb-4 border-l border-gray-200 last:mb-0">
+						<Form.Group title="Profile">
 							<Form.Field span={6} label="Tagline">
 								<input
 									onChange={(e) =>
@@ -177,10 +175,9 @@ function SettingsPage() {
 							<Form.Field span={6} label="Preview">
 								<ProfileHeader halfWidth user={user} />
 							</Form.Field>
-						</Form.Controls>
+						</Form.Group>
 
-						<strong>Notifications</strong>
-						<div className="p-2 mb-4 border-l border-gray-200">
+						<Form.Group title="Notifications">
 							<Form.Field span={6}>
 								<div className="flex items-center">
 									<input
@@ -235,9 +232,9 @@ function SettingsPage() {
 									weekly-ish.
 								</p>
 							</Form.Field>
-						</div>
-						<strong>Streaks</strong>
-						<div className="p-2 mb-4 border-l border-gray-200">
+						</Form.Group>
+
+						<Form.Group title="Streaks">
 							<Form.Field>
 								<div className="flex items-center">
 									<input
@@ -264,14 +261,13 @@ function SettingsPage() {
 									break your streaak)
 								</p>
 							</Form.Field>
-						</div>
+						</Form.Group>
 
-						<strong>Gold</strong>
-						<div className="p-2 mb-4 border-l border-gray-200 last:mb-0">
+						<Form.Group title="Gold">
 							<p className="help">
 								Yell at Sergio to finish this part.
 							</p>
-						</div>
+						</Form.Group>
 
 						{errorMessages && (
 							<ErrorMessageList error={errorMessages} />

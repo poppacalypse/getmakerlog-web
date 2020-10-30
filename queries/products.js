@@ -1,7 +1,10 @@
 import axios, { axiosWrapper } from "utils/axios";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { StdErrorCollection } from "utils/error";
 import { productSchema, productsSchema } from "schemas/products";
+import { getLogger } from "utils/logging";
+
+const log = getLogger("products");
 
 export const PRODUCT_QUERIES = {
 	getProduct: "products.getProduct",
@@ -54,6 +57,61 @@ export async function getUserProducts(key, { username }) {
 	return value;
 }
 
+export async function createProduct({ payload: form }) {
+	let formCopy = form;
+	let data = new FormData();
+	const headers = {
+		"Content-Type": "multipart/form-data",
+	};
+	if (formCopy.icon !== null && formCopy.icon !== undefined) {
+		data.append("icon", form.icon);
+	}
+	if (formCopy.tags !== null) {
+		data.append("tags", JSON.stringify(form.tags));
+	}
+	Object.keys(formCopy).forEach(function (key) {
+		if (key === "icon") return;
+		if (key === "tags") return;
+		data.append(key, formCopy[key]);
+	});
+	const response = await axiosWrapper(axios.post, "/products/", data, {
+		headers,
+	});
+	return response.data;
+}
+
+export async function editProduct({ slug, payload: form }) {
+	let formCopy = form;
+	let data = new FormData();
+	const headers = {
+		"Content-Type": "multipart/form-data",
+	};
+	if (formCopy.icon !== null && formCopy.icon !== undefined) {
+		data.append("icon", form.icon);
+	}
+	if (formCopy.tags !== null) {
+		data.append("tags", JSON.stringify(form.tags));
+	}
+	Object.keys(formCopy).forEach(function (key) {
+		if (key === "icon") return;
+		if (key === "tags") return;
+		data.append(key, formCopy[key]);
+	});
+	const response = await axiosWrapper(
+		axios.patch,
+		`/products/${slug}/`,
+		data,
+		{
+			headers,
+		}
+	);
+	return response.data;
+}
+
+export async function deleteProduct({ slug }) {
+	await axiosWrapper(axios.delete, `/products/${slug}/`);
+}
+
 export function useProduct(slug) {
 	return useQuery([PRODUCT_QUERIES.getProduct, { slug }], getProduct);
 }
@@ -88,4 +146,26 @@ export function useUserProducts(username) {
 
 export function useMyProducts() {
 	return useQuery([PRODUCT_QUERIES.getUserProducts], getMyProducts);
+}
+
+// TODO: Add optimistic loading here
+
+export function useCreateProduct() {
+	return useMutation(createProduct, {
+		onSuccess: (data) => {
+			log(`Created new product (#${data.slug})`);
+		},
+	});
+}
+
+export function useEditProduct() {
+	return useMutation(editProduct, {
+		onSuccess: (data) => {
+			log(`Edited product (#${data.slug})`);
+		},
+	});
+}
+
+export function useDeleteProduct() {
+	return useMutation(deleteProduct);
 }
