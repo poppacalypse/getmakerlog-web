@@ -42,6 +42,8 @@ function getTargetLink(type, target) {
 }
 
 function getObjectComponent(type, obj) {
+	if (!obj) return null;
+
 	switch (type) {
 		case "task":
 			return <Task task={obj} />;
@@ -102,11 +104,13 @@ function getNotificationContent(notification) {
 								notification.obj
 								// eslint-disable-next-line
 						  )
-						: getObjectComponent(
+						: notification.target
+						? getObjectComponent(
 								notification.target_type,
 								notification.target
 								// eslint-disable-next-line
-						  )}
+						  )
+						: null}
 				</div>
 			);
 
