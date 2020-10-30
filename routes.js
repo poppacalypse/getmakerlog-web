@@ -31,7 +31,9 @@ const routerHelper = routes()
 	.add("notifications", "/notifications")
 	.add("discussions-thread", "/discussions/[slug]")
 	.add("products", "/products")
+	.add("products-create", "/products/create")
 	.add("product", "/products/[slug]")
+	.add("product-edit", "/products/[slug]/edit")
 	.add("not-implemented", "/not-implemented");
 
 const { Link, Router, useRouter, withRouter } = routerHelper;
