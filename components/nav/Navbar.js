@@ -91,6 +91,14 @@ function Navbar() {
 														You
 													</Dropdown.Item>
 												</Link>
+												<Link route="integrations">
+													<Dropdown.Item>
+														<Dropdown.Item.Icon>
+															<FontAwesomeIcon icon="plug" />
+														</Dropdown.Item.Icon>{" "}
+														Integrations
+													</Dropdown.Item>
+												</Link>
 												<Link route="settings">
 													<Dropdown.Item>
 														<Dropdown.Item.Icon>

@@ -99,6 +99,7 @@ import { faThumbsUp as faThumbsUpRegular } from "@fortawesome/free-regular-svg-i
 import { faStar } from "@fortawesome/free-solid-svg-icons/faStar";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons/faStar";
 import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
+import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons/faAngleDoubleDown";
 
 library.add(
 	faInstagram,
@@ -197,5 +198,6 @@ library.add(
 	faArrowsAltV,
 	faRedo,
 	faTimes,
-	faChevronRight
+	faChevronRight,
+	faAngleDoubleDown
 );

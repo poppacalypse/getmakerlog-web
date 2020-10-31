@@ -13,8 +13,10 @@ import { useCallback } from "react";
 import Notification from "components/notifications/Notification";
 import PageHeader from "components/ui/PageHeader";
 import NarrowLayout from "layouts/NarrowLayout";
+import { useRouter } from "next/router";
 
 function NotificationsPage() {
+	const router = useRouter();
 	const { isLoading, data, error } = useNotifications();
 	const [markAllReadMutation] = useMarkAllReadNotifications();
 
@@ -25,6 +27,14 @@ function NotificationsPage() {
 	useEffect(() => {
 		markAllRead();
 	}, [markAllRead]);
+
+	useEffect(() => {
+		router.events.on("routeChangeStart", markAllRead);
+
+		return () => {
+			router.events.off("routeChangeStart", markAllRead);
+		};
+	}, [router, markAllRead]);
 
 	return (
 		<NarrowLayout leftSidebar={null} rightSidebar={null}>

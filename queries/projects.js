@@ -11,5 +11,5 @@ export async function getProjects() {
 }
 
 export function useProjects() {
-	return useQuery([PROJECT_QUERIES.getUser], getProjects);
+	return useQuery([PROJECT_QUERIES.getProjects], getProjects);
 }

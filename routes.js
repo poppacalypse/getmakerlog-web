@@ -34,6 +34,13 @@ const routerHelper = routes()
 	.add("products-create", "/products/create")
 	.add("product", "/products/[slug]")
 	.add("product-edit", "/products/[slug]/edit")
+	.add("integrations", "/integrations")
+	.add("integration-telegram", "/integrations/telegram")
+	.add("integration-slack", "/integrations/slack")
+	.add("integration-todoist", "/integrations/todoist")
+	.add("integration-github", "/integrations/github")
+	.add("integration-gitlab", "/integrations/gitlab")
+	.add("integration-webhooks", "/integrations/webhooks")
 	.add("not-implemented", "/not-implemented");
 
 const { Link, Router, useRouter, withRouter } = routerHelper;
