@@ -10,7 +10,7 @@ export function buildSocketUrl(path) {
 }
 
 export function extractResultsFromGroups(data) {
-	return flatten(data ? data.map(({ results }) => results) : []);
+	return data ? flatten(data ? data.map(({ results }) => results) : []) : [];
 }
 
 export function onCmdEnter(e, callback) {

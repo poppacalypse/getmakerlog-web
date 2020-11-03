@@ -10,10 +10,11 @@ import EditorModal from "components/editor/EditorModal";
 import ActiveLink from "components/router/ActiveLink";
 import Dropdown from "components/ui/Dropdown";
 import Container from "components/ui/Container";
+import GlobalSearch from "components/search/GlobalSearch";
 
 function Navbar() {
 	const { isLoggedIn, user } = useAuth();
-	const { toggleEditor, editorOpen } = useRoot();
+	const { toggleEditor, editorOpen, toggleSearch, searchOpen } = useRoot();
 
 	return (
 		<nav className="flex-none bg-white">
@@ -26,11 +27,16 @@ function Navbar() {
 								<FontAwesomeIcon icon="check-circle" />
 							</a>
 						</Link>
-						<input
+						<div
+							className="hidden mr-4 md:block"
 							style={{ width: "500px" }}
-							className="hidden w-64 mr-4 md:block"
-							placeholder="Search products, makers, stories..."
-						/>
+						>
+							<input
+								onClick={() => toggleSearch()}
+								className=" w-full"
+								placeholder="Search products, makers, stories..."
+							/>
+						</div>
 						<div
 							className={
 								"fixed sm:static flex flex-row bottom-0 left-0 w-full bg-white sm:bg-transparent z-40 border-t border-gray-200 sm:border-none"
@@ -61,6 +67,7 @@ function Navbar() {
 									className={
 										"flex md:hidden items-center justify-center w-8 h-8 p-2 mx-2 font-semibold text-gray-700 border border-gray-200 hover:bg-gray-100  text-center rounded-full hover:bg-gray-200 text-gray-700"
 									}
+									onClick={() => toggleSearch()}
 								>
 									<FontAwesomeIcon icon="search" />
 								</button>
@@ -185,6 +192,8 @@ function Navbar() {
 			{isLoggedIn && (
 				<EditorModal open={editorOpen} onClose={toggleEditor} />
 			)}
+
+			<GlobalSearch open={searchOpen} onClose={toggleSearch} />
 		</nav>
 	);
 }

@@ -22,17 +22,18 @@ function ModalFooter({ children }) {
 	);
 }
 
-function Modal({ open, children, onClose }) {
+function Modal({ open, center = true, children, onClose, className = "" }) {
 	return (
 		<ReactModal
 			classNames={{
 				modal:
-					"bg-white rounded-md px-4 py-4 text-left overflow-hidden sm:my-8 sm:align-middle sm:max-w-sm sm:w-full",
+					"bg-white rounded-md px-4 py-4 text-left overflow-hidden sm:my-8 sm:align-middle sm:max-w-sm mx-0 sm:mx-auto sm:w-full " +
+					className,
 			}}
 			animationDuration={150}
 			open={open}
 			onClose={onClose}
-			center
+			center={center}
 			showCloseIcon={false}
 		>
 			{children}

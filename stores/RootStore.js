@@ -6,9 +6,14 @@ import { useObserver } from "mobx-react";
 class RootStore extends BaseStore {
 	@observable ready = false;
 	@observable editorOpen = false;
+	@observable searchOpen = false;
 
 	@action.bound toggleEditor() {
 		this.editorOpen = !this.editorOpen;
+	}
+
+	@action.bound toggleSearch() {
+		this.searchOpen = !this.searchOpen;
 	}
 
 	@action.bound setReady(value) {
@@ -23,6 +28,8 @@ export function useRoot() {
 	return useObserver(() => ({
 		ready: root.ready,
 		editorOpen: root.editorOpen,
+		searchOpen: root.searchOpen,
 		toggleEditor: root.toggleEditor,
+		toggleSearch: root.toggleSearch,
 	}));
 }

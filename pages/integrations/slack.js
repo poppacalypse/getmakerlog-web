@@ -5,7 +5,7 @@ import PageHeader from "components/ui/PageHeader";
 import Spinner from "components/ui/Spinner";
 import NarrowLayout from "layouts/NarrowLayout";
 import { useRouter } from "next/router";
-import { useLinkSlack } from "queries/integrations";
+import { useApps, useLinkSlack } from "queries/integrations";
 import React, { useEffect } from "react";
 
 function AddToSlackButton() {
@@ -39,6 +39,7 @@ function SlackLinker({ queryState: { isLoading, error, isSuccess } }) {
 export default function SlackIntegrationPage() {
 	const router = useRouter();
 	const [mutate, queryState] = useLinkSlack();
+	const { data: apps } = useApps();
 	const { code } = router.query;
 
 	useEffect(() => {
@@ -65,6 +66,12 @@ export default function SlackIntegrationPage() {
 			<Card>
 				<Card.Content>
 					<SlackLinker queryState={queryState} />
+					{apps && apps.linkkey && (
+						<p className="help">
+							Run <strong>/mlink {apps.linkkey.linkkey}</strong>{" "}
+							to pair with Slack.
+						</p>
+					)}
 				</Card.Content>
 			</Card>
 		</NarrowLayout>
