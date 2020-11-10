@@ -3,6 +3,7 @@ import Modal from "components/ui/Modal";
 import Spinner from "components/ui/Spinner";
 import { useDebounce } from "utils/hooks";
 import {
+	useSearchDiscussions,
 	useSearchProducts,
 	useSearchTasks,
 	useSearchUsers,
@@ -13,6 +14,7 @@ import orderBy from "lodash/orderBy";
 import ProductMedia from "components/products/ProductMedia";
 import Task from "components/tasks/Task";
 import { Link } from "routes";
+import Thread from "components/discussions/Thread";
 
 // TODO: Error handling.
 
@@ -34,6 +36,11 @@ export default function GlobalSearch({ open, onClose = () => {} }) {
 		data: tasksResults,
 		isSuccess: isSuccessTasks,
 	} = useSearchTasks(debouncedQuery);
+	const {
+		isLoading: isLoadingDiscussions,
+		data: discussionsResults,
+		isSuccess: isSuccessDiscussions,
+	} = useSearchDiscussions(debouncedQuery);
 
 	const users = orderBy(
 		extractResultsFromGroups(usersResults),
@@ -50,9 +57,22 @@ export default function GlobalSearch({ open, onClose = () => {} }) {
 		"desc",
 		"rank"
 	).map((r) => r.item);
+	const discussions = orderBy(
+		extractResultsFromGroups(discussionsResults),
+		"desc",
+		"rank"
+	).map((r) => r.item);
 
-	const success = isSuccessUsers && isSuccessProducts && isSuccessTasks;
-	const loading = isLoadingUsers || isLoadingProducts || isLoadingTasks;
+	const success =
+		isSuccessUsers &&
+		isSuccessProducts &&
+		isSuccessTasks &&
+		isSuccessDiscussions;
+	const loading =
+		isLoadingUsers ||
+		isLoadingProducts ||
+		isLoadingTasks ||
+		isLoadingDiscussions;
 
 	return (
 		<Modal open={open} onClose={onClose} center={false}>
@@ -76,6 +96,18 @@ export default function GlobalSearch({ open, onClose = () => {} }) {
 						onClose(false);
 					}}
 				>
+					<div className="flex">
+						<p className="flex-none heading">Discussions</p>
+						<div className="flex-grow"></div>
+						<Link route="search-discussions" params={{ q: query }}>
+							<a className="flex-none text-xs">Search all →</a>
+						</Link>
+					</div>
+					<div className="mb-4 last:mb-0 space-y-2">
+						{discussions.slice(0, 1).map((thread) => (
+							<Thread key={thread.slug} thread={thread} />
+						))}
+					</div>
 					<div className="flex">
 						<p className="flex-none heading">Products</p>
 						<div className="flex-grow"></div>
@@ -111,7 +143,7 @@ export default function GlobalSearch({ open, onClose = () => {} }) {
 						</Link>
 					</div>
 					<div className="mb-4 last:mb-0 space-y-2">
-						{tasks.slice(0, 3).map((task) => (
+						{tasks.slice(0, 1).map((task) => (
 							<Link
 								key={task.id}
 								route="task"

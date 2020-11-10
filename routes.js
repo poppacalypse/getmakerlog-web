@@ -44,6 +44,7 @@ const routerHelper = routes()
 	.add("search-products", "/search/products")
 	.add("search-tasks", "/search/tasks")
 	.add("search-users", "/search/users")
+	.add("search-discussions", "/search/discussions")
 	.add("not-implemented", "/not-implemented");
 
 const { Link, Router, useRouter, withRouter } = routerHelper;

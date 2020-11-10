@@ -22,6 +22,12 @@ export default function SearchProductsPage() {
 				<SidebarNav>
 					<p className="heading">Search...</p>
 					<SidebarNav.Link
+						route="search-discussions"
+						params={{ q: query }}
+					>
+						Discussions
+					</SidebarNav.Link>
+					<SidebarNav.Link
 						route="search-products"
 						params={{ q: query }}
 					>
