@@ -7,21 +7,27 @@ export const SEARCH_QUERIES = {
 	searchTasks: "search.searchTasks",
 };
 
-export async function searchUsers(key, { query }) {
-	const { data } = await axiosWrapper(axios.get, `/search/users/?q=${query}`);
-	return data;
-}
-
-export async function searchProducts(key, { query }) {
+export async function searchUsers(key, { query }, next = null) {
 	const { data } = await axiosWrapper(
 		axios.get,
-		`/search/products/?q=${query}`
+		next ? next : `/search/users/?q=${query}`
 	);
 	return data;
 }
 
-export async function searchTasks(key, { query }) {
-	const { data } = await axiosWrapper(axios.get, `/search/tasks/?q=${query}`);
+export async function searchProducts(key, { query }, next = null) {
+	const { data } = await axiosWrapper(
+		axios.get,
+		next ? next : `/search/products/?q=${query}`
+	);
+	return data;
+}
+
+export async function searchTasks(key, { query }, next = null) {
+	const { data } = await axiosWrapper(
+		axios.get,
+		next ? next : `/search/tasks/?q=${query}`
+	);
 	return data;
 }
 

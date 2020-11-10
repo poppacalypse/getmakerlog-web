@@ -79,7 +79,9 @@ export default function GlobalSearch({ open, onClose = () => {} }) {
 					<div className="flex">
 						<p className="flex-none heading">Products</p>
 						<div className="flex-grow"></div>
-						<a className="flex-none text-xs">Search all →</a>
+						<Link route="search-products" params={{ q: query }}>
+							<a className="flex-none text-xs">Search all →</a>
+						</Link>
 					</div>
 					<div className="mb-4 last:mb-0 space-y-2">
 						{products.slice(0, 3).map((product) => (
@@ -92,7 +94,9 @@ export default function GlobalSearch({ open, onClose = () => {} }) {
 					<div className="flex">
 						<p className="flex-none heading">Makers</p>
 						<div className="flex-grow"></div>
-						<a className="flex-none text-xs">Search all →</a>
+						<Link route="search-users" params={{ q: query }}>
+							<a className="flex-none text-xs">Search all →</a>
+						</Link>
 					</div>
 					<div className="mb-4 last:mb-0 space-y-2">
 						{users.slice(0, 3).map((user) => (
@@ -102,7 +106,9 @@ export default function GlobalSearch({ open, onClose = () => {} }) {
 					<div className="flex">
 						<p className="flex-none heading">Tasks</p>
 						<div className="flex-grow"></div>
-						<a className="flex-none text-xs">Search all →</a>
+						<Link route="search-tasks" params={{ q: query }}>
+							<a className="flex-none text-xs">Search all →</a>
+						</Link>
 					</div>
 					<div className="mb-4 last:mb-0 space-y-2">
 						{tasks.slice(0, 3).map((task) => (

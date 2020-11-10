@@ -41,6 +41,9 @@ const routerHelper = routes()
 	.add("integration-github", "/integrations/github")
 	.add("integration-gitlab", "/integrations/gitlab")
 	.add("integration-webhooks", "/integrations/webhooks")
+	.add("search-products", "/search/products")
+	.add("search-tasks", "/search/tasks")
+	.add("search-users", "/search/users")
 	.add("not-implemented", "/not-implemented");
 
 const { Link, Router, useRouter, withRouter } = routerHelper;
