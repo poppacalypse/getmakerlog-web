@@ -14,6 +14,8 @@ import Spinner from "components/ui/Spinner";
 import { dehydrate } from "react-query/hydration";
 import PostMedia from "components/stories/PostMedia";
 import PostGrid from "components/stories/PostGrid";
+import { Link } from "routes";
+import SubscribeCard from "components/stories/SubscribeCard";
 
 function StoriesPage() {
 	const {
@@ -43,51 +45,72 @@ function StoriesPage() {
 
 	return (
 		<div>
-			<div className="py-4 border-b border-gray-200">
+			<div className="bg-white">
+				<div className="py-4 border-b border-gray-200">
+					<Container>
+						<PostMedia featured post={featured[0]} />
+					</Container>
+				</div>
 				<Container>
-					<PostMedia featured post={featured[0]} />
+					<div className="pt-16 pb-12">
+						<div className="mb-12">
+							<center>
+								<h1>Interviews</h1>
+								<h3 className="mb-4 text-gray-700">
+									Every two weeks we bring on makers from all
+									over the world to share their stories.
+								</h3>
+								<Link
+									route="stories-tag"
+									params={{ slug: "interviews" }}
+								>
+									<a>Read all &raquo;</a>
+								</Link>
+							</center>
+						</div>
+
+						<PostGrid posts={interviews} />
+					</div>
+					<div className="pt-12 pb-12">
+						<div className="mb-12">
+							<center>
+								<h1>News</h1>
+								<h3 className="mb-4 text-gray-700">
+									The latest happenings in the maker
+									community.
+								</h3>
+								<Link
+									route="stories-tag"
+									params={{ slug: "news" }}
+								>
+									<a>Read all &raquo;</a>
+								</Link>
+							</center>
+						</div>
+						<PostGrid posts={news} />
+					</div>
+					<div className="pt-12 pb-24">
+						<div className="mb-12">
+							<center>
+								<h1>Culture</h1>
+								<h3 className="mb-4 text-gray-700">
+									Anything maker-culture related.
+								</h3>
+								<Link
+									route="stories-tag"
+									params={{ slug: "culture" }}
+								>
+									<a>Read all &raquo;</a>
+								</Link>
+							</center>
+						</div>
+						<PostGrid posts={culture} />
+					</div>
 				</Container>
 			</div>
-			<Container>
-				<div className="pt-16 pb-12">
-					<div className="mb-12">
-						<center>
-							<h1>Interviews</h1>
-							<h3 className="mb-4 text-gray-700">
-								Every two weeks we bring on makers from all over
-								the world to share their stories.
-							</h3>
-							<a>Read all &raquo;</a>
-						</center>
-					</div>
-
-					<PostGrid posts={interviews} />
-				</div>
-				<div className="pt-12 pb-12">
-					<div className="mb-12">
-						<center>
-							<h1>News</h1>
-							<h3 className="mb-4 text-gray-700">
-								The latest happenings in the maker community.
-							</h3>
-							<a>Read all &raquo;</a>
-						</center>
-					</div>
-					<PostGrid posts={news} />
-				</div>
-				<div className="pt-12 pb-12">
-					<div className="mb-12">
-						<center>
-							<h1>Culture</h1>
-							<h3 className="mb-4 text-gray-700">
-								Anything maker-culture related.
-							</h3>
-							<a>Read all &raquo;</a>
-						</center>
-					</div>
-					<PostGrid posts={culture} />
-				</div>
-			</Container>
+			<div className="my-12">
+				<SubscribeCard />
+			</div>
 		</div>
 	);
 }
@@ -140,7 +163,6 @@ StoriesPage.getInitialProps = async () => {
 		dehydratedState: dehydrate(queryCache),
 		layout: {
 			contained: false,
-			bgClassName: "bg-white",
 		},
 	};
 };

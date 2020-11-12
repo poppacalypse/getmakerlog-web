@@ -3,7 +3,7 @@ import Spinner from "components/ui/Spinner";
 import React from "react";
 import PostMedia from "./PostMedia";
 
-export default function PostGrid({ posts }) {
+export default function PostList({ posts }) {
 	if (!posts) {
 		return (
 			<PlaceholderState>
@@ -21,9 +21,9 @@ export default function PostGrid({ posts }) {
 	}
 
 	return (
-		<div className="max-w-lg mx-auto grid gap-5 md:grid-cols-3 md:max-w-none">
+		<div className="flex flex-col space-y-4">
 			{posts.map((post) => (
-				<PostMedia post={post} key={post.id} />
+				<PostMedia horizontal post={post} key={post.id} />
 			))}
 		</div>
 	);

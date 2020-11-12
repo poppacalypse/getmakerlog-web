@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, useRouter, routerHelper } from "routes";
@@ -19,10 +20,13 @@ function ActiveLink({
 	const child = React.Children.only(children);
 
 	let className = child.props.className || "";
+	const routeData = routerHelper.resolveRoute(route).getRouteData(params);
 	if (
 		(router.pathname === href ||
-			routerHelper.resolveRoute(route).getRouteData(params).href
-				.pathname == router.pathname ||
+			(routeData.as
+				? routeData.href.pathname == router.pathname &&
+				  router.asPath == routeData.as.pathname
+				: routeData.href.pathname == router.pathname) ||
 			(wildcard &&
 				router.pathname.startsWith(
 					routerHelper.resolveRoute(route).getRouteData(params).href

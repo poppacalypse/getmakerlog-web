@@ -47,6 +47,7 @@ const routerHelper = routes()
 	.add("search-discussions", "/search/discussions")
 	.add("stories", "/stories")
 	.add("stories-post", "/stories/[slug]")
+	.add("stories-tag", "/stories/tags/[slug]")
 	.add("not-implemented", "/not-implemented");
 
 const { Link, Router, useRouter, withRouter } = routerHelper;

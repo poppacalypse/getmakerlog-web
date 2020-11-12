@@ -24,6 +24,8 @@ import { Link } from "routes";
 import Button from "components/ui/Button";
 import UserMedia from "components/ui/UserMedia";
 import ProductMedia from "components/products/ProductMedia";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getLinkedInShareUrl, getTwitterShareUrl } from "utils/stories";
 
 function StoriesPostPage() {
 	const {
@@ -78,6 +80,29 @@ function StoriesPostPage() {
 							__html: post.html.trimEnd(),
 						}}
 					></div>
+					<div className="flex justify-center pb-8 space-x-2">
+						<Button
+							anchorElem
+							target="_blank"
+							href={getTwitterShareUrl(post)}
+						>
+							<Button.Icon>
+								<FontAwesomeIcon icon={["fab", "twitter"]} />
+							</Button.Icon>
+							Tweet
+						</Button>
+						<Button
+							anchorElem
+							target="_blank"
+							href={getLinkedInShareUrl(post)}
+						>
+							<Button.Icon>
+								<FontAwesomeIcon icon={["fab", "linkedin"]} />
+							</Button.Icon>
+							Share
+						</Button>
+					</div>
+
 					{storyMetadata &&
 						(storyMetadata.users.length !== 0 ||
 							storyMetadata.products.length !== 0) && (

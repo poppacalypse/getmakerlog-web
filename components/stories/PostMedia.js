@@ -3,19 +3,28 @@ import React from "react";
 import { Link } from "routes";
 import PostHeading from "./PostHeading";
 
-export default function PostMedia({ post, featured = false }) {
+export default function PostMedia({
+	post,
+	horizontal = false,
+	featured = false,
+}) {
 	return (
 		<div
 			className={
-				featured
+				featured || horizontal
 					? "flex flex-col items-center sm:flex-row space-x-4"
 					: "flex flex-col"
 			}
 		>
 			<div
 				className={
-					featured ? "flex-1 mb-4 sm:mb-0 w-full" : "flex-1 mb-4"
+					featured || horizontal
+						? horizontal
+							? "mb-4 sm:mb-0 w-full overflow-hidden "
+							: "flex-1 mb-4 sm:mb-0 w-full"
+						: "flex-1 mb-4"
 				}
+				style={horizontal ? { flex: 0.3 } : {}}
 			>
 				<Link route="stories-post" params={{ slug: post.slug }}>
 					<a>
@@ -43,12 +52,14 @@ export default function PostMedia({ post, featured = false }) {
 			</div>
 			<div
 				className={
-					featured ? "flex-1 mt-4 sm:mt-0 sm:px-4 lg:px-8" : "flex-1"
+					featured || horizontal
+						? "flex-1 mt-4 sm:mt-0 sm:px-4 lg:px-8"
+						: "flex-1"
 				}
 			>
 				<PostHeading post={post} />
 				<Link route="stories-post" params={{ slug: post.slug }}>
-					<a className="text-gray-900">
+					<a className="text-black">
 						{featured ? (
 							<h1 className="font-bold">{post.title}</h1>
 						) : (

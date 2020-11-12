@@ -163,15 +163,33 @@ function Navbar() {
 									Frontpage
 								</a>
 							</ActiveLink>
-							<a className="mr-4 font-medium text-gray-500">
-								Interviews
-							</a>
-							<a className="mr-4 font-medium text-gray-500">
-								Culture
-							</a>
-							<a className="mr-4 font-medium text-gray-500">
-								News
-							</a>
+							<ActiveLink
+								route="stories-tag"
+								params={{ slug: "interviews" }}
+								activeClassName="text-green-500"
+							>
+								<a className="mr-4 font-medium text-gray-500">
+									Interviews
+								</a>
+							</ActiveLink>
+							<ActiveLink
+								route="stories-tag"
+								params={{ slug: "culture" }}
+								activeClassName="text-green-500"
+							>
+								<a className="mr-4 font-medium text-gray-500">
+									Culture
+								</a>
+							</ActiveLink>
+							<ActiveLink
+								route="stories-tag"
+								params={{ slug: "news" }}
+								activeClassName="text-green-500"
+							>
+								<a className="mr-4 font-medium text-gray-500">
+									News
+								</a>
+							</ActiveLink>
 						</div>
 					</Container>
 				</div>
