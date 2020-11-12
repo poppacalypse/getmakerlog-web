@@ -6,6 +6,7 @@ import Card from "components/ui/Card";
 import PageHeader from "components/ui/PageHeader";
 import Spinner from "components/ui/Spinner";
 import NarrowLayout from "layouts/NarrowLayout";
+import { NextSeo } from "next-seo";
 import { useApps } from "queries/integrations";
 import React from "react";
 
@@ -55,6 +56,8 @@ export default function WebhooksIntegrationPage() {
 					)}
 				</Card.Content>
 			</Card>
+
+			<NextSeo title="Webhooks" />
 		</NarrowLayout>
 	);
 }

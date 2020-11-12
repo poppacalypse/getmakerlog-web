@@ -9,6 +9,7 @@ import Card from "components/ui/Card";
 import PageHeader from "components/ui/PageHeader";
 import { Link } from "routes";
 import ProductCard from "components/products/ProductCard";
+import { NextSeo } from "next-seo";
 
 /*
 Grid layout:
@@ -51,6 +52,11 @@ function MyProductsList() {
 					</Card.Content>
 				</Card>
 			)}
+
+			<NextSeo
+				title="Products"
+				description="Discover the world's largest community of software products built in public."
+			/>
 		</div>
 	);
 }

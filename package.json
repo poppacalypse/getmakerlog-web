@@ -39,6 +39,7 @@
 		"mobx-react": "^6.2.5",
 		"next": "^10.0.0",
 		"next-mobx-wrapper": "^0.4.0",
+		"next-seo": "^4.17.0",
 		"nookies": "^2.4.0",
 		"normalize-url": "^4.5.0",
 		"nprogress": "^0.2.0",

@@ -4,10 +4,12 @@ import ErrorCard from "components/ui/ErrorCard";
 import PageHeader from "components/ui/PageHeader";
 import Spinner from "components/ui/Spinner";
 import NarrowLayout from "layouts/NarrowLayout";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { getProduct, PRODUCT_QUERIES, useProduct } from "queries/products";
 import React from "react";
 import { makeQueryCache } from "react-query";
+import { dehydrate } from "react-query/hydration";
 import { Link } from "routes";
 import { requireAuth } from "utils/auth";
 import { isInProduct } from "utils/products";
@@ -41,6 +43,7 @@ function EditProductPage() {
 					<ProductEditForm product={product} />
 				</Card.Content>
 			</Card>
+			<NextSeo title={`Editing "${product.name}"`} />
 		</NarrowLayout>
 	);
 }
@@ -61,6 +64,8 @@ EditProductPage.getInitialProps = async ({
 			statusCode: 403,
 		};
 	}
+
+	return { dehydratedState: dehydrate(queryCache) };
 };
 
 export default requireAuth(EditProductPage);

@@ -8,6 +8,7 @@ import Card from "components/ui/Card";
 import NarrowLayout from "layouts/NarrowLayout";
 import Spinner from "components/ui/Spinner";
 import { Router } from "routes";
+import { NextSeo } from "next-seo";
 
 function SocialAuthCompletePage() {
 	const { loginWithToken } = useAuth();
@@ -69,6 +70,8 @@ function SocialAuthCompletePage() {
 					)}
 				</Card.Content>
 			</Card>
+
+			<NextSeo title="Redirecting..." />
 		</NarrowLayout>
 	);
 }

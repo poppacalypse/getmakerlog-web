@@ -11,11 +11,14 @@ import ThreadReplies from "components/discussions/ThreadReplies";
 import { ThreadReplyCreateForm } from "components/discussions/ThreadReplyForm";
 import Card from "components/ui/Card";
 import NarrowLayout from "layouts/NarrowLayout";
+import { NextSeo } from "next-seo";
+import truncate from "lodash/truncate";
+import config from "config";
 
 function DiscussionThreadPage() {
 	const router = useRouter();
 	const { slug } = router.query;
-	const { isLoading, data, error } = useThread(slug);
+	const { isLoading, data: thread, error } = useThread(slug);
 	const repliesEnd = useRef(null);
 
 	if (isLoading) return <Spinner text="Loading discussion..." />;
@@ -36,14 +39,14 @@ function DiscussionThreadPage() {
 					full
 					withActionBar={false}
 					withActionBarPage
-					thread={data}
+					thread={thread}
 				/>
 			</div>
 			<div>
 				<Card>
 					<Card.Content>
 						<ThreadReplyCreateForm
-							thread={data}
+							thread={thread}
 							onFinish={() => {
 								if (repliesEnd) {
 									repliesEnd.current.scrollIntoView({
@@ -57,11 +60,24 @@ function DiscussionThreadPage() {
 			</div>
 			<div className="mt-4">
 				<h4 className="mb-2 font-semibold text-gray-700">
-					{data.reply_count} replies
+					{thread.reply_count} replies
 				</h4>
-				<ThreadReplies thread={data} />
+				<ThreadReplies thread={thread} />
 				<div ref={repliesEnd}></div>
 			</div>
+
+			<NextSeo
+				title={thread.title}
+				description={truncate(thread.body, 60, "...")}
+				canonical={`${config.BASE_URL}/discussions/${thread.slug}`}
+				openGraph={{
+					images: [
+						{
+							url: thread.og_image,
+						},
+					],
+				}}
+			/>
 		</NarrowLayout>
 	);
 }

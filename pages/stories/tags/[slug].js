@@ -2,6 +2,7 @@ import PostList from "components/stories/PostList";
 import ErrorCard from "components/ui/ErrorCard";
 import PlaceholderState from "components/ui/PlaceholderState";
 import Spinner from "components/ui/Spinner";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { COMMON_TAGS, getTags, STORY_QUERIES, useTags } from "queries/stories";
 import React from "react";
@@ -27,6 +28,11 @@ function StoriesTagPage() {
 			)}
 			{posts && <PostList posts={posts} />}
 			{error && <ErrorCard />}
+
+			<NextSeo
+				title={`Posts tagged ${slug}`}
+				titleTemplate="%s | Makerlog Stories"
+			/>
 		</div>
 	);
 }

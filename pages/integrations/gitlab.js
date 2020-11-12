@@ -6,6 +6,7 @@ import Card from "components/ui/Card";
 import PageHeader from "components/ui/PageHeader";
 import Spinner from "components/ui/Spinner";
 import NarrowLayout from "layouts/NarrowLayout";
+import { NextSeo } from "next-seo";
 import { useApps } from "queries/integrations";
 import React from "react";
 
@@ -59,6 +60,8 @@ export default function GitlabIntegrationPage() {
 					)}
 				</Card.Content>
 			</Card>
+
+			<NextSeo title="GitLab" />
 		</NarrowLayout>
 	);
 }

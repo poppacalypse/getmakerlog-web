@@ -60,6 +60,31 @@ const STREAM_APP_ID = process.env.STREAM_APP_ID
 	? process.env.STREAM_APP_ID
 	: "97497";
 
+export const DEFAULT_SEO_CONFIG = {
+	title: "Home",
+	titleTemplate: "%s | Makerlog",
+	description:
+		"Makerlog is where makers & indie hackers build products in public.",
+	openGraph: {
+		url: BASE_URL,
+		title: "Makerlog",
+		description:
+			"Makerlog is where makers & indie hackers build products in public.",
+		images: [
+			{
+				url: "/img/og/default.png",
+			},
+		],
+		site_name: "Makerlog",
+	},
+	twitter: {
+		// Handle is the creator of the content given, not the site handle.
+		handle: "@getmakerlog",
+		site: "@getmakerlog",
+		cardType: "summary_large_image",
+	},
+};
+
 const config = {
 	API_URL,
 	WS_URL,

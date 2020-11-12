@@ -8,6 +8,7 @@ import SidebarNav from "components/ui/SidebarNav";
 import InfiniteSearch from "components/search/InfiniteSearch";
 import Task from "components/tasks/Task";
 import UserLine from "components/ui/UserLine";
+import { NextSeo } from "next-seo";
 
 export default function SearchTasksPage() {
 	const {
@@ -67,6 +68,8 @@ export default function SearchTasksPage() {
 					/>
 				</Card.Content>
 			</Card>
+
+			<NextSeo title="Search" />
 		</NarrowLayout>
 	);
 }

@@ -11,7 +11,7 @@ import React from "react";
 import App from "next/app";
 import { Provider, useStaticRendering } from "mobx-react";
 
-import { isServer, isDev } from "../config";
+import { isServer, isDev, DEFAULT_SEO_CONFIG } from "../config";
 import config, { onStoreInit } from "stores";
 import { configureMobx } from "utils/mobx";
 import Shell from "layouts/Shell";
@@ -20,6 +20,8 @@ import NProgressContainer from "vendor/nprogress";
 import { configure } from "mobx";
 import { ReactQueryCacheProvider } from "react-query";
 import { Hydrate } from "react-query/hydration";
+import { DefaultSeo } from "next-seo";
+import DefaultHead from "components/seo/DefaultHead";
 
 if (isDev && !isServer) {
 	localStorage.debug = "makerlog*,axios";
@@ -64,20 +66,24 @@ class Makerlog extends App {
 		const layoutProps = pageProps.layout ? pageProps.layout : {};
 
 		return (
-			<ReactQueryCacheProvider>
-				<Hydrate state={pageProps.dehydratedState}>
-					<Provider {...store}>
-						<Shell
-							statusCode={statusCode}
-							layoutProps={layoutProps}
-						>
-							<Component {...pageProps} />
-							<NProgressContainer spinner={false} />
-						</Shell>
-						<ReactQueryDevtools />
-					</Provider>
-				</Hydrate>
-			</ReactQueryCacheProvider>
+			<>
+				<DefaultHead />
+				<DefaultSeo {...DEFAULT_SEO_CONFIG} />
+				<ReactQueryCacheProvider>
+					<Hydrate state={pageProps.dehydratedState}>
+						<Provider {...store}>
+							<Shell
+								statusCode={statusCode}
+								layoutProps={layoutProps}
+							>
+								<Component {...pageProps} />
+								<NProgressContainer spinner={false} />
+							</Shell>
+							<ReactQueryDevtools />
+						</Provider>
+					</Hydrate>
+				</ReactQueryCacheProvider>
+			</>
 		);
 	}
 }

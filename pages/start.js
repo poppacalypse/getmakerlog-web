@@ -2,6 +2,7 @@ import FacebookLogin from "components/auth/FacebookLogin";
 import TwitterLogin from "components/auth/TwitterLogin";
 import Card from "components/ui/Card";
 import NarrowLayout from "layouts/NarrowLayout";
+import { NextSeo } from "next-seo";
 import React from "react";
 
 function SignupPage() {
@@ -57,6 +58,10 @@ function SignupPage() {
 					</ul>
 				</Card.Content>
 			</Card>
+			<NextSeo
+				title="Get started"
+				description="It's never too late to start building in public, with the world's friendliest community by your side."
+			/>
 		</NarrowLayout>
 	);
 }

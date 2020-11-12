@@ -4,6 +4,7 @@ import Message from "components/ui/Message";
 import PageHeader from "components/ui/PageHeader";
 import Spinner from "components/ui/Spinner";
 import NarrowLayout from "layouts/NarrowLayout";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useApps, useLinkSlack } from "queries/integrations";
 import React, { useEffect } from "react";
@@ -74,6 +75,8 @@ export default function SlackIntegrationPage() {
 					)}
 				</Card.Content>
 			</Card>
+
+			<NextSeo title="Slack" />
 		</NarrowLayout>
 	);
 }

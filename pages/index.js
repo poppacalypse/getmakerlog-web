@@ -8,6 +8,7 @@ import Editor from "components/editor/Editor";
 import NarrowLayout from "layouts/NarrowLayout";
 import { requiresOnboarding } from "utils/auth";
 import OnboardingCard from "components/auth/OnboardingCard";
+import { NextSeo } from "next-seo";
 
 function IndexPage() {
 	const { isLoggedIn, user } = useAuth();
@@ -60,6 +61,7 @@ function IndexPage() {
 					<KeyActivityFeed userId={-1} feed="site" />
 				</>
 			)}
+			<NextSeo title="Feed" />
 		</NarrowLayout>
 	);
 }

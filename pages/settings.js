@@ -12,6 +12,7 @@ import { requireAuth } from "utils/auth";
 import { useImageUpload } from "utils/hooks";
 import Message from "components/ui/Message";
 import HeaderUpload from "components/users/HeaderUpload";
+import { NextSeo } from "next-seo";
 
 function SettingsPage() {
 	const { patching, patchUser, user, errorMessages } = useAuth();
@@ -282,6 +283,7 @@ function SettingsPage() {
 					</Form>
 				</Card.Content>
 			</Card>
+			<NextSeo title="Settings" />
 		</NarrowLayout>
 	);
 }

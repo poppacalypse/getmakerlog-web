@@ -26,6 +26,7 @@ import UserMedia from "components/ui/UserMedia";
 import ProductMedia from "components/products/ProductMedia";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getLinkedInShareUrl, getTwitterShareUrl } from "utils/stories";
+import { NextSeo } from "next-seo";
 
 function StoriesPostPage() {
 	const {
@@ -163,6 +164,23 @@ function StoriesPostPage() {
 					<PostGrid posts={relatedPosts} />
 				</div>
 			</Container>
+
+			<NextSeo
+				title={post.title}
+				titleTemplate="%s | Makerlog Stories"
+				description={post.excerpt}
+				openGraph={{
+					images: [
+						{
+							url:
+								`https://blog.getmakerlog.com/${post.twitter_image}` ||
+								`https://blog.getmakerlog.com/${post.twitter_image}` ||
+								post.feature_image ||
+								"/img/og/stories.png",
+						},
+					],
+				}}
+			/>
 		</div>
 	);
 }

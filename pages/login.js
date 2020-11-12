@@ -9,6 +9,7 @@ import NarrowLayout from "layouts/NarrowLayout";
 import Card from "components/ui/Card";
 import TwitterLogin from "components/auth/TwitterLogin";
 import FacebookLogin from "components/auth/FacebookLogin";
+import { NextSeo } from "next-seo";
 
 function LoginPage() {
 	const { loginWithCredentials, loading, errorMessages } = useAuth();
@@ -118,6 +119,7 @@ function LoginPage() {
 					</Form>
 				</Card.Content>
 			</Card>
+			<NextSeo title="Login" />
 		</NarrowLayout>
 	);
 }

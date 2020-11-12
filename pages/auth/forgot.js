@@ -4,6 +4,7 @@ import Card from "components/ui/Card";
 import Form from "components/ui/Form";
 import Message from "components/ui/Message";
 import NarrowLayout from "layouts/NarrowLayout";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { requestPasswordReset, resetPassword } from "utils/auth";
@@ -166,6 +167,8 @@ function ForgotPage() {
 					)}
 				</Card.Content>
 			</Card>
+
+			<NextSeo title="Forgot" />
 		</NarrowLayout>
 	);
 }

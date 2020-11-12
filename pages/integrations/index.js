@@ -2,6 +2,7 @@ import IntegrationMedia from "components/integrations/IntegrationMedia";
 import Card from "components/ui/Card";
 import PageHeader from "components/ui/PageHeader";
 import NarrowLayout from "layouts/NarrowLayout";
+import { NextSeo } from "next-seo";
 import React from "react";
 
 function IntegrationsPage() {
@@ -107,6 +108,8 @@ function IntegrationsPage() {
 					</div>
 				</Card.Content>
 			</Card>
+
+			<NextSeo title="Integrations" />
 		</NarrowLayout>
 	);
 }

@@ -9,6 +9,9 @@ import NarrowLayout from "layouts/NarrowLayout";
 import ProductSidebar from "components/sidebars/ProductSidebar";
 import KeyActivityFeed from "components/stream/KeyActivityFeed";
 import ProductHeader from "components/products/ProductHeader";
+import { NextSeo } from "next-seo";
+import config from "config";
+import { dehydrate } from "react-query/hydration";
 
 function ProductPage() {
 	const router = useRouter();
@@ -36,6 +39,20 @@ function ProductPage() {
 					<KeyActivityFeed userId={product.id} feed="product" />
 				</NarrowLayout>
 			</Container>
+
+			<NextSeo
+				title={product.name}
+				description={`${product.name} is built publicly on Makerlog, a community of makers building products together.`}
+				canonical={`${config.BASE_URL}/products/${product.slug}`}
+				openGraph={{
+					images: [
+						{
+							url: product.icon,
+						},
+					],
+				}}
+				twitter={{ cardType: "summary" }}
+			/>
 		</div>
 	);
 }
@@ -49,6 +66,7 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
 	);
 
 	return {
+		dehydratedState: dehydrate(queryCache),
 		layout: {
 			contained: false,
 		},

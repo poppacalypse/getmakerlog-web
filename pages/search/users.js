@@ -7,6 +7,7 @@ import NarrowLayout from "layouts/NarrowLayout";
 import SidebarNav from "components/ui/SidebarNav";
 import InfiniteSearch from "components/search/InfiniteSearch";
 import UserMedia from "components/ui/UserMedia";
+import { NextSeo } from "next-seo";
 
 export default function SearchUsersPage() {
 	const {
@@ -59,6 +60,8 @@ export default function SearchUsersPage() {
 					/>
 				</Card.Content>
 			</Card>
+
+			<NextSeo title="Search" />
 		</NarrowLayout>
 	);
 }

@@ -14,6 +14,7 @@ import Notification from "components/notifications/Notification";
 import PageHeader from "components/ui/PageHeader";
 import NarrowLayout from "layouts/NarrowLayout";
 import { useRouter } from "next/router";
+import { NextSeo } from "next-seo";
 
 function NotificationsPage() {
 	const router = useRouter();
@@ -57,6 +58,7 @@ function NotificationsPage() {
 					{error && <ErrorMessageList error={error} />}
 				</Card.Content>
 			</Card>
+			<NextSeo title="Notifications" />
 		</NarrowLayout>
 	);
 }

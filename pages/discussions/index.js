@@ -3,6 +3,7 @@ import Button from "components/ui/Button";
 import LatestThreads from "components/discussions/LatestThreads";
 import PageHeader from "components/ui/PageHeader";
 import NarrowLayout from "layouts/NarrowLayout";
+import { NextSeo } from "next-seo";
 
 function DiscussionsPage() {
 	return (
@@ -15,6 +16,11 @@ function DiscussionsPage() {
 				</div>
 			</PageHeader>
 			<LatestThreads />
+
+			<NextSeo
+				title="Discussions"
+				description="Share knowledge, ask questions & build better products on Makerlog."
+			/>
 		</NarrowLayout>
 	);
 }
