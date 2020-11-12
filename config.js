@@ -72,7 +72,7 @@ export const DEFAULT_SEO_CONFIG = {
 			"Makerlog is where makers & indie hackers build products in public.",
 		images: [
 			{
-				url: "/img/og/default.png",
+				url: `${BASE_URL}/img/og/default.png`,
 			},
 		],
 		site_name: "Makerlog",

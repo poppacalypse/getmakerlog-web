@@ -17,6 +17,7 @@ import PostGrid from "components/stories/PostGrid";
 import { Link } from "routes";
 import SubscribeCard from "components/stories/SubscribeCard";
 import { NextSeo } from "next-seo";
+import config from "config";
 
 function StoriesPage() {
 	const {
@@ -118,7 +119,7 @@ function StoriesPage() {
 				description="Where successful founders tell their product stories."
 				titleTemplate="%s | Makerlog Stories"
 				openGraph={{
-					images: [{ url: "/img/og/stories.png" }],
+					images: [{ url: `${config.BASE_URL}/img/og/stories.png` }],
 				}}
 				twitter={{
 					handle: "@getmakerlog",

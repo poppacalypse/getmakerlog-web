@@ -27,6 +27,7 @@ import ProductMedia from "components/products/ProductMedia";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getLinkedInShareUrl, getTwitterShareUrl } from "utils/stories";
 import { NextSeo } from "next-seo";
+import config from "config";
 
 function StoriesPostPage() {
 	const {
@@ -176,7 +177,7 @@ function StoriesPostPage() {
 								`https://blog.getmakerlog.com/${post.twitter_image}` ||
 								`https://blog.getmakerlog.com/${post.twitter_image}` ||
 								post.feature_image ||
-								"/img/og/stories.png",
+								`${config.BASE_URL}/img/og/stories.png`,
 						},
 					],
 				}}
