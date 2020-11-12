@@ -62,6 +62,18 @@ module.exports = {
 		],
 	},
 	theme: {
+		typography: {
+			default: {
+				css: {
+					a: {
+						color: "#00AD71",
+						"&:hover": {
+							color: "#00AD71",
+						},
+					},
+				},
+			},
+		},
 		extend: {
 			zIndex: {
 				0: 0,

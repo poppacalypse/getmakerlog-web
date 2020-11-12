@@ -23,7 +23,11 @@ function ActiveLink({
 		(router.pathname === href ||
 			routerHelper.resolveRoute(route).getRouteData(params).href
 				.pathname == router.pathname ||
-			wildcard) &&
+			(wildcard &&
+				router.pathname.startsWith(
+					routerHelper.resolveRoute(route).getRouteData(params).href
+						.pathname
+				))) &&
 		!notPath.some((v) => router.pathname.includes(v)) &&
 		activeClassName
 	) {

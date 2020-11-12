@@ -11,8 +11,10 @@ import ActiveLink from "components/router/ActiveLink";
 import Dropdown from "components/ui/Dropdown";
 import Container from "components/ui/Container";
 import GlobalSearch from "components/search/GlobalSearch";
+import { useRouter } from "next/router";
 
 function Navbar() {
+	const { pathname } = useRouter();
 	const { isLoggedIn, user } = useAuth();
 	const { toggleEditor, editorOpen, toggleSearch, searchOpen } = useRoot();
 
@@ -52,9 +54,16 @@ function Navbar() {
 									Community
 								</a>
 							</ActiveLink>
-							<div className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
-								Stories
-							</div>
+							<ActiveLink
+								route="stories"
+								wildcard
+								notPath={["index", "more", "_error"]}
+								activeClassName="text-green-500"
+							>
+								<a className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
+									Stories
+								</a>
+							</ActiveLink>
 							<div className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
 								More
 							</div>
@@ -142,52 +151,78 @@ function Navbar() {
 					</div>
 				</Container>
 			</div>
-			<div className="border-b border-gray-200">
-				<Container className="py-2">
-					<div className="flex flex-auto max-w-full overflow-x-auto">
-						<ActiveLink
-							route="index"
-							activeClassName="text-green-500"
-						>
+			{pathname.startsWith("/stories") ? (
+				<div className="border-b border-gray-200">
+					<Container className="py-2">
+						<div className="flex flex-auto max-w-full overflow-x-auto">
+							<ActiveLink
+								route="stories"
+								activeClassName="text-green-500"
+							>
+								<a className="mr-4 font-medium text-gray-500">
+									Frontpage
+								</a>
+							</ActiveLink>
 							<a className="mr-4 font-medium text-gray-500">
-								Feed
+								Interviews
 							</a>
-						</ActiveLink>
-						<ActiveLink
-							route="discussions"
-							activeClassName="text-green-500"
-						>
 							<a className="mr-4 font-medium text-gray-500">
-								Discussions
+								Culture
 							</a>
-						</ActiveLink>
-						<ActiveLink
-							route="products"
-							activeClassName="text-green-500"
-						>
 							<a className="mr-4 font-medium text-gray-500">
-								Products
+								News
 							</a>
-						</ActiveLink>
-						<div className="mr-4 font-medium text-gray-500">
-							Events
 						</div>
-						{isLoggedIn && (
-							<>
-								<div className="flex-grow"></div>
-								<ActiveLink
-									route="tasks"
-									activeClassName="text-green-500"
-								>
-									<a className="flex-none font-medium text-gray-500">
-										Your Tasks
-									</a>
-								</ActiveLink>
-							</>
-						)}
-					</div>
-				</Container>
-			</div>
+					</Container>
+				</div>
+			) : (
+				<div className="border-b border-gray-200">
+					<Container className="py-2">
+						<div className="flex flex-auto max-w-full overflow-x-auto">
+							<ActiveLink
+								route="index"
+								activeClassName="text-green-500"
+							>
+								<a className="mr-4 font-medium text-gray-500">
+									Feed
+								</a>
+							</ActiveLink>
+							<ActiveLink
+								route="discussions"
+								activeClassName="text-green-500"
+							>
+								<a className="mr-4 font-medium text-gray-500">
+									Discussions
+								</a>
+							</ActiveLink>
+							<ActiveLink
+								route="products"
+								activeClassName="text-green-500"
+							>
+								<a className="mr-4 font-medium text-gray-500">
+									Products
+								</a>
+							</ActiveLink>
+							<div className="mr-4 font-medium text-gray-500">
+								Events
+							</div>
+							{isLoggedIn && (
+								<>
+									<div className="flex-grow"></div>
+									<ActiveLink
+										route="tasks"
+										activeClassName="text-green-500"
+									>
+										<a className="flex-none font-medium text-gray-500">
+											Your Tasks
+										</a>
+									</ActiveLink>
+								</>
+							)}
+						</div>
+					</Container>
+				</div>
+			)}
 
 			{isLoggedIn && (
 				<EditorModal open={editorOpen} onClose={toggleEditor} />

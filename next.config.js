@@ -8,4 +8,11 @@ module.exports = {
 			},
 		];
 	},
+	images: {
+		domains: [
+			"blog.getmakerlog.com",
+			"getmakerlog.com",
+			"api.getmakerlog.com",
+		],
+	},
 };

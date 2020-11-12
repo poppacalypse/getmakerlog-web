@@ -1,0 +1,158 @@
+import NarrowLayout from "layouts/NarrowLayout";
+import React from "react";
+import Image from "next/image";
+import Container from "components/ui/Container";
+import {
+	getPost,
+	STORY_QUERIES,
+	usePost,
+	useRelatedPosts,
+	useStoryMetadata,
+} from "queries/stories";
+import { useRouter } from "next/router";
+import Spinner from "components/ui/Spinner";
+import ErrorCard from "components/ui/ErrorCard";
+import { makeQueryCache } from "react-query";
+import { dehydrate } from "react-query/hydration";
+import PostHeading from "components/stories/PostHeading";
+import SubscribeCard from "components/stories/SubscribeCard";
+import PostGrid from "components/stories/PostGrid";
+import Thread from "components/discussions/Thread";
+import PlaceholderState from "components/ui/PlaceholderState";
+import Message from "components/ui/Message";
+import { Link } from "routes";
+import Button from "components/ui/Button";
+import UserMedia from "components/ui/UserMedia";
+import ProductMedia from "components/products/ProductMedia";
+
+function StoriesPostPage() {
+	const {
+		query: { slug },
+	} = useRouter();
+	const { isLoading, data: post, error } = usePost(slug);
+	const { data: relatedPosts } = useRelatedPosts(
+		slug,
+		post && post.primary_tag ? post.primary_tag.slug : "uncategorized"
+	);
+	const {
+		isLoading: isLoadingMetadata,
+		data: storyMetadata,
+	} = useStoryMetadata(slug);
+
+	if (isLoading) return <Spinner text="Loading stories..." />;
+
+	if (error) {
+		return <ErrorCard />;
+	}
+	return (
+		<div>
+			<div className="flex flex-col items-center px-4 pt-12 bg-white border-b border-gray-200 sm:px-0">
+				<NarrowLayout rightSidebar={null} leftSidebar={null}>
+					<PostHeading post={post} />
+					<h1>{post.title}</h1>
+					<p className="mt-2 text-gray-700">{post.excerpt}</p>
+				</NarrowLayout>
+				{post.feature_image && (
+					<Container>
+						<div className="mt-12">
+							<div
+								className="relative flex-grow w-full h-48 overflow-hidden"
+								style={{ paddingBottom: "56.25%" }}
+							>
+								<Image
+									className="absolute bottom-0 object-cover w-full h-full rounded-md"
+									unsized
+									src={post.feature_image}
+									layout="fill"
+								/>
+							</div>
+						</div>
+					</Container>
+				)}
+
+				<NarrowLayout rightSidebar={null} leftSidebar={null}>
+					<div
+						className="my-12  lg:prose-lg prose"
+						style={{ fontFamily: "Merriweather" }}
+						dangerouslySetInnerHTML={{
+							__html: post.html.trimEnd(),
+						}}
+					></div>
+					{storyMetadata &&
+						(storyMetadata.users.length !== 0 ||
+							storyMetadata.products.length !== 0) && (
+							<>
+								<hr />
+								<div className="my-8 space-y-8">
+									<div>
+										<p className="heading">Makers</p>
+										{storyMetadata.users.map((user) => (
+											<UserMedia
+												user={user}
+												key={user.id}
+											/>
+										))}
+									</div>
+									<div>
+										<p className="heading">Products</p>
+										{storyMetadata.products.map(
+											(product) => (
+												<ProductMedia
+													product={product}
+													key={product.slug}
+												/>
+											)
+										)}
+									</div>
+								</div>
+							</>
+						)}
+				</NarrowLayout>
+			</div>
+
+			<Container>
+				<SubscribeCard />
+				<div className="py-8">
+					<h2 className="mb-4 font-bold">Discuss on Makerlog</h2>
+					{storyMetadata &&
+						storyMetadata.threads.map((thread) => (
+							<Thread key={thread.slug} thread={thread} />
+						))}
+					{storyMetadata && storyMetadata.threads.length === 0 && (
+						<Message info title="No threads yet.">
+							<Link route="discussions">
+								<Button anchorElem sm>
+									Start the conversation &raquo;
+								</Button>
+							</Link>
+						</Message>
+					)}
+					{isLoadingMetadata && (
+						<PlaceholderState>
+							<Spinner small text="Loading..." />
+						</PlaceholderState>
+					)}
+				</div>
+				<div className="py-8">
+					<h2 className="mb-4 font-bold">Read next</h2>
+					<PostGrid posts={relatedPosts} />
+				</div>
+			</Container>
+		</div>
+	);
+}
+
+StoriesPostPage.getInitialProps = async ({ query: { slug } }) => {
+	const queryCache = makeQueryCache();
+
+	await queryCache.prefetchQuery([STORY_QUERIES.getPost, { slug }], getPost);
+
+	return {
+		dehydratedState: dehydrate(queryCache),
+		layout: {
+			contained: false,
+		},
+	};
+};
+
+export default StoriesPostPage;

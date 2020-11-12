@@ -22,6 +22,7 @@
 		"@fullhuman/postcss-purgecss": "^2.3.0",
 		"@tailwindcss/ui": "^0.5.0",
 		"@tailwindui/react": "^0.1.0",
+		"@tryghost/content-api": "^1.4.10",
 		"axios": "^0.20.0",
 		"axios-debug-log": "^0.8.0",
 		"clipboard-copy": "^3.1.0",

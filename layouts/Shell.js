@@ -20,7 +20,11 @@ function Shell({ layoutProps, ...props }) {
 	return (
 		<div
 			className={
-				"flex flex-col min-h-screen bg-gray-100 " +
+				"flex flex-col min-h-screen " +
+				(layoutProps && layoutProps.bgClassName
+					? layoutProps.bgClassName
+					: " bg-gray-100  ") +
+				" " +
 				(layoutProps && layoutProps.className
 					? layoutProps.className
 					: "")

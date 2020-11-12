@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap");
+
 /* purgecss start ignore */
 @tailwind base;
 @tailwind components;
@@ -298,4 +300,12 @@ p.help {
 td,
 th {
 	@apply px-4 py-2 border;
+}
+
+.prose figure {
+	@apply flex flex-col items-center justify-center p-4 bg-gray-100 rounded-md;
+}
+
+.prose figure figcaption {
+	@apply pt-4 text-xs;
 }
