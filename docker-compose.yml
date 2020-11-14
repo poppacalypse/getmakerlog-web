@@ -13,6 +13,9 @@ services:
     npm:
         <<: *common-props
         entrypoint: npm
+    npx:
+        <<: *common-props
+        entrypoint: npx
     dev:
         <<: *common-props
         ports:

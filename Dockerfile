@@ -1,6 +1,6 @@
 # Make sure to give Docker a lot of memory, otherwise it'll just "Killed"
 # It won't warn you, it simply won't npm start.
-FROM node:12.16.1-alpine AS base
+FROM node:12.19.0-alpine AS base
 WORKDIR /base
 COPY package*.json ./
 RUN npm install
@@ -12,7 +12,7 @@ WORKDIR /build
 COPY --from=base /base ./
 RUN npm run build
 
-FROM node:12.16.1-alpine AS production
+FROM node:12.19.0-alpine AS production
 ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=build /build/package*.json ./

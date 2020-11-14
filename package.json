@@ -7,6 +7,7 @@
 		"start": "next start",
 		"type-check": "tsc",
 		"lint": "eslint . --ext .js,.jsx; exit 0",
+		"lint:staged": "lint-staged",
 		"lint:fix": "npm run lint -- --fix; exit 0",
 		"deploy": "NODE_ENV=production API_URL=https://api.getmakerlog.com next build && eb deploy"
 	},
@@ -87,16 +88,17 @@
 		"useTabs": true
 	},
 	"engines": {
-		"node": "12.16.1",
+		"node": "12.19.0",
 		"yarn": "YARN NO LONGER USED - use npm instead."
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "lint-staged"
+			"pre-commit": "docker-compose run npm run lint:staged"
 		}
 	},
 	"lint-staged": {
 		"*.js": "eslint --fix",
-		"*.jsx": "eslint --fix"
+		"*.jsx": "eslint --fix",
+		"*.{js,jsx;}": "eslint --cache --fix"
 	}
 }
