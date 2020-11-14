@@ -3,6 +3,8 @@
 FROM node:12.19.0-alpine AS base
 WORKDIR /base
 COPY package*.json ./
+RUN apk update && apk upgrade && \
+    apk add --no-cache git
 RUN npm install
 COPY . .
 
