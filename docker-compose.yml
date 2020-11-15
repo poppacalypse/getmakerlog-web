@@ -21,5 +21,10 @@ services:
         ports:
             - "3000:3000"
         command: npm run dev
+        tty: true
+        environment:
+            DEBUG_COLORS: "true"
+            TERM: xterm-256color
+            COLORTERM: truecolor
 volumes:
     node_modules:

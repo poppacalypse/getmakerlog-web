@@ -309,3 +309,11 @@ th {
 .prose figure figcaption {
 	@apply pt-4 text-xs;
 }
+
+#wall-of-love .twitter-tweet {
+	margin: 0px !important;
+}
+
+#wall-of-love img {
+	@apply rounded-md;
+}

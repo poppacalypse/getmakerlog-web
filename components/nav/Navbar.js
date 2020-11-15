@@ -47,7 +47,7 @@ function Navbar() {
 							<ActiveLink
 								route="index"
 								wildcard
-								notPath={["stories", "more", "_error"]}
+								notPath={["stories", "about", "_error"]}
 								activeClassName="text-green-500"
 							>
 								<a className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
@@ -57,16 +57,22 @@ function Navbar() {
 							<ActiveLink
 								route="stories"
 								wildcard
-								notPath={["index", "more", "_error"]}
+								notPath={["index", "about", "_error"]}
 								activeClassName="text-green-500"
 							>
 								<a className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
 									Stories
 								</a>
 							</ActiveLink>
-							<div className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
-								More
-							</div>
+							<ActiveLink
+								route="about"
+								wildcard
+								activeClassName="text-green-500"
+							>
+								<a className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
+									More
+								</a>
+							</ActiveLink>
 						</div>
 					</div>
 					<div className="flex justify-end flex-1">
@@ -188,6 +194,54 @@ function Navbar() {
 							>
 								<a className="mr-4 font-medium text-gray-500">
 									News
+								</a>
+							</ActiveLink>
+						</div>
+					</Container>
+				</div>
+			) : pathname.startsWith("/about") ? (
+				<div className="border-b border-gray-200">
+					<Container className="py-2">
+						<div className="flex flex-auto max-w-full overflow-x-auto">
+							<ActiveLink
+								route="about"
+								activeClassName="text-green-500"
+							>
+								<a className="mr-4 font-medium text-gray-500">
+									About
+								</a>
+							</ActiveLink>
+							<ActiveLink
+								route="index"
+								activeClassName="text-green-500"
+							>
+								<a className="mr-4 font-medium text-gray-500">
+									Advertise
+								</a>
+							</ActiveLink>
+							<ActiveLink
+								route="index"
+								activeClassName="text-green-500"
+							>
+								<a className="mr-4 font-medium text-gray-500">
+									Company
+								</a>
+							</ActiveLink>
+							<ActiveLink
+								route="index"
+								activeClassName="text-green-500"
+							>
+								<a className="mr-4 font-medium text-gray-500">
+									Contact
+								</a>
+							</ActiveLink>
+							<div className="flex-grow"></div>
+							<ActiveLink
+								route="index"
+								activeClassName="text-green-500"
+							>
+								<a className="mr-4 font-medium text-gray-500">
+									Open Startup™️
 								</a>
 							</ActiveLink>
 						</div>
