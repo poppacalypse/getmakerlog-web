@@ -11,6 +11,12 @@ const log = getLogger("Task");
 // TODO: When link parsing is implemented, break-all anchor tags only.
 // go back to break-words.
 
+function getEggClassNames(content) {
+	if (content.includes("egg:rainbows")) {
+		return "egg-rainbow";
+	}
+}
+
 function Task({
 	task,
 	// plain = false,
@@ -50,7 +56,11 @@ function Task({
 					<span className={`text-${getColorForTask(task)}-500 mr-1`}>
 						<TaskIcon task={task} />
 					</span>
-					<div className="flex-grow">
+					<div
+						className={`flex-grow ${getEggClassNames(
+							task.content
+						)}`}
+					>
 						<TaskTextRenderer task={task} />
 					</div>
 				</div>

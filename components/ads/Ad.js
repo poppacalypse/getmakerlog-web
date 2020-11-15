@@ -25,14 +25,16 @@ function Ad({ booking: initialBooking }) {
 				booking.type === "BANNER" ? "flex flex-col" : "flex flex-row"
 			}
 		>
-			<img
-				className={
-					"flex-shrink-0 border border-gray-200 rounded-md " +
-					(booking.type === "BANNER" ? "mb-2" : "h-12 w-12 mr-2")
-				}
-				src={booking.image}
-				alt={booking.text}
-			/>
+			<OutboundLink to={booking.url} className="flex-shrink-0">
+				<img
+					className={
+						"flex-shrink-0 border border-gray-200 rounded-md " +
+						(booking.type === "BANNER" ? "mb-2" : "h-12 w-12 mr-2")
+					}
+					src={booking.image}
+					alt={booking.text}
+				/>
+			</OutboundLink>
 			<div className={booking.type === "BANNER" ? "text-sm" : "text-sm"}>
 				<OutboundLink to={booking.url} icon>
 					{booking.text}

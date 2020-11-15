@@ -34,6 +34,7 @@ function AboutPage() {
 			<ContentLayout
 				rightSidebar={
 					<>
+						<StdSidebar />
 						<SidebarItem title="Quick stats">
 							<Card>
 								<Card.Content>
@@ -67,7 +68,6 @@ function AboutPage() {
 								options={{ height: 400 }}
 							/>
 						</SidebarItem>
-						<StdSidebar />
 					</>
 				}
 			>

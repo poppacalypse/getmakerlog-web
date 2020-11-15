@@ -66,10 +66,18 @@ export function FormControls({ children, className = "" }) {
 	);
 }
 
-export function FormGroup({ children, title, className = "" }) {
+export function FormGroup({
+	children,
+	title,
+	subtitle = null,
+	className = "",
+}) {
 	return (
 		<>
 			{title && <strong>{title}</strong>}
+			{subtitle && (
+				<p className="mb-1 text-sm text-gray-700">{subtitle}</p>
+			)}
 			<FormControls
 				className={
 					"p-2 mb-4 border-l border-gray-200 last:mb-0 " + className

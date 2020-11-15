@@ -212,7 +212,7 @@ function Navbar() {
 								</a>
 							</ActiveLink>
 							<ActiveLink
-								route="index"
+								route="book-ad"
 								activeClassName="text-green-500"
 							>
 								<a className="mr-4 font-medium text-gray-500">
