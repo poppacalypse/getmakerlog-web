@@ -24,7 +24,7 @@ function TierSelect({ type = "ICON", product = null, onSelect = () => {} }) {
 	const plans = getPlansForType(type);
 	if (!plans) return null;
 	return (
-		<div className="flex w-full space-x-4">
+		<div className="flex flex-col w-full space-y-4 sm:space-x-4 sm:flex-row">
 			{plans.map((p) => (
 				<div
 					key={p.id}
@@ -44,7 +44,7 @@ function TierSelect({ type = "ICON", product = null, onSelect = () => {} }) {
 
 function AdKindSelect({ type = "ICON", onSelect = () => {} }) {
 	return (
-		<div className="flex w-full space-x-4">
+		<div className="flex flex-col w-full space-y-4 sm:space-x-4 sm:flex-row">
 			<div
 				className={`cursor-pointer border rounded-md p-4 text-gray-900 text-center flex-1 ${
 					type === "ICON"
