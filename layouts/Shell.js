@@ -2,6 +2,7 @@ import React from "react";
 import ErrorCard from "components/ui/ErrorCard";
 import Navbar from "components/nav/Navbar";
 import Container from "components/ui/Container";
+import Footer from "components/nav/Footer";
 
 // TODO: refactor, make nicer
 
@@ -40,13 +41,7 @@ function Shell({ layoutProps, ...props }) {
 					children
 				)}
 			</div>
-			<div className="flex-none">
-				<Container className="py-4">
-					<small className="text-gray-500">
-						&copy; Makerlog, LLC. Footer goes here.
-					</small>
-				</Container>
-			</div>
+			<Footer />
 		</div>
 	);
 }

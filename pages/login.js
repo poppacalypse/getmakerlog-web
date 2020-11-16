@@ -48,8 +48,8 @@ function LoginPage() {
 						}}
 					>
 						<Form.Controls>
-							<div className="flex justify-center mt-4 col-span-6">
-								<div className="flex mr-2">
+							<div className="flex flex-col justify-center mt-4 text-center space-y-2 sm:space-y-0 sm:space-x-2 sm:flex-row col-span-6">
+								<div>
 									<TwitterLogin />
 								</div>
 								<div>

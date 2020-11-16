@@ -205,7 +205,7 @@ function AboutPage() {
 					</Card>
 				</div>
 			</ContentLayout>
-			<div className="py-8 bg-white border-t border-b border-gray-200">
+			<div className="py-8 bg-white border-t border-gray-200">
 				<Container>
 					<h1>The Team</h1>
 					<p className="text-gray-700">

@@ -10,7 +10,7 @@ export default function LegalPage() {
 				<h2 className="mb-2 font-bold">Terms of Service</h2>
 				<Card>
 					<Card.Content>
-						<p className="prose">
+						<div className="prose">
 							<h3>1. Terms</h3>
 							<p>
 								By accessing the website at{" "}
@@ -146,7 +146,7 @@ export default function LegalPage() {
 								jurisdiction of the courts in that State or
 								location.
 							</p>
-						</p>
+						</div>
 					</Card.Content>
 				</Card>
 

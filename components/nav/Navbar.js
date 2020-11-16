@@ -24,7 +24,7 @@ function Navbar() {
 			<div className="border-t border-green-500 border-1.5"></div>
 			<div className="border-b border-gray-200">
 				<Container className="flex items-center py-4">
-					<div className="flex items-center flex-1">
+					<div className="flex items-center sm:flex-1">
 						<Link route="index">
 							<a className="flex items-center mr-4 text-green-500 logo">
 								<FontAwesomeIcon icon="check-circle" />
