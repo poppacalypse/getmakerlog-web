@@ -12,6 +12,7 @@ import Dropdown from "components/ui/Dropdown";
 import Container from "components/ui/Container";
 import GlobalSearch from "components/search/GlobalSearch";
 import { useRouter } from "next/router";
+import OutboundLink from "components/seo/OutboundLink";
 
 function Navbar() {
 	const { pathname } = useRouter();
@@ -220,15 +221,15 @@ function Navbar() {
 								</a>
 							</ActiveLink>
 							<ActiveLink
-								route="index"
+								route="legal"
 								activeClassName="text-green-500"
 							>
 								<a className="mr-4 font-medium text-gray-500">
-									Company
+									Legal
 								</a>
 							</ActiveLink>
 							<ActiveLink
-								route="index"
+								route="contact"
 								activeClassName="text-green-500"
 							>
 								<a className="mr-4 font-medium text-gray-500">
@@ -236,14 +237,12 @@ function Navbar() {
 								</a>
 							</ActiveLink>
 							<div className="flex-grow"></div>
-							<ActiveLink
-								route="index"
-								activeClassName="text-green-500"
+							<OutboundLink
+								to="https://open.getmakerlog.com"
+								className="mr-4 font-medium text-gray-500"
 							>
-								<a className="mr-4 font-medium text-gray-500">
-									Open Startup™️
-								</a>
-							</ActiveLink>
+								Open
+							</OutboundLink>
 						</div>
 					</Container>
 				</div>

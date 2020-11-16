@@ -6,7 +6,9 @@ function ContentLayout({ rightSidebar = <StdSidebar />, children }) {
 	return (
 		<Container>
 			<div className="flex mx-auto my-4">
-				<div className={`w-full max-w-full mx-0 last:mr-0 mr-8`}>
+				<div
+					className={`w-full max-w-full mx-0 last:mr-0 mr-0 sm:mr-8`}
+				>
 					{children}
 				</div>
 				<div className="flex-initial hidden w-1/3 h-full md:block">
