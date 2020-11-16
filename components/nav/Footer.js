@@ -5,10 +5,10 @@ import { Link } from "routes";
 
 export default function Footer() {
 	return (
-		<div className="py-12 bg-white border-t border-gray-200">
+		<div className="py-12 pb-24 bg-white border-t border-gray-200 sm:pb-12">
 			<Container>
-				<div className="flex">
-					<div className="flex flex-initial">
+				<div className="flex flex-col sm:flex-row">
+					<div className="flex flex-initial mb-8 sm:mb-0">
 						<div>
 							<img className="h-5" src="/img/logo.svg" />
 							<p className="mb-4 text-gray-700">
@@ -22,7 +22,7 @@ export default function Footer() {
 						</div>
 					</div>
 					<div className="flex-grow"></div>
-					<div className="flex space-x-8">
+					<div className="flex flex-col sm:space-y-0 sm:space-x-8 space-y-8 sm:flex-row">
 						<div className="flex flex-col">
 							<p className="font-semibold">Makerlog</p>
 							<ul>
