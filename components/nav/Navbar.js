@@ -13,11 +13,19 @@ import Container from "components/ui/Container";
 import GlobalSearch from "components/search/GlobalSearch";
 import { useRouter } from "next/router";
 import OutboundLink from "components/seo/OutboundLink";
+import FeedbackModal from "components/feedback/FeedbackModal";
 
 function Navbar() {
 	const { pathname } = useRouter();
 	const { isLoggedIn, user } = useAuth();
-	const { toggleEditor, editorOpen, toggleSearch, searchOpen } = useRoot();
+	const {
+		toggleEditor,
+		editorOpen,
+		toggleSearch,
+		searchOpen,
+		toggleFeedback,
+		feedbackOpen,
+	} = useRoot();
 
 	return (
 		<nav className="flex-none bg-white">
@@ -130,6 +138,14 @@ function Navbar() {
 														Settings
 													</Dropdown.Item>
 												</Link>
+												<Dropdown.Item
+													onClick={toggleFeedback}
+												>
+													<Dropdown.Item.Icon>
+														<FontAwesomeIcon icon="envelope" />
+													</Dropdown.Item.Icon>{" "}
+													Send feedback
+												</Dropdown.Item>
 												<Link route="logout">
 													<Dropdown.Item>
 														<Dropdown.Item.Icon>
@@ -300,6 +316,7 @@ function Navbar() {
 			)}
 
 			<GlobalSearch open={searchOpen} onClose={toggleSearch} />
+			<FeedbackModal open={feedbackOpen} onClose={toggleFeedback} />
 		</nav>
 	);
 }

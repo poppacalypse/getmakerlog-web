@@ -7,6 +7,7 @@ class RootStore extends BaseStore {
 	@observable ready = false;
 	@observable editorOpen = false;
 	@observable searchOpen = false;
+	@observable feedbackOpen = false;
 
 	@action.bound toggleEditor() {
 		this.editorOpen = !this.editorOpen;
@@ -14,6 +15,10 @@ class RootStore extends BaseStore {
 
 	@action.bound toggleSearch() {
 		this.searchOpen = !this.searchOpen;
+	}
+
+	@action.bound toggleFeedback() {
+		this.feedbackOpen = !this.feedbackOpen;
 	}
 
 	@action.bound setReady(value) {
@@ -29,7 +34,9 @@ export function useRoot() {
 		ready: root.ready,
 		editorOpen: root.editorOpen,
 		searchOpen: root.searchOpen,
+		feedbackOpen: root.feedbackOpen,
 		toggleEditor: root.toggleEditor,
 		toggleSearch: root.toggleSearch,
+		toggleFeedback: root.toggleFeedback,
 	}));
 }
