@@ -45,6 +45,7 @@ export function useSearchUsers(query) {
 		[SEARCH_QUERIES.searchUsers, { query }],
 		searchUsers,
 		{
+			enabled: query.length > 0,
 			getFetchMore: (lastGroup) => {
 				return lastGroup.next;
 			},
@@ -57,6 +58,7 @@ export function useSearchProducts(query) {
 		[SEARCH_QUERIES.searchProducts, { query }],
 		searchProducts,
 		{
+			enabled: query.length > 0,
 			getFetchMore: (lastGroup) => {
 				return lastGroup.next;
 			},
@@ -69,6 +71,7 @@ export function useSearchTasks(query) {
 		[SEARCH_QUERIES.searchTasks, { query }],
 		searchTasks,
 		{
+			enabled: query.length > 0,
 			getFetchMore: (lastGroup) => {
 				return lastGroup.next;
 			},
@@ -81,6 +84,7 @@ export function useSearchDiscussions(query) {
 		[SEARCH_QUERIES.searchDiscussions, { query }],
 		searchDiscussions,
 		{
+			enabled: query.length > 0,
 			getFetchMore: (lastGroup) => {
 				return lastGroup.next;
 			},

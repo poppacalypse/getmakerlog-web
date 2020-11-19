@@ -52,6 +52,9 @@ const routerHelper = routes()
 	.add("book-ad", "/about/book-ad")
 	.add("legal", "/about/legal")
 	.add("contact", "/about/contact")
+	.add("events", "/events")
+	.add("event", "/events/[slug]")
+	.add("events-create", "/events/create")
 	.add("not-implemented", "/not-implemented");
 
 const { Link, Router, useRouter, withRouter } = routerHelper;

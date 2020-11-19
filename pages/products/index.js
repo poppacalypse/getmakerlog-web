@@ -52,11 +52,6 @@ function MyProductsList() {
 					</Card.Content>
 				</Card>
 			)}
-
-			<NextSeo
-				title="Products"
-				description="Discover the world's largest community of software products built in public."
-			/>
 		</div>
 	);
 }
@@ -65,6 +60,10 @@ function ProductsPage() {
 	return (
 		<div>
 			<MyProductsList />
+			<NextSeo
+				title="Products"
+				description="Discover the world's largest community of software products built in public."
+			/>
 		</div>
 	);
 }

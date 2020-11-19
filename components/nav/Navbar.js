@@ -290,9 +290,14 @@ function Navbar() {
 									Products
 								</a>
 							</ActiveLink>
-							<div className="mr-4 font-medium text-gray-500">
-								Events
-							</div>
+							<ActiveLink
+								route="events"
+								activeClassName="text-green-500"
+							>
+								<a className="mr-4 font-medium text-gray-500">
+									Events
+								</a>
+							</ActiveLink>
 							{isLoggedIn && (
 								<>
 									<div className="flex-grow"></div>
