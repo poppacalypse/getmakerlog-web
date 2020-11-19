@@ -69,7 +69,7 @@ function TaskGroupCard({ isLoading, failed, onRetry, tasks, doneState }) {
 	);
 }
 
-function DayView() {
+function DayView({ withHeader = true }) {
 	const [currentDate, setCurrentDate] = useState(new Date());
 	const { data, isLoading, error, refetch } = useTasks(
 		currentDate,
@@ -88,37 +88,41 @@ function DayView() {
 
 	return (
 		<div>
-			<PageHeader>
-				<div>
-					<h2 className="mb-2 font-bold">
-						{getRelativeDate(currentDate)}
-					</h2>
-					<div className="flex flex-row w-full">
-						<div className="flex-none mr-2">
-							<Button sm onClick={rewindDate}>
-								<Button.Icon>
-									<FontAwesomeIcon icon="chevron-left" />
-								</Button.Icon>
-								{getRelativeDate(subDays(currentDate, 1))}
-							</Button>
-						</div>
-						<div className="flex-grow"></div>
-						<div className="flex-none">
-							{differenceInCalendarDays(
-								new Date(),
-								currentDate
-							) == 0 ? null : (
-								<Button sm onClick={forwardDate}>
-									{getRelativeDate(addDays(currentDate, 1))}
-									<Button.Icon right>
-										<FontAwesomeIcon icon="chevron-right" />
+			{withHeader ? (
+				<PageHeader>
+					<div>
+						<h2 className="mb-2 font-bold">
+							{getRelativeDate(currentDate)}
+						</h2>
+						<div className="flex flex-row w-full">
+							<div className="flex-none mr-2">
+								<Button sm onClick={rewindDate}>
+									<Button.Icon>
+										<FontAwesomeIcon icon="chevron-left" />
 									</Button.Icon>
+									{getRelativeDate(subDays(currentDate, 1))}
 								</Button>
-							)}
+							</div>
+							<div className="flex-grow"></div>
+							<div className="flex-none">
+								{differenceInCalendarDays(
+									new Date(),
+									currentDate
+								) == 0 ? null : (
+									<Button sm onClick={forwardDate}>
+										{getRelativeDate(
+											addDays(currentDate, 1)
+										)}
+										<Button.Icon right>
+											<FontAwesomeIcon icon="chevron-right" />
+										</Button.Icon>
+									</Button>
+								)}
+							</div>
 						</div>
 					</div>
-				</div>
-			</PageHeader>
+				</PageHeader>
+			) : null}
 			<TaskGroupCard
 				isLoading={isLoading}
 				failed={error}

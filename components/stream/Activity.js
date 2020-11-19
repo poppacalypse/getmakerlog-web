@@ -13,7 +13,7 @@ import Reply from "components/discussions/Reply";
 import { Link } from "routes";
 import TimeAgo from "react-timeago";
 
-const log = getLogger("Activity");
+const log = getLogger("activity");
 
 // TODO: Fix ItemLink routes.
 

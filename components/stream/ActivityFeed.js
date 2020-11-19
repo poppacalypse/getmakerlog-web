@@ -31,7 +31,7 @@ class ActivityFeed extends React.Component {
 				style={{ overflow: "none" }}
 				//key={isServer}
 			>
-				<div className="ActivityFeed">
+				<div id="ActivityFeed" className="ActivityFeed">
 					{this.props.failed && (
 						<ErrorCard
 							message="Failed to load the feed."
