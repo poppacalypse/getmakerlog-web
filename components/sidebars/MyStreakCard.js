@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import OutboundLink from "components/seo/OutboundLink";
 import Card from "components/ui/Card";
 import RestDays from "components/ui/RestDays";
 import Streak from "components/ui/Streak";
 import React from "react";
 import { useAuth } from "stores/AuthStore";
+import { getTwitterShareUrl } from "utils/stats";
 import SidebarItem from "./SidebarItem";
 
 export default function MyStreakCard() {
@@ -15,9 +17,9 @@ export default function MyStreakCard() {
 		<SidebarItem
 			title="Your streak"
 			titleRight={
-				<a className="text-xs">
+				<OutboundLink to={getTwitterShareUrl(user)} className="text-xs">
 					<FontAwesomeIcon icon={["fab", "twitter"]} /> Tweet!
-				</a>
+				</OutboundLink>
 			}
 		>
 			<Card>
