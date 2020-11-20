@@ -35,7 +35,7 @@ function Ad({ booking: initialBooking }) {
 					alt={booking.text}
 				/>
 			</OutboundLink>
-			<div className={booking.type === "BANNER" ? "text-sm" : "text-sm"}>
+			<div className={booking.type === "BANNER" ? "text-xs" : "text-xs"}>
 				<OutboundLink to={booking.url} icon>
 					{booking.text}
 				</OutboundLink>

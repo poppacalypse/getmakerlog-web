@@ -29,6 +29,8 @@ function Thread({
 		if (!isServer) Router.pushRoute("discussions");
 	};
 
+	if (!thread) return null;
+
 	return (
 		<Card className="break-word">
 			<Card.Content>

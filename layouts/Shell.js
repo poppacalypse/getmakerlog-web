@@ -41,7 +41,7 @@ function Shell({ layoutProps, ...props }) {
 					children
 				)}
 			</div>
-			<Footer />
+			{layoutProps && layoutProps.footer !== false && <Footer />}
 		</div>
 	);
 }

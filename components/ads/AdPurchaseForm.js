@@ -158,18 +158,24 @@ function AdPurchaseForm() {
 			rightSidebar={
 				<>
 					<SidebarItem title="Your ad preview">
-						<Ad
-							booking={makeBookingMock(
-								type,
-								text.length > 0 ? text : exampleBooking.text,
-								attachmentState.preview
-									? attachmentState.preview
-									: type === "ICON"
-									? exampleBooking.image
-									: "/img/og/default.png",
-								url ? url : exampleBooking.url
-							)}
-						/>
+						<Card>
+							<Card.Content>
+								<Ad
+									booking={makeBookingMock(
+										type,
+										text.length > 0
+											? text
+											: exampleBooking.text,
+										attachmentState.preview
+											? attachmentState.preview
+											: type === "ICON"
+											? exampleBooking.image
+											: "/img/og/default.png",
+										url ? url : exampleBooking.url
+									)}
+								/>
+							</Card.Content>
+						</Card>
 					</SidebarItem>
 					<SidebarItem title="What you can expect">
 						<Card>

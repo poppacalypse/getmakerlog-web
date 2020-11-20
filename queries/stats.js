@@ -5,6 +5,7 @@ import { differenceInHours } from "date-fns";
 
 export const STATS_QUERIES = {
 	getFrontpage: "stats.getFrontpage",
+	getWorldStats: "stats.getWorldStats",
 	getUserHeatmap: "stats.getUserHeatmap",
 	getUserStats: "stats.getUserStats",
 };
@@ -25,6 +26,11 @@ export async function getFrontpage() {
 	return { featuredPost, ...data };
 }
 
+export async function getWorldStats() {
+	const { data } = await axiosWrapper(axios.get, `/stats/world/`);
+	return data;
+}
+
 export async function getUserHeatmap(key, { username }) {
 	const { data } = await axiosWrapper(
 		axios.get,
@@ -40,6 +46,10 @@ export async function getUserStats(key, { username }) {
 
 export function useFrontpage() {
 	return useQuery([STATS_QUERIES.getFrontpage], getFrontpage);
+}
+
+export function useWorldStats() {
+	return useQuery([STATS_QUERIES.getWorldStats], getWorldStats);
 }
 
 export function useUserHeatmap(username) {

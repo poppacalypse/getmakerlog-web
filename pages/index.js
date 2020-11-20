@@ -19,6 +19,11 @@ import Thread from "components/discussions/Thread";
 import DayView from "components/tasks/DayView";
 import PlaceholderState from "components/ui/PlaceholderState";
 import Spinner from "components/ui/Spinner";
+import MyStreakCard from "components/sidebars/MyStreakCard";
+import StdSidebar from "components/sidebars/StdSidebar";
+import TopStreaksCard from "components/sidebars/TopStreaksCard";
+import RisingMakersCard from "components/sidebars/RisingMakersCard";
+import UpcomingEventsCard from "components/sidebars/UpcomingEventsCard";
 
 function FeedPage() {
 	const FEEDS = {
@@ -65,6 +70,15 @@ function FeedPage() {
 					</SidebarNav>
 				)
 			}
+			rightSidebar={
+				<>
+					<MyStreakCard />
+					<StdSidebar />
+					<TopStreaksCard />
+					<RisingMakersCard />
+					<UpcomingEventsCard />
+				</>
+			}
 		>
 			{requiresOnboarding(user) ? (
 				<OnboardingCard />
@@ -99,7 +113,7 @@ function FeedPage() {
 									<h3 className="mb-2 font-semibold">
 										Jump right in
 									</h3>
-									<Thread thread={frontpage.threads[5]} />
+									<Thread thread={frontpage.threads[0]} />
 								</div>
 							)}
 
@@ -168,6 +182,7 @@ IndexPage.getInitialProps = async () => {
 		layout: {
 			layout: "app",
 			allowGuest: true,
+			footer: false,
 		},
 	};
 };

@@ -11,6 +11,7 @@ function UserMedia({
 	actions = null,
 	extra = null,
 	extraStreakText = true,
+	truncateName = false,
 }) {
 	return (
 		<div className="flex items-center justify-between space-x-3">
@@ -23,7 +24,10 @@ function UserMedia({
 				<h2 className="text-sm font-medium text-gray-900 leading-5">
 					<Link route="profile" params={{ username: user.username }}>
 						<a className="text-gray-900 unstyled-a">
-							<FullName user={user} />
+							<FullName
+								className={truncateName ? "block truncate" : ""}
+								user={user}
+							/>
 						</a>
 					</Link>{" "}
 					{action ? (

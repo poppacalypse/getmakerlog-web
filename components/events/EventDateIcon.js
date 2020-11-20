@@ -1,12 +1,21 @@
 import React from "react";
 import { isOcurring } from "utils/events";
 
-export default function EventDateIcon({ event }) {
+export default function EventDateIcon({
+	event,
+	size = `w-14 h-14`,
+	textSize = "text-lg",
+}) {
 	const startingDate = new Date(event.starts_at);
 	return (
-		<div className="flex flex-col items-center justify-center bg-gray-100 w-14 h-14 rounded-md">
+		<div
+			className={
+				"flex border flex-col items-center justify-center bg-gray-100 rounded-md " +
+				size
+			}
+		>
 			{isOcurring(event) ? (
-				<h4 className="font-bold text-red-500">LIVE</h4>
+				<p className={"font-bold text-red-500 " + textSize}>LIVE</p>
 			) : (
 				<>
 					<p className="text-xs">
@@ -14,7 +23,9 @@ export default function EventDateIcon({ event }) {
 							month: "short",
 						})}
 					</p>
-					<h4 className="font-bold">{startingDate.getDate()}</h4>
+					<p className={"font-bold " + textSize}>
+						{startingDate.getDate()}
+					</p>
 				</>
 			)}
 		</div>
