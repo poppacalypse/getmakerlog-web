@@ -2,6 +2,7 @@ import axios, { axiosWrapper } from "utils/axios";
 import { useQuery } from "react-query";
 import { getFeatured } from "./stories";
 import { differenceInHours } from "date-fns";
+import { getRecentlyLaunched } from "./products";
 
 export const STATS_QUERIES = {
 	getFrontpage: "stats.getFrontpage",
@@ -11,7 +12,9 @@ export const STATS_QUERIES = {
 };
 
 export async function getFrontpage() {
+	// !!NOTICE!! Fragile code.
 	let featuredPost = await getFeatured("random.key", { limit: 1 });
+	let { results: recentLaunches } = await getRecentlyLaunched("random.key");
 	if (featuredPost) {
 		featuredPost = featuredPost[0];
 		featuredPost =
@@ -23,7 +26,7 @@ export async function getFrontpage() {
 				: null;
 	}
 	const { data } = await axiosWrapper(axios.get, `/stats/world/popular/`);
-	return { featuredPost, ...data };
+	return { featuredPost, recentLaunches, ...data };
 }
 
 export async function getWorldStats() {

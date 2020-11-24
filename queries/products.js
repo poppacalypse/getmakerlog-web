@@ -1,5 +1,5 @@
 import axios, { axiosWrapper } from "utils/axios";
-import { useMutation, useQuery } from "react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "react-query";
 import { StdErrorCollection } from "utils/error";
 import { productSchema, productsSchema } from "schemas/products";
 import { getLogger } from "utils/logging";
@@ -13,6 +13,7 @@ export const PRODUCT_QUERIES = {
 	getUserProducts: "products.getUserProducts",
 	getRelatedProducts: "products.getRelatedProducts",
 	getMyProducts: "products.getMyProducts",
+	getRecentlyLaunched: "products.getRecentlyLaunched",
 };
 
 export async function getProduct(key, { slug }) {
@@ -55,6 +56,11 @@ export async function getUserProducts(key, { username }) {
 	const { value, error } = productsSchema.validate(data);
 	if (error) throw new StdErrorCollection(error);
 	return value;
+}
+
+export async function getRecentlyLaunched(key, next = null) {
+	const { data } = await axiosWrapper(axios.get, next ? next : `/launches/`);
+	return data;
 }
 
 export async function createProduct({ payload: form }) {
@@ -146,6 +152,18 @@ export function useUserProducts(username) {
 
 export function useMyProducts() {
 	return useQuery([PRODUCT_QUERIES.getUserProducts], getMyProducts);
+}
+
+export function useRecentlyLaunched() {
+	return useInfiniteQuery(
+		PRODUCT_QUERIES.getRecentlyLaunched,
+		getRecentlyLaunched,
+		{
+			getFetchMore: (lastGroup) => {
+				return lastGroup.next;
+			},
+		}
+	);
 }
 
 // TODO: Add optimistic loading here

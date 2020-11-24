@@ -246,6 +246,7 @@ function Activity({ activity }) {
 		log(`An activity failed a integrity check. ${activity.getId()}`);
 		return null;
 	}
+
 	return (
 		<Card>
 			<div className="flex p-4 pb-0 actor text-gray-50">

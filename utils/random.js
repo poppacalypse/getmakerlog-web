@@ -19,3 +19,7 @@ export function onCmdEnter(e, callback) {
 		callback();
 	}
 }
+
+export function makeTwitterShareUrl(text) {
+	return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+}

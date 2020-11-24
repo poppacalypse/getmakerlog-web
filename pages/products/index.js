@@ -8,13 +8,12 @@ import orderBy from "lodash/orderBy";
 import Card from "components/ui/Card";
 import PageHeader from "components/ui/PageHeader";
 import { Link } from "routes";
-import ProductCard from "components/products/ProductCard";
 import { NextSeo } from "next-seo";
+import NarrowLayout from "layouts/NarrowLayout";
+import ProductMedia from "components/products/ProductMedia";
+import { requireAuth } from "utils/auth";
 
-/*
-Grid layout:
-<ul className="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
-*/
+// This page will be better, for now though...
 
 function MyProductsList() {
 	const { isLoggedIn } = useAuth();
@@ -25,11 +24,14 @@ function MyProductsList() {
 	return (
 		<div>
 			<PageHeader>
-				<h2 className="flex-grow font-bold">Your Products</h2>
-				<div>
-					<Link route="products-create">
-						<Button secondary>Add product</Button>
-					</Link>
+				<div className="flex items-center w-full">
+					<h3 className="font-semibold">Your products</h3>
+					<div className="flex-grow"></div>
+					<div>
+						<Link route="products-create">
+							<Button secondary>Add product</Button>
+						</Link>
+					</div>
 				</div>
 			</PageHeader>
 			{isLoading && <Spinner text="Loading your products..." />}
@@ -42,13 +44,14 @@ function MyProductsList() {
 			{products && (
 				<Card>
 					<Card.Content className="space-y-2">
-						<ul className="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+						<div className="space-y-2">
 							{orderBy(products, "created_at").map((product) => (
-								<li key={product.slug}>
-									<ProductCard product={product} />
-								</li>
+								<ProductMedia
+									key={product.slug}
+									product={product}
+								/>
 							))}
-						</ul>
+						</div>
 					</Card.Content>
 				</Card>
 			)}
@@ -57,15 +60,17 @@ function MyProductsList() {
 }
 
 function ProductsPage() {
+	const { isLoggedIn } = useAuth();
+
 	return (
-		<div>
-			<MyProductsList />
+		<NarrowLayout>
+			{isLoggedIn && <MyProductsList />}
 			<NextSeo
 				title="Products"
 				description="Discover the world's largest community of software products built in public."
 			/>
-		</div>
+		</NarrowLayout>
 	);
 }
 
-export default ProductsPage;
+export default requireAuth(ProductsPage);

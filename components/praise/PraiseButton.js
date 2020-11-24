@@ -23,9 +23,10 @@ function PraiseButton({ indexUrl, initialCount, disabled = false }) {
 	const [mutate] = usePraiseMutation(initialCount, user);
 
 	const onPraise = async () => {
-		if (!isLoggedIn && !isServer) {
+		if (!isLoggedIn || !isServer) {
 			log(`User is not signed in. Redirecting...`);
 			Router.pushRoute("login");
+			return;
 		}
 		setClicked(true);
 		const data = await mutate(indexUrl);

@@ -5,11 +5,15 @@ import React from "react";
 
 export default function TwitterLogin() {
 	return (
-		<Button anchorElem={true} href={`${config.API_URL}/login/twitter/`}>
+		<Button
+			className="text-blue-500"
+			anchorElem={true}
+			href={`${config.API_URL}/login/twitter/`}
+		>
 			<Button.Icon>
 				<FontAwesomeIcon icon={["fab", "twitter"]} />
 			</Button.Icon>
-			Sign in with Twitter
+			Join with Twitter
 		</Button>
 	);
 }

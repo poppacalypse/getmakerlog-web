@@ -5,7 +5,7 @@ import { Link } from "routes";
 
 export default function Footer() {
 	return (
-		<div className="py-12 pb-24 bg-white border-t border-gray-200 sm:pb-12">
+		<div className="py-12 bg-white border-t border-gray-200">
 			<Container>
 				<div className="flex flex-col sm:flex-row">
 					<div className="flex flex-initial mb-8 sm:mb-0">

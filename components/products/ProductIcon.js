@@ -32,7 +32,7 @@ function ProductIcon({ size, product, className = "" }) {
 	return (
 		<figure
 			className={
-				`p-1 bg-gray-100 border border-gray-200 flex items-center justify-content h-${size} w-${size} rounded-md ` +
+				`p-1 relative bg-gray-100 border border-gray-200 flex items-center justify-content h-${size} w-${size} rounded-md ` +
 				className
 			}
 		>
@@ -44,6 +44,11 @@ function ProductIcon({ size, product, className = "" }) {
 				/>
 			) : (
 				<ProductLetter product={product} size={size} />
+			)}
+			{product.launched && (
+				<span className="absolute top-0 right-0 block w-5 h-5 text-xs text-center bg-white rounded-full shadow-xs leading-5 transform -translate-y-1/2 translate-x-1/2 ring-2 ring-white">
+					🚀
+				</span>
 			)}
 		</figure>
 	);

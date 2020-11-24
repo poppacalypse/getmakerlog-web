@@ -322,6 +322,12 @@ th {
 	animation: egg-rainbow-animation 5s infinite;
 }
 
+.bubbles-bg {
+	background-image: url(/img/bubble-bg.png) !important;
+	background-size: cover;
+	background-position: center;
+}
+
 @keyframes egg-rainbow-animation {
 	0% {
 		color: orange;

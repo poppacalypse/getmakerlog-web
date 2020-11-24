@@ -125,6 +125,16 @@ export class Activity {
 		this.activity = activity;
 	}
 
+	isExcluded = () => {
+		// Exclude all events except slack & telegram.
+		return (
+			this.getObjectType() === "task" &&
+			this.getObject().object.event !== null &&
+			this.getObject().object.event !== "telegram" &&
+			this.getObject().object.event !== "slack"
+		);
+	};
+
 	check = () => {
 		if (this.getType() === "aggregated") {
 			// If aggregate task wihout children...

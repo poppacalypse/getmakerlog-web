@@ -10,7 +10,7 @@ import { Link } from "routes";
 
 // TODO: Guest state.
 
-function CommentInput({ indexUrl, focused }) {
+function CommentInput({ indexUrl, focused = false }) {
 	const [content, setContent] = useState("");
 	const { user, isLoggedIn } = useAuth();
 	const textInput = useRef(null);
@@ -31,7 +31,7 @@ function CommentInput({ indexUrl, focused }) {
 
 	useEffect(() => {
 		// Focus on state change.
-		if (!prevFocused && focused) {
+		if (!prevFocused && focused && textInput && textInput.current) {
 			textInput.current.focus();
 		}
 	}, [focused, prevFocused]);
