@@ -25,6 +25,12 @@ export default function DefaultHead() {
 				href="/img/icons/favicon-16x16.png"
 			/>
 			<link rel="manifest" href="/img/icons/site.webmanifest" />
+			<link rel="preconnect" href="https://fonts.gstatic.com" />
+			<link
+				href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
+				rel="stylesheet"
+			/>
+
 			<script src="https://cdn.paddle.com/paddle/paddle.js"></script>
 			<script
 				type="text/javascript"
