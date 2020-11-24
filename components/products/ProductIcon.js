@@ -1,4 +1,5 @@
 import React from "react";
+import { imageUrl } from "vendor/imagekit";
 
 function darken(color, amount) {
 	return (
@@ -29,6 +30,7 @@ function ProductLetter({ product }) {
 }
 
 function ProductIcon({ size, product, className = "" }) {
+	const optSize = size >= 32 ? 128 : 32;
 	return (
 		<figure
 			className={
@@ -39,7 +41,7 @@ function ProductIcon({ size, product, className = "" }) {
 			{product.icon ? (
 				<img
 					className={`rounded-md ` + className}
-					src={product.icon}
+					src={imageUrl(product.icon, optSize)}
 					alt={product.name}
 				/>
 			) : (
