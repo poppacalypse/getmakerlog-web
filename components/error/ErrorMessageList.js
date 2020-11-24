@@ -3,6 +3,7 @@ import OutboundLink from "components/seo/OutboundLink";
 import { isDev } from "config";
 import Message from "components/ui/Message";
 import Button from "components/ui/Button";
+import Image from "next/image";
 
 function renderError(error) {
 	switch (error.type) {
@@ -68,11 +69,11 @@ const ErrorMessageList = ({ error = null }) => {
 						</p>
 					)}
 					<div className="absolute opacity-50 nyan right-2 top-6">
-						<img
-							className="h-20 transform -rotate-45"
-							style={{ "--transform-rotate": "-25deg" }}
+						<Image
+							className="h-20 transform -rotate-12"
 							src="/img/nyan.png"
-							alt=""
+							unsized
+							alt="A Nyan cat."
 						/>
 					</div>
 					{error.getUnknownErrors()[0].link !== null ? (

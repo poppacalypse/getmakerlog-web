@@ -2,6 +2,7 @@ import React from "react";
 import { useAd } from "queries/ads";
 import OutboundLink from "components/seo/OutboundLink";
 import Spinner from "components/ui/Spinner";
+import Image from "next/image";
 
 function Ad({ booking: initialBooking }) {
 	const { data, isLoading, error } = useAd();
@@ -26,11 +27,13 @@ function Ad({ booking: initialBooking }) {
 			}
 		>
 			<OutboundLink to={booking.url} className="flex-shrink-0">
-				<img
+				<Image
 					className={
 						"flex-shrink-0 border border-gray-200 rounded-md " +
 						(booking.type === "BANNER" ? "mb-2" : "h-12 w-12 mr-2")
 					}
+					layout={"responsive"}
+					unsized
 					src={booking.image}
 					alt={booking.text}
 				/>

@@ -1,5 +1,6 @@
 import OutboundLink from "components/seo/OutboundLink";
 import Container from "components/ui/Container";
+import Image from "next/image";
 import React from "react";
 import { Link } from "routes";
 
@@ -10,7 +11,11 @@ export default function Footer() {
 				<div className="flex flex-col sm:flex-row">
 					<div className="flex flex-initial mb-8 sm:mb-0">
 						<div>
-							<img className="h-5" src="/img/logo.svg" />
+							<Image
+								unsized
+								className="h-5"
+								src="/img/logo.svg"
+							/>
 							<p className="mb-4 text-gray-700">
 								Where makers learn, build, and grow in public.
 							</p>
