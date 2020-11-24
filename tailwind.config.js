@@ -11,7 +11,7 @@ module.exports = {
 			layout: "sidebar",
 		}),
 		require("tailwindcss-font-inter")({
-			importFontFace: true,
+			importFontFace: false,
 		}),
 	],
 	variants: {
