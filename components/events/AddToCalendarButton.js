@@ -1,6 +1,10 @@
 import Button from "components/ui/Button";
-import { ICalendar } from "datebook";
 import React, { useCallback } from "react";
+import dynamic from "next/dynamic";
+
+const ICalendar = dynamic(() =>
+	import("datebook").then((mod) => mod.ICalendar)
+);
 
 export default function AddToCalendarButton({ event }) {
 	const getICalFiles = useCallback(() => {

@@ -29,10 +29,10 @@ function Ad({ booking: initialBooking }) {
 			<OutboundLink to={booking.url} className="flex-shrink-0">
 				<Image
 					className={
-						"flex-shrink-0 border border-gray-200 rounded-md " +
+						"flex-shrink-0 flex-grow-0 border border-gray-200 rounded-md " +
 						(booking.type === "BANNER" ? "mb-2" : "h-12 w-12 mr-2")
 					}
-					layout={"responsive"}
+					layout={"fixed"}
 					unsized
 					src={booking.image}
 					alt={booking.text}

@@ -3,9 +3,11 @@ import Button from "components/ui/Button";
 import Form from "components/ui/Form";
 import MarkdownEnabled from "components/ui/MarkdownEnabled";
 import Message from "components/ui/Message";
+import dynamic from "next/dynamic";
 import { useCreateEvent } from "queries/events";
 import React, { useState, useCallback } from "react";
-import DatePicker from "react-datepicker";
+
+const DatePicker = dynamic(() => import("react-datepicker"));
 
 export default function EventCreateForm() {
 	const [payload, setPayload] = useState({
