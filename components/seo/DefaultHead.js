@@ -1,6 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import config from "config";
 
 // https://favicon.io/favicon-converter/
 
@@ -29,16 +28,6 @@ export default function DefaultHead() {
 			<link
 				href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
 				rel="stylesheet"
-			/>
-
-			<script src="https://cdn.paddle.com/paddle/paddle.js"></script>
-			<script
-				type="text/javascript"
-				dangerouslySetInnerHTML={{
-					__html: `Paddle.Setup({ vendor: ${
-						config.PADDLE_VENDOR
-					}, debug: ${JSON.stringify(config.isDev)} });`,
-				}}
 			/>
 		</Head>
 	);
