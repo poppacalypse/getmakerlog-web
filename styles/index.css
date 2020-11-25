@@ -73,11 +73,11 @@ small {
 
 input,
 textarea {
-	@apply bg-white px-2.5 py-1.5 rounded-md w-full block shadow-xs border border-gray-300 outline-none transition-all;
+	@apply appearance-none bg-white px-2.5 py-1.5 rounded-md w-full block shadow-xs border border-gray-300 outline-none transition-all;
 }
 
 select {
-	@apply px-2.5 py-1.5 rounded-md !important;
+	@apply appearance-none px-2.5 py-1.5 rounded-md !important;
 }
 
 select:focus {
