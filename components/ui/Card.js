@@ -15,7 +15,7 @@ function Card({ children, className = null, image = null }) {
 		>
 			{image && (
 				<div
-					className="relative overflow-hidden"
+					className="relative overflow-hidden border-r border-gray-200"
 					style={{
 						flex: 1 / 3,
 						backgroundImage: `url(${image})`,
