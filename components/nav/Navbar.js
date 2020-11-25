@@ -29,7 +29,7 @@ function Navbar() {
 
 	return (
 		<nav className="flex-none bg-white mt-safe-top">
-			<div className="fixed top-0 left-0 w-full h-safe-top bg-green-500 z-50"></div>
+			<div className="fixed top-0 left-0 z-50 w-full bg-green-500 h-safe-top"></div>
 			<div className="border-t border-green-500 border-1.5"></div>
 			<div className="border-b border-gray-200">
 				<Container className="flex items-center py-4">
