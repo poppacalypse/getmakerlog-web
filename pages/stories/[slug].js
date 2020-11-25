@@ -28,6 +28,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getLinkedInShareUrl, getTwitterShareUrl } from "utils/stories";
 import { NextSeo } from "next-seo";
 import config from "config";
+import { getErrorResponse } from "utils/error";
 
 function StoriesPostPage() {
 	const {
@@ -187,17 +188,26 @@ function StoriesPostPage() {
 	);
 }
 
-StoriesPostPage.getInitialProps = async ({ query: { slug } }) => {
+StoriesPostPage.getInitialProps = async ({ res, query: { slug } }) => {
 	const queryCache = makeQueryCache();
 
-	await queryCache.prefetchQuery([STORY_QUERIES.getPost, { slug }], getPost);
+	try {
+		await queryCache.prefetchQuery(
+			[STORY_QUERIES.getPost, { slug }],
+			getPost,
+			{},
+			{ throwOnError: true }
+		);
 
-	return {
-		dehydratedState: dehydrate(queryCache),
-		layout: {
-			contained: false,
-		},
-	};
+		return {
+			dehydratedState: dehydrate(queryCache),
+			layout: {
+				contained: false,
+			},
+		};
+	} catch (e) {
+		return getErrorResponse(e, res);
+	}
 };
 
 export default StoriesPostPage;

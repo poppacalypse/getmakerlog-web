@@ -8,6 +8,7 @@ import { COMMON_TAGS, getTags, STORY_QUERIES, useTags } from "queries/stories";
 import React from "react";
 import { makeQueryCache } from "react-query";
 import { dehydrate } from "react-query/hydration";
+import { getErrorResponse } from "utils/error";
 
 function StoriesTagPage() {
 	const {
@@ -37,26 +38,34 @@ function StoriesTagPage() {
 	);
 }
 
-StoriesTagPage.getInitialProps = async ({ query: { slug } }) => {
+StoriesTagPage.getInitialProps = async ({ res, query: { slug } }) => {
 	const queryCache = makeQueryCache();
 
-	await queryCache.prefetchQuery(
-		[
-			STORY_QUERIES.getTags,
-			{
-				tags: slug === "interviews" ? COMMON_TAGS.interviews : [slug],
-				limit: "all",
-			},
-		],
-		getTags
-	);
+	try {
+		await queryCache.prefetchQuery(
+			[
+				STORY_QUERIES.getTags,
+				{
+					tags:
+						slug === "interviews" ? COMMON_TAGS.interviews : [slug],
+					limit: "all",
+					filters: [],
+				},
+			],
+			getTags,
+			{},
+			{ throwOnError: true }
+		);
 
-	return {
-		dehydratedState: dehydrate(queryCache),
-		layout: {
-			bgClassName: "bg-white",
-		},
-	};
+		return {
+			dehydratedState: dehydrate(queryCache),
+			layout: {
+				bgClassName: "bg-white",
+			},
+		};
+	} catch (e) {
+		return getErrorResponse(e, res);
+	}
 };
 
 export default StoriesTagPage;

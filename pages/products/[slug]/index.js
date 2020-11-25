@@ -12,6 +12,7 @@ import ProductHeader from "components/products/ProductHeader";
 import { NextSeo } from "next-seo";
 import config from "config";
 import { dehydrate } from "react-query/hydration";
+import { getErrorResponse } from "utils/error";
 
 function ProductPage() {
 	const router = useRouter();
@@ -57,20 +58,26 @@ function ProductPage() {
 	);
 }
 
-ProductPage.getInitialProps = async ({ query: { slug } }) => {
+ProductPage.getInitialProps = async ({ res, query: { slug } }) => {
 	const queryCache = makeQueryCache();
 
-	await queryCache.prefetchQuery(
-		[PRODUCT_QUERIES.getProduct, { slug }],
-		getProduct
-	);
+	try {
+		await queryCache.prefetchQuery(
+			[PRODUCT_QUERIES.getProduct, { slug }],
+			getProduct,
+			{},
+			{ throwOnError: true }
+		);
 
-	return {
-		dehydratedState: dehydrate(queryCache),
-		layout: {
-			contained: false,
-		},
-	};
+		return {
+			dehydratedState: dehydrate(queryCache),
+			layout: {
+				contained: false,
+			},
+		};
+	} catch (e) {
+		return getErrorResponse(e, res);
+	}
 };
 
 export default ProductPage;

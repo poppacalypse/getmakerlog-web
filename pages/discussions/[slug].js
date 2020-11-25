@@ -14,6 +14,7 @@ import NarrowLayout from "layouts/NarrowLayout";
 import { NextSeo } from "next-seo";
 import truncate from "lodash/truncate";
 import config from "config";
+import { getErrorResponse } from "utils/error";
 
 function DiscussionThreadPage() {
 	const router = useRouter();
@@ -82,21 +83,29 @@ function DiscussionThreadPage() {
 	);
 }
 
-DiscussionThreadPage.getInitialProps = async ({ query: { slug } }) => {
+DiscussionThreadPage.getInitialProps = async ({ res, query: { slug } }) => {
 	const queryCache = makeQueryCache();
 
-	await queryCache.prefetchQuery(
-		[DISCUSSION_QUERIES.getThread, { slug }],
-		getThread
-	);
+	try {
+		await queryCache.prefetchQuery(
+			[DISCUSSION_QUERIES.getThread, { slug }],
+			getThread,
+			{},
+			{
+				throwOnError: true,
+			}
+		);
 
-	return {
-		dehydratedState: dehydrate(queryCache),
-		layout: {
-			layout: "app",
-			allowGuest: true,
-		},
-	};
+		return {
+			dehydratedState: dehydrate(queryCache),
+			layout: {
+				layout: "app",
+				allowGuest: true,
+			},
+		};
+	} catch (e) {
+		return getErrorResponse(e, res);
+	}
 };
 
 export default DiscussionThreadPage;

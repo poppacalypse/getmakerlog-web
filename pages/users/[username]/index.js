@@ -15,6 +15,7 @@ import {
 	PRODUCT_QUERIES,
 	useUserProducts,
 } from "queries/products";
+import { getErrorResponse } from "utils/error";
 
 // TODO: make sure profiles only work if it's at the last of the routing stack
 // TODO: make sure they throw 404 for user not found cause fuck bitches
@@ -58,31 +59,37 @@ function ProfilePage() {
 	);
 }
 
-ProfilePage.getInitialProps = async ({ query: { username } }) => {
+ProfilePage.getInitialProps = async ({ res, query: { username } }) => {
 	const queryCache = makeQueryCache();
 
-	await queryCache.prefetchQuery(
-		[USER_QUERIES.getUser, { username }],
-		getUser
-	);
+	try {
+		await queryCache.prefetchQuery(
+			[USER_QUERIES.getUser, { username }],
+			getUser,
+			{},
+			{ throwOnError: true }
+		);
 
-	await queryCache.prefetchQuery(
-		[PRODUCT_QUERIES.getUserProducts, { username }],
-		getUserProducts
-	);
+		await queryCache.prefetchQuery(
+			[PRODUCT_QUERIES.getUserProducts, { username }],
+			getUserProducts
+		);
 
-	await queryCache.prefetchQuery(
-		[STATS_QUERIES.getUserStats, { username }],
-		getUserStats
-	);
+		await queryCache.prefetchQuery(
+			[STATS_QUERIES.getUserStats, { username }],
+			getUserStats
+		);
 
-	return {
-		dehydratedState: dehydrate(queryCache),
-		layout: {
-			allowGuest: true,
-			contained: false,
-		},
-	};
+		return {
+			dehydratedState: dehydrate(queryCache),
+			layout: {
+				allowGuest: true,
+				contained: false,
+			},
+		};
+	} catch (e) {
+		return getErrorResponse(e, res);
+	}
 };
 
 export default ProfilePage;

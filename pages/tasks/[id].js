@@ -11,6 +11,7 @@ import { makeQueryCache } from "react-query";
 import { dehydrate } from "react-query/dist/hydration/react-query-hydration.development";
 import { Link } from "routes";
 import TimeAgo from "react-timeago";
+import { getErrorResponse } from "utils/error";
 
 function TaskPage() {
 	const router = useRouter();
@@ -60,18 +61,27 @@ function TaskPage() {
 	);
 }
 
-TaskPage.getInitialProps = async ({ query: { id } }) => {
+TaskPage.getInitialProps = async ({ res, query: { id } }) => {
 	const queryCache = makeQueryCache();
 
-	await queryCache.prefetchQuery([TASK_QUERIES.getTask, { id }], getTask);
+	try {
+		await queryCache.prefetchQuery(
+			[TASK_QUERIES.getTask, { id }],
+			getTask,
+			{},
+			{ throwOnError: true }
+		);
 
-	return {
-		dehydratedState: dehydrate(queryCache),
-		layout: {
-			allowGuest: true,
-			contained: false,
-		},
-	};
+		return {
+			dehydratedState: dehydrate(queryCache),
+			layout: {
+				allowGuest: true,
+				contained: false,
+			},
+		};
+	} catch (e) {
+		return getErrorResponse(e, res);
+	}
 };
 
 export default TaskPage;

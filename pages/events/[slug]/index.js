@@ -8,6 +8,7 @@ import React from "react";
 import { makeQueryCache } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import { useRouter } from "routes";
+import { getErrorResponse } from "utils/error";
 
 function EventPage() {
 	const {
@@ -31,15 +32,21 @@ function EventPage() {
 	);
 }
 
-EventPage.getInitialProps = async ({ query: { slug } }) => {
+EventPage.getInitialProps = async ({ res, query: { slug } }) => {
 	const queryCache = makeQueryCache();
 
-	await queryCache.prefetchQuery(
-		[EVENTS_QUERIES.getThread, { slug }],
-		getEvent
-	);
+	try {
+		await queryCache.prefetchQuery(
+			[EVENTS_QUERIES.getThread, { slug }],
+			getEvent,
+			{},
+			{ throwOnError: true }
+		);
 
-	return { dehydratedState: dehydrate(queryCache) };
+		return { dehydratedState: dehydrate(queryCache) };
+	} catch (e) {
+		return getErrorResponse(e, res);
+	}
 };
 
 export default EventPage;
