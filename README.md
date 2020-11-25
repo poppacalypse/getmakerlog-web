@@ -1,6 +1,6 @@
 ![ml](https://i.imgur.com/22Ejdmt.png)
 
-# beta
+# Makerlog Web
 
 An all-new Makerlog, designed from the ground up for speed & simplicity.
 
