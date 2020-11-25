@@ -1,5 +1,3 @@
-![ml](https://i.imgur.com/22Ejdmt.png)
-
 # Makerlog Web
 
 An all-new Makerlog, designed from the ground up for speed & simplicity.
