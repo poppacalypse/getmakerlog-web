@@ -26,7 +26,10 @@ function Ad({ booking: initialBooking, test = false }) {
 				booking.type === "BANNER" ? "flex flex-col" : "flex flex-row"
 			}
 		>
-			<OutboundLink to={booking.url} className="flex-shrink-0">
+			<OutboundLink
+				to={`https://api.getmakerlog.com/ads/${booking.id}/click/`}
+				className="flex-shrink-0"
+			>
 				{test ? (
 					<img
 						className={
