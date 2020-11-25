@@ -32,6 +32,11 @@ function UserLine({ user, className = "", withAvatar = true, style = {} }) {
 								<FontAwesomeIcon icon="check-circle" /> Verified
 							</span>
 						) : null}
+						{user.gold && !user.verified && !user.is_staff ? (
+							<span className="text-xs text-yellow-800 text-uppercase">
+								<FontAwesomeIcon icon="check-circle" /> Patron
+							</span>
+						) : null}
 						<span className="text-gray-500">@{user.username}</span>
 					</div>
 				</div>
