@@ -77,7 +77,7 @@ function TaskEditor({ onFinish }) {
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
 					onKeyDown={(e) => onCmdEnter(e, () => onCreate(e))}
-					className="flex-grow w-full mr-2"
+					className="flex-grow w-full mr-2 appearance-none"
 					type="text"
 					placeholder="Start typing something you've done or made..."
 				/>

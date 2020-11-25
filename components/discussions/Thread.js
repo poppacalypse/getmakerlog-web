@@ -94,7 +94,7 @@ function Thread({
 									/>
 								</div>
 							) : thread.hidden ? null : (
-								<div className="text-gray-700">
+								<div className="text-gray-700 break-words">
 									{full && <ModStatus thread={thread} />}
 									{full ? (
 										<DiscussionsTextRenderer

@@ -363,3 +363,8 @@ th {
 		color: orange;
 	}
 }
+
+.mobile-footer {
+	/* Padding on mobile footers */
+	padding-bottom: env(safe-area-inset-bottom);
+}

@@ -50,7 +50,7 @@ function Navbar() {
 						</div>
 						<div
 							className={
-								"fixed sm:static flex flex-row bottom-0 left-0 w-full bg-white sm:bg-transparent z-40 border-t border-gray-200 sm:border-none"
+								"mobile-footer fixed sm:static flex flex-row bottom-0 left-0 w-full bg-white sm:bg-transparent z-40 border-t border-gray-200 sm:border-none"
 							}
 						>
 							<ActiveLink
@@ -177,7 +177,7 @@ function Navbar() {
 			{pathname.startsWith("/stories") ? (
 				<div className="border-b border-gray-200">
 					<Container className="py-2">
-						<div className="flex flex-auto max-w-full overflow-x-auto">
+						<div className="flex flex-auto max-w-full px-4 -mx-4 overflow-x-auto box-content">
 							<ActiveLink
 								route="stories"
 								activeClassName="text-green-500"
@@ -219,7 +219,7 @@ function Navbar() {
 			) : pathname.startsWith("/about") ? (
 				<div className="border-b border-gray-200">
 					<Container className="py-2">
-						<div className="flex flex-auto max-w-full overflow-x-auto">
+						<div className="flex flex-auto max-w-full px-4 -mx-4 overflow-x-auto box-content">
 							<ActiveLink
 								route="about"
 								activeClassName="text-green-500"
@@ -265,7 +265,7 @@ function Navbar() {
 			) : (
 				<div className="border-b border-gray-200">
 					<Container className="py-2">
-						<div className="flex flex-auto max-w-full overflow-x-auto">
+						<div className="flex flex-auto max-w-full px-4 -mx-4 overflow-x-auto box-content">
 							<ActiveLink
 								route="index"
 								activeClassName="text-green-500"
@@ -305,7 +305,7 @@ function Navbar() {
 										route="tasks"
 										activeClassName="text-green-500"
 									>
-										<a className="flex-none font-medium text-gray-500">
+										<a className="flex-none pr-4 font-medium text-gray-500 md:pr-0">
 											Your Tasks
 										</a>
 									</ActiveLink>
