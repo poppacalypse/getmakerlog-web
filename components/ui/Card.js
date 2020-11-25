@@ -8,7 +8,7 @@ function Card({ children, className = null, image = null }) {
 	return (
 		<div
 			className={
-				"Card bg-white rounded-md mb-4 shadow-xs last:mb-0 overflow-hidden" +
+				"Card bg-white rounded-md mb-4 shadow-xs last:mb-0 overflow-hidden " +
 				(className ?? "") +
 				(image ? " flex flex-row " : "")
 			}

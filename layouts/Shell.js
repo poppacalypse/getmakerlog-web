@@ -1,21 +1,22 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React from "react";
-import ErrorCard from "components/ui/ErrorCard";
 import Navbar from "components/nav/Navbar";
 import Container from "components/ui/Container";
 import Footer from "components/nav/Footer";
+import Error, { ERROR_LAYOUT_PROPS } from "pages/_error";
 
 // TODO: refactor, make nicer
 
 function Shell({ layoutProps, ...props }) {
 	const errored = props.statusCode && props.statusCode >= 400;
-	const children = !errored ? (
-		props.children
-	) : (
-		<ErrorCard statusCode={props.statusCode} />
-	);
+	const { children } = props;
 
 	if (layoutProps && layoutProps.withoutShell && !errored) {
 		return children;
+	}
+
+	if (errored) {
+		layoutProps = ERROR_LAYOUT_PROPS;
 	}
 
 	return (
@@ -32,11 +33,13 @@ function Shell({ layoutProps, ...props }) {
 			}
 		>
 			<Navbar />
-			<div className="flex-grow">
-				{!layoutProps ||
-				(layoutProps && layoutProps.contained === undefined) ||
-				(layoutProps && layoutProps.contained) ? (
-					<Container className="py-4">{children}</Container>
+			<div className={"flex-grow " + layoutProps.contentClassName ?? ""}>
+				{errored ? (
+					<Error {...props} />
+				) : !layoutProps ||
+				  (layoutProps && layoutProps.contained === undefined) ||
+				  (layoutProps && layoutProps.contained) ? (
+					<Container className={"py-4"}>{children}</Container>
 				) : (
 					children
 				)}

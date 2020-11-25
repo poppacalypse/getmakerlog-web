@@ -263,4 +263,20 @@ export function renderHelpOrError(help = null, name, e) {
 	return help ? <p className="help">{help}</p> : null;
 }
 
+export function getErrorResponse(e, res = null) {
+	if (e !== null && e instanceof StdErrorCollection) {
+		if (res) res.statusCode = e.intCode() >= 400 ? e.intCode() : 500;
+		return {
+			statusCode: e.intCode() >= 400 ? e.intCode() : 500,
+			errorMessage: e.message,
+		};
+	} else {
+		if (res) res.statusCode = 500;
+		return {
+			statusCode: 500,
+			err: null,
+		};
+	}
+}
+
 export { prettyAxiosError, errorArray };

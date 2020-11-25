@@ -58,7 +58,7 @@ class ErrorCard extends Component {
 			<Card className="relative overflow-hidden">
 				<Card.Content>
 					{this.props.nyan ? (
-						<div className="absolute hidden opacity-50 nyan right-2 top-6 sm:block">
+						<div className="absolute opacity-50 nyan right-2 top-6">
 							<Image
 								className="h-20 transform -rotate-12"
 								src="/img/nyan.png"

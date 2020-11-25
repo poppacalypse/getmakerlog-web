@@ -73,7 +73,7 @@ class Makerlog extends App {
 
 	render() {
 		const { Component, pageProps, store } = this.props;
-		const { statusCode } = pageProps;
+		const { statusCode, errorMessage } = pageProps;
 		const layoutProps = pageProps.layout ? pageProps.layout : {};
 
 		return (
@@ -94,6 +94,7 @@ class Makerlog extends App {
 						<Provider {...store}>
 							<Shell
 								statusCode={statusCode}
+								errorMessage={errorMessage}
 								layoutProps={layoutProps}
 							>
 								<Component {...pageProps} />

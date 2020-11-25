@@ -3,6 +3,9 @@ import appConfig from "config";
 import nookies from "nookies";
 import { isServer } from "config";
 import { StdErrorCollection, prettyAxiosError } from "./error";
+import { getLogger } from "./logging";
+
+const log = getLogger("axiosWrapper");
 
 const client = axios.create({
 	baseURL: appConfig.API_URL,
@@ -24,7 +27,7 @@ export async function axiosWrapper(fn, ...args) {
 		return await fn(...args);
 	} catch (e) {
 		// eslint-disable-next-line no-console
-		console.log(`Makerlog (axios): ${e.message}`);
+		log(`Makerlog (axios): ${e.message}`);
 		throw new StdErrorCollection(prettyAxiosError(e));
 	}
 }
