@@ -25,6 +25,7 @@ import { DefaultSeo } from "next-seo";
 import { Router } from "next/router";
 import { pageview } from "vendor/gtag";
 import * as Sentry from "@sentry/react";
+import Head from "next/head";
 
 if (isDev && !isServer) {
 	localStorage.debug = "makerlog*,axios";
@@ -77,6 +78,16 @@ class Makerlog extends App {
 
 		return (
 			<>
+				<Head>
+					<meta
+						name="viewport"
+						content="width=device-width, initial-scale=1, user-scalable=0, minimal-ui, viewport-fit=cover"
+					/>
+					<meta
+						name="apple-mobile-web-app-status-bar-style"
+						content="black-translucent"
+					/>
+				</Head>
 				<DefaultSeo {...DEFAULT_SEO_CONFIG} />
 				<ReactQueryCacheProvider>
 					<Hydrate state={pageProps.dehydratedState}>
