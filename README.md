@@ -12,3 +12,7 @@ In terms of engineering requirements, your code will undergo review. Here's a co
 -   Use the "Prettier" software to adhere to code formatting standards.
 -   Use TailwindCSS utility classes rather than bare CSS, unless absolutely necessary.
 -   Turn in the CLA alongside the pull request.
+
+# License
+
+All rights reserved, © Makerlog, LLC. The omission of a license is intentional. Contributions are accepted, but only if a CLA is signed alongside.
