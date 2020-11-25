@@ -259,7 +259,7 @@ function SettingsPage() {
 								</div>
 								<p className="help">
 									Accumulate rest days for your streak. (Might
-									break your streaak)
+									break your streak)
 								</p>
 							</Form.Field>
 						</Form.Group>
