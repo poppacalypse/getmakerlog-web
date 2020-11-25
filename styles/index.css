@@ -385,3 +385,9 @@ th {
 	/* Padding on mobile footers */
 	padding-bottom: env(safe-area-inset-bottom);
 }
+
+@screen sm {
+	.mobile-footer {
+		padding-bottom: 0px !important;
+	}
+}
