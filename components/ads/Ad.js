@@ -49,6 +49,7 @@ function Ad({ booking: initialBooking, test = false }) {
 								? "mb-2"
 								: "h-12 w-12 mr-2")
 						}
+						key={booking.id}
 						layout={"fixed"}
 						unsized
 						src={booking.image}
