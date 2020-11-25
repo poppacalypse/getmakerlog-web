@@ -314,10 +314,28 @@ th {
 	animation: egg-rainbow-animation 5s infinite;
 }
 
-.bubbles-bg {
+.bg-bubbles {
 	background-image: url(/img/bubble-bg.png) !important;
 	background-size: cover;
 	background-position: center;
+}
+
+.bg-bubbles-gradient {
+	background: white;
+}
+
+@screen sm {
+	.bg-bubbles-gradient {
+		background: linear-gradient(
+				90deg,
+				rgba(255, 255, 255, 1) 0%,
+				rgba(255, 255, 255, 1) 50%,
+				rgba(0, 212, 255, 0) 100%
+			),
+			url(/img/bubble-bg.png) !important;
+		background-size: cover;
+		background-position: center;
+	}
 }
 
 @keyframes egg-rainbow-animation {
