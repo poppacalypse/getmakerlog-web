@@ -1,8 +1,14 @@
 import React from "react";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 import Spinner from "components/ui/Spinner";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Card from "components/ui/Card";
+import dynamic from "next/dynamic";
+
+const Masonry = dynamic(() => import("react-responsive-masonry"));
+
+const ResponsiveMasonry = dynamic(() =>
+	import("react-responsive-masonry").then((mod) => mod.ResponsiveMasonry)
+);
 
 function Tweet({ id }) {
 	return (

@@ -127,7 +127,7 @@ function LoginPage() {
 LoginPage.getInitialProps = async () => {
 	return {
 		layout: {
-			className: "bg-people",
+			className: "bg-green-500",
 		},
 	};
 };

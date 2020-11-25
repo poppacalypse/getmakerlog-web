@@ -2,6 +2,7 @@ import React from "react";
 import FullName from "components/users/FullName";
 import Avatar from "./Avatar";
 import { Link } from "routes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function UserLine({ user, className = "", withAvatar = true, style = {} }) {
 	return (
@@ -19,8 +20,23 @@ function UserLine({ user, className = "", withAvatar = true, style = {} }) {
 							<Avatar size={6} user={user} />
 						</div>
 					) : null}
-					<div>
+					<div className="space-x-1">
 						<FullName user={user} />{" "}
+						{user.is_staff ? (
+							<span className="text-xs text-green-500 text-uppercase">
+								<FontAwesomeIcon icon="check-circle" /> Staff
+							</span>
+						) : null}
+						{user.verified && !user.is_staff ? (
+							<span className="text-xs text-blue-500 text-uppercase">
+								<FontAwesomeIcon icon="check-circle" /> Verified
+							</span>
+						) : null}
+						{user.gold && !user.verified && !user.is_staff ? (
+							<span className="text-xs text-yellow-800 text-uppercase">
+								<FontAwesomeIcon icon="check-circle" /> Patron
+							</span>
+						) : null}
 						<span className="text-gray-500">@{user.username}</span>
 					</div>
 				</div>

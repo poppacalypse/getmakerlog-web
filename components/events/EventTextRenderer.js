@@ -19,6 +19,7 @@ function EventTextRenderer({ object }) {
 					} else {
 						// aw. ful.
 						return URLComponent(href, [
+							href,
 							props.children[0]
 								? props.children[0].props.value
 								: href,

@@ -36,9 +36,15 @@ function HomePage() {
 
 	return (
 		<div>
-			<Hero style={{ padding: 0, marginBottom: 0 }}>
-				<div className="flex items-stretch items-center w-full">
-					<div className="flex-1 flex-shrink-0 py-12 pr-6 sm:py-24">
+			<Hero
+				className="bg-bubbles-gradient"
+				style={{
+					padding: 0,
+					marginBottom: 0,
+				}}
+			>
+				<div className="flex items-stretch items-center w-full text-center sm:text-left">
+					<div className="flex-1 flex-shrink-0 py-12 sm:pr-6 sm:py-24">
 						<h1 className="text-2xl font-extrabold sm:text-4xl">
 							Learn, build, and grow with us.
 						</h1>
@@ -49,14 +55,14 @@ function HomePage() {
 						</p>
 						<div className="flex flex-col space-y-2">
 							<div className="flex-initial">
-								<FacebookLogin />
+								<TwitterLogin />
 							</div>
 							<div className="flex-initial">
-								<TwitterLogin />
+								<FacebookLogin />
 							</div>
 						</div>
 					</div>
-					<div className="flex-1 flex-shrink-0 hidden w-full bg-gray-800 shadow-inner sm:block bubbles-bg"></div>
+					<div className="flex-1 flex-shrink-0 hidden w-full sm:block"></div>
 				</div>
 			</Hero>
 			<div className="px-4 py-12 border-b border-gray-200 bg-gray-50">

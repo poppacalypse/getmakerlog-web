@@ -4,6 +4,7 @@ import Spinner from "./Spinner";
 
 function getClassNames(props) {
 	let classNames = `
+	appearance-none
     inline-flex 
     items-center 
     border border-transparent 

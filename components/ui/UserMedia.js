@@ -4,17 +4,18 @@ import Streak from "./Streak";
 import Avatar from "./Avatar";
 import { isNewUser } from "utils/user";
 import { Link } from "routes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function UserMedia({
 	user,
 	action = null,
 	actions = null,
 	extra = null,
-	extraStreakText = true,
+	extraStreakText = false,
 	truncateName = false,
 }) {
 	return (
-		<div className="flex items-center justify-between space-x-3">
+		<div className="flex items-center justify-between overflow-hidden space-x-3">
 			<Link route="profile" params={{ username: user.username }}>
 				<a className="flex-shrink-0">
 					<Avatar size={10} user={user} />
@@ -34,13 +35,40 @@ function UserMedia({
 						<span className="text-gray-700">{action}</span>
 					) : null}
 				</h2>
-				<p className="text-sm text-gray-500 truncate leading-5">
-					<span className="mr-2">@{user.username}</span>
-					<span className="mr-2 ">
+				<p className="text-sm text-gray-500 truncate leading-5 space-x-2">
+					<span>@{user.username}</span>
+					{!truncateName && user.is_staff ? (
+						<span className="text-xs text-green-500 text-uppercase">
+							<FontAwesomeIcon icon="check-circle" />{" "}
+							<span className="hidden sm:inline-block">
+								Staff
+							</span>
+						</span>
+					) : null}
+					{!truncateName && user.verified && !user.is_staff ? (
+						<span className="text-xs text-blue-500 text-uppercase">
+							<FontAwesomeIcon icon="check-circle" />{" "}
+							<span className="hidden sm:inline-block">
+								Verified
+							</span>
+						</span>
+					) : null}
+					{!truncateName &&
+					user.gold &&
+					!user.verified &&
+					!user.is_staff ? (
+						<span className="text-xs text-yellow-500 text-uppercase">
+							<FontAwesomeIcon icon="check-circle" />
+							<span className="hidden sm:inline-block">
+								Patron
+							</span>
+						</span>
+					) : null}
+					<span>
 						<Streak text={extraStreakText} days={user.streak} />
 					</span>
 					{isNewUser(user) && (
-						<span className="mr-2">
+						<span>
 							<small>👋</small> Say hi!
 						</span>
 					)}

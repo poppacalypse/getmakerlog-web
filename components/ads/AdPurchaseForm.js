@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { useAuth } from "stores/AuthStore";
 import { getPlansForType, makeBookingMock } from "utils/ads";
 import { useImageUpload } from "utils/hooks";
+import PaddleSupport from "vendor/PaddleSupport";
 import Ad from "./Ad";
 import AdImageUpload from "./AdImageUpload";
 
@@ -161,6 +162,7 @@ function AdPurchaseForm() {
 						<Card>
 							<Card.Content>
 								<Ad
+									test={true}
 									booking={makeBookingMock(
 										type,
 										text.length > 0
@@ -206,6 +208,7 @@ function AdPurchaseForm() {
 				</>
 			}
 		>
+			<PaddleSupport />
 			<Card>
 				<Card.Content>
 					<Form

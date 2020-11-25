@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "routes";
+import { imageUrl } from "vendor/imagekit";
 
 function ProductTag({ product, tag }) {
 	tag = tag.replace("#", "");
@@ -14,7 +15,7 @@ function ProductTag({ product, tag }) {
 						<img
 							style={{ marginBottom: -2 }}
 							className="h-4 mr-1 border border-gray-100 rounded-sm"
-							src={product.icon}
+							src={imageUrl(product.icon, 12)}
 							alt={product.name}
 						/>
 					</div>

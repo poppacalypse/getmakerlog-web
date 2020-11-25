@@ -14,14 +14,7 @@ import { TwitterTimelineEmbed } from "react-twitter-embed";
 function AboutPage() {
 	return (
 		<div>
-			<div
-				className="py-24 bg-white border-b border-gray-200"
-				style={{
-					background: `linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 50%, rgba(0,212,255,0) 100%), url(/img/bubble-bg.png)`,
-					backgroundPosition: "center",
-					backgroundSize: "cover",
-				}}
-			>
+			<div className="py-24 border-b border-gray-200 bg-bubbles-gradient">
 				<Container>
 					<h1>Learn, build, and grow with us.</h1>
 					<p className="text-gray-700">

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "./Card";
 import Button from "./Button";
 import { Link } from "routes";
+import Image from "next/image";
 
 function getMessageForError(code) {
 	switch (code) {
@@ -58,11 +59,11 @@ class ErrorCard extends Component {
 				<Card.Content>
 					{this.props.nyan ? (
 						<div className="absolute hidden opacity-50 nyan right-2 top-6 sm:block">
-							<img
-								className="h-20 transform -rotate-45"
-								style={{ "--transform-rotate": "-25deg" }}
+							<Image
+								className="h-20 transform -rotate-12"
 								src="/img/nyan.png"
-								alt=""
+								unsized
+								alt="A Nyan cat."
 							/>
 						</div>
 					) : null}

@@ -69,7 +69,7 @@ function SignupPage() {
 SignupPage.getInitialProps = async () => {
 	return {
 		layout: {
-			className: "bg-people",
+			className: "bg-green-500",
 		},
 	};
 };

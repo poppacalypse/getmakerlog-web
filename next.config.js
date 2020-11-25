@@ -13,6 +13,7 @@ module.exports = {
 			"blog.getmakerlog.com",
 			"getmakerlog.com",
 			"api.getmakerlog.com",
+			"ik.imagekit.io",
 		],
 	},
 };

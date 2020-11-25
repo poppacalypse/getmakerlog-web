@@ -11,7 +11,7 @@ const WS_URL = process.env.WS_URL
 
 const BASE_URL = process.env.BASE_URL
 	? process.env.BASE_URL
-	: "https://getmakerlog.com";
+	: "https://beta.getmakerlog.com";
 
 const STREAM_TYPES = (following = true) => ({
 	tasks: following ? "/stream" : "/explore/stream/",
@@ -60,6 +60,10 @@ const STREAM_APP_ID = process.env.STREAM_APP_ID
 	? process.env.STREAM_APP_ID
 	: "97497";
 
+const SENTRY_DSN =
+	process.env.SENTRY_DSN ??
+	"https://2a9f23af62a74638b4c5c24a7cc132c2@o197126.ingest.sentry.io/3170364";
+
 export const DEFAULT_SEO_CONFIG = {
 	title: "Home",
 	titleTemplate: "%s | Makerlog",
@@ -103,5 +107,6 @@ const config = {
 	STREAM_API_KEY,
 	STREAM_APP_ID,
 	PADDLE_PRODUCT,
+	SENTRY_DSN,
 };
 export default config;
