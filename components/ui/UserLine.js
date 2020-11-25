@@ -33,8 +33,11 @@ function UserLine({ user, className = "", withAvatar = true, style = {} }) {
 							</span>
 						) : null}
 						{user.gold && !user.verified && !user.is_staff ? (
-							<span className="text-xs text-yellow-800 text-uppercase">
-								<FontAwesomeIcon icon="check-circle" /> Patron
+							<span className="text-xs text-yellow-500 text-uppercase">
+								<FontAwesomeIcon icon="check-circle" />
+								<span className="hidden sm:inline-block">
+									Patron
+								</span>
 							</span>
 						) : null}
 						<span className="text-gray-500">@{user.username}</span>
