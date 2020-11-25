@@ -364,6 +364,13 @@ th {
 	}
 }
 
+.h-safe-top {
+	height: env(safe-area-inset-top);
+}
+.mt-safe-top {
+	margin-top: env(safe-area-inset-top);
+}
+
 .mobile-footer {
 	/* Padding on mobile footers */
 	padding-bottom: env(safe-area-inset-bottom);

@@ -24,6 +24,10 @@ export default function DefaultHead() {
 				sizes="16x16"
 				href="/img/icons/favicon-16x16.png"
 			/>
+
+			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimal-ui, viewport-fit=cover" />
+			<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
 			<link rel="manifest" href="/img/icons/site.webmanifest" />
 			<script src="https://cdn.paddle.com/paddle/paddle.js"></script>
 			<script
