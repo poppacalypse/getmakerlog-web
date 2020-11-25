@@ -330,7 +330,7 @@ th {
 				90deg,
 				rgba(255, 255, 255, 1) 0%,
 				rgba(255, 255, 255, 1) 50%,
-				rgba(0, 212, 255, 0) 100%
+				rgba(255, 255, 255, 0) 100%
 			),
 			url(/img/bubble-bg.png) !important;
 		background-size: cover;
