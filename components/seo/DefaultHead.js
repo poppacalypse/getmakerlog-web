@@ -27,7 +27,7 @@ export default function DefaultHead() {
 			<link
 				rel="preconnect"
 				href="https://fonts.gstatic.com"
-				crossOrigin
+				crossOrigin="true"
 			/>
 			<link
 				href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Merriweather:wght@400;700&display=swap"
