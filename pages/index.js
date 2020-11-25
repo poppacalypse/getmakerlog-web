@@ -38,7 +38,7 @@ function HomePage() {
 		<div>
 			<Hero style={{ padding: 0, marginBottom: 0 }}>
 				<div className="flex items-stretch items-center w-full text-center sm:text-left">
-					<div className="flex-1 flex-shrink-0 py-12 pr-6 sm:py-24">
+					<div className="flex-1 flex-shrink-0 py-12 sm:pr-6 sm:py-24">
 						<h1 className="text-2xl font-extrabold sm:text-4xl">
 							Learn, build, and grow with us.
 						</h1>
