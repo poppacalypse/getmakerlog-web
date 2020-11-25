@@ -36,6 +36,7 @@ function UserMedia({
 					) : null}
 				</h2>
 				<p className="text-sm text-gray-500 truncate leading-5 space-x-2">
+					<span>@{user.username}</span>
 					{!truncateName && user.is_staff ? (
 						<span className="text-xs text-green-500 text-uppercase">
 							<FontAwesomeIcon icon="check-circle" />{" "}
@@ -63,7 +64,6 @@ function UserMedia({
 							</span>
 						</span>
 					) : null}
-					<span>@{user.username}</span>
 					<span>
 						<Streak text={extraStreakText} days={user.streak} />
 					</span>
