@@ -174,8 +174,9 @@ function StoriesPostPage() {
 					images: [
 						{
 							url:
-								`https://blog.getmakerlog.com/${post.twitter_image}` ||
-								`https://blog.getmakerlog.com/${post.twitter_image}` ||
+								(post.twitter_image
+									? `https://blog.getmakerlog.com/${post.twitter_image}`
+									: false) ||
 								post.feature_image ||
 								`${config.BASE_URL}/img/og/stories.png`,
 						},

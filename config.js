@@ -11,7 +11,7 @@ const WS_URL = process.env.WS_URL
 
 const BASE_URL = process.env.BASE_URL
 	? process.env.BASE_URL
-	: "https://getmakerlog.com";
+	: "https://beta.getmakerlog.com";
 
 const STREAM_TYPES = (following = true) => ({
 	tasks: following ? "/stream" : "/explore/stream/",
