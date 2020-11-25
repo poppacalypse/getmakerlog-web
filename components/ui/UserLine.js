@@ -28,7 +28,7 @@ function UserLine({ user, className = "", withAvatar = true, style = {} }) {
 							</span>
 						) : null}
 						{user.verified && !user.is_staff ? (
-							<span className="text-xs text-green-500 text-uppercase">
+							<span className="text-xs text-blue-500 text-uppercase">
 								<FontAwesomeIcon icon="check-circle" /> Verified
 							</span>
 						) : null}
