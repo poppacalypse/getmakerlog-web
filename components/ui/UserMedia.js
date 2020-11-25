@@ -4,7 +4,9 @@ import Streak from "./Streak";
 import Avatar from "./Avatar";
 import { isNewUser } from "utils/user";
 import { Link } from "routes";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PatronBadge from "components/users/badges/PatronBadge";
+import VerifiedBadge from "components/users/badges/VerifiedBadge";
+import StaffBadge from "components/users/badges/StaffBadge";
 
 function UserMedia({
 	user,
@@ -37,33 +39,9 @@ function UserMedia({
 				</h2>
 				<p className="text-sm text-gray-500 truncate leading-5 space-x-2">
 					<span>@{user.username}</span>
-					{!truncateName && user.is_staff ? (
-						<span className="text-xs text-green-500 text-uppercase">
-							<FontAwesomeIcon icon="check-circle" />{" "}
-							<span className="hidden sm:inline-block">
-								Staff
-							</span>
-						</span>
-					) : null}
-					{!truncateName && user.verified && !user.is_staff ? (
-						<span className="text-xs text-blue-500 text-uppercase">
-							<FontAwesomeIcon icon="check-circle" />{" "}
-							<span className="hidden sm:inline-block">
-								Verified
-							</span>
-						</span>
-					) : null}
-					{!truncateName &&
-					user.gold &&
-					!user.verified &&
-					!user.is_staff ? (
-						<span className="text-xs text-yellow-500 text-uppercase">
-							<FontAwesomeIcon icon="check-circle" />
-							<span className="hidden sm:inline-block">
-								Patron
-							</span>
-						</span>
-					) : null}
+					{!truncateName && <StaffBadge user={user} />}
+					{!truncateName && <VerifiedBadge user={user} />}
+					{!truncateName && <PatronBadge user={user} />}
 					<span>
 						<Streak text={extraStreakText} days={user.streak} />
 					</span>

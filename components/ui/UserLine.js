@@ -2,7 +2,9 @@ import React from "react";
 import FullName from "components/users/FullName";
 import Avatar from "./Avatar";
 import { Link } from "routes";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PatronBadge from "components/users/badges/PatronBadge";
+import VerifiedBadge from "components/users/badges/VerifiedBadge";
+import StaffBadge from "components/users/badges/StaffBadge";
 
 function UserLine({ user, className = "", withAvatar = true, style = {} }) {
 	return (
@@ -21,25 +23,10 @@ function UserLine({ user, className = "", withAvatar = true, style = {} }) {
 						</div>
 					) : null}
 					<div className="space-x-1">
-						<FullName user={user} />{" "}
-						{user.is_staff ? (
-							<span className="text-xs text-green-500 text-uppercase">
-								<FontAwesomeIcon icon="check-circle" /> Staff
-							</span>
-						) : null}
-						{user.verified && !user.is_staff ? (
-							<span className="text-xs text-blue-500 text-uppercase">
-								<FontAwesomeIcon icon="check-circle" /> Verified
-							</span>
-						) : null}
-						{user.gold && !user.verified && !user.is_staff ? (
-							<span className="text-xs text-yellow-500 text-uppercase">
-								<FontAwesomeIcon icon="check-circle" />
-								<span className="hidden sm:inline-block">
-									Patron
-								</span>
-							</span>
-						) : null}
+						<FullName user={user} />
+						<StaffBadge user={user} />
+						<VerifiedBadge user={user} />
+						<PatronBadge user={user} />
 						<span className="text-gray-500">@{user.username}</span>
 					</div>
 				</div>
