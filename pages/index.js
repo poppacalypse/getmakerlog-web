@@ -49,10 +49,10 @@ function HomePage() {
 						</p>
 						<div className="flex flex-col space-y-2">
 							<div className="flex-initial">
-								<FacebookLogin />
+								<TwitterLogin />
 							</div>
 							<div className="flex-initial">
-								<TwitterLogin />
+								<FacebookLogin />
 							</div>
 						</div>
 					</div>
