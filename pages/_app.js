@@ -22,7 +22,9 @@ import { configure } from "mobx";
 import { ReactQueryCacheProvider } from "react-query";
 import { Hydrate } from "react-query/hydration";
 import { DefaultSeo } from "next-seo";
-import DefaultHead from "components/seo/DefaultHead";
+import { Router } from "next/router";
+import { pageview } from "vendor/gtag";
+import * as Sentry from "@sentry/react";
 
 if (isDev && !isServer) {
 	localStorage.debug = "makerlog*,axios";
@@ -33,6 +35,13 @@ configure({ enforceActions: "observed" });
 // This is not a hook.
 // eslint-disable-next-line react-hooks/rules-of-hooks
 useStaticRendering(isServer); // NOT `true` value
+
+// Set up GA, Sentry
+Sentry.init({
+	enabled: !config.isDev,
+	dsn: config.SENTRY_DSN,
+});
+Router.events.on("routeChangeComplete", (url) => pageview(url));
 
 class Makerlog extends App {
 	static async getInitialProps({ Component, ctx }) {
@@ -68,7 +77,6 @@ class Makerlog extends App {
 
 		return (
 			<>
-				<DefaultHead />
 				<DefaultSeo {...DEFAULT_SEO_CONFIG} />
 				<ReactQueryCacheProvider>
 					<Hydrate state={pageProps.dehydratedState}>
