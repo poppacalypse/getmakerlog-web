@@ -10,7 +10,7 @@ To contribute, you must sign a [Contributor's License Agreement](https://docs.go
 
 In terms of engineering requirements, your code will undergo review. Here's a couple of tips.
 
--   Make sure all ESLint linters pass. (`npm run lint`)
+-   Make sure all ESLint linters pass. (`npm run lint` & `npm run lint:fix`)
 -   Use the "Prettier" software to adhere to code formatting standards.
 -   Use TailwindCSS utility classes rather than bare CSS, unless absolutely necessary.
 -   Turn in the CLA alongside the pull request.
