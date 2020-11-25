@@ -122,7 +122,7 @@ function SettingsPage() {
 									value={payload.website}
 								/>
 							</Form.Field>
-							<Form.Field span={3} label="Twitter handle">
+							<Form.Field span={6} label="Twitter handle">
 								<input
 									onChange={(e) =>
 										onChangeField(
@@ -133,7 +133,7 @@ function SettingsPage() {
 									value={payload.twitter_handle}
 								/>
 							</Form.Field>
-							<Form.Field span={3} label="Telegram handle">
+							<Form.Field span={6} label="Telegram handle">
 								<input
 									onChange={(e) =>
 										onChangeField(
@@ -144,7 +144,7 @@ function SettingsPage() {
 									value={payload.telegram_handle}
 								/>
 							</Form.Field>
-							<Form.Field span={3} label="GitHub handle">
+							<Form.Field span={6} label="GitHub handle">
 								<input
 									onChange={(e) =>
 										onChangeField(
@@ -155,7 +155,7 @@ function SettingsPage() {
 									value={payload.github_handle}
 								/>
 							</Form.Field>
-							<Form.Field span={3} label="Buy Me A Coffee handle">
+							<Form.Field span={6} label="Buy Me A Coffee handle">
 								<input
 									onChange={(e) =>
 										onChangeField(
