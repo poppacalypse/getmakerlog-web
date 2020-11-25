@@ -4,6 +4,7 @@ import Streak from "./Streak";
 import Avatar from "./Avatar";
 import { isNewUser } from "utils/user";
 import { Link } from "routes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function UserMedia({
 	user,
@@ -34,13 +35,23 @@ function UserMedia({
 						<span className="text-gray-700">{action}</span>
 					) : null}
 				</h2>
-				<p className="text-sm text-gray-500 truncate leading-5">
-					<span className="mr-2">@{user.username}</span>
-					<span className="mr-2 ">
+				<p className="text-sm text-gray-500 truncate leading-5 space-x-2">
+					{user.is_staff ? (
+						<span className="text-xs text-green-500 text-uppercase">
+							<FontAwesomeIcon icon="check-circle" /> Staff
+						</span>
+					) : null}
+					{user.verified && !user.is_staff ? (
+						<span className="text-xs text-blue-500 text-uppercase">
+							<FontAwesomeIcon icon="check-circle" /> Verified
+						</span>
+					) : null}
+					<span>@{user.username}</span>
+					<span>
 						<Streak text={extraStreakText} days={user.streak} />
 					</span>
 					{isNewUser(user) && (
-						<span className="mr-2">
+						<span>
 							<small>👋</small> Say hi!
 						</span>
 					)}
