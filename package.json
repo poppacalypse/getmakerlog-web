@@ -2,9 +2,9 @@
 	"name": "makerlog",
 	"version": "1.0.0",
 	"scripts": {
-		"dev": "DEBUG='makerlog*,axios' node server.js",
+		"dev": "DEBUG='makerlog*,axios' next",
 		"build": "next build",
-		"start": "NODE_ENV=production node server.js",
+		"start": "NODE_ENV=production next start",
 		"type-check": "tsc",
 		"lint": "eslint . --ext .js,.jsx; exit 0",
 		"lint:staged": "lint-staged",
