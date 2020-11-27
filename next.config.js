@@ -8,6 +8,10 @@ const config = {
 				source: "/@:username/products",
 				destination: "/users/:username/products",
 			},
+			{
+				source: "/service-worker.js",
+				destination: "/_next/static/service-worker.js",
+			},
 		];
 	},
 	images: {
@@ -19,7 +23,9 @@ const config = {
 		],
 	},
 	workboxOpts: {
-		swDest: "../public/service-worker.js",
+		swDest: process.env.NEXT_EXPORT
+			? "service-worker.js"
+			: "static/service-worker.js",
 	},
 };
 
