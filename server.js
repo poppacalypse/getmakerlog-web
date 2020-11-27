@@ -4,6 +4,7 @@ const { parse } = require("url");
 const next = require("next");
 
 const app = next({ dev: process.env.NODE_ENV !== "production" });
+const port = parseInt(process.env.PORT, 10) || 3000;
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
@@ -19,7 +20,7 @@ app.prepare().then(() => {
 		} else {
 			handle(req, res, parsedUrl);
 		}
-	}).listen(3000, () => {
+	}).listen(port, () => {
 		// eslint-disable-next-line no-console
 		console.log(`> Ready on http://localhost:${3000}`);
 	});
