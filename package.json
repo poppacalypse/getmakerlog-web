@@ -69,6 +69,7 @@
 		"react-use-websocket": "^2.1.1",
 		"recompose": "^0.30.0",
 		"remark-linkify-regex": "^1.0.0",
+		"sharp": "^0.26.3",
 		"tailwindcss": "^1.5.2",
 		"tailwindcss-dark-mode": "^1.1.6",
 		"tailwindcss-font-inter": "^1.0.8",
