@@ -6,8 +6,8 @@ export default function RecentLaunches({ frontpage }) {
 	if (
 		!(
 			frontpage &&
-			frontpage.recentLaunches &&
-			frontpage.recentLaunches.length > 0
+			frontpage.recent_launches &&
+			frontpage.recent_launches.length > 0
 		)
 	)
 		return null;
@@ -20,12 +20,14 @@ export default function RecentLaunches({ frontpage }) {
 			<Card>
 				<Card.Content>
 					<div className="space-y-2">
-						{frontpage.recentLaunches.slice(0, 3).map((product) => (
-							<ProductMedia
-								product={product}
-								key={product.slug}
-							/>
-						))}
+						{frontpage.recent_launches
+							.slice(0, 3)
+							.map((product) => (
+								<ProductMedia
+									product={product}
+									key={product.slug}
+								/>
+							))}
 					</div>
 				</Card.Content>
 			</Card>
