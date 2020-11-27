@@ -6,8 +6,8 @@ x-common-props: &common-props
         target: base
     working_dir: /base
     volumes:
-        - .:/base
-        - node_modules:/base/node_modules
+        - .:/base:cached
+        - node_modules:/base/node_modules:cached
 
 services:
     npm:
