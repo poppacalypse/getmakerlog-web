@@ -18,6 +18,9 @@ const config = {
 			"ik.imagekit.io",
 		],
 	},
+	workboxOpts: {
+		swDest: "../public/service-worker.js",
+	},
 };
 
 module.exports = withOffline(config);
