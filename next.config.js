@@ -1,4 +1,6 @@
-module.exports = {
+const withOffline = require("next-offline");
+
+const config = {
 	async rewrites() {
 		return [
 			{ source: "/@:username", destination: "/users/:username" },
@@ -17,3 +19,5 @@ module.exports = {
 		],
 	},
 };
+
+module.exports = withOffline(config);
