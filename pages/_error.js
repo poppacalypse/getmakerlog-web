@@ -35,7 +35,7 @@ function Error({ statusCode, ...props }) {
 					Report an issue
 				</Button>
 				<Link route="index">
-					<Button onClick={toggleFeedback}>Go home</Button>
+					<Button>Go home</Button>
 				</Link>
 			</div>
 			{props.errorMessage && (
