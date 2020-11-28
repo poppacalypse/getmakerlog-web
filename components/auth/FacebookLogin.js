@@ -8,7 +8,7 @@ export default function FacebookLogin() {
 		<Button
 			className="text-blue-800"
 			anchorElem={true}
-			href={`${config.API_URL}/login/facebook/`}
+			href={`${config.API_URL}/login/facebook/?next=${config.BASE_URL}/auth/complete/twitter/`}
 		>
 			<Button.Icon>
 				<FontAwesomeIcon icon={["fab", "facebook"]} />

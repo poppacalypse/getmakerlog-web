@@ -8,7 +8,7 @@ export default function TwitterLogin() {
 		<Button
 			className="text-blue-500"
 			anchorElem={true}
-			href={`${config.API_URL}/login/twitter/`}
+			href={`${config.API_URL}/login/twitter/?next=${config.BASE_URL}/auth/complete/twitter/`}
 		>
 			<Button.Icon>
 				<FontAwesomeIcon icon={["fab", "twitter"]} />
