@@ -56,17 +56,17 @@ function SocialAuthCompletePage() {
 			</div>
 			<Card>
 				<Card.Content>
-					{completed && (
-						<p>
-							Done! You'll be taken to your log in a couple of
-							seconds...
-						</p>
-					)}
 					{errorMessages !== null && (
 						<ErrorMessageList error={errorMessages} />
 					)}
 					{errorMessages === null && (!completed || loading) && (
-						<Spinner text="Signing you right in..." />
+						<Spinner
+							text={
+								completed
+									? "Done! Redirecting..."
+									: "Signing you right in..."
+							}
+						/>
 					)}
 				</Card.Content>
 			</Card>
