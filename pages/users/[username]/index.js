@@ -54,7 +54,7 @@ function ProfilePage() {
 				bottomNav: <ProfileMenu user={user} />,
 			}}
 		>
-			<KeyActivityFeed userId={user.id} feed={"user"} />
+			<KeyActivityFeed userId={user.id} feed={"tasks"} />
 		</ProfileLayout>
 	);
 }

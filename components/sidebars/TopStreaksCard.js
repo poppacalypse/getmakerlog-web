@@ -17,7 +17,7 @@ export default function TopStreaksCard() {
 					{isLoading && <Spinner small text="Loading users..." />}
 					{worldStats && worldStats.top_users && (
 						<div className="space-y-2">
-							{worldStats.top_users.slice(0, 5).map((user) => (
+							{worldStats.top_users.slice(0, 10).map((user) => (
 								<UserMedia
 									truncateName
 									extraStreakText={false}

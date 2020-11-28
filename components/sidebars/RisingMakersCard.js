@@ -19,7 +19,7 @@ export default function RisingMakersCard() {
 					{worldStats && worldStats.rising_users && (
 						<div className="space-y-2">
 							{worldStats.rising_users
-								.slice(0, 5)
+								.slice(0, 10)
 								.map((user, idx) => (
 									<div key={user.id} className="flex">
 										<div
