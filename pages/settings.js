@@ -265,9 +265,13 @@ function SettingsPage() {
 						</Form.Group>
 
 						<Form.Group title="Gold">
-							<p className="help">
-								Yell at Sergio to finish this part.
-							</p>
+							<Form.Field>
+								<p className="help">
+									We're working on changing Gold to be a
+									better experience & delivering dark mode
+									soon. Stay tuned!
+								</p>
+							</Form.Field>
 						</Form.Group>
 
 						{errorMessages && (
