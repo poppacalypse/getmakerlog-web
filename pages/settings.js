@@ -265,7 +265,7 @@ function SettingsPage() {
 						</Form.Group>
 
 						<Form.Group title="Gold">
-							<Form.Field>
+							<Form.Field span={6}>
 								<p className="help">
 									We're working on changing Gold to be a
 									better experience & delivering dark mode
