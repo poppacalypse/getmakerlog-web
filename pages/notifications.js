@@ -45,6 +45,13 @@ function NotificationsPage() {
 			</PageHeader>
 			<Card className="text-sm">
 				<Card.Content>
+					{data.length === 0 && (
+						<center>
+							<div className="text-xs text-gray-700">
+								🍃 Nothing yet.
+							</div>
+						</center>
+					)}
 					{isLoading && (
 						<Spinner small text="Loading notifications..." />
 					)}
