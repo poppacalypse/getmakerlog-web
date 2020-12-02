@@ -12,6 +12,10 @@ const config = {
 				source: "/service-worker.js",
 				destination: "/_next/static/service-worker.js",
 			},
+			{
+				source: "/ads",
+				destination: "/about/book-ad",
+			},
 		];
 	},
 	images: {
