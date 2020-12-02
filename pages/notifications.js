@@ -45,7 +45,7 @@ function NotificationsPage() {
 			</PageHeader>
 			<Card className="text-sm">
 				<Card.Content>
-					{data.length === 0 && (
+					{data && data.length === 0 && (
 						<center>
 							<div className="text-xs text-gray-700">
 								🍃 Nothing yet.
