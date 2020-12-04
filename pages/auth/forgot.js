@@ -77,6 +77,7 @@ function ForgotPage() {
 										<Form.Field span={6} label="Password">
 											<input
 												value={passwordState.password}
+												type="password"
 												onChange={(e) =>
 													setPasswordState({
 														...passwordState,
@@ -95,6 +96,7 @@ function ForgotPage() {
 												value={
 													passwordState.repeatPassword
 												}
+												type="password"
 												onChange={(e) =>
 													setPasswordState({
 														...passwordState,
