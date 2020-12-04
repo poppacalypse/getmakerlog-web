@@ -26,6 +26,7 @@ function ProductEditForm({ product }) {
 		name: product.name,
 		description: product.description ? product.description : "",
 		website: product.website ? product.website : "",
+		twitter: product.twitter ? product.twitter : "",
 		launched: product.launched,
 		tags: product.tags,
 		accent: product.accent,
