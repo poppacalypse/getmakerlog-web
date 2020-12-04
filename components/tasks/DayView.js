@@ -10,9 +10,11 @@ import {
 	groupTasksByDone,
 	DoneStates,
 	getHumanStateFromDoneState,
+	getTwitterShareUrl,
 } from "utils/tasks";
 import ErrorCard from "components/ui/ErrorCard";
 import PageHeader from "components/ui/PageHeader";
+import OutboundLink from "components/seo/OutboundLink";
 
 function getRelativeDate(date) {
 	const calendarDate = format(date, "MMMM d, yyyy");
@@ -30,10 +32,23 @@ function getRelativeDate(date) {
 function TaskGroupCard({ isLoading, failed, onRetry, tasks, doneState }) {
 	return (
 		<>
-			<h3 className="mb-2 text-sm font-medium text-gray-700 leading-4">
-				{getHumanStateFromDoneState(doneState)}{" "}
-				<span className="text-gray-500">{tasks.length}</span>
-			</h3>
+			<div className="flex w-full mb-2 text-sm font-medium text-gray-700 leading-4">
+				<div>
+					{getHumanStateFromDoneState(doneState)}{" "}
+					<span className="text-gray-500">{tasks.length}</span>
+				</div>
+				{doneState === DoneStates.DONE && (
+					<>
+						<div className="flex-grow"></div>
+						<OutboundLink
+							to={getTwitterShareUrl(tasks)}
+							className="text-xs"
+						>
+							<FontAwesomeIcon icon={["fab", "twitter"]} /> Tweet!
+						</OutboundLink>
+					</>
+				)}
+			</div>
 			{failed && !isLoading ? (
 				<ErrorCard
 					message="Your tasks couldn't get loaded."
