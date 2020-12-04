@@ -19,7 +19,6 @@ function Reply({
 	reply,
 	child,
 	childrenReplies,
-	thread,
 	onReplyTo = null,
 	withUserLine = true,
 }) {
@@ -153,7 +152,7 @@ function Reply({
 							<ThreadReplyCreateForm
 								replyingTo={replyingTo}
 								parentReply={reply}
-								thread={thread}
+								threadSlug={reply.parent}
 								onFinish={() => {
 									setReplyingTo(null);
 								}}

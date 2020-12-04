@@ -47,7 +47,7 @@ function DiscussionThreadPage() {
 				<Card>
 					<Card.Content>
 						<ThreadReplyCreateForm
-							thread={thread}
+							threadSlug={thread.slug}
 							onFinish={() => {
 								if (repliesEnd) {
 									repliesEnd.current.scrollIntoView({

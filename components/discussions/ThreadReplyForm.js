@@ -72,7 +72,7 @@ function ThreadReplyForm({
 }
 
 export function ThreadReplyCreateForm({
-	thread,
+	threadSlug,
 	replyingTo = null,
 	parentReply = null,
 	withUserLine = true,
@@ -84,7 +84,7 @@ export function ThreadReplyCreateForm({
 
 	const onCreate = async () => {
 		await mutate({
-			slug: thread.slug,
+			slug: threadSlug,
 			body,
 			parentReply: parentReply ? parentReply.id : null,
 		});
