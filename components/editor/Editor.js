@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TaskEditor from "./TaskEditor";
 import DiscussionEditor from "./DiscussionEditor";
 
-function Editor({ onFinish = () => {} }) {
+function Editor({ onFinish = () => {}, defaultTab = 0 }) {
 	/**
 	 * Four tabs!
 	 * - Completed
@@ -10,7 +10,7 @@ function Editor({ onFinish = () => {} }) {
 	 * - Remaining
 	 * - Discussion
 	 */
-	const [tab, setTab] = useState(0);
+	const [tab, setTab] = useState(defaultTab);
 
 	return (
 		<div>

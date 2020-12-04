@@ -21,6 +21,7 @@ function Navbar() {
 	const {
 		toggleEditor,
 		editorOpen,
+		editorDefaultTab,
 		toggleSearch,
 		searchOpen,
 		toggleFeedback,
@@ -97,7 +98,7 @@ function Navbar() {
 									<FontAwesomeIcon icon="search" />
 								</button>
 								<button
-									onClick={toggleEditor}
+									onClick={() => toggleEditor()}
 									className={
 										"flex items-center justify-center w-8 h-8 p-2 mx-2 font-semibold text-gray-700 border border-gray-200 hover:bg-gray-100  text-center rounded-full hover:bg-gray-200 text-gray-700"
 									}
@@ -318,7 +319,11 @@ function Navbar() {
 			)}
 
 			{isLoggedIn && (
-				<EditorModal open={editorOpen} onClose={toggleEditor} />
+				<EditorModal
+					open={editorOpen}
+					onClose={() => toggleEditor()}
+					defaultTab={editorDefaultTab}
+				/>
 			)}
 
 			<GlobalSearch open={searchOpen} onClose={toggleSearch} />

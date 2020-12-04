@@ -67,7 +67,7 @@ function ProductEditForm({ product }) {
 			);
 			// Set up categories array
 			let productTags = tags.map((t) => t.name);
-			finalPayload = { ...payload, projects, tags: productTags };
+			finalPayload = { ...finalPayload, projects, tags: productTags };
 			await mutate({ payload: finalPayload, slug: product.slug });
 			if (product) Router.pushRoute("product", { slug: product.slug });
 		} catch (e) {
