@@ -15,11 +15,13 @@ function Error({ statusCode, ...props }) {
 
 	return (
 		<Container className="relative flex flex-col justify-center flex-grow h-full">
-			<img
-				className="h-8 transform -rotate-12"
-				src="/img/nyan.png"
-				alt="A Nyan cat."
-			/>
+			<div>
+				<img
+					className="w-auto h-8"
+					src="/img/nyan.png"
+					alt="A Nyan cat."
+				/>
+			</div>
 			<h1>Oh no! Something went wrong.</h1>
 			<p className="mb-8 text-gray-700">
 				{statusCode
