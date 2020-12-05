@@ -18,7 +18,6 @@ export const productSchema = Joi.object().keys({
 			id: Joi.number().integer().required(),
 			name: Joi.string().required(),
 			private: Joi.boolean(),
-			user: Joi.number().integer().required(),
 		})
 	),
 	launched: Joi.boolean().required(),
