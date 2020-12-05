@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import { Link } from "routes";
 import PostHeading from "./PostHeading";
@@ -35,9 +34,8 @@ export default function PostMedia({
 								style={{ paddingBottom: "56.25%" }}
 							>
 								{post.feature_image ? (
-									<Image
+									<img
 										className="absolute bottom-0 object-cover w-full h-full rounded-md"
-										unsized
 										src={post.feature_image}
 										layout="fill"
 									/>

@@ -12,7 +12,6 @@ import Thread from "components/discussions/Thread";
 import Reply from "components/discussions/Reply";
 import { Link } from "routes";
 import TimeAgo from "react-timeago";
-import Image from "next/image";
 
 const log = getLogger("activity");
 
@@ -231,11 +230,11 @@ const ActivityAttachment = ({ activity }) => {
 	if (activity.getObjectType() === "task") {
 		return (
 			<div className="mb-4 bg-gray-100 bg-center border border-l-0 border-r-0 border-gray-200 attachment">
-				<Image
-					unsized
+				<img
 					className="block w-full max-w-full"
 					src={attachment}
 					alt={"Attachment to task."}
+					layout="responsive"
 				/>
 			</div>
 		);

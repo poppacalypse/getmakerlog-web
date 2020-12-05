@@ -6,7 +6,6 @@ import Container from "components/ui/Container";
 import UserLine from "components/ui/UserLine";
 import ContentLayout from "layouts/ContentLayout";
 import { NextSeo } from "next-seo";
-import Image from "next/image";
 import React from "react";
 import { Link } from "routes";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
@@ -207,10 +206,9 @@ function AboutPage() {
 					</p>
 					<div className="mt-2 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
 						<div className="flex flex-col flex-1 p-8 text-center">
-							<Image
+							<img
 								className="flex-shrink-0 w-48 h-48 mx-auto bg-black rounded-full"
 								src="/img/team/sergio.png"
-								unsized
 							/>
 							<h3 className="mt-6 text-lg font-medium font-bold text-gray-900 leading-5">
 								Sergio Mattei
@@ -228,10 +226,9 @@ function AboutPage() {
 							</Link>
 						</div>{" "}
 						<div className="flex flex-col flex-1 p-8 text-center">
-							<Image
+							<img
 								className="flex-shrink-0 w-48 h-48 mx-auto bg-black rounded-full"
 								src="/img/team/hector.png"
-								unsized
 							/>
 							<h3 className="mt-6 text-lg font-medium font-bold text-gray-900 leading-5">
 								Hector Soto
@@ -249,10 +246,9 @@ function AboutPage() {
 							</Link>
 						</div>
 						<div className="flex flex-col flex-1 p-8 text-center">
-							<Image
+							<img
 								className="flex-shrink-0 w-48 h-48 mx-auto bg-black rounded-full"
 								src="/img/team/leilany.png"
-								unsized
 							/>
 							<h3 className="mt-6 text-lg font-medium font-bold text-gray-900 leading-5">
 								Leilany Casillas
@@ -270,10 +266,9 @@ function AboutPage() {
 							</Link>
 						</div>{" "}
 						<div className="flex flex-col flex-1 p-8 text-center">
-							<Image
+							<img
 								className="flex-shrink-0 w-48 h-48 mx-auto bg-black rounded-full"
 								src="/img/team/monday.jpeg"
-								unsized
 							/>
 							<h3 className="mt-6 text-lg font-medium font-bold text-gray-900 leading-5">
 								Monday

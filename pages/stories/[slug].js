@@ -1,6 +1,5 @@
 import NarrowLayout from "layouts/NarrowLayout";
 import React from "react";
-import Image from "next/image";
 import Container from "components/ui/Container";
 import {
 	getPost,
@@ -64,9 +63,8 @@ function StoriesPostPage() {
 								className="relative flex-grow w-full h-48 overflow-hidden"
 								style={{ paddingBottom: "56.25%" }}
 							>
-								<Image
+								<img
 									className="absolute bottom-0 object-cover w-full h-full rounded-md"
-									unsized
 									src={post.feature_image}
 									layout="fill"
 								/>

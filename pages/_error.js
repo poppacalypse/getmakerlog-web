@@ -1,7 +1,6 @@
 import Button from "components/ui/Button";
 import Container from "components/ui/Container";
 import { NextSeo } from "next-seo";
-import Image from "next/image";
 import { Link } from "routes";
 import { useRoot } from "stores/RootStore";
 
@@ -16,10 +15,9 @@ function Error({ statusCode, ...props }) {
 
 	return (
 		<Container className="relative flex flex-col justify-center flex-grow h-full">
-			<Image
+			<img
 				className="h-8 transform -rotate-12"
 				src="/img/nyan.png"
-				unsized
 				alt="A Nyan cat."
 			/>
 			<h1>Oh no! Something went wrong.</h1>
