@@ -193,6 +193,10 @@ export class Activity {
 		return this.activity.id;
 	};
 
+	getTo = () => {
+		return this.activity.to ? this.activity.to : [];
+	};
+
 	getForeignId = () => {
 		return this.activity.foreign_id;
 	};

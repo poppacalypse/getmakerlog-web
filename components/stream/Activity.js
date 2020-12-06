@@ -12,6 +12,9 @@ import Thread from "components/discussions/Thread";
 import Reply from "components/discussions/Reply";
 import { Link } from "routes";
 import TimeAgo from "react-timeago";
+import ActivityDebugger from "./ActivityDebugger";
+import { useState } from "react";
+import { isDev } from "config";
 
 const log = getLogger("activity");
 
@@ -242,6 +245,8 @@ const ActivityAttachment = ({ activity }) => {
 };
 
 function Activity({ activity }) {
+	const [debuggerOpen, setDebuggerOpen] = useState(false);
+
 	activity = new ActivityContainer(activity);
 	if (!activity.check()) {
 		log(`An activity failed a integrity check. ${activity.getId()}`);
@@ -276,6 +281,23 @@ function Activity({ activity }) {
 					<ActivityObjectGroup activities={activity.getChildren()} />
 				) : (
 					<ActivityObject activity={activity} />
+				)}
+				{isDev && (
+					<small>
+						<a
+							className="cursor-pointer"
+							onClick={() => setDebuggerOpen(true)}
+						>
+							Debug activity
+						</a>
+						<ActivityDebugger
+							open={debuggerOpen}
+							onClose={() => {
+								setDebuggerOpen(!debuggerOpen);
+							}}
+							activity={activity}
+						/>
+					</small>
 				)}
 			</Card.Content>
 			<ActivityAttachment activity={activity} />

@@ -4,11 +4,14 @@ import Navbar from "components/nav/Navbar";
 import Container from "components/ui/Container";
 import Footer from "components/nav/Footer";
 import Error, { ERROR_LAYOUT_PROPS } from "pages/_error";
+import config from "config";
 
 // TODO: refactor, make nicer
 
 function Shell({ layoutProps, ...props }) {
-	const errored = props.statusCode && props.statusCode >= 400;
+	const errored =
+		(props.statusCode && props.statusCode >= 400) ||
+		config.MAINTENANCE_MODE;
 	const { children } = props;
 
 	if (layoutProps && layoutProps.withoutShell && !errored) {
