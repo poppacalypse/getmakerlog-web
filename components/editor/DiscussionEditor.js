@@ -7,6 +7,7 @@ import Button from "components/ui/Button";
 import MarkdownEnabled from "components/ui/MarkdownEnabled";
 import { useCreateThread } from "queries/discussions";
 import ErrorMessageList from "components/error/ErrorMessageList";
+import { useCallback } from "react";
 
 function DiscussionEditor({ onFinish }) {
 	const { user } = useAuth();
@@ -18,13 +19,17 @@ function DiscussionEditor({ onFinish }) {
 		await mutate({ title, body });
 	};
 
+	// Hack. Memoize onFinish, else infinite loop.
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const onFinishMemoized = useCallback(() => onFinish(), []);
+
 	useEffect(() => {
 		if (isSuccess) {
 			setTitle("");
 			setBody("");
-			if (onFinish) onFinish();
+			if (onFinishMemoized) onFinishMemoized();
 		}
-	}, [isSuccess, onFinish]);
+	}, [isSuccess, onFinishMemoized]);
 
 	return (
 		<div>

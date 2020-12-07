@@ -15,6 +15,7 @@ import { useCreateTask } from "queries/tasks";
 import ErrorMessageList from "components/error/ErrorMessageList";
 import { useEffect } from "react";
 import { onCmdEnter } from "utils/random";
+import { useCallback } from "react";
 
 function TaskEditor({ onFinish }) {
 	const { user } = useAuth();
@@ -31,13 +32,17 @@ function TaskEditor({ onFinish }) {
 		isDragActive,
 	} = useAttachmentInput();
 
+	// Hack. Memoize onFinish, else infinite loop.
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const onFinishMemoized = useCallback(() => onFinish(), []);
+
 	useEffect(() => {
 		if (isSuccess) {
 			setContent("");
 			setDescription("");
-			if (onFinish) onFinish();
+			if (onFinishMemoized) onFinishMemoized();
 		}
-	}, [isSuccess, onFinish]);
+	}, [isSuccess, onFinishMemoized]);
 
 	const onCreate = async (e) => {
 		e.preventDefault();
