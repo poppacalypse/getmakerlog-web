@@ -15,7 +15,7 @@ export default function Footer() {
 								Where makers learn, build, and grow in public.
 							</p>
 							<small className="text-xs text-gray-500">
-								Crafted with love in Puerto Rico 🇵🇷🏝
+								Made with love and sunshine in Puerto Rico 🇵🇷🏝
 								<br />
 								&copy; Makerlog, LLC
 							</small>

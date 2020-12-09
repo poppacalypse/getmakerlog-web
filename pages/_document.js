@@ -38,6 +38,15 @@ class AlphaDocument extends Document {
 						href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap"
 						rel="stylesheet"
 					/>
+					<script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+					<script
+						type="text/javascript"
+						dangerouslySetInnerHTML={{
+							__html: `Paddle.Setup({ vendor: ${
+								config.PADDLE_VENDOR
+							}, debug: ${JSON.stringify(config.isDev)} });`,
+						}}
+					/>
 					{!isDev && (
 						<>
 							<script
