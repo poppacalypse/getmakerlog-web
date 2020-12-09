@@ -31,6 +31,7 @@ const config = {
 			? "service-worker.js"
 			: "static/service-worker.js",
 	},
+	analyticsId: "badKEl4FENXOC6WuM8na6CFg2Vl",
 };
 
 module.exports = withOffline(config);
