@@ -30,7 +30,7 @@ function ProductLetter({ product }) {
 }
 
 function ProductIcon({ size, product, className = "" }) {
-	const optSize = size >= 48 ? 128 : 48;
+	const optSize = size >= 32 ? 128 : 32;
 	return (
 		<figure
 			className={
