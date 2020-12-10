@@ -1,5 +1,4 @@
 import React from "react";
-import truncate from "lodash/truncate";
 import { Link } from "routes";
 import ThreadReplyFaces from "./ThreadReplyFaces";
 
@@ -14,9 +13,6 @@ export default function ThreadLine({ thread }) {
 						</h5>
 					</a>
 				</Link>
-				<p className="hidden mb-1 text-sm text-gray-700 md:block">
-					{truncate(thread.body, { length: 90 })}
-				</p>
 				<div className="flex items-center text-xs text-gray-500 space-x-2">
 					<span>by @{thread.owner.username}</span>
 					<span>
