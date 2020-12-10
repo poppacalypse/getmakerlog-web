@@ -1,4 +1,5 @@
-import Thread from "components/discussions/Thread";
+import ThreadLine from "components/discussions/ThreadLine";
+import Card from "components/ui/Card";
 import React from "react";
 
 export default function JumpIn({ frontpage }) {
@@ -8,7 +9,13 @@ export default function JumpIn({ frontpage }) {
 	return (
 		<div className="mb-4">
 			<h3 className="mb-2 font-semibold">Jump right in</h3>
-			<Thread thread={frontpage.threads[0]} />
+			<Card>
+				<Card.Content>
+					{frontpage.threads.map((thread) => (
+						<ThreadLine thread={thread} key={thread.slug} />
+					))}
+				</Card.Content>
+			</Card>
 		</div>
 	);
 }
