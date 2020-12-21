@@ -37,7 +37,6 @@ export const userSchema = Joi.object().keys({
 	email_notifications: Joi.boolean(),
 	og_image: Joi.string().uri().allow(null, ""),
 	date_joined: Joi.string(),
-	interests: Joi.array().allow(null),
 });
 
 export const privilegedUserSchema = userSchema.keys({

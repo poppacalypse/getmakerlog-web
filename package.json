@@ -104,7 +104,7 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "docker-compose run npm run lint:staged"
+			"pre-commit": "npm run lint:staged"
 		}
 	},
 	"lint-staged": {
