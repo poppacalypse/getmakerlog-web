@@ -34,10 +34,6 @@ nav .logo svg {
 
 @tailwind utilities;
 
-.input {
-	@apply bg-gray-200 border border-gray-200 p-2 rounded-md;
-}
-
 .pin-c-x {
 	left: 50%;
 	transform: translateX(-50%);
@@ -72,8 +68,10 @@ small {
 }
 
 input,
+input[type="text"],
+input[type="password"],
 textarea {
-	@apply appearance-none bg-white px-2.5 py-1.5 rounded-md w-full block shadow-xs border border-gray-300 outline-none transition-all;
+	@apply appearance-none bg-white px-2.5 py-1.5 rounded-md w-full block shadow-xs border focus:border-green-300 focus:ring-opacity-0 border-gray-300 focus:ring-green-500 outline-none transition-all;
 }
 
 select {
@@ -85,15 +83,15 @@ select:focus {
 }
 
 input:disabled {
-	@apply bg-gray-100 text-gray-300;
+	@apply bg-gray-100 text-gray-300 !important;
 }
 
 input:focus {
-	@apply border-green-300;
+	@apply border-green-300 !important;
 }
 
 input[type="checkbox"] {
-	@apply w-4 h-4 text-green-500 transition duration-150 ease-in-out;
+	@apply w-4 h-4 text-green-500 transition duration-150 ease-in-out rounded focus:ring-green-500 focus:ring-opacity-0 !important;
 }
 
 a {

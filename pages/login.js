@@ -81,6 +81,7 @@ function LoginPage() {
 
 							<Form.Field span={6} label="Username">
 								<input
+									type="text"
 									value={username}
 									onChange={(e) =>
 										setUsername(e.target.value)
