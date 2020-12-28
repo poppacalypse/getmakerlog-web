@@ -1,16 +1,16 @@
 export const isServer = !process.browser;
 export const isDev = !(process.env.NODE_ENV === "production");
 
-const API_URL = process.env.API_URL
-	? process.env.API_URL
+const API_URL = process.env.NEXT_PUBLIC_API_URL
+	? process.env.NEXT_PUBLIC_API_URL
 	: "https://api.getmakerlog.com";
 
 const WS_URL = process.env.WS_URL
 	? process.env.WS_URL
 	: API_URL.replace("http", "ws");
 
-const BASE_URL = process.env.BASE_URL
-	? process.env.BASE_URL
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+	? process.env.NEXT_PUBLIC_BASE_URL
 	: "https://getmakerlog.com";
 
 const STREAM_TYPES = (following = true) => ({
@@ -24,40 +24,40 @@ const GA_UA = process.env.GA_UA ? process.env.GA_UA : "UA-121772728-1";
 const GO_TAG = process.env.GO_TAG ? process.env.GO_TAG : "GTM-TPWQXJ4";
 // prevent ssr mismatches by rendering everything in one timezone unless logged in
 // est time
-const DEFAULT_TZ = process.env.DEFAULT_TZ
-	? process.env.DEFAULT_TZ
+const DEFAULT_TZ = process.env.NEXT_PUBLIC_DEFAULT_TZ
+	? process.env.NEXT_PUBLIC_DEFAULT_TZ
 	: "America/New_York";
 
-const PADDLE_VENDOR = process.env.PADDLE_VENDOR
-	? process.env.PADDLE_VENDOR
+const PADDLE_VENDOR = process.env.NEXT_PUBLIC_PADDLE_VENDOR
+	? process.env.NEXT_PUBLIC_PADDLE_VENDOR
 	: "38022";
 
-const PADDLE_PRODUCT = process.env.PADDLE_PRODUCT
-	? process.env.PADDLE_PRODUCT
+const PADDLE_PRODUCT = process.env.NEXT_PUBLIC_PADDLE_PRODUCT
+	? process.env.NEXT_PUBLIC_PADDLE_PRODUCT
 	: "547895";
 
-const GHOST_API_URL = process.env.GHOST_API_URL
-	? process.env.GHOST_API_URL
+const GHOST_API_URL = process.env.NEXT_PUBLIC_GHOST_API_URL
+	? process.env.NEXT_PUBLIC_GHOST_API_URL
 	: "https://blog.getmakerlog.com";
 
-const GHOST_CONTENT_KEY = process.env.GHOST_CONTENT_KEY
-	? process.env.GHOST_CONTENT_KEY
+const GHOST_CONTENT_KEY = process.env.NEXT_PUBLIC_GHOST_CONTENT_KEY
+	? process.env.NEXT_PUBLIC_GHOST_CONTENT_KEY
 	: "5e04d736d2732e4a3456d48ab0";
 
-const GHOST_API_VER = process.env.GHOST_API_VER
-	? process.env.GHOST_API_VER
+const GHOST_API_VER = process.env.NEXT_PUBLIC_GHOST_API_VER
+	? process.env.NEXT_PUBLIC_GHOST_API_VER
 	: "v3";
 
-const TWITTER_CLIENT_KEY = process.env.TWITTER_CLIENT_KEY
-	? process.env.TWITTER_CLIENT_KEY
+const TWITTER_CLIENT_KEY = process.env.NEXT_PUBLIC_TWITTER_CLIENT_KEY
+	? process.env.NEXT_PUBLIC_TWITTER_CLIENT_KEY
 	: "tCAkPBXqJB2AkiEhNlDpWW18Z";
 
-const STREAM_API_KEY = process.env.STREAM_API_KEY
-	? process.env.STREAM_API_KEY
+const STREAM_API_KEY = process.env.NEXT_PUBLIC_STREAM_API_KEY
+	? process.env.NEXT_PUBLIC_STREAM_API_KEY
 	: "ztyjtywyeb28";
 
-const STREAM_APP_ID = process.env.STREAM_APP_ID
-	? process.env.STREAM_APP_ID
+const STREAM_APP_ID = process.env.NEXT_PUBLIC_STREAM_APP_ID
+	? process.env.NEXT_PUBLIC_STREAM_APP_ID
 	: "97497";
 
 const SENTRY_DSN =
