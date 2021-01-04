@@ -69,14 +69,26 @@ const MAINTENANCE_MODE =
 		? process.env.NEXT_PUBLIC_MAINTENANCE_MODE === "1"
 		: false;
 
+// Whitelabeling settings
+const IS_WL =
+	process.env.NEXT_PUBLIC_IS_WL !== undefined
+		? process.env.NEXT_PUBLIC_IS_WL === "1"
+		: false;
+const WL_NAME = process.env.NEXT_PUBLIC_WL_NAME ?? null;
+const WL_LOGO = process.env.NEXT_PUBLIC_WL_LOGO ?? null;
+const WL_BG_COLOR = process.env.NEXT_PUBLIC_WL_BG_COLOR ?? "bg-green-500";
+const WL_BORDER_COLOR =
+	process.env.NEXT_PUBLIC_WL_BORDER_COLOR ?? "border-green-500";
+const WL_TEXT_COLOR = process.env.NEXT_PUBLIC_WL_TEXT_COLOR ?? "text-green-500";
+
 export const DEFAULT_SEO_CONFIG = {
 	title: "Home",
-	titleTemplate: "%s | Makerlog",
+	titleTemplate: `%s | ` + (WL_NAME ? `${WL_NAME}'s Makerlog` : "Makerlog"),
 	description:
 		"Makerlog is where makers & indie hackers build products in public.",
 	openGraph: {
 		url: BASE_URL,
-		title: "Makerlog",
+		title: WL_NAME ? `${WL_NAME}'s Makerlog` : "Makerlog",
 		description:
 			"Makerlog is where makers & indie hackers build products in public.",
 		images: [
@@ -114,5 +126,11 @@ const config = {
 	PADDLE_PRODUCT,
 	SENTRY_DSN,
 	MAINTENANCE_MODE,
+	IS_WL,
+	WL_NAME,
+	WL_LOGO,
+	WL_BORDER_COLOR,
+	WL_BG_COLOR,
+	WL_TEXT_COLOR,
 };
 export default config;

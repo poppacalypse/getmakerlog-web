@@ -1,10 +1,13 @@
 import Ad from "components/ads/Ad";
 import Card from "components/ui/Card";
+import config from "config";
 import React from "react";
 import { Link } from "routes";
 import SidebarItem from "./SidebarItem";
 
 export default function AdSidebarCard() {
+	if (config.IS_WL) return null;
+
 	return (
 		<SidebarItem
 			title="Indie ad"

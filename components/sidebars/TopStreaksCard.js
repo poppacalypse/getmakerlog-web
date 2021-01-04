@@ -15,6 +15,15 @@ export default function TopStreaksCard() {
 			<Card>
 				<Card.Content>
 					{isLoading && <Spinner small text="Loading users..." />}
+					{worldStats &&
+						worldStats.top_users &&
+						worldStats.top_users.length === 0 && (
+							<center>
+								<div className="text-xs text-gray-700">
+									🍃 Nothing yet.
+								</div>
+							</center>
+						)}
 					{worldStats && worldStats.top_users && (
 						<div className="space-y-2">
 							{worldStats.top_users.slice(0, 10).map((user) => (

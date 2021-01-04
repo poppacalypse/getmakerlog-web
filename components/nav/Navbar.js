@@ -14,6 +14,7 @@ import GlobalSearch from "components/search/GlobalSearch";
 import { useRouter } from "next/router";
 import OutboundLink from "components/seo/OutboundLink";
 import FeedbackModal from "components/feedback/FeedbackModal";
+import config from "config";
 
 function Navbar() {
 	const { pathname } = useRouter();
@@ -31,13 +32,22 @@ function Navbar() {
 	return (
 		<nav className="flex-none bg-white mt-safe-top">
 			<div className="fixed top-0 left-0 z-50 w-full bg-green-500 h-safe-top"></div>
-			<div className="border-t border-green-500 border-1.5"></div>
+			<div
+				className={`border-t ${config.WL_BORDER_COLOR} border-1.5`}
+			></div>
 			<div className="border-b border-gray-200">
 				<Container className="flex items-center py-4">
 					<div className="flex items-center sm:flex-1">
 						<Link route="index">
-							<a className="flex items-center mr-4 text-green-500 logo">
-								<FontAwesomeIcon icon="check-circle" />
+							<a className="flex items-center flex-none h-full mr-4 text-green-500 space-x-2 logo">
+								{config.WL_LOGO ? (
+									<img
+										className="w-auto h-8"
+										src={config.WL_LOGO}
+									/>
+								) : (
+									<FontAwesomeIcon icon="check-circle" />
+								)}
 							</a>
 						</Link>
 						<div
@@ -59,7 +69,7 @@ function Navbar() {
 								route="index"
 								wildcard
 								notPath={["stories", "about", "_error"]}
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
 									Community
@@ -69,7 +79,7 @@ function Navbar() {
 								route="stories"
 								wildcard
 								notPath={["index", "about", "_error"]}
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
 									Stories
@@ -78,7 +88,7 @@ function Navbar() {
 							<ActiveLink
 								route="about"
 								wildcard
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
 									More
@@ -124,14 +134,16 @@ function Navbar() {
 														You
 													</Dropdown.Item>
 												</Link>
-												<Link route="integrations">
-													<Dropdown.Item>
-														<Dropdown.Item.Icon>
-															<FontAwesomeIcon icon="plug" />
-														</Dropdown.Item.Icon>{" "}
-														Integrations
-													</Dropdown.Item>
-												</Link>
+												{!config.IS_WL ? (
+													<Link route="integrations">
+														<Dropdown.Item>
+															<Dropdown.Item.Icon>
+																<FontAwesomeIcon icon="plug" />
+															</Dropdown.Item.Icon>{" "}
+															Integrations
+														</Dropdown.Item>
+													</Link>
+												) : null}
 												<Link route="settings">
 													<Dropdown.Item>
 														<Dropdown.Item.Icon>
@@ -182,7 +194,7 @@ function Navbar() {
 						<div className="flex flex-auto max-w-full px-4 -mx-4 overflow-x-auto box-content">
 							<ActiveLink
 								route="stories"
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="mr-4 font-medium text-gray-500">
 									Frontpage
@@ -191,7 +203,7 @@ function Navbar() {
 							<ActiveLink
 								route="stories-tag"
 								params={{ slug: "interviews" }}
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="mr-4 font-medium text-gray-500">
 									Interviews
@@ -200,7 +212,7 @@ function Navbar() {
 							<ActiveLink
 								route="stories-tag"
 								params={{ slug: "culture" }}
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="mr-4 font-medium text-gray-500">
 									Culture
@@ -209,7 +221,7 @@ function Navbar() {
 							<ActiveLink
 								route="stories-tag"
 								params={{ slug: "news" }}
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="mr-4 font-medium text-gray-500">
 									News
@@ -224,23 +236,25 @@ function Navbar() {
 						<div className="flex flex-auto max-w-full px-4 -mx-4 overflow-x-auto box-content">
 							<ActiveLink
 								route="about"
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="mr-4 font-medium text-gray-500">
 									About
 								</a>
 							</ActiveLink>
-							<ActiveLink
-								route="book-ad"
-								activeClassName="text-green-500"
-							>
-								<a className="mr-4 font-medium text-gray-500">
-									Advertise
-								</a>
-							</ActiveLink>
+							{!config.IS_WL ? (
+								<ActiveLink
+									route="book-ad"
+									activeClassName={config.WL_TEXT_COLOR}
+								>
+									<a className="mr-4 font-medium text-gray-500">
+										Advertise
+									</a>
+								</ActiveLink>
+							) : null}
 							<ActiveLink
 								route="legal"
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="mr-4 font-medium text-gray-500">
 									Legal
@@ -248,7 +262,7 @@ function Navbar() {
 							</ActiveLink>
 							<ActiveLink
 								route="contact"
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="mr-4 font-medium text-gray-500">
 									Contact
@@ -270,7 +284,7 @@ function Navbar() {
 						<div className="flex flex-auto max-w-full px-4 -mx-4 overflow-x-auto box-content">
 							<ActiveLink
 								route="index"
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="mr-4 font-medium text-gray-500">
 									Feed
@@ -278,7 +292,7 @@ function Navbar() {
 							</ActiveLink>
 							<ActiveLink
 								route="discussions"
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="mr-4 font-medium text-gray-500">
 									Discussions
@@ -286,7 +300,7 @@ function Navbar() {
 							</ActiveLink>
 							<ActiveLink
 								route="products"
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="mr-4 font-medium text-gray-500">
 									Products
@@ -294,7 +308,7 @@ function Navbar() {
 							</ActiveLink>
 							<ActiveLink
 								route="events"
-								activeClassName="text-green-500"
+								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="mr-4 font-medium text-gray-500">
 									Events
@@ -305,7 +319,7 @@ function Navbar() {
 									<div className="flex-grow"></div>
 									<ActiveLink
 										route="tasks"
-										activeClassName="text-green-500"
+										activeClassName={config.WL_TEXT_COLOR}
 									>
 										<a className="flex-none pr-4 font-medium text-gray-500 md:pr-0">
 											Your Tasks
