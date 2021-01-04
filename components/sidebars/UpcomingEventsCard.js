@@ -15,6 +15,13 @@ export default function UpcomingEventsCard() {
 			<Card>
 				<Card.Content>
 					{isLoading && <Spinner small text="Loading events..." />}
+					{events && events.length === 0 && (
+						<center>
+							<div className="text-xs text-gray-700">
+								🍃 Nothing yet.
+							</div>
+						</center>
+					)}
 					<div className="space-y-2">
 						{events &&
 							events
