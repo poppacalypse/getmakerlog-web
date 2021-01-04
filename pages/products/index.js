@@ -45,6 +45,13 @@ function MyProductsList() {
 				<Card>
 					<Card.Content className="space-y-2">
 						<div className="space-y-2">
+							{products.length === 0 && (
+								<center>
+									<div className="text-xs text-gray-700">
+										🍃 Nothing yet.
+									</div>
+								</center>
+							)}
 							{orderBy(products, "created_at").map((product) => (
 								<ProductMedia
 									key={product.slug}
