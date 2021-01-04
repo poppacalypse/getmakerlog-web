@@ -12,7 +12,7 @@ export default function FeedbackCard() {
 		<SidebarItem title="Send feedback">
 			<Card>
 				<Card.Content>
-					<div className="mb-2 text-xs">
+					<div className="mb-2 text-xs text-gray-700">
 						{config.IS_WL
 							? `${config.WL_NAME}'s Makerlog is a work in progress. Help us build it with you.`
 							: "Help us build Makerlog with you."}
