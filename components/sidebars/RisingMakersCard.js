@@ -25,56 +25,67 @@ export default function RisingMakersCard() {
 								</div>
 							</center>
 						)}
-					{worldStats && worldStats.rising_users && (
-						<div className="space-y-2">
-							{worldStats.rising_users
-								.slice(0, 10)
-								.map((user, idx) => (
-									<div key={user.id} className="flex">
-										<div
-											className={
-												"flex flex-col text-center items-center justify-center mr-2 " +
-												(idx + 1 <= 3
-													? "font-semibold"
-													: "")
-											}
-										>
-											{user.rising_change &&
-											user.rising_change === "up" ? (
-												<div style={{ lineHeight: 0 }}>
-													<FontAwesomeIcon
-														className="text-green-500"
-														icon="caret-up"
-													/>
-												</div>
-											) : null}
-											{user.rising_change &&
-											user.rising_change === "down" ? (
-												<div style={{ lineHeight: 0 }}>
-													<FontAwesomeIcon
-														className="text-red-500"
-														icon="caret-down"
-													/>
-												</div>
-											) : null}
-											<div>#{idx + 1}</div>
+					{worldStats &&
+						worldStats.rising_users &&
+						worldStats.rising_users.length > 0 && (
+							<div className="space-y-2">
+								{worldStats.rising_users
+									.slice(0, 10)
+									.map((user, idx) => (
+										<div key={user.id} className="flex">
+											<div
+												className={
+													"flex flex-col text-center items-center justify-center mr-2 " +
+													(idx + 1 <= 3
+														? "font-semibold"
+														: "")
+												}
+											>
+												{user.rising_change &&
+												user.rising_change === "up" ? (
+													<div
+														style={{
+															lineHeight: 0,
+														}}
+													>
+														<FontAwesomeIcon
+															className="text-green-500"
+															icon="caret-up"
+														/>
+													</div>
+												) : null}
+												{user.rising_change &&
+												user.rising_change ===
+													"down" ? (
+													<div
+														style={{
+															lineHeight: 0,
+														}}
+													>
+														<FontAwesomeIcon
+															className="text-red-500"
+															icon="caret-down"
+														/>
+													</div>
+												) : null}
+												<div>#{idx + 1}</div>
+											</div>
+											<div className="flex-initial">
+												<UserMedia
+													truncateName
+													extraStreakText={false}
+													key={user.id}
+													user={user}
+												/>
+											</div>
 										</div>
-										<div className="flex-initial">
-											<UserMedia
-												truncateName
-												extraStreakText={false}
-												key={user.id}
-												user={user}
-											/>
-										</div>
-									</div>
-								))}
-							<p className="help">
-								The more you contribute, the more you shine on
-								Makerlog! ✅
-							</p>
-						</div>
-					)}
+									))}
+								<p className="help">
+									The more you contribute, the more you shine
+									on Makerlog! ✅
+								</p>
+							</div>
+						)}
 				</Card.Content>
 			</Card>
 		</SidebarItem>
