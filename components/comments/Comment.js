@@ -4,6 +4,7 @@ import { useAuth } from "stores/AuthStore";
 import Avatar from "components/ui/Avatar";
 import UserLine from "components/ui/UserLine";
 import Form from "components/ui/Form";
+import CommentTextRenderer from "./CommentTextRenderer";
 
 function CommentEdit({ comment, onSubmit }) {
 	const [content, setContent] = useState(comment.content);
@@ -56,7 +57,9 @@ function Comment({ comment, indexUrl }) {
 					{editing ? (
 						<CommentEdit comment={comment} onSubmit={onEdit} />
 					) : (
-						<div>{comment.content}</div>
+						<div>
+							<CommentTextRenderer comment={comment} />
+						</div>
 					)}
 				</div>
 				{user && comment.user.id == user.id && !editing ? (

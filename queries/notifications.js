@@ -1,5 +1,5 @@
 import axios, { axiosWrapper } from "utils/axios";
-import { useQuery, useMutation, useQueryCache } from "react-query";
+import { useInfiniteQuery, useMutation, useQueryCache } from "react-query";
 import { getLogger } from "utils/logging";
 import useWebSocket from "react-use-websocket";
 import { usePrevious } from "utils/hooks";
@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import { useCallback } from "react";
 import { buildSocketUrl } from "utils/random";
 import { isServer } from "config";
-import { notificationsSchema } from "schemas/notifications";
-import { StdErrorCollection } from "utils/error";
 
 const log = getLogger("notifications");
 
@@ -16,11 +14,12 @@ const NOTIFICATION_QUERIES = {
 	getNotifications: "notifications.getNotifications",
 };
 
-export async function getNotifications() {
-	const { data } = await axiosWrapper(axios.get, "/notifications/");
-	const { value, error } = notificationsSchema.validate(data);
-	if (error) throw new StdErrorCollection(error);
-	return value;
+export async function getNotifications(key, next = null) {
+	const { data } = await axiosWrapper(
+		axios.get,
+		next ? next : `/notifications/`
+	);
+	return data;
 }
 
 export async function markAllRead() {
@@ -32,7 +31,15 @@ export async function markAllRead() {
 }
 
 export function useNotifications() {
-	return useQuery([NOTIFICATION_QUERIES.getNotifications], getNotifications);
+	return useInfiniteQuery(
+		[NOTIFICATION_QUERIES.getNotifications],
+		getNotifications,
+		{
+			getFetchMore: (lastGroup) => {
+				return lastGroup.next;
+			},
+		}
+	);
 }
 
 export function useMarkAllReadNotifications() {

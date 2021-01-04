@@ -7,10 +7,12 @@ import {
 import { useAuth } from "stores/AuthStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "routes";
+import { extractResultsFromGroups } from "utils/random";
 
 function NotificationsLink() {
 	const { token } = useAuth();
-	const { data } = useNotifications();
+	let { data } = useNotifications();
+	data = extractResultsFromGroups(data);
 	let count =
 		data && data.length > 0
 			? data.filter((n) => n.read === false).length

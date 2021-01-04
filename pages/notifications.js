@@ -15,11 +15,21 @@ import PageHeader from "components/ui/PageHeader";
 import NarrowLayout from "layouts/NarrowLayout";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
+import { extractResultsFromGroups } from "utils/random";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function NotificationsPage() {
 	const router = useRouter();
-	const { isLoading, data, error } = useNotifications();
+	let {
+		error,
+		data,
+		isFetching,
+		fetchMore,
+		canFetchMore,
+	} = useNotifications();
 	const [markAllReadMutation] = useMarkAllReadNotifications();
+
+	data = extractResultsFromGroups(data);
 
 	const markAllRead = useCallback(async () => {
 		await markAllReadMutation();
@@ -45,24 +55,42 @@ function NotificationsPage() {
 			</PageHeader>
 			<Card className="text-sm">
 				<Card.Content>
-					{data && data.length === 0 && (
-						<center>
-							<div className="text-xs text-gray-700">
-								🍃 Nothing yet.
+					<InfiniteScroll
+						dataLength={data.length}
+						next={() => fetchMore()}
+						hasMore={canFetchMore !== null}
+						style={{ overflow: "none" }}
+						//key={isServer}
+					>
+						{!isFetching && data && data.length === 0 && (
+							<center>
+								<div className="text-xs text-gray-700">
+									🍃 Nothing yet.
+								</div>
+							</center>
+						)}
+						{data && (
+							<div>
+								{orderBy(data, "created_at", "desc").map(
+									(n) => (
+										<Notification
+											notification={n}
+											key={n.id}
+										/>
+									)
+								)}
 							</div>
-						</center>
-					)}
-					{isLoading && (
-						<Spinner small text="Loading notifications..." />
-					)}
-					{data && (
-						<div>
-							{orderBy(data, "created_at", "desc").map((n) => (
-								<Notification notification={n} key={n.id} />
-							))}
-						</div>
-					)}
-					{error && <ErrorMessageList error={error} />}
+						)}
+						{isFetching && (
+							<div className="text-center">
+								<Spinner
+									small
+									text="Loading notifications..."
+								/>
+							</div>
+						)}
+						{error && <ErrorMessageList error={error} />}
+					</InfiniteScroll>
 				</Card.Content>
 			</Card>
 			<NextSeo title="Notifications" />
