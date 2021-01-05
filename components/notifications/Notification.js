@@ -132,7 +132,8 @@ function Notification({ notification }) {
 	return (
 		<div
 			className={
-				"py-6 border-b border-gray-200 first:pt-0 last:border-none last:pb-0 "
+				"py-6 border-b border-gray-200 first:pt-0 last:border-none last:pb-0 " +
+				(notification.read && "opacity-75")
 			}
 		>
 			{notification.actor !== null && (

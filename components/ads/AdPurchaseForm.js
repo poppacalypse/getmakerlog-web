@@ -114,7 +114,7 @@ function AdPurchaseForm() {
 			// eslint-disable-next-line no-undef
 			Paddle.Checkout.open({
 				product: product,
-				email: user.email,
+				email: user && user.email ? user.email : null,
 				successCallback: onPurchase,
 				closeCallback: onClose,
 				// This is not an error...
