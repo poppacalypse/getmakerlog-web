@@ -26,6 +26,15 @@ export async function createUser(payload) {
 	return response.data;
 }
 
+export async function activateUser({ uid, token }) {
+	const response = await axiosWrapper(
+		axios.post,
+		`/accounts/email_activate/${uid}/${token}/`,
+		{}
+	);
+	return response.data;
+}
+
 export function useUser(username) {
 	return useQuery([USER_QUERIES.getUser, { username }], getUser, {
 		staleTime: 1000 * 60 * 5,
@@ -36,6 +45,14 @@ export function useCreateUser() {
 	return useMutation(createUser, {
 		onSuccess: (data) => {
 			log(`Created new account (#${JSON.stringify(data)})`);
+		},
+	});
+}
+
+export function useActivateUser() {
+	return useMutation(activateUser, {
+		onSuccess: (data) => {
+			log(`Activated new account (#${JSON.stringify(data)})`);
 		},
 	});
 }

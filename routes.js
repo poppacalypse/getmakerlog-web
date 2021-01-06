@@ -8,6 +8,7 @@ const routerHelper = routes()
 	.add("login", "/login")
 	.add("register", "/start")
 	.add("forgot-password", "/auth/forgot/")
+	.add("auth-confirm", "/auth/confirm/")
 	.add("auth-complete", "/auth/complete/[method]")
 	.add("task", "/tasks/[id]")
 	.add("profile", ({ username, ...query }) => {

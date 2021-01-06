@@ -3,6 +3,7 @@ import Button from "components/ui/Button";
 import Card from "components/ui/Card";
 import Form from "components/ui/Form";
 import Message from "components/ui/Message";
+import config from "config";
 import NarrowLayout from "layouts/NarrowLayout";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
@@ -178,7 +179,7 @@ function ForgotPage() {
 ForgotPage.getInitialProps = async () => {
 	return {
 		layout: {
-			className: "bg-green-500",
+			className: config.WL_BG_COLOR,
 		},
 	};
 };
