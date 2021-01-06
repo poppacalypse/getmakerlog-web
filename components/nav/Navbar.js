@@ -178,7 +178,9 @@ function Navbar() {
 						) : (
 							<>
 								<Link route="register">
-									<Button primary>Join Makerlog</Button>
+									<Button primary>
+										Join {config.WL_FULL_NAME}
+									</Button>
 								</Link>
 								<Link route="login">
 									<Button className="ml-2">Log in</Button>

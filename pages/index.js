@@ -30,6 +30,9 @@ import Container from "components/ui/Container";
 import FacebookLogin from "components/auth/FacebookLogin";
 import TwitterLogin from "components/auth/TwitterLogin";
 import ContentLayout from "layouts/ContentLayout";
+import config from "config";
+import Button from "components/ui/Button";
+import { Link } from "routes";
 
 function HomePage() {
 	const { data: frontpage } = useFrontpage();
@@ -53,14 +56,24 @@ function HomePage() {
 							with a community that has your back, every step of
 							the way.
 						</p>
-						<div className="flex flex-col space-y-2">
-							<div className="flex-initial">
-								<TwitterLogin />
-							</div>
-							<div className="flex-initial">
-								<FacebookLogin />
-							</div>
-						</div>
+						{config.IS_WL ? (
+							<Link route="register">
+								<Button secondary anchorElem>
+									Join {config.WL_FULL_NAME}
+								</Button>
+							</Link>
+						) : (
+							<>
+								<div className="flex flex-col space-y-2">
+									<div className="flex-initial">
+										<TwitterLogin />
+									</div>
+									<div className="flex-initial">
+										<FacebookLogin />
+									</div>
+								</div>
+							</>
+						)}
 					</div>
 					<div className="flex-1 flex-shrink-0 hidden w-full sm:block"></div>
 				</div>

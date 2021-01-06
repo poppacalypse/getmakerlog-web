@@ -1,6 +1,8 @@
+import EmailRegisterForm from "components/auth/EmailRegisterForm";
 import FacebookLogin from "components/auth/FacebookLogin";
 import TwitterLogin from "components/auth/TwitterLogin";
 import Card from "components/ui/Card";
+import config from "config";
 import NarrowLayout from "layouts/NarrowLayout";
 import { NextSeo } from "next-seo";
 import React from "react";
@@ -15,19 +17,39 @@ function SignupPage() {
 			<Card>
 				<Card.Content>
 					<div className="mb-4">
-						<h3 className="font-bold">Join Makerlog</h3>
+						<h3 className="font-bold">
+							Join {config.WL_FULL_NAME}
+						</h3>
 						<p className="text-gray-700">
-							Start your journey by logging in with social media.
+							Start your journey by{" "}
+							{config.IS_WL
+								? "creating an account in our instance"
+								: "logging in with social media"}
+							.
 						</p>
 					</div>
-					<div className="flex flex-col justify-center mt-4 text-center space-y-2 sm:space-y-0 sm:space-x-2 sm:flex-row col-span-6">
-						<div>
-							<TwitterLogin />
-						</div>
-						<div>
-							<FacebookLogin />
-						</div>
-					</div>
+					{config.IS_WL ? (
+						<EmailRegisterForm />
+					) : (
+						<>
+							<div className="flex flex-col justify-center mt-4 text-center space-y-2 sm:space-y-0 sm:space-x-2 sm:flex-row col-span-6">
+								<div>
+									<TwitterLogin />
+								</div>
+								<div>
+									<FacebookLogin />
+								</div>
+							</div>
+
+							<div className="flex items-center w-full py-4">
+								<hr className="flex-1" />
+								<span className="px-4 text-gray-700">or</span>
+								<hr className="flex-1" />
+							</div>
+
+							<EmailRegisterForm />
+						</>
+					)}
 				</Card.Content>
 			</Card>
 			<Card>
@@ -69,7 +91,7 @@ function SignupPage() {
 SignupPage.getInitialProps = async () => {
 	return {
 		layout: {
-			className: "bg-green-500",
+			className: config.WL_BG_COLOR,
 		},
 	};
 };
