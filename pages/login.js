@@ -10,6 +10,7 @@ import Card from "components/ui/Card";
 import TwitterLogin from "components/auth/TwitterLogin";
 import FacebookLogin from "components/auth/FacebookLogin";
 import { NextSeo } from "next-seo";
+import config from "config";
 
 function LoginPage() {
 	const { loginWithCredentials, loading, errorMessages } = useAuth();
@@ -48,20 +49,24 @@ function LoginPage() {
 						}}
 					>
 						<Form.Controls>
-							<div className="flex flex-col justify-center mt-4 text-center space-y-2 sm:space-y-0 sm:space-x-2 sm:flex-row col-span-6">
-								<div>
-									<TwitterLogin />
+							{!config.IS_WL && (
+								<div className="flex flex-col justify-center mt-4 text-center space-y-2 sm:space-y-0 sm:space-x-2 sm:flex-row col-span-6">
+									<div>
+										<TwitterLogin />
+									</div>
+									<div>
+										<FacebookLogin />
+									</div>
 								</div>
-								<div>
-									<FacebookLogin />
-								</div>
-							</div>
+							)}
 
 							<div className="col-span-6">
 								<div className="flex items-center w-full py-2">
-									<div className="flex-grow">
-										<hr />
-									</div>
+									{!config.IS_WL && (
+										<div className="flex-grow">
+											<hr />
+										</div>
+									)}
 									<div>
 										<p className="px-2 text-xs font-semibold tracking-wider text-gray-500 uppercase leading-4">
 											or
