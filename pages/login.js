@@ -133,7 +133,7 @@ function LoginPage() {
 LoginPage.getInitialProps = async () => {
 	return {
 		layout: {
-			className: "bg-green-500",
+			className: config.WL_BG_COLOR,
 		},
 	};
 };
