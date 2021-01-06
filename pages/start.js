@@ -56,8 +56,13 @@ function SignupPage() {
 				<Card.Content>
 					<h3 className="font-bold">Here's why you should join...</h3>
 					<p>
-						Join <span>over 6,000 creators</span> building in public
-						and staying productive — together.
+						Join{" "}
+						{config.IS_WL ? (
+							"our community of creators"
+						) : (
+							<span>over 6,000 creators</span>
+						)}{" "}
+						building in public and staying productive — together.
 					</p>
 					<ul>
 						<li className="p-2">
