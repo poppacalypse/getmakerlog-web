@@ -179,7 +179,7 @@ function Navbar() {
 							<>
 								<Link route="register">
 									<Button primary>
-										Join {config.WL_FULL_NAME}
+										Share your work
 									</Button>
 								</Link>
 								<Link route="login">
