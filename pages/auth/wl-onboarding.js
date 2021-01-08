@@ -145,7 +145,7 @@ function WlOnboarding() {
 					</p>
 				</Card.Content>
 			</Card>
-			<NextSeo title="Login" />
+			<NextSeo title="Welcome" />
 		</NarrowLayout>
 	);
 }
