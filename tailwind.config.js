@@ -59,19 +59,19 @@ module.exports = {
 			"5xl": "3rem",
 			"6xl": "4rem",
 		},
-		typography: {
-			DEFAULT: {
-				css: {
-					a: {
-						color: "#00AD71",
-						"&:hover": {
+		extend: {
+			typography: {
+				DEFAULT: {
+					css: {
+						a: {
 							color: "#00AD71",
+							"&:hover": {
+								color: "#00AD71",
+							},
 						},
 					},
 				},
 			},
-		},
-		extend: {
 			boxShadow: {
 				xs: "0 0 0 1px rgba(0, 0, 0, 0.05)",
 				outline: "0 0 0 3px rgba(66, 153, 225, 0.5)",
