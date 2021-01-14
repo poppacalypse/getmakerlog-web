@@ -38,7 +38,7 @@ function AboutPage() {
 											</small>
 										</div>
 										<div className="flex-1 text-center">
-											<h4 className="font-bold">6k+</h4>
+											<h4 className="font-bold">7k+</h4>
 											<small className="text-xs text-gray-700">
 												Makers
 											</small>
@@ -90,7 +90,7 @@ function AboutPage() {
 								</div>
 							</div>
 							<p>
-								Makerlog is a community of over 6,000 makers in
+								Makerlog is a community of over 7,000 makers in
 								tech shipping side projects together. Folks can
 								post their daily tasks and grow a network of
 								supportive, like-minded people! Which is pretty

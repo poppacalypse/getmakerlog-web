@@ -17,7 +17,7 @@ const DropdownItem = React.forwardRef(
 			<Elem
 				{...props}
 				ref={ref}
-				className="block text-sm text-gray-700 cursor-pointer px-3.5 py-1.5 leading-5 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+				className="block text-sm text-gray-700 cursor-pointer px-3.5 py-1.5 leading-5 hover:bg-gray-100 dark:hover:bg-dark-200 focus:outline-none focus:bg-gray-100 dark:focus:bg-dark-200"
 			>
 				{children}
 			</Elem>

@@ -10,7 +10,7 @@ export default function LegalPage() {
 				<h2 className="mb-2 font-bold">Terms of Service</h2>
 				<Card>
 					<Card.Content>
-						<div className="prose">
+						<div className="prose dark:prose-dark">
 							<h3>1. Terms</h3>
 							<p>
 								By accessing the website at{" "}
@@ -153,7 +153,7 @@ export default function LegalPage() {
 				<h2 className="mb-2 font-bold">Privacy Policy</h2>
 				<Card>
 					<Card.Content>
-						<div className="prose">
+						<div className="prose dark:prose-dark">
 							<p>
 								Your privacy is important to us. It is
 								Makerlog's policy to respect your privacy

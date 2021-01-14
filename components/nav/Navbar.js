@@ -30,12 +30,12 @@ function Navbar() {
 	} = useRoot();
 
 	return (
-		<nav className="flex-none bg-white mt-safe-top">
+		<nav className="flex-none bg-white dark:bg-dark-100 mt-safe-top">
 			<div className="fixed top-0 left-0 z-50 w-full bg-green-500 h-safe-top"></div>
 			<div
 				className={`border-t ${config.WL_BORDER_COLOR} border-1.5`}
 			></div>
-			<div className="border-b border-gray-200">
+			<div className="border-b border-gray-200 dark:border-dark-200">
 				<Container className="flex items-center py-4">
 					<div className="flex items-center sm:flex-1">
 						<Link route="index">
@@ -69,9 +69,10 @@ function Navbar() {
 								route="index"
 								wildcard
 								notPath={["stories", "about", "_error"]}
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
+								<a className="flex-1 py-4 mr-0 font-semibold text-center sm:mr-4 sm:py-0 sm:flex-initial">
 									Community
 								</a>
 							</ActiveLink>
@@ -79,18 +80,20 @@ function Navbar() {
 								route="stories"
 								wildcard
 								notPath={["index", "about", "_error"]}
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
+								<a className="flex-1 py-4 mr-0 font-semibold text-center sm:mr-4 sm:py-0 sm:flex-initial">
 									Stories
 								</a>
 							</ActiveLink>
 							<ActiveLink
 								route="about"
 								wildcard
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="flex-1 py-4 mr-0 font-semibold text-center text-gray-500 sm:mr-4 sm:py-0 sm:flex-initial">
+								<a className="flex-1 py-4 mr-0 font-semibold text-center sm:mr-4 sm:py-0 sm:flex-initial">
 									More
 								</a>
 							</ActiveLink>
@@ -100,18 +103,14 @@ function Navbar() {
 						{isLoggedIn ? (
 							<>
 								<button
-									className={
-										"flex md:hidden items-center justify-center w-8 h-8 p-2 mx-2 font-semibold text-gray-700 border border-gray-200 hover:bg-gray-100  text-center rounded-full hover:bg-gray-200 text-gray-700"
-									}
+									className={"flex md:hidden circle-button"}
 									onClick={() => toggleSearch()}
 								>
 									<FontAwesomeIcon icon="search" />
 								</button>
 								<button
 									onClick={() => toggleEditor()}
-									className={
-										"flex items-center justify-center w-8 h-8 p-2 mx-2 font-semibold text-gray-700 border border-gray-200 hover:bg-gray-100  text-center rounded-full hover:bg-gray-200 text-gray-700"
-									}
+									className={"circle-button"}
 								>
 									<FontAwesomeIcon icon="plus" />
 								</button>
@@ -178,9 +177,7 @@ function Navbar() {
 						) : (
 							<>
 								<Link route="register">
-									<Button primary>
-										Share your work
-									</Button>
+									<Button primary>Share your work</Button>
 								</Link>
 								<Link route="login">
 									<Button className="ml-2">Log in</Button>
@@ -191,84 +188,78 @@ function Navbar() {
 				</Container>
 			</div>
 			{pathname.startsWith("/stories") ? (
-				<div className="border-b border-gray-200">
+				<div className="border-b border-gray-200 dark:border-dark-200">
 					<Container className="py-2">
 						<div className="flex flex-auto max-w-full px-4 -mx-4 overflow-x-auto box-content">
 							<ActiveLink
 								route="stories"
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="mr-4 font-medium text-gray-500">
-									Frontpage
-								</a>
+								<a className="mr-4 font-medium">Frontpage</a>
 							</ActiveLink>
 							<ActiveLink
 								route="stories-tag"
 								params={{ slug: "interviews" }}
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="mr-4 font-medium text-gray-500">
-									Interviews
-								</a>
+								<a className="mr-4 font-medium">Interviews</a>
 							</ActiveLink>
 							<ActiveLink
 								route="stories-tag"
 								params={{ slug: "culture" }}
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="mr-4 font-medium text-gray-500">
-									Culture
-								</a>
+								<a className="mr-4 font-medium">Culture</a>
 							</ActiveLink>
 							<ActiveLink
 								route="stories-tag"
 								params={{ slug: "news" }}
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="mr-4 font-medium text-gray-500">
-									News
-								</a>
+								<a className="mr-4 font-medium">News</a>
 							</ActiveLink>
 						</div>
 					</Container>
 				</div>
 			) : pathname.startsWith("/about") ? (
-				<div className="border-b border-gray-200">
+				<div className="border-b border-gray-200 dark:border-dark-200">
 					<Container className="py-2">
 						<div className="flex flex-auto max-w-full px-4 -mx-4 overflow-x-auto box-content">
 							<ActiveLink
 								route="about"
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="mr-4 font-medium text-gray-500">
-									About
-								</a>
+								<a className="mr-4 font-medium">About</a>
 							</ActiveLink>
 							{!config.IS_WL ? (
 								<ActiveLink
 									route="book-ad"
+									inactiveClassName={"text-gray-500"}
 									activeClassName={config.WL_TEXT_COLOR}
 								>
-									<a className="mr-4 font-medium text-gray-500">
+									<a className="mr-4 font-medium">
 										Advertise
 									</a>
 								</ActiveLink>
 							) : null}
 							<ActiveLink
 								route="legal"
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="mr-4 font-medium text-gray-500">
-									Legal
-								</a>
+								<a className="mr-4 font-medium">Legal</a>
 							</ActiveLink>
 							<ActiveLink
 								route="contact"
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="mr-4 font-medium text-gray-500">
-									Contact
-								</a>
+								<a className="mr-4 font-medium">Contact</a>
 							</ActiveLink>
 							<div className="flex-grow"></div>
 							<OutboundLink
@@ -281,49 +272,46 @@ function Navbar() {
 					</Container>
 				</div>
 			) : (
-				<div className="border-b border-gray-200">
+				<div className="border-b border-gray-200 dark:border-dark-200">
 					<Container className="py-2">
 						<div className="flex flex-auto max-w-full px-4 -mx-4 overflow-x-auto box-content">
 							<ActiveLink
 								route="index"
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="mr-4 font-medium text-gray-500">
-									Feed
-								</a>
+								<a className="mr-4 font-medium">Feed</a>
 							</ActiveLink>
 							<ActiveLink
 								route="discussions"
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="mr-4 font-medium text-gray-500">
-									Discussions
-								</a>
+								<a className="mr-4 font-medium">Discussions</a>
 							</ActiveLink>
 							<ActiveLink
 								route="products"
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="mr-4 font-medium text-gray-500">
-									Products
-								</a>
+								<a className="mr-4 font-medium">Products</a>
 							</ActiveLink>
 							<ActiveLink
 								route="events"
+								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
-								<a className="mr-4 font-medium text-gray-500">
-									Events
-								</a>
+								<a className="mr-4 font-medium">Events</a>
 							</ActiveLink>
 							{isLoggedIn && (
 								<>
 									<div className="flex-grow"></div>
 									<ActiveLink
 										route="tasks"
+										inactiveClassName={"text-gray-500"}
 										activeClassName={config.WL_TEXT_COLOR}
 									>
-										<a className="flex-none pr-4 font-medium text-gray-500 md:pr-0">
+										<a className="flex-none pr-4 font-medium md:pr-0">
 											Your Tasks
 										</a>
 									</ActiveLink>

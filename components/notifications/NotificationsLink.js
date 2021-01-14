@@ -23,14 +23,7 @@ function NotificationsLink() {
 
 	return (
 		<Link route="notifications">
-			<a
-				className={
-					"flex items-center justify-center w-8 h-8 p-2 mx-2 font-semibold text-center rounded-full " +
-					(count > 0
-						? "bg-green-500 hover:bg-green-700 text-white "
-						: " text-gray-700 border border-gray-200 hover:bg-gray-100 ")
-				}
-			>
+			<a className={"circle-button " + (count > 0 ? "green " : "")}>
 				{count === 0 ? <FontAwesomeIcon icon="bell" /> : count}
 			</a>
 		</Link>

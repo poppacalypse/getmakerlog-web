@@ -10,7 +10,7 @@ export default function ContactPage() {
 			<h2 className="mb-2 font-bold">Contact the makers</h2>
 			<Card>
 				<Card.Content>
-					<p className="prose">
+					<p className="prose dark:prose-dark">
 						<p>
 							<strong>
 								You can reach us quite easily via Twitter,

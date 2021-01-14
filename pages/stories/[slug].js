@@ -75,7 +75,7 @@ function StoriesPostPage() {
 
 				<NarrowLayout rightSidebar={null} leftSidebar={null}>
 					<div
-						className="my-12  lg:prose-lg prose prose-green"
+						className="my-12  lg:prose-lg prose prose-green dark:prose-dark "
 						style={{ fontFamily: "Merriweather" }}
 						dangerouslySetInnerHTML={{
 							__html: post.html.trimEnd(),

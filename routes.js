@@ -57,6 +57,7 @@ const routerHelper = routes()
 	.add("events", "/events")
 	.add("event", "/events/[slug]")
 	.add("events-create", "/events/create")
+	.add("patron", "/patron")
 	.add("not-implemented", "/not-implemented");
 
 const { Link, Router, useRouter, withRouter } = routerHelper;

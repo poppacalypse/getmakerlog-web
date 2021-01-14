@@ -3,6 +3,7 @@ module.exports = {
 	future: {
 		removeDeprecatedGapUtilities: true,
 	},
+	darkMode: "class",
 	purge: ["./**/*.html", "./**/*.vue", "./**/*.jsx", "./**/*.js"],
 	plugins: [
 		require("@tailwindcss/forms"),
@@ -14,6 +15,7 @@ module.exports = {
 	],
 	variants: {
 		backgroundColor: [
+			"dark",
 			"responsive",
 			"hover",
 			"focus",
@@ -24,6 +26,7 @@ module.exports = {
 		],
 		borderColor: [
 			"DEFAULT",
+			"dark",
 			"responsive",
 			"hover",
 			"focus",
@@ -32,11 +35,12 @@ module.exports = {
 			"group-focus",
 			"focus-within",
 		],
-		borderStyle: ["responsive", "last"],
+		borderStyle: ["responsive", "last", "dark"],
 		padding: ["responsive", "last", "first"],
 		margin: ["responsive", "last", "first"],
 		textColor: [
 			"DEFAULT",
+			"dark",
 			"responsive",
 			"hover",
 			"focus",
@@ -45,6 +49,8 @@ module.exports = {
 			"group-focus",
 			"focus-within",
 		],
+		textOpacity: ["active", "dark"],
+		typography: ["responsive", "dark"],
 	},
 	theme: {
 		fontSize: {
@@ -60,7 +66,7 @@ module.exports = {
 			"6xl": "4rem",
 		},
 		extend: {
-			typography: {
+			typography: (theme) => ({
 				DEFAULT: {
 					css: {
 						a: {
@@ -71,7 +77,42 @@ module.exports = {
 						},
 					},
 				},
-			},
+				dark: {
+					css: {
+						color: "rgba(255, 255, 255, 0.5)",
+						strong: {
+							color: "rgba(255, 255, 255, 0.5)",
+						},
+						h1: {
+							color: "rgba(255, 255, 255, 0.7)",
+						},
+						h2: {
+							color: "rgba(255, 255, 255, 0.7)",
+						},
+						h3: {
+							color: "rgba(255, 255, 255, 0.7)",
+						},
+						h4: {
+							color: "rgba(255, 255, 255, 0.7)",
+						},
+						h5: {
+							color: "rgba(255, 255, 255, 0.7)",
+						},
+						h6: {
+							color: "rgba(255, 255, 255, 0.7)",
+						},
+						blockquote: {
+							color: "rgba(255, 255, 255, 0.7)",
+						},
+						a: {
+							color: "#00AD71",
+							"&:hover": {
+								color: "#00AD71",
+							},
+						},
+					},
+				},
+			}),
 			boxShadow: {
 				xs: "0 0 0 1px rgba(0, 0, 0, 0.05)",
 				outline: "0 0 0 3px rgba(66, 153, 225, 0.5)",
@@ -115,16 +156,16 @@ module.exports = {
 					900: "#453B00",
 				},
 				dark: {
-					50: "#F3F3F3",
-					100: "#E7E7E7",
-					200: "#C4C4C4",
-					300: "#A0A0A0",
-					400: "#595959",
-					500: "#121212",
-					600: "#101010",
-					700: "#0B0B0B",
-					800: "#080808",
-					900: "#050505",
+					50: "#121212",
+					100: "#1E1E1E",
+					200: "#292929",
+					300: "#343434",
+					400: "#3E3E3E",
+					500: "#484848",
+					600: "#515151",
+					700: "#5A5A5A",
+					800: "#122D24",
+					900: "#123026",
 				},
 				current: "currentColor",
 				transparent: "transparent",

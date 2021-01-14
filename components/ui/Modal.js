@@ -27,7 +27,7 @@ function Modal({ open, center = true, children, onClose, className = "" }) {
 		<ReactModal
 			classNames={{
 				modal:
-					"bg-white rounded-md px-4 py-4 text-left overflow-hidden sm:my-8 sm:align-middle sm:max-w-sm mx-0 sm:mx-auto sm:w-full " +
+					"bg-white dark:bg-dark-100 rounded-md px-4 py-4 text-left overflow-hidden sm:my-8 sm:align-middle sm:max-w-sm mx-0 sm:mx-auto sm:w-full " +
 					className,
 			}}
 			animationDuration={150}

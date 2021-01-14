@@ -13,6 +13,9 @@ import { useImageUpload } from "utils/hooks";
 import Message from "components/ui/Message";
 import HeaderUpload from "components/users/HeaderUpload";
 import { NextSeo } from "next-seo";
+import { useSubData } from "queries/patron";
+import Spinner from "components/ui/Spinner";
+import { Link } from "routes";
 
 function SettingsPage() {
 	const { patching, patchUser, user, errorMessages } = useAuth();
@@ -43,7 +46,14 @@ function SettingsPage() {
 				: false,
 		digest: user.digest !== null ? user.digest : false,
 		hardcore_mode: user.hardcore_mode !== null ? user.hardcore_mode : false,
+		dark_mode: user.dark_mode !== null ? user.dark_mode : false,
+		ads_enabled: user.ads_enabled !== null ? user.ads_enabled : true,
 	});
+	const {
+		isLoading: isLoadingSubData,
+		data: subData,
+		error: subDataError,
+	} = useSubData();
 
 	async function onSubmit() {
 		let finalPayload = { ...payload };
@@ -61,6 +71,21 @@ function SettingsPage() {
 		newPayload[key] = value;
 		setPayload(newPayload);
 	}
+
+	function onUpdateSub() {
+		// eslint-disable-next-line no-undef
+		Paddle.Checkout.open({
+			override: subData.update_url,
+		});
+	}
+
+	function onCancelSub() {
+		// eslint-disable-next-line no-undef
+		Paddle.Checkout.open({
+			override: subData.cancel_url,
+		});
+	}
+
 	return (
 		<NarrowLayout rightSidebar={null}>
 			<PageHeader>
@@ -264,15 +289,164 @@ function SettingsPage() {
 							</Form.Field>
 						</Form.Group>
 
-						<Form.Group title="Gold">
-							<Form.Field span={6}>
-								<p className="help">
-									We're working on changing Gold to be a
-									better experience & delivering dark mode
-									soon. Stay tuned!
-								</p>
-							</Form.Field>
-						</Form.Group>
+						{user.gold || user.patron ? (
+							<Form.Group title="Patron">
+								<Form.Field>
+									<div className="flex items-center">
+										<input
+											id="dark_mode"
+											type="checkbox"
+											className="form-checkbox"
+											onChange={(e) =>
+												onChangeField(
+													"dark_mode",
+													e.target.checked
+												)
+											}
+											checked={payload.dark_mode}
+										/>
+										<label
+											htmlFor="dark_mode"
+											className="block ml-2 text-sm text-gray-900 leading-5"
+										>
+											Dark mode
+										</label>
+									</div>
+									<p className="help">
+										Join the dark side. We have cookies.
+									</p>
+								</Form.Field>
+								<Form.Field>
+									<div className="flex items-center">
+										<input
+											id="ads_enabled"
+											type="checkbox"
+											className="form-checkbox"
+											onChange={(e) =>
+												onChangeField(
+													"ads_enabled",
+													e.target.checked
+												)
+											}
+											checked={payload.ads_enabled}
+										/>
+										<label
+											htmlFor="ads_enabled"
+											className="block ml-2 text-sm text-gray-900 leading-5"
+										>
+											Indie ads
+										</label>
+									</div>
+									<p className="help">
+										Enable high-quality ads by makers, for
+										makers.
+									</p>
+								</Form.Field>
+								<Form.Field
+									span={6}
+									label="Subscription settings"
+								>
+									<div className="flex flex-col">
+										{isLoadingSubData && (
+											<Spinner
+												small
+												text="Loading subscription data..."
+											/>
+										)}
+										{subData && (
+											<div className="flex space-x-2">
+												<Button
+													xs
+													onClick={onUpdateSub}
+												>
+													Update payment details
+												</Button>
+												<Button
+													xs
+													danger
+													onClick={onCancelSub}
+												>
+													Cancel subscription
+												</Button>
+											</div>
+										)}
+										{subDataError && (
+											<ErrorMessageList
+												error={subDataError}
+											/>
+										)}
+									</div>
+
+									<p className="help">
+										Modify, pause, or cancel your
+										subscription.
+									</p>
+								</Form.Field>
+							</Form.Group>
+						) : (
+							<Form.Group title="Patron">
+								<Form.Field span={6}>
+									<Message info title="✨ Get Patron">
+										Support the Makerlog community and get a
+										kickass dark mode.
+										<div className="mt-4">
+											<Link route="patron">
+												<Button xs>
+													Become a patron
+												</Button>
+											</Link>
+										</div>
+									</Message>
+								</Form.Field>
+								<Form.Field>
+									<div className="flex items-center">
+										<input
+											id="dark_mode"
+											type="checkbox"
+											className="form-checkbox"
+											checked={false}
+											disabled
+										/>
+										<label
+											htmlFor="dark_mode"
+											className="block ml-2 text-sm text-gray-900 leading-5"
+										>
+											Dark mode
+										</label>
+									</div>
+									<p className="help">
+										<Link route="patron">
+											<a>Get Makerlog Patron</a>
+										</Link>{" "}
+										to enable dark mode.
+									</p>
+								</Form.Field>
+
+								<Form.Field>
+									<div className="flex items-center">
+										<input
+											id="ads_enabled"
+											type="checkbox"
+											className="form-checkbox"
+											checked={false}
+											disabled
+										/>
+										<label
+											htmlFor="ads_enabled"
+											className="block ml-2 text-sm text-gray-900 leading-5"
+										>
+											Indie ads
+										</label>
+									</div>
+									<p className="help">
+										<Link route="patron">
+											<a>Get Makerlog Patron</a>
+										</Link>{" "}
+										to disable ads.
+									</p>
+								</Form.Field>
+							</Form.Group>
+						)}
 
 						{errorMessages && (
 							<ErrorMessageList error={errorMessages} />

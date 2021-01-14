@@ -3,9 +3,13 @@ import Card from "components/ui/Card";
 import config from "config";
 import React from "react";
 import { Link } from "routes";
+import { useAuth } from "stores/AuthStore";
+import { isAdsDisabled } from "utils/patron";
 import SidebarItem from "./SidebarItem";
 
 export default function AdSidebarCard() {
+	const { user } = useAuth();
+	if (isAdsDisabled(user)) return null;
 	if (config.IS_WL) return null;
 
 	return (

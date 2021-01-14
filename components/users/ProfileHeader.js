@@ -11,7 +11,7 @@ function ProfileHeader({
 }) {
 	return (
 		<>
-			<div className="bg-white border-b">
+			<div className="bg-white border-b border-gray-200">
 				{!user.header ? (
 					<div className="flex items-center justify-center object-cover w-full h-64 bg-green-500"></div>
 				) : (

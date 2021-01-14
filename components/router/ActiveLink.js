@@ -9,6 +9,7 @@ function ActiveLink({
 	href,
 	route,
 	params = {},
+	inactiveClassName,
 	activeClassName,
 	notPath = [],
 	wildcard = false,
@@ -36,6 +37,8 @@ function ActiveLink({
 		activeClassName
 	) {
 		className = `${className} ${activeClassName}`.trim();
+	} else {
+		className = `${className} ${inactiveClassName}`.trim();
 	}
 
 	return (

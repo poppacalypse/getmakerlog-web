@@ -32,6 +32,7 @@ export const userSchema = Joi.object().keys({
 	accent: Joi.string().allow(null, ""),
 	maker_score: Joi.number().integer().allow(null, ""),
 	dark_mode: Joi.boolean(),
+	ads_enabled: Joi.boolean(),
 	weekends_off: Joi.boolean(),
 	hardcore_mode: Joi.boolean(),
 	email_notifications: Joi.boolean(),

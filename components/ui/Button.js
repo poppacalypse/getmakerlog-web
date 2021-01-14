@@ -31,13 +31,13 @@ function getClassNames(props) {
 			" bg-green-600 hover:bg-green-500 active:bg-green-700 text-white";
 	} else if (props.secondary) {
 		classNames +=
-			" text-green-700 bg-green-100 border border-green-200 hover:bg-green-50 focus:border-green-300 active:bg-green-200 ";
+			" text-green-700 bg-green-100 border border-green-200 hover:bg-green-50 focus:border-green-300 active:bg-green-200 dark:bg-green-800 dark:border-green-700 dark:text-green-200 dark:active:bg-green-900 dark:hover:bg-green-900 dark:focus:border-green-600 ";
 	} else if (props.danger) {
 		classNames +=
-			" text-red-700 bg-red-100 border border-red-200 hover:bg-red-50 focus:border-red-300 active:bg-red-200 ";
+			" text-red-700 bg-red-100 border border-red-200 hover:bg-red-50 focus:border-red-300 active:bg-red-200 dark:text-red-400 dark:bg-red-900 dark:border-red-800 dark:hover:bg-red-800 dark:focus:border-red-700";
 	} else {
 		classNames +=
-			" border-gray-300 text-gray-700 bg-white hover:text-gray-500 active:text-gray-800 active:bg-gray-50 ";
+			" border-gray-300 text-gray-700 bg-white hover:text-gray-500 active:text-gray-800 active:bg-gray-50 dark:active:bg-dark-300 dark:hover:bg-dark-200 dark:border-dark-300 active:text-dark-500 ";
 	}
 
 	if (props.disabled) {

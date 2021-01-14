@@ -2,14 +2,17 @@ import React from "react";
 import { useAd } from "queries/ads";
 import OutboundLink from "components/seo/OutboundLink";
 import Spinner from "components/ui/Spinner";
+import { useAuth } from "stores/AuthStore";
+import { isAdsDisabled } from "utils/patron";
 
 function Ad({ booking: initialBooking, test = false }) {
 	const { data, isLoading, error } = useAd();
+	const { user } = useAuth();
 
 	if (!initialBooking && (isLoading || error)) {
 		return (
 			<div className="ad-case">
-				<div className="flex items-center justify-center h-24 mb-2 border border-gray-200 rounded-md">
+				<div className="flex items-center justify-center h-24 mb-2 border border-gray-200 text-gray-5700 dark:border-dark-200 rounded-md">
 					<Spinner small text="Loading indie ad..." />
 				</div>
 			</div>
@@ -18,6 +21,7 @@ function Ad({ booking: initialBooking, test = false }) {
 
 	const booking = initialBooking ? initialBooking : data;
 	if (!booking) return null;
+	if (isAdsDisabled(user)) return null;
 
 	return (
 		<div

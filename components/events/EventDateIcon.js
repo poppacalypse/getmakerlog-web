@@ -10,7 +10,7 @@ export default function EventDateIcon({
 	return (
 		<div
 			className={
-				"flex border flex-col items-center justify-center bg-gray-100 rounded-md " +
+				"flex border dark:border-dark-200 flex-col items-center justify-center bg-gray-100 dark:bg-dark-100 rounded-md " +
 				size
 			}
 		>

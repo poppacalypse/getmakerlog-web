@@ -28,7 +28,7 @@ function Shell({ layoutProps, ...props }) {
 				"flex flex-col min-h-screen pb-12 sm:pb-0 " +
 				(layoutProps && layoutProps.bgClassName
 					? layoutProps.bgClassName
-					: " bg-gray-100  ") +
+					: " bg-gray-100 dark:bg-dark-50  ") +
 				" " +
 				(layoutProps && layoutProps.className
 					? layoutProps.className

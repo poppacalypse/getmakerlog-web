@@ -83,7 +83,8 @@ const WL_FULL_NAME = WL_NAME ? `${WL_NAME}'s Makerlog` : "Makerlog";
 const WL_LOGO = process.env.NEXT_PUBLIC_WL_LOGO ?? null;
 const WL_BG_COLOR = process.env.NEXT_PUBLIC_WL_BG_COLOR ?? "bg-green-500";
 const WL_BORDER_COLOR =
-	process.env.NEXT_PUBLIC_WL_BORDER_COLOR ?? "border-green-500";
+	process.env.NEXT_PUBLIC_WL_BORDER_COLOR ??
+	"border-green-500 dark:border-dark-900";
 const WL_TEXT_COLOR = process.env.NEXT_PUBLIC_WL_TEXT_COLOR ?? "text-green-500";
 
 export const DEFAULT_SEO_CONFIG = {

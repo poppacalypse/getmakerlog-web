@@ -120,7 +120,7 @@ function TaskEditor({ onFinish }) {
 								secondary
 								className={
 									doneState !== DoneStates.DONE
-										? "remaining"
+										? "remaining-btn"
 										: ""
 								}
 							>

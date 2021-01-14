@@ -43,7 +43,7 @@ export default function EventCard({ event, full = false }) {
 							<div>
 								<hr className="my-4" />
 								{full && <UserLine user={event.user} />}
-								<div className="prose">
+								<div className="prose dark:prose-dark">
 									<EventTextRenderer object={event} />
 								</div>
 							</div>

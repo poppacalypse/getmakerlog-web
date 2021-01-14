@@ -18,7 +18,7 @@ import { configureMobx } from "utils/mobx";
 import Shell from "layouts/Shell";
 import { ReactQueryDevtools } from "react-query-devtools";
 import NProgressContainer from "vendor/nprogress";
-import { configure } from "mobx";
+import { configure, autorun } from "mobx";
 import { ReactQueryCacheProvider } from "react-query";
 import { Hydrate } from "react-query/hydration";
 import { DefaultSeo } from "next-seo";
@@ -26,6 +26,7 @@ import { Router } from "next/router";
 import { gaEvent, pageview } from "vendor/gtag";
 import * as Sentry from "@sentry/react";
 import Head from "next/head";
+import { setDarkMode } from "utils/patron";
 
 if (isDev && !isServer) {
 	localStorage.debug = "makerlog*,axios";
@@ -82,6 +83,18 @@ class Makerlog extends App {
 		}
 
 		return { pageProps };
+	}
+
+	componentDidMount() {
+		autorun(() => {
+			if (
+				this.props.store &&
+				this.props.store.auth &&
+				this.props.store.auth.user
+			) {
+				setDarkMode(this.props.store.auth.user);
+			}
+		});
 	}
 
 	render() {
