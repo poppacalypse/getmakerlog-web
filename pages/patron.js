@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "components/ui/Button";
 import Container from "components/ui/Container";
-import config from "config";
 import React from "react";
 
 function PatronPage() {

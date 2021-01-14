@@ -66,7 +66,7 @@ module.exports = {
 			"6xl": "4rem",
 		},
 		extend: {
-			typography: (theme) => ({
+			typography: () => ({
 				DEFAULT: {
 					css: {
 						a: {
