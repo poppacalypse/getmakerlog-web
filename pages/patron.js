@@ -1,6 +1,5 @@
 import Button from "components/ui/Button";
 import Container from "components/ui/Container";
-import Message from "components/ui/Message";
 import PatronBadge from "components/users/badges/PatronBadge";
 import { NextSeo } from "next-seo";
 import React from "react";
@@ -229,7 +228,10 @@ function PatronPage() {
 					<PurchaseButtons onClickPurchase={onClickPurchase} />
 				</center>
 			</Container>
-			<NextSeo title="Support Makerlog" />
+			<NextSeo
+				title="Become a Patron"
+				description="Support the maker movement. Get Makerlog Patron, starting at $5/mo."
+			/>
 		</div>
 	);
 }
