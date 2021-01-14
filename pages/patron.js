@@ -191,14 +191,11 @@ function PatronPage() {
 							<div className="flex">
 								<p className="flex flex-col">
 									<span className="font-medium">
-										✅ Free ad space. &nbsp;
-										<small className="text-xs text-yellow-300 text-opacity-50">
-											SOON!
-										</small>
+										✅ Free ad space.
 									</span>
 									<span className="text-gray-700">
 										Pleding $20/mo or more gets you a free
-										month of Makerlog Ads on us.
+										month of Square Makerlog Ads on us.
 									</span>
 								</p>
 							</div>
