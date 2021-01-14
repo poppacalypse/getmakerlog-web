@@ -28,7 +28,7 @@ export const userSchema = Joi.object().keys({
 	tester: Joi.boolean(),
 	is_live: Joi.boolean(),
 	digest: Joi.boolean(),
-	gold: Joi.boolean(),
+	patron: Joi.boolean(),
 	accent: Joi.string().allow(null, ""),
 	maker_score: Joi.number().integer().allow(null, ""),
 	dark_mode: Joi.boolean(),
