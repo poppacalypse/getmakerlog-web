@@ -54,8 +54,8 @@ function PraiseButton({ indexUrl, initialCount, disabled = false }) {
 			onClick={onPraise}
 			className={
 				value && value.praised
-					? "text-yellow-500 hover:text-yellow-400"
-					: "hover:text-yellow-500"
+					? "force-praise-color praised"
+					: "force-praise-color"
 			}
 		>
 			<Button.Icon>
