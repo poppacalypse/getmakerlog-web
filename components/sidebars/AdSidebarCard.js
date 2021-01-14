@@ -24,11 +24,17 @@ export default function AdSidebarCard() {
 				</h3>
 			}
 		>
-			<Card>
+			<Card mb={false} className="mb-1">
 				<Card.Content>
 					<Ad />
 				</Card.Content>
 			</Card>
+			<small className="text-xs text-gray-400">
+				Disable ads by{" "}
+				<Link route="patron">
+					<a>becoming a Patron.</a>
+				</Link>
+			</small>
 		</SidebarItem>
 	);
 }

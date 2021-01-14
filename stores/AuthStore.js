@@ -89,11 +89,15 @@ class AuthStore extends BaseStore {
 	});
 
 	@action.bound
-	patchUser = flow(function* (payload) {
+	patchUser = flow(function* (payload, reflect = true) {
 		try {
 			this.patching = true;
 			this.errorMessages = null;
-			this.user = yield patchUser(payload);
+			if (reflect) {
+				this.user = yield patchUser(payload);
+			} else {
+				this.user = { ...this.user, ...payload };
+			}
 			this.patching = false;
 			this.errorMessages = null;
 			return true;

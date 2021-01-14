@@ -39,9 +39,7 @@ export default function Footer() {
 								{!config.IS_WL ? (
 									<>
 										<li>
-											<Link route="not-implemented">
-												Makerlog Gold
-											</Link>
+											<Link route="patron">Patrons</Link>
 										</li>
 										<li>
 											<Link route={"book-ad"}>

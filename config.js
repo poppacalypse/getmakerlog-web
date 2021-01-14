@@ -32,10 +32,6 @@ const PADDLE_VENDOR = process.env.NEXT_PUBLIC_PADDLE_VENDOR
 	? process.env.NEXT_PUBLIC_PADDLE_VENDOR
 	: "38022";
 
-const PADDLE_PRODUCT = process.env.NEXT_PUBLIC_PADDLE_PRODUCT
-	? process.env.NEXT_PUBLIC_PADDLE_PRODUCT
-	: "547895";
-
 const GHOST_API_URL = process.env.NEXT_PUBLIC_GHOST_API_URL
 	? process.env.NEXT_PUBLIC_GHOST_API_URL
 	: "https://blog.getmakerlog.com";
@@ -129,7 +125,6 @@ const config = {
 	TWITTER_CLIENT_KEY,
 	STREAM_API_KEY,
 	STREAM_APP_ID,
-	PADDLE_PRODUCT,
 	SENTRY_DSN,
 	MAINTENANCE_MODE,
 	IS_WL,

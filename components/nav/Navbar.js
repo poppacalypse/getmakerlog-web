@@ -68,12 +68,26 @@ function Navbar() {
 							<ActiveLink
 								route="index"
 								wildcard
-								notPath={["stories", "about", "_error"]}
+								notPath={[
+									"stories",
+									"about",
+									"_error",
+									"patron",
+								]}
 								inactiveClassName={"text-gray-500"}
 								activeClassName={config.WL_TEXT_COLOR}
 							>
 								<a className="flex-1 py-4 mr-0 font-semibold text-center sm:mr-4 sm:py-0 sm:flex-initial">
 									Community
+								</a>
+							</ActiveLink>
+							<ActiveLink
+								route="patron"
+								inactiveClassName={"text-gray-500"}
+								activeClassName={config.WL_TEXT_COLOR}
+							>
+								<a className="flex-1 hidden py-4 mr-0 font-semibold text-center sm:flex sm:mr-4 sm:py-0 sm:flex-initial">
+									Patrons
 								</a>
 							</ActiveLink>
 							<ActiveLink
@@ -272,54 +286,60 @@ function Navbar() {
 					</Container>
 				</div>
 			) : (
-				<div className="border-b border-gray-200 dark:border-dark-200">
-					<Container className="py-2">
-						<div className="flex flex-auto max-w-full px-4 -mx-4 overflow-x-auto box-content">
-							<ActiveLink
-								route="index"
-								inactiveClassName={"text-gray-500"}
-								activeClassName={config.WL_TEXT_COLOR}
-							>
-								<a className="mr-4 font-medium">Feed</a>
-							</ActiveLink>
-							<ActiveLink
-								route="discussions"
-								inactiveClassName={"text-gray-500"}
-								activeClassName={config.WL_TEXT_COLOR}
-							>
-								<a className="mr-4 font-medium">Discussions</a>
-							</ActiveLink>
-							<ActiveLink
-								route="products"
-								inactiveClassName={"text-gray-500"}
-								activeClassName={config.WL_TEXT_COLOR}
-							>
-								<a className="mr-4 font-medium">Products</a>
-							</ActiveLink>
-							<ActiveLink
-								route="events"
-								inactiveClassName={"text-gray-500"}
-								activeClassName={config.WL_TEXT_COLOR}
-							>
-								<a className="mr-4 font-medium">Events</a>
-							</ActiveLink>
-							{isLoggedIn && (
-								<>
-									<div className="flex-grow"></div>
-									<ActiveLink
-										route="tasks"
-										inactiveClassName={"text-gray-500"}
-										activeClassName={config.WL_TEXT_COLOR}
-									>
-										<a className="flex-none pr-4 font-medium md:pr-0">
-											Your Tasks
-										</a>
-									</ActiveLink>
-								</>
-							)}
-						</div>
-					</Container>
-				</div>
+				!pathname.startsWith("/patron") && (
+					<div className="border-b border-gray-200 dark:border-dark-200">
+						<Container className="py-2">
+							<div className="flex flex-auto max-w-full px-4 -mx-4 overflow-x-auto box-content">
+								<ActiveLink
+									route="index"
+									inactiveClassName={"text-gray-500"}
+									activeClassName={config.WL_TEXT_COLOR}
+								>
+									<a className="mr-4 font-medium">Feed</a>
+								</ActiveLink>
+								<ActiveLink
+									route="discussions"
+									inactiveClassName={"text-gray-500"}
+									activeClassName={config.WL_TEXT_COLOR}
+								>
+									<a className="mr-4 font-medium">
+										Discussions
+									</a>
+								</ActiveLink>
+								<ActiveLink
+									route="products"
+									inactiveClassName={"text-gray-500"}
+									activeClassName={config.WL_TEXT_COLOR}
+								>
+									<a className="mr-4 font-medium">Products</a>
+								</ActiveLink>
+								<ActiveLink
+									route="events"
+									inactiveClassName={"text-gray-500"}
+									activeClassName={config.WL_TEXT_COLOR}
+								>
+									<a className="mr-4 font-medium">Events</a>
+								</ActiveLink>
+								{isLoggedIn && (
+									<>
+										<div className="flex-grow"></div>
+										<ActiveLink
+											route="tasks"
+											inactiveClassName={"text-gray-500"}
+											activeClassName={
+												config.WL_TEXT_COLOR
+											}
+										>
+											<a className="flex-none pr-4 font-medium md:pr-0">
+												Your Tasks
+											</a>
+										</ActiveLink>
+									</>
+								)}
+							</div>
+						</Container>
+					</div>
+				)
 			)}
 
 			{isLoggedIn && (

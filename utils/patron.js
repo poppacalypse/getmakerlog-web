@@ -7,7 +7,7 @@ export function isPatron(user) {
 
 export function isDarkMode(user) {
 	if (!user) return false;
-	return isPatron(user) && user.dark_mode;
+	return (isPatron(user) && user.dark_mode) || !!user.purchased;
 }
 
 export function isAdsDisabled(user) {
@@ -15,7 +15,10 @@ export function isAdsDisabled(user) {
 	return isPatron(user) && !user.ads_enabled;
 }
 
-export function setDarkMode(user) {
+export function setDarkMode(user, force = null) {
 	if (isServer) return;
-	document.documentElement.classList.toggle("dark", isDarkMode(user));
+	document.documentElement.classList.toggle(
+		"dark",
+		force !== null ? force : isDarkMode(user)
+	);
 }
