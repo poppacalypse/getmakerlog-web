@@ -195,7 +195,8 @@ function PatronPage() {
 									</span>
 									<span className="text-gray-700">
 										Pleding $20/mo or more gets you a free
-										month of Square Makerlog Ads on us.
+										large banner Makerlog Ad for a month. On
+										us.
 									</span>
 								</p>
 							</div>
