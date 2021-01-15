@@ -16,6 +16,7 @@ import ErrorMessageList from "components/error/ErrorMessageList";
 import Message from "components/ui/Message";
 import { isDev } from "config";
 import { Router } from "routes";
+import { StdErrorCollection } from "utils/error";
 
 function ProductCreateForm() {
 	const [colorPickerOpen, setColorPickerOpen] = useState(false);
@@ -45,6 +46,11 @@ function ProductCreateForm() {
 			let finalPayload = { ...payload };
 			if (iconState.attachment) finalPayload.icon = iconState.attachment;
 			// Set up projects array
+			if (tag.length === 0) {
+				throw new StdErrorCollection(
+					"You must enter a hashtag to associate the product with."
+				);
+			}
 			let projects = await getOrCreateProject(
 				tag.replace("#", ""),
 				projectSet

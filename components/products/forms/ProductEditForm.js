@@ -18,6 +18,7 @@ import { isDev } from "config";
 import { Router } from "routes";
 import { useAuth } from "stores/AuthStore";
 import { isProductTeam } from "utils/products";
+import { StdErrorCollection } from "utils/error";
 
 function ProductEditForm({ product }) {
 	const { user } = useAuth();
@@ -62,6 +63,11 @@ function ProductEditForm({ product }) {
 			let finalPayload = { ...payload };
 			if (iconState.attachment) finalPayload.icon = iconState.attachment;
 			// Set up projects array
+			if (tag.length === 0) {
+				throw new StdErrorCollection(
+					"You must enter a hashtag to associate the product with."
+				);
+			}
 			let projects = await getOrCreateProject(
 				tag.replace("#", ""),
 				projectSet
