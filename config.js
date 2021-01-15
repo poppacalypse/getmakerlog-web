@@ -108,6 +108,14 @@ export const DEFAULT_SEO_CONFIG = {
 	},
 };
 
+const AWESOME_CLUB = [
+	"poppacalypse",
+	"joshmanders",
+	"jamesmkenny",
+	"jip",
+	"woutertoday",
+];
+
 const config = {
 	API_URL,
 	WS_URL,
@@ -135,5 +143,6 @@ const config = {
 	WL_BG_COLOR,
 	WL_TEXT_COLOR,
 	RECAPTCHA_KEY,
+	AWESOME_CLUB,
 };
 export default config;

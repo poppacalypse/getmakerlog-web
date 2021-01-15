@@ -5,6 +5,7 @@ import { Link } from "routes";
 import PatronBadge from "components/users/badges/PatronBadge";
 import VerifiedBadge from "components/users/badges/VerifiedBadge";
 import StaffBadge from "components/users/badges/StaffBadge";
+import AwesomeBadge from "components/users/badges/AwesomeBadge";
 
 function UserLine({ user, className = "", withAvatar = true, style = {} }) {
 	return (
@@ -24,6 +25,7 @@ function UserLine({ user, className = "", withAvatar = true, style = {} }) {
 					) : null}
 					<div className="space-x-1">
 						<FullName user={user} />
+						<AwesomeBadge user={user} />
 						<StaffBadge user={user} />
 						<VerifiedBadge user={user} />
 						<PatronBadge user={user} />
