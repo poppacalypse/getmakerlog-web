@@ -114,6 +114,7 @@ const AWESOME_CLUB = [
 	"jamesmkenny",
 	"jip",
 	"woutertoday",
+	"jivings",
 ];
 
 const config = {
