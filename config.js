@@ -115,7 +115,7 @@ const AWESOME_CLUB = [
 	"jip",
 	"woutertoday",
 	"jivings",
-	"LoriKarikari"
+	"lori",
 ];
 
 const config = {
