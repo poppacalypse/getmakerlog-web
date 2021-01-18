@@ -15,6 +15,7 @@ import TimeAgo from "react-timeago";
 import ActivityDebugger from "./ActivityDebugger";
 import { useState } from "react";
 import { isDev } from "config";
+import ProductMedia from "components/products/ProductMedia";
 
 const log = getLogger("activity");
 
@@ -181,6 +182,9 @@ function ActivityObject({ activity }) {
 
 		case "thread":
 			return <Thread thread={object} />;
+
+		case "product":
+			return <ProductMedia product={object} />;
 
 		case "reply":
 			return (
