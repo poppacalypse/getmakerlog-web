@@ -51,6 +51,13 @@ function ItemLink({ type, item, children, loggedInOnly = false }) {
 				</Link>
 			);
 
+		case "product":
+			return (
+				<Link route="product" params={{ slug: item.slug }}>
+					<a>{children}</a>
+				</Link>
+			);
+
 		case "reply":
 			return (
 				<Link href={`/discussions/${item.parent}/#reply-${item.id}`}>
