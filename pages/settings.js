@@ -448,6 +448,33 @@ function SettingsPage() {
 							</Form.Group>
 						)}
 
+						<Form.Group title="Account">
+							<Form.Field label="Change password">
+								<div className="flex items-center">
+									<Link route="auth-change-password">
+										<Button xs>Change your password</Button>
+									</Link>
+								</div>
+								<p className="help">
+									This also allows you to set a password if
+									you logged in via socials.
+								</p>
+							</Form.Field>
+							<Form.Field label="Delete account">
+								<div className="flex items-center">
+									<Link route="auth-delete-account">
+										<Button xs danger>
+											Delete your account
+										</Button>
+									</Link>
+								</div>
+								<p className="help">
+									This is irreversible. Your data will be gone
+									forever!
+								</p>
+							</Form.Field>
+						</Form.Group>
+
 						{errorMessages && (
 							<ErrorMessageList error={errorMessages} />
 						)}

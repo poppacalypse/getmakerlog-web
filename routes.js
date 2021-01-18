@@ -10,6 +10,8 @@ const routerHelper = routes()
 	.add("forgot-password", "/auth/forgot/")
 	.add("auth-confirm", "/auth/confirm/")
 	.add("auth-complete", "/auth/complete/[method]")
+	.add("auth-delete-account", "/auth/delete-account/")
+	.add("auth-change-password", "/auth/change-password/")
 	.add("auth-wl-onboarding", "/auth/wl-onboarding/")
 	.add("task", "/tasks/[id]")
 	.add("profile", ({ username, ...query }) => {

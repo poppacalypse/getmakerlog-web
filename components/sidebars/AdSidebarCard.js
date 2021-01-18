@@ -29,12 +29,14 @@ export default function AdSidebarCard() {
 					<Ad />
 				</Card.Content>
 			</Card>
-			<small className="text-xs text-gray-400">
-				Disable ads by{" "}
-				<Link route="patron">
-					<a>becoming a Patron.</a>
-				</Link>
-			</small>
+			{user && !user.patron && (
+				<small className="text-xs text-gray-400">
+					Disable ads by{" "}
+					<Link route="patron">
+						<a>becoming a Patron.</a>
+					</Link>
+				</small>
+			)}
 		</SidebarItem>
 	);
 }

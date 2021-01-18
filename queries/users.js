@@ -35,6 +35,29 @@ export async function activateUser({ uid, token }) {
 	return response.data;
 }
 
+export async function deleteUser({ repeatUsername }) {
+	const response = await axiosWrapper(
+		axios.post,
+		"/accounts/delete_account/",
+		{
+			validation: repeatUsername,
+		}
+	);
+	return response.data;
+}
+
+export async function changePassword({ oldPassword, newPassword }) {
+	const response = await axiosWrapper(
+		axios.put,
+		"/accounts/change_password/",
+		{
+			old_password: oldPassword,
+			new_password: newPassword,
+		}
+	);
+	return response.data;
+}
+
 export function useUser(username) {
 	return useQuery([USER_QUERIES.getUser, { username }], getUser, {
 		staleTime: 1000 * 60 * 5,
@@ -53,6 +76,22 @@ export function useActivateUser() {
 	return useMutation(activateUser, {
 		onSuccess: (data) => {
 			log(`Activated new account (#${JSON.stringify(data)})`);
+		},
+	});
+}
+
+export function useDeleteUser() {
+	return useMutation(deleteUser, {
+		onSuccess: (data) => {
+			log(`Deleted account (#${JSON.stringify(data)})`);
+		},
+	});
+}
+
+export function useChangePassword() {
+	return useMutation(changePassword, {
+		onSuccess: (data) => {
+			log(`Changed account password (#${JSON.stringify(data)})`);
 		},
 	});
 }
