@@ -105,8 +105,7 @@
 		"useTabs": true
 	},
 	"engines": {
-		"node": "12.19.0",
-		"yarn": "YARN NO LONGER USED - use npm instead."
+		"node": "12.19.0"
 	},
 	"husky": {
 		"hooks": {
