@@ -8,6 +8,8 @@ import Task from "components/tasks/Task";
 import Message from "components/ui/Message";
 import Comment from "components/comments/Comment";
 import TimeAgo from "react-timeago";
+import UserMedia from "components/ui/UserMedia";
+import FollowButton from "components/follows/FollowButton";
 
 function getTargetLink(type, target) {
 	if (!type || !target) return null;
@@ -53,6 +55,9 @@ function getObjectComponent(type, obj) {
 
 		case "thread":
 			return <Thread withUserLine={false} thread={obj} />;
+
+		case "user":
+			return <UserMedia user={obj} />;
 
 		case "comment":
 			return <Comment comment={obj} />;
@@ -111,6 +116,22 @@ function getNotificationContent(notification) {
 								// eslint-disable-next-line
 						  )
 						: null}
+				</div>
+			);
+
+		case "user_followed":
+			return (
+				<div>
+					<h5 className="mb-4 text-base font-medium">
+						Hooray,{" "}
+						<span className="font-semibold">
+							<FullName user={notification.actor} />
+						</span>{" "}
+						followed you!
+					</h5>
+					{notification.actor && (
+						<FollowButton followBack user={notification.actor} />
+					)}
 				</div>
 			);
 

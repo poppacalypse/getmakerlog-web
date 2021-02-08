@@ -5,7 +5,7 @@ import React from "react";
 import { Router } from "routes";
 import { useAuth } from "stores/AuthStore";
 
-export default function FollowButton({ user }) {
+export default function FollowButton({ user, followBack = false }) {
 	const { isLoggedIn, user: currentUser } = useAuth();
 	const { isLoading, data: isFollowing } = useIsFollowing(user.username, {
 		enabled: isLoggedIn,
@@ -30,6 +30,10 @@ export default function FollowButton({ user }) {
 			{isFollowing ? (
 				<span>
 					<FontAwesomeIcon icon="check-circle" /> &nbsp; Following
+				</span>
+			) : followBack ? (
+				<span>
+					<FontAwesomeIcon icon="plus-circle" /> &nbsp; Follow back
 				</span>
 			) : (
 				<span>
