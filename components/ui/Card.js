@@ -4,14 +4,21 @@ function CardContent({ children, className = "" }) {
 	return <div className={"p-4 " + className}>{children}</div>;
 }
 
-function Card({ children, className = null, image = null, mb = true }) {
+function Card({
+	children,
+	className = null,
+	image = null,
+	mb = true,
+	floating = false,
+}) {
 	return (
 		<div
 			className={
-				"Card bg-white dark:bg-dark-100 rounded-md shadow-xs " +
+				"Card bg-white dark:bg-dark-100 rounded-md " +
 				(className ?? "") +
 				(image ? " flex flex-row " : "") +
-				(mb ? " mb-4 last:mb-0 " : "")
+				(mb ? " mb-4 last:mb-0 " : "") +
+				(floating ? " shadow " : " shadow-xs ")
 			}
 		>
 			{image && (

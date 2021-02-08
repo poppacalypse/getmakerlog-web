@@ -507,3 +507,9 @@ table.table-auto td {
 .force-praise-color.praised {
 	@apply text-yellow-500 hover:text-yellow-400 !important;
 }
+
+.popover-container {
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.175);
+	transition-duration: 300ms;
+	transition-property: opacity, -webkit-transform, transform;
+}

@@ -23,7 +23,7 @@ import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons/faQuestionCi
 import { faGlobe } from "@fortawesome/free-solid-svg-icons/faGlobe";
 import { faUsers } from "@fortawesome/free-solid-svg-icons/faUsers";
 import { faComments } from "@fortawesome/free-solid-svg-icons/faComments";
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons/faPlusSquare";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons/faPlusCircle";
 import { faCircle } from "@fortawesome/free-regular-svg-icons/faCircle";
 import { faReply } from "@fortawesome/free-solid-svg-icons/faReply";
 import { faThumbtack } from "@fortawesome/free-solid-svg-icons/faThumbtack";
@@ -121,7 +121,7 @@ library.add(
 	faGlobe,
 	faUsers,
 	faComments,
-	faPlusSquare,
+	faPlusCircle,
 	faReply,
 	faThumbtack,
 	faInfoCircle,

@@ -183,6 +183,7 @@ function FeedPage() {
 		DISCUSSIONS: 3,
 		ALL_TASKS: 4,
 		POPULAR_TODAY: 5,
+		FOLLOWING: 6,
 	};
 	const [feed, setFeed] = useState(FEEDS.FRONTPAGE);
 	const { user } = useAuth();
@@ -199,25 +200,19 @@ function FeedPage() {
 								onClick={() => setFeed(FEEDS.FRONTPAGE)}
 								active={feed === FEEDS.FRONTPAGE}
 							>
-								Frontpage
+								Everyone
+							</SidebarNav.Button>
+							<SidebarNav.Button
+								onClick={() => setFeed(FEEDS.FOLLOWING)}
+								active={feed === FEEDS.FOLLOWING}
+							>
+								Following
 							</SidebarNav.Button>
 							<SidebarNav.Button
 								onClick={() => setFeed(FEEDS.POPULAR_TODAY)}
 								active={feed === FEEDS.POPULAR_TODAY}
 							>
-								Top
-							</SidebarNav.Button>
-							<SidebarNav.Button
-								onClick={() => setFeed(FEEDS.ALL_TASKS)}
-								active={feed === FEEDS.ALL_TASKS}
-							>
-								Tasks
-							</SidebarNav.Button>
-							<SidebarNav.Button
-								onClick={() => setFeed(FEEDS.DISCUSSIONS)}
-								active={feed === FEEDS.DISCUSSIONS}
-							>
-								Discussions
+								Top today
 							</SidebarNav.Button>
 							<p className="mt-2 heading">You</p>
 							<SidebarNav.Button
@@ -314,6 +309,9 @@ function FeedPage() {
 							</>
 						)}
 						{feed === FEEDS.DISCUSSIONS && <LatestThreads />}
+						{feed === FEEDS.FOLLOWING && (
+							<KeyActivityFeed userId={user.id} feed="timeline" />
+						)}
 					</>
 				)}
 				<NextSeo title="Feed" />

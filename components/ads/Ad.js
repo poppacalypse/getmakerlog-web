@@ -9,6 +9,8 @@ function Ad({ booking: initialBooking, test = false }) {
 	const { data, isLoading, error } = useAd();
 	const { user } = useAuth();
 
+	if (error) return <small className="text-gray-500">No ads rotating.</small>;
+
 	if (!initialBooking && (isLoading || error)) {
 		return (
 			<div className="ad-case">

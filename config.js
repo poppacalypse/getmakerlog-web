@@ -85,7 +85,13 @@ const WL_TEXT_COLOR = process.env.NEXT_PUBLIC_WL_TEXT_COLOR ?? "text-green-500";
 
 export const DEFAULT_SEO_CONFIG = {
 	title: "Home",
-	titleTemplate: `%s | ` + (WL_NAME ? `${WL_NAME}'s Makerlog` : "Makerlog"),
+	titleTemplate:
+		`%s | ` +
+		(WL_NAME
+			? `${WL_NAME}'s Makerlog`
+			: isDev
+			? "🚧 Makerlog Dev"
+			: "Makerlog"),
 	description:
 		"Makerlog is where makers & indie hackers build products in public.",
 	openGraph: {

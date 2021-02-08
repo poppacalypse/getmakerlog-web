@@ -1,3 +1,4 @@
+import FollowButton from "components/follows/FollowButton";
 import Avatar from "components/ui/Avatar";
 import Container from "components/ui/Container";
 import React from "react";
@@ -44,17 +45,18 @@ function ProfileHeader({
 							</div>
 						</h2>
 						{user.description !== null && (
-							<p className="mb-1 text-gray-700">
+							<p className="mb-2 text-gray-700">
 								{user.description}
 							</p>
 						)}
+						<p className="mb-4">
+							<FollowButton user={user} />
+						</p>
 						<small className="text-sm text-gray-500 space-x-3">
 							<span>🔥 {user.streak} day streak</span>
+							<span>👥 {user.follower_count} followers</span>
 							{stats && (
 								<span>🛠 {stats.products_made} products</span>
-							)}
-							{stats && (
-								<span>👏 {stats.praise_received} praise</span>
 							)}
 						</small>
 					</div>
