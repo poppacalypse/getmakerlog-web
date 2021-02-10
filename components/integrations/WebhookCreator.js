@@ -41,11 +41,15 @@ export default function WebhookCreator({ event = "webhook" }) {
 					<select
 						className="w-full form-select"
 						value={project}
-						onChange={(e) => setProject(e.target.value)}
+						onChange={(e) => {
+							setProject(e.target.value);
+						}}
 					>
 						<option value={null}>No hashtag</option>
 						{projects.map((project) => (
-							<option key={project.id}>#{project.name}</option>
+							<option key={project.id} value={project.id}>
+								#{project.name}
+							</option>
 						))}
 					</select>
 					<p className="help">
