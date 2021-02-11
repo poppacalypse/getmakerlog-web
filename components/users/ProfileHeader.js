@@ -2,6 +2,7 @@ import FollowButton from "components/follows/FollowButton";
 import Avatar from "components/ui/Avatar";
 import Container from "components/ui/Container";
 import React from "react";
+import VerifiedBadge from "./badges/VerifiedBadge";
 import FullName from "./FullName";
 
 function ProfileHeader({
@@ -53,6 +54,7 @@ function ProfileHeader({
 							<FollowButton user={user} />
 						</p>
 						<small className="text-sm text-gray-500 space-x-3">
+							<VerifiedBadge user={user} />
 							<span>🔥 {user.streak} day streak</span>
 							<span>👥 {user.follower_count} followers</span>
 							{stats && (
