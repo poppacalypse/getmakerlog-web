@@ -36,6 +36,7 @@
 		"axios": "^0.20.0",
 		"axios-debug-log": "^0.8.0",
 		"clipboard-copy": "^3.1.0",
+		"compact-timezone-list": "^1.0.6",
 		"date-fns": "^2.15.0",
 		"date-fns-tz": "^1.0.12",
 		"datebook": "^6.0.2",

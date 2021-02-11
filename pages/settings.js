@@ -16,6 +16,7 @@ import { NextSeo } from "next-seo";
 import { useSubData } from "queries/patron";
 import Spinner from "components/ui/Spinner";
 import { Link } from "routes";
+import { useEffect } from "react";
 
 function SettingsPage() {
 	const { patching, patchUser, user, errorMessages } = useAuth();
@@ -48,12 +49,14 @@ function SettingsPage() {
 		hardcore_mode: user.hardcore_mode !== null ? user.hardcore_mode : false,
 		dark_mode: user.dark_mode !== null ? user.dark_mode : false,
 		ads_enabled: user.ads_enabled !== null ? user.ads_enabled : true,
+		timezone: user.timezone !== "" ? user.timezone : "",
 	});
 	const {
 		isLoading: isLoadingSubData,
 		data: subData,
 		error: subDataError,
 	} = useSubData();
+	const [tzData, setTzData] = useState(null);
 
 	async function onSubmit() {
 		let finalPayload = { ...payload };
@@ -85,6 +88,16 @@ function SettingsPage() {
 			override: subData.cancel_url,
 		});
 	}
+
+	useEffect(() => {
+		const getTzData = async () => {
+			const { default: timezoneData } = await import(
+				"compact-timezone-list"
+			);
+			setTzData(timezoneData);
+		};
+		getTzData();
+	}, []);
 
 	return (
 		<NarrowLayout rightSidebar={null}>
@@ -285,6 +298,43 @@ function SettingsPage() {
 								<p className="help">
 									Accumulate rest days for your streak. (Might
 									break your streak)
+								</p>
+							</Form.Field>
+
+							<Form.Field span={6} label="Timezone">
+								{tzData === null ? (
+									<Spinner
+										small
+										text="Loading timezones..."
+									/>
+								) : (
+									<select
+										value={payload.timezone}
+										className="w-full form-select"
+										onChange={(e) => {
+											onChangeField(
+												"timezone",
+												e.target.value
+											);
+										}}
+									>
+										<option value={""}>
+											None (server time)
+										</option>
+										{tzData &&
+											tzData.map((tz) => (
+												<option
+													value={tz.tzCode}
+													key={tz.tzCode}
+												>
+													{tz.label}
+												</option>
+											))}
+									</select>
+								)}
+								<p className="help">
+									Setting your timezone helps us determine how
+									to count your streak.
 								</p>
 							</Form.Field>
 						</Form.Group>
