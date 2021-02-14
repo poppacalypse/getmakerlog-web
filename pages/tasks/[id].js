@@ -12,6 +12,8 @@ import { dehydrate } from "react-query/dist/hydration/react-query-hydration.deve
 import { Link } from "routes";
 import TimeAgo from "react-timeago";
 import { getErrorResponse } from "utils/error";
+import { NextSeo } from "next-seo";
+import config from "config";
 
 function TaskPage() {
 	const router = useRouter();
@@ -57,6 +59,19 @@ function TaskPage() {
 					<TaskComments task={task} />
 				</Card.Content>
 			</Card>
+
+			<NextSeo
+				title={`Task by @${task.user.username}`}
+				description={`${task.done ? "✅" : "🕚"} ${task.content}`}
+				canonical={`${config.BASE_URL}/tasks/${task.id}/`}
+				openGraph={{
+					images: [
+						{
+							url: task.og_image,
+						},
+					],
+				}}
+			/>
 		</ProfileLayout>
 	);
 }
