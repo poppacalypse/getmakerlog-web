@@ -83,6 +83,9 @@ const WL_BORDER_COLOR =
 	"border-green-500 dark:border-dark-900";
 const WL_TEXT_COLOR = process.env.NEXT_PUBLIC_WL_TEXT_COLOR ?? "text-green-500";
 
+const SEGMENT_KEY =
+	process.env.NEXT_PUBLIC_SEGMENT_KEY ?? "FUB5FEIqk5iGeFS3MUv5IHm7nIRZJIxS";
+
 export const DEFAULT_SEO_CONFIG = {
 	title: "Home",
 	titleTemplate:

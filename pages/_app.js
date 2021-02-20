@@ -22,8 +22,6 @@ import { configure, autorun } from "mobx";
 import { ReactQueryCacheProvider } from "react-query";
 import { Hydrate } from "react-query/hydration";
 import { DefaultSeo } from "next-seo";
-import { Router } from "next/router";
-import { gaEvent, pageview } from "vendor/gtag";
 import * as Sentry from "@sentry/react";
 import Head from "next/head";
 import { setDarkMode } from "utils/patron";
@@ -43,20 +41,6 @@ Sentry.init({
 	enabled: !config.isDev,
 	dsn: config.SENTRY_DSN,
 });
-Router.events.on("routeChangeComplete", (url) => pageview(url));
-
-// Set up web vitals tracking.
-export function reportWebVitals({ id, name, label, value }) {
-	// Use `window.gtag` if you initialized Google Analytics as this example:
-	// https://github.com/vercel/next.js/blob/canary/examples/with-google-analytics/pages/_document.js
-	gaEvent("event", name, {
-		event_category:
-			label === "web-vital" ? "Web Vitals" : "Next.js custom metric",
-		value: Math.round(name === "CLS" ? value * 1000 : value), // values must be integers
-		event_label: id, // id unique to current page load
-		non_interaction: true, // avoids affecting bounce rate.
-	});
-}
 
 class Makerlog extends App {
 	static async getInitialProps({ Component, ctx }) {

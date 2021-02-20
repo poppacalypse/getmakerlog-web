@@ -1,10 +1,26 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import config, { isDev } from "../config";
+import * as snippet from "@segment/snippet";
 
 class AlphaDocument extends Document {
 	static async getInitialProps(ctx) {
 		const initialProps = await Document.getInitialProps(ctx);
 		return { ...initialProps };
+	}
+
+	renderSegment() {
+		const opts = {
+			apiKey: config.SEGMENT_KEY,
+			// note: the page option only covers SSR tracking.
+			// Page.js is used to track other events using `window.analytics.page()`
+			page: true,
+		};
+
+		if (isDev) {
+			return snippet.max(opts);
+		}
+
+		return snippet.min(opts);
 	}
 
 	render() {
@@ -50,19 +66,10 @@ class AlphaDocument extends Document {
 					{!isDev && (
 						<>
 							<script
-								async
-								src={`https://www.googletagmanager.com/gtag/js?id=${config.GA_UA}`}
-							></script>
-							<script
 								dangerouslySetInnerHTML={{
-									__html: `window.dataLayer = window.dataLayer || [];
-                                            function gtag(){dataLayer.push(arguments);}
-                                            gtag('js', new Date());
-                                            gtag('config', '${config.GA_UA}');
-                                    `,
+									__html: this.renderSegment(),
 								}}
 							/>
-
 							<script
 								dangerouslySetInnerHTML={{
 									__html: `(function(h,o,t,j,a,r){
