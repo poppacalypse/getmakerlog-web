@@ -155,5 +155,6 @@ const config = {
 	WL_TEXT_COLOR,
 	RECAPTCHA_KEY,
 	AWESOME_CLUB,
+	SEGMENT_KEY,
 };
 export default config;
