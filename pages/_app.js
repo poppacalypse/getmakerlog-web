@@ -25,6 +25,7 @@ import { DefaultSeo } from "next-seo";
 import * as Sentry from "@sentry/react";
 import Head from "next/head";
 import { setDarkMode } from "utils/patron";
+import { Router } from "routes";
 
 if (isDev && !isServer) {
 	localStorage.debug = "makerlog*,axios";
@@ -35,6 +36,10 @@ configure({ enforceActions: "observed" });
 // This is not a hook.
 // eslint-disable-next-line react-hooks/rules-of-hooks
 useStaticRendering(isServer); // NOT `true` value
+
+Router.events.on("routeChangeComplete", (url) => {
+	if (!isServer && window.analytics) window.analytics.page(url);
+});
 
 // Set up GA, Sentry
 Sentry.init({
@@ -77,6 +82,19 @@ class Makerlog extends App {
 				this.props.store.auth.user
 			) {
 				setDarkMode(this.props.store.auth.user);
+			}
+		});
+
+		autorun(() => {
+			if (
+				this.props.store &&
+				this.props.store.auth &&
+				this.props.store.auth.user
+			) {
+				if (!isServer && window.analytics) {
+					const user = this.props.store.auth.user;
+					window.analytics.identify(user.id, user);
+				}
 			}
 		});
 	}
