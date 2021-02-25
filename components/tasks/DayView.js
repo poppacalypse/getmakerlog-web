@@ -29,7 +29,7 @@ function getRelativeDate(date) {
 	return calendarDate;
 }
 
-function TaskGroupNoCard({ isLoading, failed, onRetry, tasks, doneState }) {
+function TaskGroupNoCard({ isLoading, failed, tasks, doneState }) {
 	if (isLoading || failed || (tasks && tasks.length === 0)) return null;
 
 	return (

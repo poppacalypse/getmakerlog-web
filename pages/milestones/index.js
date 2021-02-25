@@ -3,9 +3,6 @@ import Button from "components/ui/Button";
 import Container from "components/ui/Container";
 import React, { useEffect, useState } from "react";
 import Confetti from "react-dom-confetti";
-import { imageUrl } from "vendor/imagekit";
-import { VerticalUserMedia } from "components/ui/UserMedia";
-import Card from "components/ui/Card";
 
 function MilestonesPage() {
 	const [confetti, setConfetti] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import FullName from "components/users/FullName";
 import Streak from "./Streak";
 import Avatar from "./Avatar";

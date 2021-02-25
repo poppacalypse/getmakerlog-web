@@ -1,10 +1,5 @@
 import { default as axios, axiosWrapper } from "utils/axios";
-import {
-	useInfiniteQuery,
-	useQuery,
-	useMutation,
-	useQueryCache,
-} from "react-query";
+import { useQuery, useMutation, useQueryCache } from "react-query";
 import { getLogger } from "utils/logging";
 const log = getLogger("discussions");
 

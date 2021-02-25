@@ -16,7 +16,6 @@ import { dehydrate } from "react-query/hydration";
 import PostHeading from "components/stories/PostHeading";
 import SubscribeCard from "components/stories/SubscribeCard";
 import PostGrid from "components/stories/PostGrid";
-import Thread from "components/discussions/Thread";
 import PlaceholderState from "components/ui/PlaceholderState";
 import Message from "components/ui/Message";
 import { Link } from "routes";
@@ -28,6 +27,7 @@ import { getLinkedInShareUrl, getTwitterShareUrl } from "utils/stories";
 import { NextSeo } from "next-seo";
 import config from "config";
 import { getErrorResponse } from "utils/error";
+import ThreadReplies from "components/discussions/ThreadReplies";
 
 function StoriesPostPage() {
 	const {
@@ -140,10 +140,14 @@ function StoriesPostPage() {
 				<SubscribeCard />
 				<div className="py-8">
 					<h2 className="mb-4 font-bold">Discuss on Makerlog</h2>
-					{storyMetadata &&
-						storyMetadata.threads.map((thread) => (
-							<Thread key={thread.slug} thread={thread} />
-						))}
+					{storyMetadata && storyMetadata.threads.length !== 0 && (
+						<div className="mt-4">
+							<h4 className="mb-2 font-semibold text-gray-700">
+								{storyMetadata.threads[0].reply_count} replies
+							</h4>
+							<ThreadReplies thread={storyMetadata.threads[0]} />
+						</div>
+					)}
 					{storyMetadata && storyMetadata.threads.length === 0 && (
 						<Message info title="No threads yet.">
 							<Link route="discussions">

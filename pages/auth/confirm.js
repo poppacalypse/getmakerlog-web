@@ -26,6 +26,7 @@ function ConfirmPage() {
 		if (query.uid && query.token) {
 			onLoad();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [query]);
 
 	return (

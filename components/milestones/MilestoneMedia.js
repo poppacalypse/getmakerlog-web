@@ -1,7 +1,6 @@
 import Card from "components/ui/Card";
 import React from "react";
 import truncate from "lodash/truncate";
-import ProductIcon from "components/products/ProductIcon";
 import { Link } from "routes";
 
 export default function MilestoneMedia({ milestone }) {

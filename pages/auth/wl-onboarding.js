@@ -16,6 +16,7 @@ function WlOnboarding() {
 
 	useEffect(() => {
 		if (query.invite) loginWithToken(query.invite);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

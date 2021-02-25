@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";

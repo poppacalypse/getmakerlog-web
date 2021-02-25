@@ -1,12 +1,10 @@
 import FollowButton from "components/follows/FollowButton";
-import MilestoneComments from "components/milestones/MilestoneComments";
 import MilestonesTextRenderer from "components/milestones/MilestonesTextRenderer";
 import ProductMedia from "components/products/ProductMedia";
 import Container from "components/ui/Container";
 import ErrorCard from "components/ui/ErrorCard";
 import Spinner from "components/ui/Spinner";
 import UserMedia from "components/ui/UserMedia";
-import NarrowLayout from "layouts/NarrowLayout";
 import {
 	getMilestone,
 	MILESTONE_QUERIES,
