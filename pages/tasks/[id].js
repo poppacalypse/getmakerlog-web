@@ -29,6 +29,7 @@ function TaskPage() {
 	return (
 		<ProfileLayout
 			user={task.user}
+			withSeo={false}
 			headerProps={{
 				bottomNav: (
 					<Link

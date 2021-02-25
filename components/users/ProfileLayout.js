@@ -12,6 +12,7 @@ export default function ProfileLayout({
 	headerProps = {},
 	layoutProps = {},
 	children,
+	withSeo = true,
 }) {
 	// not terribly essential, not to worried about error states
 	const { data: stats } = useUserStats(user.username);
@@ -28,26 +29,28 @@ export default function ProfileLayout({
 				<NarrowLayout {...layoutProps}>{children}</NarrowLayout>
 			</Container>
 
-			<NextSeo
-				title={getFullNameOrUsername(user)}
-				description={`${getFullNameOrUsername(
-					user
-				)} is on Makerlog, the community where makers build products together.`}
-				canonical={`${config.BASE_URL}/@${user.username}`}
-				openGraph={{
-					type: "profile",
-					profile: {
-						firstName: user.first_name,
-						lastName: user.last_name,
-						username: user.username,
-					},
-					images: [
-						{
-							url: user.og_image,
+			{withSeo && (
+				<NextSeo
+					title={getFullNameOrUsername(user)}
+					description={`${getFullNameOrUsername(
+						user
+					)} is on Makerlog, the community where makers build products together.`}
+					canonical={`${config.BASE_URL}/@${user.username}`}
+					openGraph={{
+						type: "profile",
+						profile: {
+							firstName: user.first_name,
+							lastName: user.last_name,
+							username: user.username,
 						},
-					],
-				}}
-			/>
+						images: [
+							{
+								url: user.og_image,
+							},
+						],
+					}}
+				/>
+			)}
 		</div>
 	);
 }
