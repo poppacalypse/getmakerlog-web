@@ -62,7 +62,9 @@ function TaskPage() {
 			</Card>
 
 			<NextSeo
-				title={`Task by @${task.user.username}`}
+				title={`${task.done ? "Completed" : "To-do"} task by @${
+					task.user.username
+				}`}
 				description={`${task.done ? "✅" : "🕚"} ${task.content}`}
 				canonical={`${config.BASE_URL}/tasks/${task.id}/`}
 				openGraph={{
