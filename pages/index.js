@@ -21,7 +21,8 @@ import RisingMakersCard from "components/sidebars/RisingMakersCard";
 import UpcomingEventsCard from "components/sidebars/UpcomingEventsCard";
 import PopularToday from "components/frontpage/PopularToday";
 import RecentLaunches from "components/frontpage/RecentLaunches";
-import JumpIn from "components/frontpage/JumpIn";
+import LatestDiscussions from "components/frontpage/LatestDiscussions";
+import LatestMilestones from "components/frontpage/LatestMilestones";
 import FeaturedStory from "components/frontpage/FeaturedStory";
 import { dehydrate } from "react-query/hydration";
 import { makeQueryCache } from "react-query";
@@ -167,7 +168,8 @@ function HomePage() {
 			>
 				<FeaturedStory frontpage={frontpage} />
 				<RecentLaunches frontpage={frontpage} />
-				<JumpIn frontpage={frontpage} />
+				<LatestMilestones frontpage={frontpage} />
+				<LatestDiscussions frontpage={frontpage} />
 				<PopularToday frontpage={frontpage} />
 				<h3 className="mb-2 font-semibold">Latest tasks</h3>
 				<KeyActivityFeed userId={-1} feed="site" />
@@ -245,6 +247,10 @@ function FeedPage() {
 						</Card>
 						{feed === FEEDS.FRONTPAGE && (
 							<>
+								<div className="mb-4">
+									<DayView withHeader={false} />
+								</div>
+
 								{isLoading && (
 									<PlaceholderState>
 										<Spinner
@@ -256,9 +262,9 @@ function FeedPage() {
 
 								<FeaturedStory frontpage={frontpage} />
 
-								<JumpIn frontpage={frontpage} />
+								<LatestMilestones frontpage={frontpage} />
 
-								<RecentLaunches frontpage={frontpage} />
+								<LatestDiscussions frontpage={frontpage} />
 
 								<PopularToday frontpage={frontpage} />
 

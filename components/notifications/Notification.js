@@ -10,6 +10,7 @@ import Comment from "components/comments/Comment";
 import TimeAgo from "react-timeago";
 import UserMedia from "components/ui/UserMedia";
 import FollowButton from "components/follows/FollowButton";
+import MilestoneMedia from "components/milestones/MilestoneMedia";
 
 function getTargetLink(type, target) {
 	if (!type || !target) return null;
@@ -17,6 +18,13 @@ function getTargetLink(type, target) {
 		case "thread":
 			return (
 				<Link route="discussions-thread" params={{ slug: target.slug }}>
+					<a>"{target.title}"</a>
+				</Link>
+			);
+
+		case "milestone":
+			return (
+				<Link route="milestone" params={{ slug: target.slug }}>
 					<a>"{target.title}"</a>
 				</Link>
 			);
@@ -62,6 +70,9 @@ function getObjectComponent(type, obj) {
 		case "comment":
 			return <Comment comment={obj} />;
 
+		case "milestone":
+			return <MilestoneMedia milestone={obj} />;
+
 		default:
 			return (
 				<Message warning>Missing object definition for {type}.</Message>
@@ -86,6 +97,7 @@ function getNotificationContent(notification) {
 		case "mention_discussion":
 		case "user_mentioned":
 		case "task_commented":
+		case "milestone_created":
 			return (
 				<div>
 					<h5 className="mb-4 text-base font-medium">

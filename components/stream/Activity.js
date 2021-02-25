@@ -16,6 +16,8 @@ import ActivityDebugger from "./ActivityDebugger";
 import { useState } from "react";
 import { isDev } from "config";
 import ProductMedia from "components/products/ProductMedia";
+import MilestoneMedia from "components/milestones/MilestoneMedia";
+import MilestoneActions from "components/milestones/MilestoneActions";
 
 const log = getLogger("activity");
 
@@ -61,6 +63,13 @@ function ItemLink({ type, item, children, loggedInOnly = false }) {
 		case "reply":
 			return (
 				<Link href={`/discussions/${item.parent}/#reply-${item.id}`}>
+					<a>{children}</a>
+				</Link>
+			);
+
+		case "milestone":
+			return (
+				<Link route="milestone" params={{ slug: item.slug }}>
 					<a>{children}</a>
 				</Link>
 			);
@@ -193,6 +202,9 @@ function ActivityObject({ activity }) {
 		case "product":
 			return <ProductMedia product={object} />;
 
+		case "milestone":
+			return <MilestoneMedia milestone={object} />;
+
 		case "reply":
 			return (
 				<Reply
@@ -217,22 +229,34 @@ const ActivityObjectGroup = ({ activities }) => {
 	return activities.map((a) => <ActivityObject key={a.id} activity={a} />);
 };
 
-function TaskActivityControls({ task }) {
+function TaskActivityControls({ task, embed = false }) {
 	return (
 		<div className="p-4 pt-0 actions">
-			<TaskActions stream task={task} />
+			<TaskActions embed={embed} stream task={task} />
 		</div>
 	);
 }
 
-const ActivityControls = ({ activity }) => {
+function MilestoneActivityControls({ milestone }) {
+	return (
+		<div className="p-4 pt-0 actions">
+			<MilestoneActions stream milestone={milestone} />
+		</div>
+	);
+}
+
+const ActivityControls = ({ activity, embed = false }) => {
 	if (!activity.getObject() || activity.getType() === "aggregated")
 		return null;
 	const { object, type } = activity.getObject();
 
 	switch (type) {
 		case "task":
-			return <TaskActivityControls task={object} />;
+			return <TaskActivityControls embed={embed} task={object} />;
+		case "milestone":
+			return (
+				<MilestoneActivityControls embed={embed} milestone={object} />
+			);
 		default:
 			return null;
 	}
@@ -255,7 +279,7 @@ const ActivityAttachment = ({ activity }) => {
 	}
 };
 
-function Activity({ activity }) {
+function Activity({ activity, embed = false }) {
 	const [debuggerOpen, setDebuggerOpen] = useState(false);
 
 	activity = new ActivityContainer(activity);
@@ -312,7 +336,7 @@ function Activity({ activity }) {
 				)}
 			</Card.Content>
 			<ActivityAttachment activity={activity} />
-			<ActivityControls activity={activity} />
+			<ActivityControls embed={embed} activity={activity} />
 		</Card>
 	);
 }

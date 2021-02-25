@@ -14,6 +14,7 @@ import {
 	DoneStates,
 	getDeltaFromDoneState,
 	useAttachmentInput,
+	getHumanStateFromDoneState,
 } from "utils/tasks";
 import { useDeleteTask, useUpdateTask } from "queries/tasks";
 import { getLogger } from "utils/logging";
@@ -22,6 +23,7 @@ import Form from "components/ui/Form";
 import ErrorMessageList from "components/error/ErrorMessageList";
 import { useEffect } from "react";
 import { usePrevious } from "utils/hooks";
+import TaskIcon from "./TaskIcon";
 
 const log = getLogger("TaskActions");
 
@@ -144,6 +146,7 @@ function TaskEditModal({ task, open, onClose }) {
 	const [description, setDescription] = useState(
 		task.description ? task.description : ""
 	);
+	const [doneState, setDoneState] = useState(getDoneState(task));
 	const {
 		attachmentState,
 		getInputProps,
@@ -165,6 +168,7 @@ function TaskEditModal({ task, open, onClose }) {
 					attachmentState.attachment !== null
 						? attachmentState.attachment
 						: null,
+				...getDeltaFromDoneState(doneState),
 			},
 		});
 	};
@@ -174,6 +178,65 @@ function TaskEditModal({ task, open, onClose }) {
 			<Modal.Header title="Edit task" />
 			<Form onSubmit={onSubmit}>
 				<Form.Controls>
+					<Form.Field span={6} label="State">
+						<div>
+							<Dropdown
+								left
+								origin="top-left"
+								items={
+									<>
+										<Dropdown.Item
+											onClick={() =>
+												setDoneState(DoneStates.DONE)
+											}
+										>
+											Done
+										</Dropdown.Item>
+										<Dropdown.Item
+											onClick={() =>
+												setDoneState(
+													DoneStates.IN_PROGRESS
+												)
+											}
+										>
+											In-progress
+										</Dropdown.Item>
+										<Dropdown.Item
+											onClick={() =>
+												setDoneState(
+													DoneStates.REMAINING
+												)
+											}
+										>
+											To-do
+										</Dropdown.Item>
+									</>
+								}
+							>
+								<Button
+									sm
+									secondary
+									className={
+										doneState !== DoneStates.DONE
+											? "remaining-btn"
+											: ""
+									}
+								>
+									<Button.Icon>
+										<TaskIcon
+											task={getDeltaFromDoneState(
+												doneState
+											)}
+										/>
+									</Button.Icon>
+									{getHumanStateFromDoneState(doneState)}
+									<Button.Icon right>
+										<FontAwesomeIcon icon="caret-down" />
+									</Button.Icon>
+								</Button>
+							</Dropdown>
+						</div>
+					</Form.Field>
 					<Form.Field span={6} label="Content">
 						<input
 							value={content}
@@ -279,7 +342,7 @@ function TaskMoreDropdown({ task, onDelete, onUpdate }) {
 	);
 }
 
-function TaskActions({ task, stream = false }) {
+function TaskActions({ task, stream = false, embed = false }) {
 	// We allow this to be false, favoring a boolean op below.
 	// This allows for autofocus on click.
 	const { user } = useAuth();
@@ -301,36 +364,40 @@ function TaskActions({ task, stream = false }) {
 	if (stream) {
 		return (
 			<div>
-				<span className="inline-flex">
-					<span className="mr-2">
+				<span className="inline-flex md:flex space-x-2">
+					<span>
 						<PraiseButton
 							disabled={user && task.user.id === user.id}
 							initialCount={task.praise}
 							indexUrl={`/tasks/${task.id}`}
 						/>
 					</span>
-					<span className="mr-2">
-						<Button
-							xs
-							onClick={() => {
-								setCommentsOpen(true);
-							}}
-						>
-							<Button.Icon>
-								<FontAwesomeIcon icon="comment" />
-							</Button.Icon>
-							Comment
-						</Button>
-					</span>
-					<span className="mr-2">
-						<TaskMoreDropdown
-							task={task}
-							onUpdate={updateTask}
-							onDelete={deleteTask}
-						/>
-					</span>
+					{!embed && (
+						<span>
+							<Button
+								xs
+								onClick={() => {
+									setCommentsOpen(true);
+								}}
+							>
+								<Button.Icon>
+									<FontAwesomeIcon icon="comment" />
+								</Button.Icon>
+								Comment
+							</Button>
+						</span>
+					)}
+					{!embed && (
+						<span>
+							<TaskMoreDropdown
+								task={task}
+								onUpdate={updateTask}
+								onDelete={deleteTask}
+							/>
+						</span>
+					)}
 				</span>
-				{(commentsOpen || task.comment_count > 0) && (
+				{(commentsOpen || task.comment_count > 0) && !embed && (
 					<div className="mt-2">
 						<TaskComments task={task} focused={commentsOpen} />
 					</div>

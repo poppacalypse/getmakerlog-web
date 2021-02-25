@@ -31,8 +31,8 @@ function makeStubActivity(task) {
 	};
 }
 
-export default function StubTaskActivity({ task }) {
+export default function StubTaskActivity({ task, embed = false }) {
 	// Emulates the form of an activity to pretend that we have better algorithms for ranking in place...
 	// Like a real bysh.
-	return <Activity activity={makeStubActivity(task)} />;
+	return <Activity embed={embed} activity={makeStubActivity(task)} />;
 }

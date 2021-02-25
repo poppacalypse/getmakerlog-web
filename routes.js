@@ -28,6 +28,13 @@ const routerHelper = routes()
 			query,
 		};
 	})
+	.add("profile-milestones", ({ username, ...query }) => {
+		return {
+			href: "/users/[username]/milestones",
+			as: `/@${username}/milestones`,
+			query,
+		};
+	})
 	.add("settings", "/settings")
 	.add("logout", "/logout")
 	.add("tasks", "/tasks")
@@ -60,7 +67,9 @@ const routerHelper = routes()
 	.add("event", "/events/[slug]")
 	.add("events-create", "/events/create")
 	.add("patron", "/patron")
-	.add("not-implemented", "/not-implemented");
+	.add("not-implemented", "/not-implemented")
+	.add("milestones", "/milestones")
+	.add("milestone", "/milestones/[slug]");
 
 const { Link, Router, useRouter, withRouter } = routerHelper;
 

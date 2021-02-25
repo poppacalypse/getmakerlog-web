@@ -64,7 +64,7 @@ export async function updateTask({ id, payload }) {
 	};
 	for (const [key, value] of Object.entries(payload)) {
 		if ((key === "attachment" || key === "description") && value === null)
-			break;
+			continue;
 		data.append(key, value);
 	}
 	const response = await axiosWrapper(axios.patch, `/tasks/${id}/`, data, {
@@ -158,10 +158,21 @@ export function useCreateTask() {
 	return useMutation(createTask, {
 		onSuccess: (newTask) => {
 			log(`Created new task #${newTask.id}.`);
-			queryCache.setQueryData([TASK_QUERIES.getTasks], (old) => {
-				if (!old) return old;
-				return [...old, newTask];
-			});
+			queryCache.setQueryData(
+				getQueryForDate(
+					newTask.created_at
+						? new Date(newTask.created_at)
+						: new Date(),
+					newTask.created_at
+						? new Date(newTask.created_at)
+						: new Date()
+					// eslint-disable-next-line
+				),
+				(old) => {
+					if (!old) return old;
+					return [...old, newTask];
+				}
+			);
 		},
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err) => {

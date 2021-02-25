@@ -14,6 +14,15 @@ export default function ProfileMenu({ user }) {
 				</a>
 			</ActiveLink>
 			<ActiveLink
+				route="profile-milestones"
+				params={{ username: user.username }}
+				activeClassName="text-green-500 border-b-2 border-green-500"
+			>
+				<a className="flex items-center justify-center flex-1 h-full px-6 py-4 pt-2 font-semibold text-center text-gray-500">
+					Milestones
+				</a>
+			</ActiveLink>
+			<ActiveLink
 				route="profile-products"
 				params={{ username: user.username }}
 				activeClassName="text-green-500 border-b-2 border-green-500"

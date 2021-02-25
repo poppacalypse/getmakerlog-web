@@ -9,6 +9,10 @@ const config = {
 				destination: "/users/:username/products",
 			},
 			{
+				source: "/@:username/milestones",
+				destination: "/users/:username/milestones",
+			},
+			{
 				source: "/service-worker.js",
 				destination: "/_next/static/service-worker.js",
 			},

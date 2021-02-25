@@ -29,6 +29,44 @@ function getRelativeDate(date) {
 	return calendarDate;
 }
 
+function TaskGroupNoCard({ isLoading, failed, onRetry, tasks, doneState }) {
+	if (isLoading || failed || (tasks && tasks.length === 0)) return null;
+
+	return (
+		<div className="mb-4 last:mb-0">
+			<div className="flex w-full mb-2 text-sm font-medium text-gray-700 leading-4">
+				<div>
+					{getHumanStateFromDoneState(doneState)}{" "}
+					<span className="text-gray-500">{tasks.length}</span>
+				</div>
+				{doneState === DoneStates.DONE && (
+					<>
+						<div className="flex-grow"></div>
+						<OutboundLink
+							to={getTwitterShareUrl(tasks)}
+							className="text-xs"
+						>
+							<FontAwesomeIcon icon={["fab", "twitter"]} /> Tweet!
+						</OutboundLink>
+					</>
+				)}
+			</div>
+			{tasks &&
+				!failed &&
+				!isLoading &&
+				tasks.map((t) => (
+					<div key={t.id} className="mb-2 last:mb-0">
+						<Task
+							task={t}
+							withAttachments={false}
+							withActions={true}
+						/>
+					</div>
+				))}
+		</div>
+	);
+}
+
 function TaskGroupCard({ isLoading, failed, onRetry, tasks, doneState }) {
 	return (
 		<>
@@ -61,9 +99,7 @@ function TaskGroupCard({ isLoading, failed, onRetry, tasks, doneState }) {
 							<Spinner small text="Loading your tasks..." />
 						)}
 						{!isLoading && !failed && tasks.length === 0 ? (
-							<span className="text-gray-500">
-								Nothing to see here...
-							</span>
+							<span className="text-gray-500">No tasks yet.</span>
 						) : null}
 						{tasks &&
 							!failed &&
@@ -84,7 +120,7 @@ function TaskGroupCard({ isLoading, failed, onRetry, tasks, doneState }) {
 	);
 }
 
-function DayView({ withHeader = true }) {
+function DayView({ withHeader = true, withCards = true }) {
 	const [currentDate, setCurrentDate] = useState(new Date());
 	const { data, isLoading, error, refetch } = useTasks(
 		currentDate,
@@ -100,6 +136,8 @@ function DayView({ withHeader = true }) {
 	};
 
 	const taskGroups = groupTasksByDone(data ? data : []);
+
+	const TaskGroup = withCards ? TaskGroupCard : TaskGroupNoCard;
 
 	return (
 		<div>
@@ -138,21 +176,19 @@ function DayView({ withHeader = true }) {
 					</div>
 				</PageHeader>
 			) : null}
-			<TaskGroupCard
+			<TaskGroup
+				withCards={withCards}
 				isLoading={isLoading}
 				failed={error}
 				onRetry={refetch}
-				tasks={taskGroups[DoneStates.IN_PROGRESS]}
-				doneState={DoneStates.IN_PROGRESS}
-			/>
-			<TaskGroupCard
-				isLoading={isLoading}
-				failed={error}
-				onRetry={refetch}
-				tasks={taskGroups[DoneStates.REMAINING]}
+				tasks={[
+					...taskGroups[DoneStates.IN_PROGRESS],
+					...taskGroups[DoneStates.REMAINING],
+				]}
 				doneState={DoneStates.REMAINING}
 			/>
-			<TaskGroupCard
+			<TaskGroup
+				withCards={withCards}
 				isLoading={isLoading}
 				failed={error}
 				onRetry={refetch}

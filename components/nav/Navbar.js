@@ -298,6 +298,15 @@ function Navbar() {
 									<a className="mr-4 font-medium">Feed</a>
 								</ActiveLink>
 								<ActiveLink
+									route="milestones"
+									inactiveClassName={"text-gray-500"}
+									activeClassName={config.WL_TEXT_COLOR}
+								>
+									<a className="mr-4 font-medium">
+										Milestones
+									</a>
+								</ActiveLink>
+								<ActiveLink
 									route="discussions"
 									inactiveClassName={"text-gray-500"}
 									activeClassName={config.WL_TEXT_COLOR}

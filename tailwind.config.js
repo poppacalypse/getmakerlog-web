@@ -77,6 +77,43 @@ module.exports = {
 						},
 					},
 				},
+				unprose: {
+					css: {
+						h1: {
+							"margin-top": "0",
+							"margin-bottom": "0",
+						},
+						h2: {
+							"margin-top": "0",
+							"margin-bottom": "0",
+						},
+						h3: {
+							"margin-top": "0",
+							"margin-bottom": "0",
+						},
+						h4: {
+							"margin-top": "0",
+							"margin-bottom": "0",
+						},
+						p: {
+							"margin-top": "0 !important",
+							"margin-bottom": "0 !important",
+						},
+						img: {
+							"margin-top": "0 !important",
+							"margin-bottom": "0 !important",
+						},
+						".actions": {
+							"line-height": "0 !important",
+						},
+						".unstyled-a": {
+							color: "inherit !important",
+						},
+						a: {
+							"text-decoration": "none !important",
+						},
+					},
+				},
 				dark: {
 					css: {
 						color: "rgba(255, 255, 255, 0.5)",

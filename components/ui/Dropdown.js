@@ -33,6 +33,7 @@ function Dropdown({
 	origin = "top-right",
 	className = "",
 	hover = false,
+	left = false,
 }) {
 	const [open, setOpen] = useState(false);
 
@@ -69,7 +70,8 @@ function Dropdown({
 					<div
 						ref={ref}
 						className={
-							`origin-${origin} absolute right-0 mt-2 w-56 rounded-md shadow-lg z-20 ` +
+							`origin-${origin} absolute mt-2 w-56 rounded-md shadow-lg z-20 ` +
+							(left ? " left-0 " : " right-0 ") +
 							className
 						}
 					>
