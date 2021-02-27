@@ -35,7 +35,7 @@ function MilestonePage() {
 			<div className="py-12 bg-white">
 				<Container>
 					<div className="flex flex-col md:flex-row">
-						<div className="flex-grow">
+						<div className="sm:max-w-xs sm:w-80">
 							<div className="sticky top-10 md:space-y-8">
 								<div>
 									<p className="hidden heading md:block">
@@ -74,7 +74,7 @@ function MilestonePage() {
 							</div>
 						</div>
 						<div
-							className={`w-full max-w-full mx-0 md:mx-4 md:max-w-4xl mt-8 md:mt-0`}
+							className={`flex-initial w-full max-w-full mx-0 md:mx-4 md:max-w-4xl mt-8 md:mt-0`}
 						>
 							<p className="heading">
 								🏆 Milestone #{milestone.id} ·{" "}
