@@ -99,6 +99,10 @@ export function useAttachmentInput() {
 		}
 	}, []);
 
+	const clearAttachmentState = useCallback(() => {
+		setAttachmentState({ attachment: null, name: null, preview: null });
+	}, []);
+
 	const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
 		onDrop,
 		noClick: true,
@@ -112,5 +116,6 @@ export function useAttachmentInput() {
 		open,
 		isDragActive,
 		attachmentState,
+		clearAttachmentState,
 	};
 }

@@ -1,4 +1,5 @@
 import config from "config";
+import { isServer } from "config";
 import flatten from "lodash/flatten";
 
 export function buildAbsoluteUrl(path) {
@@ -22,4 +23,9 @@ export function onCmdEnter(e, callback) {
 
 export function makeTwitterShareUrl(text) {
 	return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+}
+
+export function isMobileViewport() {
+	if (isServer) return false;
+	return /Mobi|Android/i.test(navigator.userAgent);
 }

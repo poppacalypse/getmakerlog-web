@@ -248,6 +248,7 @@ p.help {
 }
 
 .react-tags__suggestions {
+	z-index: 10;
 	position: absolute;
 	top: 100%;
 	left: 0;

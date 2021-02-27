@@ -30,6 +30,7 @@ function TaskEditor({ onFinish }) {
 		getInputProps,
 		open,
 		isDragActive,
+		clearAttachmentState,
 	} = useAttachmentInput();
 
 	// Hack. Memoize onFinish, else infinite loop.
@@ -40,9 +41,10 @@ function TaskEditor({ onFinish }) {
 		if (isSuccess) {
 			setContent("");
 			setDescription("");
+			clearAttachmentState();
 			if (onFinishMemoized) onFinishMemoized();
 		}
-	}, [isSuccess, onFinishMemoized]);
+	}, [clearAttachmentState, isSuccess, onFinishMemoized]);
 
 	const onCreate = async (e) => {
 		e.preventDefault();
@@ -63,6 +65,8 @@ function TaskEditor({ onFinish }) {
 			setDoneState(DoneStates.DONE);
 		}
 	};
+
+	const isOpen = content.length > 0 || attachmentState.attachment !== null;
 
 	return (
 		<form onSubmit={(e) => onCreate(e)} {...getRootProps()}>
@@ -86,7 +90,15 @@ function TaskEditor({ onFinish }) {
 					type="text"
 					placeholder="Start typing something you've done or made..."
 				/>
-				{content.length > 0 && (
+				{!isOpen && (
+					<div className="flex flex-none">
+						<input {...getInputProps()}></input>
+						<Button sm onClick={open} style={{ height: 38 }}>
+							<FontAwesomeIcon icon="camera" />
+						</Button>
+					</div>
+				)}
+				{isOpen && (
 					<div className="flex-none">
 						<Dropdown
 							items={
@@ -138,7 +150,7 @@ function TaskEditor({ onFinish }) {
 					</div>
 				)}
 			</div>
-			{content.length > 0 && (
+			{isOpen && (
 				<>
 					{isDragActive ? (
 						<div className="flex items-center justify-center h-32 mt-2 bg-gray-100 border border-gray-200 border-dashed rounded-md">
