@@ -17,7 +17,7 @@ function AboutPage() {
 				<Container>
 					<h1>Learn, build, and grow with us.</h1>
 					<p className="text-gray-700">
-						Makerlog is a community of 6,000+ makers building
+						Makerlog is a community of 7,000+ makers building
 						software products publicly, together.
 					</p>
 				</Container>
