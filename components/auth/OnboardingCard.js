@@ -5,8 +5,12 @@ import Form from "components/ui/Form";
 import AvatarUpload from "components/users/AvatarUpload";
 import React, { useState } from "react";
 import { useAuth } from "stores/AuthStore";
+import { useRoot } from "stores/RootStore";
 import { requiresOnboarding } from "utils/auth";
 import { useImageUpload } from "utils/hooks";
+import { getLogger } from "utils/logging";
+
+const log = getLogger("onboarding");
 
 function OnboardingCard() {
 	const {
@@ -16,20 +20,29 @@ function OnboardingCard() {
 		isLoggedIn,
 		user,
 	} = useAuth();
+	const { setOnboarding, isOnboarding } = useRoot();
 	const { getInputProps, open, attachmentState } = useImageUpload();
 	const [payload, setPayload] = useState({
 		first_name: user && user.first_name ? user.first_name : "",
 		last_name: user && user.last_name ? user.last_name : "",
 		email: user && user.email ? user.email : "",
+		timezone: user && user.timezone ? user.timezone : "UTC",
 	});
 
-	if (!isLoggedIn || !requiresOnboarding(user)) return null;
+	if (!isLoggedIn || (!requiresOnboarding(user) && !isOnboarding))
+		return null;
 
-	function onSubmit() {
+	async function onSubmit() {
 		let finalPayload = { ...payload };
 		if (attachmentState.attachment)
 			finalPayload.avatar = attachmentState.attachment;
-		patchUser(finalPayload);
+		if (Intl) {
+			const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+			finalPayload.timezone = timezone;
+			log(`Timezone detected as ${timezone}.`);
+		}
+		await patchUser(finalPayload);
+		setOnboarding(false);
 	}
 
 	return (

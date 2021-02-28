@@ -34,6 +34,7 @@ import ContentLayout from "layouts/ContentLayout";
 import config from "config";
 import Button from "components/ui/Button";
 import { Link } from "routes";
+import { useRoot } from "stores/RootStore";
 
 function HomePage() {
 	const { data: frontpage } = useFrontpage();
@@ -187,6 +188,7 @@ function FeedPage() {
 		POPULAR_TODAY: 5,
 		FOLLOWING: 6,
 	};
+	const { isOnboarding } = useRoot();
 	const [feed, setFeed] = useState(FEEDS.FRONTPAGE);
 	const { user } = useAuth();
 	const { isLoading, data: frontpage } = useFrontpage();
@@ -195,7 +197,7 @@ function FeedPage() {
 		<Container className="py-4">
 			<NarrowLayout
 				leftSidebar={
-					requiresOnboarding(user) ? null : (
+					requiresOnboarding(user) || isOnboarding ? null : (
 						<SidebarNav>
 							<p className="heading">Feeds</p>
 							<SidebarNav.Button
@@ -236,7 +238,7 @@ function FeedPage() {
 					</>
 				}
 			>
-				{requiresOnboarding(user) ? (
+				{requiresOnboarding(user) || isOnboarding ? (
 					<OnboardingCard />
 				) : (
 					<>
