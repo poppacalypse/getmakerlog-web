@@ -16,7 +16,7 @@ import { makeQueryCache } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import { Link, useRouter } from "routes";
 import { getErrorResponse } from "utils/error";
-import { getRelativeDate, getCalendarDate } from "utils/random";
+import { getCalendarDate } from "utils/random";
 import { DoneStates, groupTasksByDone } from "utils/tasks";
 
 function UserTasksDayListView() {
@@ -51,7 +51,7 @@ function UserTasksDayListView() {
 			<PageHeader>
 				<div>
 					<h2 className="font-bold">
-						{getRelativeDate(new Date(date))}
+						{getCalendarDate(new Date(date))}
 					</h2>
 				</div>
 			</PageHeader>
