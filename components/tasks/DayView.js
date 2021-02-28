@@ -130,25 +130,18 @@ function TaskGroupCard({
 						{!isLoading && !failed && tasks.length === 0 ? (
 							<span className="text-gray-500">No tasks yet.</span>
 						) : null}
-						{tasks && !failed && !isLoading && (
-							<>
-								{small
-									? tasks.map((t) => (
-											<div
-												key={t.id}
-												className="mb-2 last:mb-0"
-											>
-												<Task
-													task={t}
-													withAttachments={false}
-													withActions={true}
-												/>
-											</div>
-											// eslint-disable-next-line no-mixed-spaces-and-tabs
-									  ))
-									: null}
-							</>
-						)}
+						{tasks &&
+							!failed &&
+							!isLoading &&
+							tasks.map((t) => (
+								<div key={t.id} className="mb-2 last:mb-0">
+									<Task
+										task={t}
+										withAttachments={false}
+										withActions={true}
+									/>
+								</div>
+							))}
 					</Card.Content>
 				</Card>
 			)}
