@@ -7,23 +7,20 @@ export default function ProductSelector({ value, onChange = () => {} }) {
 
 	if (isLoading) return <Spinner small />;
 
-	return (
-		products &&
-		products.length > 0 && (
-			<select
-				className="flex-none block text-gray-700"
-				value={value}
-				onChange={(e) => {
-					onChange(e.target.value);
-				}}
-			>
-				<option value={null}>Post to...</option>
-				{products.map((product) => (
-					<option key={product.slug} value={product.slug}>
-						{product.name}
-					</option>
-				))}
-			</select>
-		)
-	);
+	return products && products.length > 0 ? (
+		<select
+			className="flex-none block text-gray-700"
+			value={value}
+			onChange={(e) => {
+				onChange(e.target.value);
+			}}
+		>
+			<option value={null}>Post to...</option>
+			{products.map((product) => (
+				<option key={product.slug} value={product.slug}>
+					{product.name}
+				</option>
+			))}
+		</select>
+	) : null;
 }

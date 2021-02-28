@@ -5,7 +5,7 @@ import Button from "components/ui/Button";
 import Form from "components/ui/Form";
 import { useImageUpload, useTagAutocomplete } from "utils/hooks";
 import ProductIconUpload from "../ProductIconUpload";
-import { HexColorPicker } from "react-colorful";
+import { HexColorInput, HexColorPicker } from "react-colorful";
 import ReactTags from "react-tag-autocomplete";
 import { useProjects } from "queries/projects";
 import Spinner from "components/ui/Spinner";
@@ -142,12 +142,22 @@ function ProductCreateForm() {
 					<br />
 					<Form.Field span={6} label="Accent color">
 						{colorPickerOpen && (
-							<HexColorPicker
-								color={payload.accent}
-								onChange={(e) => {
-									onChangeField("accent", e);
-								}}
-							/>
+							<div>
+								<HexColorPicker
+									color={payload.accent}
+									onChange={(e) => {
+										onChangeField("accent", e);
+									}}
+								/>
+								<HexColorInput
+									placeholder="Hex code"
+									className="mt-2"
+									color={payload.accent}
+									onChange={(e) => {
+										onChangeField("accent", e);
+									}}
+								/>
+							</div>
 						)}
 						{!colorPickerOpen && (
 							<Button sm onClick={() => setColorPickerOpen(true)}>

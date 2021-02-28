@@ -1,21 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "components/ui/Button";
 import Container from "components/ui/Container";
-import React, { useEffect, useState } from "react";
-import Confetti from "react-dom-confetti";
+import React from "react";
+import { useRoot } from "stores/RootStore";
 
 function MilestonesPage() {
-	const [confetti, setConfetti] = useState(false);
-	const config = {
-		angle: 90,
-		spread: 180,
-		startVelocity: 30,
-	};
-
-	useEffect(() => {
-		if (confetti) setTimeout(() => setConfetti(false), 200);
-	}, [confetti]);
-
+	const { toggleEditor } = useRoot();
 	return (
 		<div className="flex flex-col">
 			<div className="flex-none py-8 bg-white">
@@ -36,12 +26,11 @@ function MilestonesPage() {
 								<Button
 									secondary
 									onClick={() => {
-										setConfetti(true);
+										toggleEditor(1);
 									}}
 								>
 									Post a milestone
 								</Button>
-								<Confetti active={confetti} config={config} />
 							</div>
 						</div>
 						<div
