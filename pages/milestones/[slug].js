@@ -17,6 +17,9 @@ import { Router, useRouter } from "routes";
 import { getErrorResponse } from "utils/error";
 import TimeAgo from "react-timeago";
 import MilestoneActions from "components/milestones/MilestoneActions";
+import { NextSeo } from "next-seo";
+import truncate from "lodash/truncate";
+import config from "config";
 
 function MilestonePage() {
 	const {
@@ -96,6 +99,21 @@ function MilestonePage() {
 								}}
 							/>
 						</div>
+
+						<NextSeo
+							title={milestone.title}
+							description={truncate(milestone.body, 60, "...")}
+							canonical={`${config.BASE_URL}/milestones/${milestone.slug}/`}
+							openGraph={{
+								images: [
+									{
+										url: milestone.og_image
+											? milestone.og_image
+											: null,
+									},
+								],
+							}}
+						/>
 					</div>
 				</Container>
 			</div>
