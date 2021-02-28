@@ -248,7 +248,7 @@ function FeedPage() {
 						{feed === FEEDS.FRONTPAGE && (
 							<>
 								<div className="mb-4">
-									<DayView withHeader={false} />
+									<DayView small withHeader={false} />
 								</div>
 
 								{isLoading && (

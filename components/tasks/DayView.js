@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { differenceInCalendarDays, format, subDays, addDays } from "date-fns";
+import { differenceInCalendarDays, subDays, addDays } from "date-fns";
 import Button from "components/ui/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "components/ui/Card";
@@ -11,26 +11,37 @@ import {
 	DoneStates,
 	getHumanStateFromDoneState,
 	getTwitterShareUrl,
+	getDateListShareUrl,
 } from "utils/tasks";
 import ErrorCard from "components/ui/ErrorCard";
 import PageHeader from "components/ui/PageHeader";
 import OutboundLink from "components/seo/OutboundLink";
+import { getRelativeDate } from "utils/random";
+import copy from "clipboard-copy";
+import { isServer } from "config";
 
-function getRelativeDate(date) {
-	const calendarDate = format(date, "MMMM d, yyyy");
-	const diff = differenceInCalendarDays(new Date(), date);
-	const dayOfWeek = format(date, "EEEE");
+function DateListPermalinkAction({ task }) {
+	const [copied, setCopied] = useState(false);
+	const listUrl = getDateListShareUrl(task);
 
-	if (diff === 0) return "Today";
-	if (diff === 1) return "Yesterday";
-	if (diff >= 2 && diff <= 6) return `${dayOfWeek}`;
-	if (diff > 6 && diff <= 12) return `Last ${dayOfWeek}`;
-
-	return calendarDate;
+	return (
+		<a
+			className="cursor-pointer"
+			onClick={() => {
+				if (isServer) return;
+				copy(listUrl);
+				setCopied(true);
+				setInterval(() => setCopied(false), 1000);
+			}}
+		>
+			<FontAwesomeIcon icon="link" /> {copied ? "Copied!" : "Permalink"}
+		</a>
+	);
 }
 
 function TaskGroupNoCard({ isLoading, failed, tasks, doneState }) {
 	if (isLoading || failed || (tasks && tasks.length === 0)) return null;
+	const firstTask = tasks[0];
 
 	return (
 		<div className="mb-4 last:mb-0">
@@ -42,6 +53,9 @@ function TaskGroupNoCard({ isLoading, failed, tasks, doneState }) {
 				{doneState === DoneStates.DONE && (
 					<>
 						<div className="flex-grow"></div>
+						{firstTask && (
+							<DateListPermalinkAction task={firstTask} />
+						)}
 						<OutboundLink
 							to={getTwitterShareUrl(tasks)}
 							className="text-xs"
@@ -67,7 +81,16 @@ function TaskGroupNoCard({ isLoading, failed, tasks, doneState }) {
 	);
 }
 
-function TaskGroupCard({ isLoading, failed, onRetry, tasks, doneState }) {
+function TaskGroupCard({
+	isLoading,
+	failed,
+	onRetry,
+	tasks,
+	doneState,
+	small = false,
+}) {
+	const firstTask = tasks[0];
+
 	return (
 		<>
 			<div className="flex w-full mb-2 text-sm font-medium text-gray-700 leading-4">
@@ -78,12 +101,18 @@ function TaskGroupCard({ isLoading, failed, onRetry, tasks, doneState }) {
 				{doneState === DoneStates.DONE && (
 					<>
 						<div className="flex-grow"></div>
-						<OutboundLink
-							to={getTwitterShareUrl(tasks)}
-							className="text-xs"
-						>
-							<FontAwesomeIcon icon={["fab", "twitter"]} /> Tweet!
-						</OutboundLink>
+						<div className="text-xs space-x-2">
+							{firstTask && (
+								<DateListPermalinkAction task={firstTask} />
+							)}
+							<OutboundLink
+								to={getTwitterShareUrl(tasks)}
+								className="text-xs"
+							>
+								<FontAwesomeIcon icon={["fab", "twitter"]} />{" "}
+								Tweet
+							</OutboundLink>
+						</div>
 					</>
 				)}
 			</div>
@@ -101,18 +130,25 @@ function TaskGroupCard({ isLoading, failed, onRetry, tasks, doneState }) {
 						{!isLoading && !failed && tasks.length === 0 ? (
 							<span className="text-gray-500">No tasks yet.</span>
 						) : null}
-						{tasks &&
-							!failed &&
-							!isLoading &&
-							tasks.map((t) => (
-								<div key={t.id} className="mb-2 last:mb-0">
-									<Task
-										task={t}
-										withAttachments={false}
-										withActions={true}
-									/>
-								</div>
-							))}
+						{tasks && !failed && !isLoading && (
+							<>
+								{small
+									? tasks.map((t) => (
+											<div
+												key={t.id}
+												className="mb-2 last:mb-0"
+											>
+												<Task
+													task={t}
+													withAttachments={false}
+													withActions={true}
+												/>
+											</div>
+											// eslint-disable-next-line no-mixed-spaces-and-tabs
+									  ))
+									: null}
+							</>
+						)}
 					</Card.Content>
 				</Card>
 			)}
@@ -120,7 +156,7 @@ function TaskGroupCard({ isLoading, failed, onRetry, tasks, doneState }) {
 	);
 }
 
-function DayView({ withHeader = true, withCards = true }) {
+function DayView({ withHeader = true, withCards = true, small = false }) {
 	const [currentDate, setCurrentDate] = useState(new Date());
 	const { data, isLoading, error, refetch } = useTasks(
 		currentDate,
@@ -194,6 +230,7 @@ function DayView({ withHeader = true, withCards = true }) {
 				onRetry={refetch}
 				tasks={taskGroups[DoneStates.DONE]}
 				doneState={DoneStates.DONE}
+				small={small}
 			/>
 		</div>
 	);

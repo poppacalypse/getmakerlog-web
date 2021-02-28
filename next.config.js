@@ -13,6 +13,10 @@ const config = {
 				destination: "/users/:username/milestones",
 			},
 			{
+				source: "/@:username/lists/:year/:month/:day",
+				destination: "/users/:username/lists/:year/:month/:day",
+			},
+			{
 				source: "/service-worker.js",
 				destination: "/_next/static/service-worker.js",
 			},

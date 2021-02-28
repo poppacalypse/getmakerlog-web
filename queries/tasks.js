@@ -8,6 +8,7 @@ const log = getLogger("tasks");
 export const TASK_QUERIES = {
 	getTask: "tasks.getTask",
 	getTasks: "tasks.getTasks",
+	getTasksUserDay: "tasks.getTasksUserDay",
 };
 
 export async function getTask(key, { id }) {
@@ -71,6 +72,14 @@ export async function updateTask({ id, payload }) {
 		headers,
 	});
 	return response.data;
+}
+
+export async function getTasksUserDay(key, { username, date }) {
+	const { data } = await axiosWrapper(
+		axios.get,
+		`/users/${username}/tasks_for_day/?day=${date}`
+	);
+	return data;
 }
 
 function getQueryForDate(startDate, endDate) {
@@ -233,4 +242,11 @@ export function useDeleteTask(task, startDate = null, endDate = null) {
 			});
 		},
 	});
+}
+
+export function useUserDayTasksTz(username, date) {
+	return useQuery(
+		[TASK_QUERIES.getTasksUserDay, { username, date }],
+		getTasksUserDay
+	);
 }

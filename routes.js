@@ -35,6 +35,13 @@ const routerHelper = routes()
 			query,
 		};
 	})
+	.add("profile-tasks-day", ({ username, year, month, day, ...query }) => {
+		return {
+			href: "/users/[username]/lists/[year]/[month]/[day]",
+			as: `/@${username}/lists/${year}/${month}/${day}`,
+			query,
+		};
+	})
 	.add("settings", "/settings")
 	.add("logout", "/logout")
 	.add("tasks", "/tasks")

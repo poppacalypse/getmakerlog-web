@@ -57,7 +57,7 @@ function ProductCreateForm() {
 			);
 			// Set up categories array
 			let productTags = tags.map((t) => t.name);
-			finalPayload = { ...payload, projects, tags: productTags };
+			finalPayload = { ...finalPayload, projects, tags: productTags };
 			const product = await mutate({ payload: finalPayload });
 			if (product) Router.pushRoute("product", { slug: product.slug });
 		} catch (e) {

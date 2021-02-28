@@ -2,6 +2,7 @@ import orderBy from "lodash/orderBy";
 import groupBy from "lodash/groupBy";
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import { buildAbsoluteUrl } from "./random";
 
 export const DoneStates = {
 	DONE: 0,
@@ -53,6 +54,17 @@ export function groupTasksByDone(tasks) {
 	return { ...resultObj, ...newObj };
 }
 
+export function getDateListShareUrl(task) {
+	if (!task) return null;
+	const date = new Date(task.done_at || task.created_at);
+	const day = date.getUTCDate().toString().padStart(2, "0");
+	const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
+	const year = date.getFullYear();
+	return buildAbsoluteUrl(
+		`/@${task.user.username}/lists/${year}/${month}/${day}/`
+	);
+}
+
 export function getTwitterShareUrl(tasks, me = null) {
 	// We assume it has been serialized and validated.
 	if (tasks.length === 0) return null;
@@ -66,6 +78,7 @@ export function getTwitterShareUrl(tasks, me = null) {
 		text = text + `\n✅ ${task.content}`;
 		return true;
 	});
+	text += text + `\n\n${getDateListShareUrl(tasks[0])}`;
 	return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
 }
 

@@ -1,6 +1,7 @@
 import config from "config";
 import { isServer } from "config";
 import flatten from "lodash/flatten";
+import { differenceInCalendarDays, format } from "date-fns";
 
 export function buildAbsoluteUrl(path) {
 	return `${config.BASE_URL}${path}`;
@@ -28,4 +29,21 @@ export function makeTwitterShareUrl(text) {
 export function isMobileViewport() {
 	if (isServer) return false;
 	return /Mobi|Android/i.test(navigator.userAgent);
+}
+
+export function getCalendarDate(date) {
+	return format(date, "MMMM d, yyyy");
+}
+
+export function getRelativeDate(date) {
+	const calendarDate = getCalendarDate(date);
+	const diff = differenceInCalendarDays(new Date(), date);
+	const dayOfWeek = format(date, "EEEE");
+
+	if (diff === 0) return "Today";
+	if (diff === 1) return "Yesterday";
+	if (diff >= 2 && diff <= 6) return `${dayOfWeek}`;
+	if (diff > 6 && diff <= 12) return `Last ${dayOfWeek}`;
+
+	return calendarDate;
 }
