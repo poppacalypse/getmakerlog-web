@@ -218,8 +218,8 @@ function ProductCreateForm() {
 						/>
 					)}
 					<p className="help">
-						Tag your posts with #hashtags to add them to your
-						product.
+						Create a unique hashtag to link to this product when you
+						post tasks.
 					</p>
 				</Form.Field>
 				<ProductTeamSelector onChange={onChangeTeam} />
