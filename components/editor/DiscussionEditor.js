@@ -8,6 +8,7 @@ import MarkdownEnabled from "components/ui/MarkdownEnabled";
 import { useCreateThread } from "queries/discussions";
 import ErrorMessageList from "components/error/ErrorMessageList";
 import { useCallback } from "react";
+import { Router } from "routes";
 
 function DiscussionEditor({ onFinish }) {
 	const { user } = useAuth();
@@ -16,7 +17,8 @@ function DiscussionEditor({ onFinish }) {
 	const [mutate, { isLoading, error, isSuccess }] = useCreateThread();
 
 	const onCreate = async () => {
-		await mutate({ title, body });
+		const discussion = await mutate({ title, body });
+		Router.pushRoute("discussions-thread", { slug: discussion.slug });
 	};
 
 	// Hack. Memoize onFinish, else infinite loop.
