@@ -4,6 +4,7 @@ import truncate from "lodash/truncate";
 import { Link } from "routes";
 
 function ProductMedia({ product }) {
+	if (!product) return null;
 	return (
 		<div className="flex items-center justify-between break-words space-x-3">
 			<Link route="product" params={{ slug: product.slug }}>

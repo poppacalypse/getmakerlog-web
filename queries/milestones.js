@@ -1,6 +1,8 @@
 import { default as axios, axiosWrapper } from "utils/axios";
 import { useQuery, useMutation, useQueryCache } from "react-query";
 import { getLogger } from "utils/logging";
+import omit from "lodash/omit";
+
 const log = getLogger("discussions");
 
 export const MILESTONE_QUERIES = {
@@ -70,7 +72,10 @@ export function useUpdateMilestone(milestone) {
 			const previousMilestone = queryCache.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) => ({ ...old, ...payload }));
+			queryCache.setQueryData(query, (old) => {
+				// otherwise product gets set to slug
+				return { ...old, ...omit(payload, "product") };
+			});
 
 			// Return the snapshotted value
 			return () => queryCache.setQueryData(query, previousMilestone);
