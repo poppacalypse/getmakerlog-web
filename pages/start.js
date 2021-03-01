@@ -60,7 +60,7 @@ function SignupPage() {
 						{config.IS_WL ? (
 							"our community of creators"
 						) : (
-							<span>over 6,000 creators</span>
+							<span>over 7,000 creators</span>
 						)}{" "}
 						building in public and staying productive — together.
 					</p>

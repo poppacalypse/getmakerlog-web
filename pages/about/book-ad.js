@@ -10,7 +10,7 @@ function BookAdPage() {
 				<Container>
 					<h1>Book an advertisement</h1>
 					<p className="mb-2 text-gray-700">
-						Bring your brand to a targeted audience of over 6,000+
+						Bring your brand to a targeted audience of over 7,000+
 						dedicated makers, developers, and indie hackers.
 					</p>
 					<div className="mt-8">

@@ -2,10 +2,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "components/ui/Button";
 import Container from "components/ui/Container";
 import React from "react";
+import { useAuth } from "stores/AuthStore";
 import { useRoot } from "stores/RootStore";
+import { Router } from "routes";
 
 function MilestonesPage() {
 	const { toggleEditor } = useRoot();
+	const { isLoggedIn } = useAuth();
 	return (
 		<div className="flex flex-col">
 			<div className="flex-none py-8 bg-white">
@@ -26,6 +29,8 @@ function MilestonesPage() {
 								<Button
 									secondary
 									onClick={() => {
+										if (!isLoggedIn)
+											Router.pushRoute("register");
 										toggleEditor(1);
 									}}
 								>
