@@ -8,7 +8,7 @@ const log = getLogger("root");
 
 class RootStore extends BaseStore {
 	@observable ready = false;
-	@observable isOnboarding = true;
+	@observable isOnboarding = false;
 	@observable editorOpen = false;
 	@observable editorDefaultTab = 0;
 	@observable searchOpen = false;
