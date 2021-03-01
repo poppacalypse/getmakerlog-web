@@ -110,7 +110,7 @@ function MilestonePage() {
 				openGraph={{
 					images: [
 						{
-							url: milestone.og_image ? milestone.og_image : null,
+							url: milestone.og_image,
 						},
 					],
 				}}
