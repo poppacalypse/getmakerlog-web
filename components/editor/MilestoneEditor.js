@@ -10,6 +10,7 @@ import { useCallback } from "react";
 import TextareaAutosize from "react-autosize-textarea";
 import { useCreateMilestone } from "queries/milestones";
 import ProductSelector from "components/products/ProductSelector";
+import { Router } from "routes";
 
 function MilestoneEditor({ onFinish }) {
 	const { user } = useAuth();
@@ -19,7 +20,8 @@ function MilestoneEditor({ onFinish }) {
 	const [mutate, { isLoading, error, isSuccess }] = useCreateMilestone();
 
 	const onCreate = async () => {
-		await mutate({ title, body, product });
+		const milestone = await mutate({ title, body, product });
+		Router.pushRoute("milestone", { slug: milestone.slug });
 	};
 
 	// Hack. Memoize onFinish, else infinite loop.
