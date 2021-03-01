@@ -99,24 +99,22 @@ function MilestonePage() {
 								}}
 							/>
 						</div>
-
-						<NextSeo
-							title={milestone.title}
-							description={truncate(milestone.body, 60, "...")}
-							canonical={`${config.BASE_URL}/milestones/${milestone.slug}/`}
-							openGraph={{
-								images: [
-									{
-										url: milestone.og_image
-											? milestone.og_image
-											: null,
-									},
-								],
-							}}
-						/>
 					</div>
 				</Container>
 			</div>
+
+			<NextSeo
+				title={milestone.title}
+				description={truncate(milestone.body, 60, "...")}
+				canonical={`${config.BASE_URL}/milestones/${milestone.slug}/`}
+				openGraph={{
+					images: [
+						{
+							url: milestone.og_image ? milestone.og_image : null,
+						},
+					],
+				}}
+			/>
 		</div>
 	);
 }
