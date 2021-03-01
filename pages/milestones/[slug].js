@@ -137,6 +137,7 @@ MilestonePage.getInitialProps = async ({ res, query: { slug } }) => {
 			layout: {
 				contained: false,
 				bgClassName: "bg-white",
+				allowGuest: true,
 			},
 		};
 	} catch (e) {
