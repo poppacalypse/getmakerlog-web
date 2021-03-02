@@ -14,6 +14,7 @@ import Dropdown from "components/ui/Dropdown";
 import { replySchema } from "schemas/discussions";
 import ModStatus from "./ModStatus";
 import DiscussionsTextRenderer from "./DiscussionsTextRenderer";
+import TimeAgo from "react-timeago";
 
 function Reply({
 	reply,
@@ -74,14 +75,14 @@ function Reply({
 							) : null}
 						</div>
 						<div className="mt-4">
-							<div className="flex flex-row items-center">
-								<div className="mr-2">
+							<div className="flex flex-row items-center space-x-2">
+								<div>
 									<PraiseButton
 										initialCount={reply.praise}
 										indexUrl={`/discussions/${reply.parent}/replies/${reply.id}`}
 									/>
 								</div>
-								<div className="mr-2">
+								<div>
 									<Button
 										xs
 										onClick={() => {
@@ -132,6 +133,12 @@ function Reply({
 										</Button>
 									</Dropdown>
 								) : null}
+								<div>
+									<div className="text-xs text-gray-400">
+										Posted{" "}
+										<TimeAgo date={reply.created_at} />
+									</div>
+								</div>
 							</div>
 						</div>
 					</>

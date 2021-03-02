@@ -12,6 +12,7 @@ import { useDeleteThread } from "queries/discussions";
 import { isServer } from "config";
 import ModStatus from "./ModStatus";
 import DiscussionsTextRenderer from "./DiscussionsTextRenderer";
+import TimeAgo from "react-timeago";
 
 function Thread({
 	thread,
@@ -39,6 +40,11 @@ function Thread({
 				</div>
 				{full ? (
 					<div>
+						{full && (
+							<div className="text-xs text-gray-400">
+								Posted <TimeAgo date={thread.created_at} />
+							</div>
+						)}
 						<h3 className="mb-2 font-semibold text-gray-900">
 							{thread.pinned && (
 								<FontAwesomeIcon size="xs" icon="thumbtack" />
