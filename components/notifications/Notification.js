@@ -157,7 +157,7 @@ function getNotificationContent(notification) {
 }
 
 function Notification({ notification }) {
-	if (!notification) return null;
+	if (!notification || !notification.actor) return null;
 
 	const content = getNotificationContent(notification);
 	if (!content) return null;
