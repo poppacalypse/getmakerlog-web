@@ -135,7 +135,6 @@ function Reply({
 								) : null}
 								<div>
 									<div className="text-xs text-gray-400">
-										Posted{" "}
 										<TimeAgo date={reply.created_at} />
 									</div>
 								</div>
