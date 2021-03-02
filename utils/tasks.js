@@ -78,7 +78,7 @@ export function getTwitterShareUrl(tasks, me = null) {
 		text = text + `\n✅ ${task.content}`;
 		return true;
 	});
-	text += text + `\n\n${getDateListShareUrl(tasks[0])}`;
+	text += `\n\n${getDateListShareUrl(tasks[0])}`;
 	return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
 }
 
