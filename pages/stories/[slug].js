@@ -1,5 +1,5 @@
 import NarrowLayout from "layouts/NarrowLayout";
-import React from "react";
+import React, { useRef } from "react";
 import Container from "components/ui/Container";
 import {
 	getPost,
@@ -28,6 +28,8 @@ import { NextSeo } from "next-seo";
 import config from "config";
 import { getErrorResponse } from "utils/error";
 import ThreadReplies from "components/discussions/ThreadReplies";
+import { ThreadReplyCreateForm } from "components/discussions/ThreadReplyForm";
+import Card from "components/ui/Card";
 
 function StoriesPostPage() {
 	const {
@@ -42,6 +44,7 @@ function StoriesPostPage() {
 		isLoading: isLoadingMetadata,
 		data: storyMetadata,
 	} = useStoryMetadata(slug);
+	const repliesEnd = useRef(null);
 
 	if (isLoading) return <Spinner text="Loading stories..." />;
 
@@ -142,10 +145,30 @@ function StoriesPostPage() {
 					<h2 className="mb-4 font-bold">Discuss on Makerlog</h2>
 					{storyMetadata && storyMetadata.threads.length !== 0 && (
 						<div className="mt-4">
+							<Card>
+								<Card.Content>
+									<ThreadReplyCreateForm
+										threadSlug={
+											storyMetadata.threads[0].slug
+										}
+										onFinish={() => {
+											if (repliesEnd) {
+												repliesEnd.current.scrollIntoView(
+													{
+														behavior: "smooth",
+													}
+												);
+											}
+										}}
+									/>
+								</Card.Content>
+							</Card>
 							<h4 className="mb-2 font-semibold text-gray-700">
 								{storyMetadata.threads[0].reply_count} replies
 							</h4>
 							<ThreadReplies thread={storyMetadata.threads[0]} />
+
+							<div ref={repliesEnd}></div>
 						</div>
 					)}
 					{storyMetadata && storyMetadata.threads.length === 0 && (

@@ -36,7 +36,11 @@ function getActionsForError(code) {
 			);
 
 		case 403:
-			return <Button primary>Sign in</Button>;
+			return (
+				<Link route="login">
+					<Button primary>Sign in</Button>
+				</Link>
+			);
 
 		case 500:
 			return <Button>Report error</Button>;
