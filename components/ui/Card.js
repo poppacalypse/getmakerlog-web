@@ -16,16 +16,15 @@ function Card({
 			className={
 				"Card bg-white dark:bg-dark-100 rounded-md " +
 				(className ?? "") +
-				(image ? " flex flex-row " : "") +
+				(image ? " flex flex-col " : "") +
 				(mb ? " mb-4 last:mb-0 " : "") +
 				(floating ? " shadow " : " shadow-xs ")
 			}
 		>
 			{image && (
 				<div
-					className="relative overflow-hidden border-r border-gray-200"
+					className="relative h-64 overflow-hidden border-r border-gray-200 rounded-t-md"
 					style={{
-						flex: 1 / 3,
 						backgroundImage: `url(${image})`,
 						backgroundPosition: "center",
 						backgroundSize: "cover",
