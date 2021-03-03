@@ -19,6 +19,7 @@ import ProductMedia from "components/products/ProductMedia";
 import MilestoneMedia from "components/milestones/MilestoneMedia";
 import MilestoneActions from "components/milestones/MilestoneActions";
 import { Lightbox } from "react-modal-image";
+import { imageUrl } from "vendor/imagekit";
 
 const log = getLogger("activity");
 
@@ -275,13 +276,13 @@ const ActivityAttachment = ({ activity }) => {
 					<img
 						onClick={() => setImageOpen(true)}
 						className="object-cover cursor-pointer hover:ring-2 ring-green-500 rounded-md"
-						src={attachment}
+						src={imageUrl(attachment)}
 						alt={"Attachment to task."}
 					/>
 					{imageOpen && (
 						<Lightbox
-							medium={attachment}
-							large={attachment}
+							medium={imageUrl(attachment, null, true)}
+							large={imageUrl(attachment, null, true)}
 							alt={task.content}
 							onClose={() => setImageOpen(false)}
 						/>
