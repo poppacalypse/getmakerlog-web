@@ -93,11 +93,23 @@ export function useAttachmentInput() {
 		attachment: null,
 		name: null,
 		preview: null,
+		error: null,
 	});
 
-	const onDrop = useCallback((acceptedFiles) => {
+	const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
 		const reader = new FileReader();
 		const attachment = acceptedFiles[0];
+
+		if (rejectedFiles.length > 0) {
+			setAttachmentState({
+				attachment: null,
+				name: null,
+				preview: null,
+				error:
+					"File too large, max 100MB. If it's a video, try uploading to YouTube instead.",
+			});
+			return;
+		}
 
 		reader.onloadend = () => {
 			setAttachmentState({
@@ -120,7 +132,8 @@ export function useAttachmentInput() {
 		onDrop,
 		noClick: true,
 		noKeyboard: true,
-		accept: "image/jpeg, image/png, image/gif",
+		accept: "image/jpeg, image/png, image/gif, video/mp4",
+		maxSize: 100000000,
 	});
 
 	return {

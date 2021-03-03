@@ -22,7 +22,12 @@ export async function createTask(payload) {
 		"Content-Type": "multipart/form-data",
 	};
 	for (const [key, value] of Object.entries(payload)) {
-		data.append(key, value);
+		// THIS IS TERRIBLE
+		if (payload.video && key === "attachment") {
+			data.append(key, value, "preview.png");
+		} else {
+			data.append(key, value);
+		}
 	}
 	const response = await axiosWrapper(axios.post, "/tasks/", data, {
 		headers,

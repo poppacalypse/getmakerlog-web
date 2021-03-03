@@ -294,10 +294,23 @@ export class Activity {
 		return this.getObject().type;
 	};
 
-	getObjectAttachment = () => {
+	getObjectAttachments = () => {
 		const object = this.getObject();
 		if (object && this.getObjectType() === "task") {
-			return object.object.attachment;
+			let attachments = [];
+			if (object.object.attachment) {
+				attachments = [
+					...attachments,
+					{ type: "image", url: object.object.attachment },
+				];
+			}
+			if (object.object.video) {
+				attachments = [
+					...attachments,
+					{ type: "video", url: object.object.video },
+				];
+			}
+			return attachments;
 		}
 		return null;
 	};

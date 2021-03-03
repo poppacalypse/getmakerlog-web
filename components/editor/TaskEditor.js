@@ -16,6 +16,25 @@ import ErrorMessageList from "components/error/ErrorMessageList";
 import { useEffect } from "react";
 import { onCmdEnter } from "utils/random";
 import { useCallback } from "react";
+import VideoThumbnail from "react-video-thumbnail";
+import Message from "components/ui/Message";
+import Spinner from "components/ui/Spinner";
+
+function dataURLtoBlob(dataurl) {
+	var arr = dataurl.split(","),
+		bstr = atob(arr[1]),
+		n = bstr.length,
+		u8arr = new Uint8Array(n);
+	while (n--) {
+		u8arr[n] = bstr.charCodeAt(n);
+	}
+	return new Blob([u8arr], { type: "image/png" });
+}
+
+function getExtension(filename) {
+	var parts = filename.split(".");
+	return parts[parts.length - 1];
+}
 
 function TaskEditor({ onFinish }) {
 	const { user } = useAuth();
@@ -23,6 +42,8 @@ function TaskEditor({ onFinish }) {
 	const [description, setDescription] = useState("");
 	const [doneState, setDoneState] = useState(DoneStates.DONE);
 	const [mutate, { isSuccess, isLoading, error }] = useCreateTask();
+	const [loadingVThumb, setLoadingVThumb] = useState(false);
+	const [vThumb, setVThumb] = useState(null);
 
 	const {
 		attachmentState,
@@ -42,18 +63,43 @@ function TaskEditor({ onFinish }) {
 			setContent("");
 			setDescription("");
 			clearAttachmentState();
+			setVThumb(null);
+			setLoadingVThumb(false);
 			if (onFinishMemoized) onFinishMemoized();
 		}
 	}, [clearAttachmentState, isSuccess, onFinishMemoized]);
+
+	useEffect(() => {
+		if (
+			attachmentState.attachment &&
+			getExtension(attachmentState.name) === "mp4"
+		) {
+			setLoadingVThumb(true);
+		} else {
+			setVThumb(null);
+			setLoadingVThumb(false);
+		}
+	}, [setLoadingVThumb, attachmentState]);
 
 	const onCreate = async (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 		let payload = { content, ...getDeltaFromDoneState(doneState) };
 		if (description.length > 0) payload["description"] = description;
-		if (attachmentState.attachment)
+		if (attachmentState.attachment) {
 			payload["attachment"] = attachmentState.attachment;
+			if (getExtension(attachmentState.name) === "mp4" && vThumb) {
+				payload["attachment"] = vThumb;
+				payload["video"] = attachmentState.attachment;
+			}
+		}
 		await mutate(payload);
+	};
+
+	const onVThumbGenerated = async (t) => {
+		const blob = dataURLtoBlob(t);
+		setVThumb(blob);
+		setLoadingVThumb(false);
 	};
 
 	const cycleDoneState = () => {
@@ -168,13 +214,16 @@ function TaskEditor({ onFinish }) {
 							placeholder="Write a description or drop images here..."
 						/>
 					)}
-					{error && (
+					{(error || attachmentState.error) && (
 						<div className="mt-2">
 							<ErrorMessageList error={error} />
+							{attachmentState.error && (
+								<Message error>{attachmentState.error}</Message>
+							)}
 						</div>
 					)}
 					<div className="flex flex-row w-full mt-4">
-						<div className="flex-none">
+						<div className="flex-none space-x-2">
 							<input {...getInputProps()}></input>
 							<Button sm onClick={open}>
 								<Button.Icon>
@@ -182,21 +231,61 @@ function TaskEditor({ onFinish }) {
 								</Button.Icon>
 								{attachmentState.name
 									? attachmentState.name
-									: "Add image"}
+									: "Upload"}
 							</Button>
+							{attachmentState && attachmentState.attachment && (
+								<span
+									className="cursor-pointer"
+									onClick={() => clearAttachmentState()}
+								>
+									<FontAwesomeIcon icon="trash" size="xs" />
+								</span>
+							)}
 						</div>
 						<div className="flex-grow"></div>
 						<div className="flex-none">
 							<Button
 								primary
 								sm
+								disabled={loadingVThumb}
 								loading={isLoading}
 								onClick={onCreate}
 							>
-								Post
+								{loadingVThumb ? "Processing video..." : "Post"}
 							</Button>
 						</div>
 					</div>
+
+					{attachmentState.attachment &&
+						getExtension(attachmentState.name) === "mp4" && (
+							<div
+								className={
+									"video-thumb-preview " +
+									(loadingVThumb && "h-12 overflow-hidden")
+								}
+							>
+								{loadingVThumb ? (
+									<Spinner small text="Processing video..." />
+								) : (
+									<div className="mb-2 heading">
+										Video preview
+									</div>
+								)}
+								{vThumb && (
+									<video controls autoPlay muted>
+										<source
+											src={attachmentState.preview}
+											type="video/mp4"
+										/>
+									</video>
+								)}
+								<VideoThumbnail
+									renderThumbnail={false}
+									videoUrl={attachmentState.preview}
+									thumbnailHandler={onVThumbGenerated}
+								/>
+							</div>
+						)}
 				</>
 			)}
 		</form>

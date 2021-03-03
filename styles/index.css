@@ -528,3 +528,7 @@ table.table-auto td {
 	);
 	background-size: 56.57px 56.57px;
 }
+
+.video-thumb-preview {
+	@apply mt-4 pt-4 border-t;
+}
