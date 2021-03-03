@@ -5,6 +5,7 @@ import TaskIcon, { getColorForTask } from "./TaskIcon";
 import TaskActions from "./TaskActions";
 
 import TaskTextRenderer from "./TaskTextRenderer";
+import TaskAttachments from "./TaskAttachments";
 
 const log = getLogger("Task");
 
@@ -34,19 +35,7 @@ function Task({
 	};
 
 	const renderAttachments = () => {
-		if (task.attachment) {
-			return (
-				<div className="inline-block max-w-full mt-2 bg-gray-100 bg-center border border-l-0 border-r-0 border-gray-200 attachment rounded-md">
-					<img
-						className="block h-64 max-w-full rounded-md"
-						src={task.attachment}
-						alt={task.content}
-					/>
-				</div>
-			);
-		} else {
-			return null;
-		}
+		return <TaskAttachments task={task} />;
 	};
 
 	return (

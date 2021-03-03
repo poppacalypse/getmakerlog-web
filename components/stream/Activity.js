@@ -20,6 +20,7 @@ import MilestoneMedia from "components/milestones/MilestoneMedia";
 import MilestoneActions from "components/milestones/MilestoneActions";
 import { Lightbox } from "react-modal-image";
 import { imageUrl } from "vendor/imagekit";
+import TaskAttachments from "components/tasks/TaskAttachments";
 
 const log = getLogger("activity");
 
@@ -265,68 +266,12 @@ const ActivityControls = ({ activity, embed = false }) => {
 };
 
 const ActivityAttachment = ({ activity }) => {
-	const [imageOpen, setImageOpen] = useState(false);
 	const attachment = activity.getObjectAttachments();
 	if (!attachment) return null;
 	if (activity.getObjectType() === "task") {
-		const task = activity.getObject().object;
-		if (
-			attachment.filter((a) => a.type === "video").length === 1 &&
-			attachment.filter((a) => a.type === "image").length === 1
-		) {
-			return (
-				<div className="p-4 mb-4 bg-center border border-l-0 border-r-0 border-gray-200 bg-gray-50 space-x-4 attachment">
-					{attachment
-						.filter((a) => a.type === "video")
-						.map(({ url }) => (
-							<div key={url}>
-								<video
-									controls
-									playsInline
-									preload={"none"}
-									poster={imageUrl(
-										attachment.filter(
-											(a) => a.type === "image"
-										)[0].url
-									)}
-								>
-									<source
-										src={
-											imageUrl(url, null, true) + "#t=0.5"
-										}
-										type="video/mp4"
-									/>
-									Sorry, your browser doesn't support embedded
-									videos.
-								</video>
-							</div>
-						))}
-				</div>
-			);
-		}
-
 		return (
-			<div className="p-4 mb-4 bg-center border border-l-0 border-r-0 border-gray-200 bg-gray-50 space-x-4 attachment">
-				{attachment
-					.filter((a) => a.type === "image")
-					.map(({ url }) => (
-						<div className="flex h-32" key={url}>
-							<img
-								onClick={() => setImageOpen(true)}
-								className="object-cover cursor-pointer hover:ring-2 ring-green-500 rounded-md"
-								src={imageUrl(url)}
-								alt={"Attachment to task."}
-							/>
-							{imageOpen && (
-								<Lightbox
-									medium={imageUrl(url, null, true)}
-									large={imageUrl(url, null, true)}
-									alt={task.content}
-									onClose={() => setImageOpen(false)}
-								/>
-							)}
-						</div>
-					))}
+			<div className="p-4 mb-4 bg-center border border-l-0 border-r-0 border-gray-200 bg-gray-50">
+				<TaskAttachments task={activity.getObject().object} />
 			</div>
 		);
 	}
