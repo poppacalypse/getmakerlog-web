@@ -282,6 +282,7 @@ const ActivityAttachment = ({ activity }) => {
 							<div key={url}>
 								<video
 									controls
+									playsInline
 									preload={"none"}
 									poster={imageUrl(
 										attachment.filter(
@@ -306,20 +307,6 @@ const ActivityAttachment = ({ activity }) => {
 
 		return (
 			<div className="p-4 mb-4 bg-center border border-l-0 border-r-0 border-gray-200 bg-gray-50 space-x-4 attachment">
-				{attachment
-					.filter((a) => a.type === "video")
-					.map(({ url }) => (
-						<div key={url}>
-							<video controls preload={"metadata"}>
-								<source
-									src={imageUrl(url, null, true) + "#t=0.5"}
-									type="video/mp4"
-								/>
-								Sorry, your browser doesn't support embedded
-								videos.
-							</video>
-						</div>
-					))}
 				{attachment
 					.filter((a) => a.type === "image")
 					.map(({ url }) => (
