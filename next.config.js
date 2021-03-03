@@ -24,6 +24,15 @@ const config = {
 				source: "/ads",
 				destination: "/about/book-ad",
 			},
+			{
+				source: "/slack",
+				destination:
+					"https://join.slack.com/t/makerlog/shared_invite/zt-nht66v1s-CMD~~ma3G6CpMSJVdJt0eQ",
+			},
+			{
+				source: "/telegram",
+				destination: "https://t.me/makerlog",
+			},
 		];
 	},
 	images: {
