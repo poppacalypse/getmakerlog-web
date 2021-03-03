@@ -81,14 +81,7 @@ function TaskGroupNoCard({ isLoading, failed, tasks, doneState }) {
 	);
 }
 
-function TaskGroupCard({
-	isLoading,
-	failed,
-	onRetry,
-	tasks,
-	doneState,
-	small = false,
-}) {
+function TaskGroupCard({ isLoading, failed, onRetry, tasks, doneState }) {
 	const firstTask = tasks[0];
 
 	return (

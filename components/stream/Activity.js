@@ -18,8 +18,6 @@ import { isDev } from "config";
 import ProductMedia from "components/products/ProductMedia";
 import MilestoneMedia from "components/milestones/MilestoneMedia";
 import MilestoneActions from "components/milestones/MilestoneActions";
-import { Lightbox } from "react-modal-image";
-import { imageUrl } from "vendor/imagekit";
 import TaskAttachments from "components/tasks/TaskAttachments";
 
 const log = getLogger("activity");

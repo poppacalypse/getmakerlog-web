@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useState } from "react";
 import Avatar from "components/ui/Avatar";
 import { useAuth } from "stores/AuthStore";
@@ -224,13 +225,17 @@ function TaskEditor({ onFinish }) {
 					)}
 					<div className="flex flex-row w-full mt-4">
 						<div className="flex-none space-x-2">
-							<input {...getInputProps()}></input>
-							<Button sm onClick={open}>
+							<Button sm onClick={open} className="truncate">
 								<Button.Icon>
 									<FontAwesomeIcon icon="camera" />
 								</Button.Icon>
 								{attachmentState.name
-									? attachmentState.name
+									? attachmentState.name.length > 8
+										? `${attachmentState.name.substring(
+												0,
+												8
+										  )}...`
+										: attachmentState.name
 									: "Upload"}
 							</Button>
 							{attachmentState && attachmentState.attachment && (
@@ -241,6 +246,7 @@ function TaskEditor({ onFinish }) {
 									<FontAwesomeIcon icon="trash" size="xs" />
 								</span>
 							)}
+							<input {...getInputProps()}></input>
 						</div>
 						<div className="flex-grow"></div>
 						<div className="flex-none">
