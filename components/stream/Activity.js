@@ -274,7 +274,7 @@ const ActivityAttachment = ({ activity }) => {
 				<div className="flex h-32">
 					<img
 						onClick={() => setImageOpen(true)}
-						className="object-fill cursor-pointer hover:ring-2 ring-green-500 rounded-md"
+						className="object-cover cursor-pointer hover:ring-2 ring-green-500 rounded-md"
 						src={attachment}
 						alt={"Attachment to task."}
 					/>
