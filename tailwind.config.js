@@ -49,6 +49,7 @@ module.exports = {
 			"group-focus",
 			"focus-within",
 		],
+		ringWidth: ["DEFAULT", "hover", "active", "focus"],
 		textOpacity: ["active", "dark"],
 		typography: ["responsive", "dark"],
 	},

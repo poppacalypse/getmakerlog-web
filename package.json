@@ -71,6 +71,7 @@
 		"react-infinite-scroll-component": "^5.0.5",
 		"react-joi-validation": "^1.7.0",
 		"react-markdown": "^4.3.1",
+		"react-modal-image": "^2.5.0",
 		"react-popover": "^0.5.10",
 		"react-process-string": "^1.2.0",
 		"react-query": "^2.25.2",

@@ -18,6 +18,7 @@ import { isDev } from "config";
 import ProductMedia from "components/products/ProductMedia";
 import MilestoneMedia from "components/milestones/MilestoneMedia";
 import MilestoneActions from "components/milestones/MilestoneActions";
+import { Lightbox } from "react-modal-image";
 
 const log = getLogger("activity");
 
@@ -263,17 +264,29 @@ const ActivityControls = ({ activity, embed = false }) => {
 };
 
 const ActivityAttachment = ({ activity }) => {
+	const [imageOpen, setImageOpen] = useState(false);
 	const attachment = activity.getObjectAttachment();
 	if (!attachment) return null;
 	if (activity.getObjectType() === "task") {
+		const task = activity.getObject().object;
 		return (
-			<div className="mb-4 bg-gray-100 bg-center border border-l-0 border-r-0 border-gray-200 attachment">
-				<img
-					className="block w-full max-w-full"
-					src={attachment}
-					alt={"Attachment to task."}
-					layout="responsive"
-				/>
+			<div className="p-4 mb-4 bg-center border border-l-0 border-r-0 border-gray-200 bg-gray-50 space-x-4 attachment">
+				<div className="flex h-32">
+					<img
+						onClick={() => setImageOpen(true)}
+						className="object-fill cursor-pointer hover:ring-2 ring-green-500 rounded-md"
+						src={attachment}
+						alt={"Attachment to task."}
+					/>
+					{imageOpen && (
+						<Lightbox
+							medium={attachment}
+							large={attachment}
+							alt={task.content}
+							onClose={() => setImageOpen(false)}
+						/>
+					)}
+				</div>
 			</div>
 		);
 	}
