@@ -45,7 +45,7 @@ function TaskPage() {
 				<Card.Content>
 					<Task task={task} />
 					<div
-						className="mb-2 last:mb-0"
+						className="mt-2 mb-2 last:mb-0"
 						style={{ marginTop: "-0.5em" }}
 					>
 						<small className="text-xs text-gray-300">
