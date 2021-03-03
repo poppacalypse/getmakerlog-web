@@ -310,7 +310,7 @@ export class Activity {
 					{ type: "video", url: object.object.video },
 				];
 			}
-			return attachments;
+			return attachments.length > 0 ? attachments : null;
 		}
 		return null;
 	};
