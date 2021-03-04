@@ -22,7 +22,7 @@ export default function Streak({
 			let timer = setTimeout(() => {
 				setDelta(days - previous);
 				setCurrentDays(days);
-			}, 2000);
+			}, 500);
 			return () => {
 				clearTimeout(timer);
 			};
