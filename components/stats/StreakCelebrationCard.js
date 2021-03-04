@@ -25,8 +25,6 @@ export default function StreakCelebrationCard() {
 		};
 	}, [confetti]);
 
-	days = 25;
-
 	useEffect(() => {
 		if (!(days > 0 && days % 50 === 0) && ![1, 7, 25].includes(days))
 			setOpen(true);
