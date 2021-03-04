@@ -32,7 +32,10 @@ export default function RisingMakersCard() {
 								{worldStats.rising_users
 									.slice(0, 10)
 									.map((user, idx) => (
-										<div key={user.id} className="flex">
+										<div
+											key={user.id}
+											className="flex overflow-hidden"
+										>
 											<div
 												className={
 													"flex flex-col text-center items-center justify-center mr-2 " +
