@@ -156,17 +156,18 @@ export default function StreakCelebrationCard() {
 		// TODO: Add top x percent of users.
 		content = (
 			<>
-				<div className="flex">
-					<h3 className="font-bold">
+				<div className="flex items-center">
+					<h3 className="flex-grow font-bold">
 						The {days} Day Club {days === 100 ? "💯" : "🔥"}
 					</h3>
 					<button
 						type="button"
-						className="flex p-2 -mr-1 rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-white"
+						className="flex"
+						onClick={() => setOpen(false)}
 					>
 						<span className="sr-only">Dismiss</span>
 						<svg
-							className="w-6 h-6 text-white"
+							className="w-4 h-4 text-gray-400"
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
 							viewBox="0 0 24 24"
@@ -183,7 +184,7 @@ export default function StreakCelebrationCard() {
 					</button>
 				</div>
 				<p className="text-gray-700">
-					You've built consistenly for {days} days!
+					You've built consistently for {days} days!
 				</p>
 			</>
 		);
