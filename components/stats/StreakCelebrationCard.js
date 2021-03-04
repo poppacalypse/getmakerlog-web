@@ -35,43 +35,6 @@ export default function StreakCelebrationCard() {
 
 	let content = null;
 
-	if (days > 0 && days % 50 === 0) {
-		// TODO: Add top x percent of users.
-		content = (
-			<>
-				<div className="flex">
-					<h3 className="font-bold">
-						The {days} Day Club {days === 100 ? "💯" : "🔥"}
-					</h3>
-					<button
-						type="button"
-						className="flex p-2 -mr-1 rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-white"
-					>
-						<span className="sr-only">Dismiss</span>
-						<svg
-							className="w-6 h-6 text-white"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-							aria-hidden="true"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M6 18L18 6M6 6l12 12"
-							/>
-						</svg>
-					</button>
-				</div>
-				<p className="text-gray-700">
-					You've built consistenly for {days} days!
-				</p>
-			</>
-		);
-	}
-
 	switch (days) {
 		case 1:
 			content = (
@@ -186,7 +149,44 @@ export default function StreakCelebrationCard() {
 			break;
 
 		default:
-			return null;
+			content = null;
+	}
+
+	if (days > 0 && days % 50 === 0) {
+		// TODO: Add top x percent of users.
+		content = (
+			<>
+				<div className="flex">
+					<h3 className="font-bold">
+						The {days} Day Club {days === 100 ? "💯" : "🔥"}
+					</h3>
+					<button
+						type="button"
+						className="flex p-2 -mr-1 rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-white"
+					>
+						<span className="sr-only">Dismiss</span>
+						<svg
+							className="w-6 h-6 text-white"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							aria-hidden="true"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
+								d="M6 18L18 6M6 6l12 12"
+							/>
+						</svg>
+					</button>
+				</div>
+				<p className="text-gray-700">
+					You've built consistenly for {days} days!
+				</p>
+			</>
+		);
 	}
 
 	if (content) {
