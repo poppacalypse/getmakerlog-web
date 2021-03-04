@@ -46,7 +46,6 @@ function TaskPage() {
 					<Task task={task} />
 					<div
 						className="mt-2 mb-2 last:mb-0"
-						style={{ marginTop: "-0.5em" }}
 					>
 						<small className="text-xs text-gray-300">
 							Added <TimeAgo date={task.created_at} />{" "}
