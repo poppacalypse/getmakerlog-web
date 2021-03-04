@@ -10,6 +10,7 @@ function Card({
 	image = null,
 	mb = true,
 	floating = false,
+	style = {},
 }) {
 	return (
 		<div
@@ -20,6 +21,7 @@ function Card({
 				(mb ? " mb-4 last:mb-0 " : "") +
 				(floating ? " shadow " : " shadow-xs ")
 			}
+			style={style}
 		>
 			{image && (
 				<div

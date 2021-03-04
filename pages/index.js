@@ -35,6 +35,7 @@ import config from "config";
 import Button from "components/ui/Button";
 import { Link } from "routes";
 import { useRoot } from "stores/RootStore";
+import StreakCelebrationCard from "components/stats/StreakCelebrationCard";
 
 function HomePage() {
 	const { data: frontpage } = useFrontpage();
@@ -247,6 +248,7 @@ function FeedPage() {
 								<Editor />
 							</Card.Content>
 						</Card>
+						{<StreakCelebrationCard />}
 						{feed === FEEDS.FRONTPAGE && (
 							<>
 								<div className="mb-4">
