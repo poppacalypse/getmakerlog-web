@@ -6,6 +6,7 @@ import Confetti from "react-dom-confetti";
 import { useAuth } from "stores/AuthStore";
 import { getTwitterShareUrl } from "utils/stats";
 import createPersistedState from "use-persisted-state";
+import { isServer } from "config";
 
 const useOpen = createPersistedState("state__streakcelebrationcard_open");
 
@@ -30,7 +31,7 @@ export default function StreakCelebrationCard() {
 			setOpen(true);
 	}, [days, setOpen]);
 
-	if (!open) return null;
+	if (!open || isServer) return null;
 
 	let content = null;
 
