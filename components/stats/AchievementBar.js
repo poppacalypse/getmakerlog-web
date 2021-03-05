@@ -5,10 +5,8 @@ import { getTwitterShareUrl } from "utils/stats";
 import { CSSTransition } from "react-transition-group";
 import { useStats } from "stores/StatsStore";
 import { isServer } from "config";
-import { getLogger } from "utils/logging";
 import Confetti from "react-dom-confetti";
-
-const log = getLogger("AchievementBar");
+import { trackEvent } from "vendor/segment";
 
 function shouldOpen(previous, current) {
 	return (
@@ -85,16 +83,19 @@ export default function AchievementBar({ user }) {
 	const currentStreak = stats ? stats.streak : null;
 
 	useEffect(() => {
-		log(previousStreak, currentStreak);
 		if (shouldOpen(previousStreak, currentStreak)) {
 			let timer = setTimeout(() => {
+				trackEvent("Displayed Achievement Bar", {
+					previousStreak: previousStreak,
+					streak: currentStreak,
+				});
 				setOpen(true);
 				setConfetti(true);
 			}, 1000);
 			let closeTimer = setTimeout(() => {
 				setOpen(false);
 				setConfetti(false);
-			}, 5000);
+			}, 8000);
 			return () => {
 				clearTimeout(timer);
 				clearTimeout(closeTimer);
