@@ -18,6 +18,7 @@ class StatsStore extends BaseStore {
 
 	openSocket = action((token) => {
 		log("Opening socket.");
+		if (this.socket !== null) return;
 		const socketUrl = buildSocketUrl(`/stats/?token=${token}`);
 		this.socket = new ReconnectingWebSocket(socketUrl);
 		this.socket.onopen = () => {
@@ -45,6 +46,7 @@ class StatsStore extends BaseStore {
 
 	closeSocket = () => {
 		log("Closing socket.");
+		if (this.socket === null) return;
 		this.socket.close();
 	};
 }
