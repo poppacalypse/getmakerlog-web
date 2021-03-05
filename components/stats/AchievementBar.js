@@ -91,8 +91,13 @@ export default function AchievementBar({ user }) {
 				setOpen(true);
 				setConfetti(true);
 			}, 1000);
+			let closeTimer = setTimeout(() => {
+				setOpen(false);
+				setConfetti(false);
+			}, 5000);
 			return () => {
 				clearTimeout(timer);
+				clearTimeout(closeTimer);
 			};
 		}
 	}, [currentStreak, previousStreak]);
