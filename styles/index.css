@@ -648,6 +648,7 @@ table.table-auto td {
 
 .stat-improve {
 	animation: color-improve 1s;
+	animation-iteration-count: 1;
 }
 
 @keyframes color-improve {
@@ -664,6 +665,7 @@ table.table-auto td {
 
 .stat-worsen {
 	animation: color-worsen 2s;
+	animation-iteration-count: 1;
 }
 
 @keyframes color-worsen {
@@ -676,4 +678,32 @@ table.table-auto td {
 	100% {
 		color: inherit;
 	}
+}
+
+.streak-notification-background {
+	animation: fade-bg 150ms ease;
+}
+
+@keyframes fade-bg {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.slide-enter {
+	transform: translateY(100%);
+	transition: all 150ms ease-out;
+}
+.slide-enter-active {
+	transform: translateY(0%);
+}
+.slide-exit {
+	transform: translateY(100%);
+	transition: all 150ms ease-in;
+}
+.slide-exit-active {
+	transform: translateY(100%);
 }

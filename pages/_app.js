@@ -89,6 +89,23 @@ class Makerlog extends App {
 			if (
 				this.props.store &&
 				this.props.store.auth &&
+				this.props.store.auth.user &&
+				this.props.store.stats
+			) {
+				this.props.store.stats.openSocket(this.props.store.auth.token);
+			} else if (
+				this.props.store &&
+				this.props.store.auth &&
+				!this.props.store.auth.user
+			) {
+				this.props.store.stats.closeSocket();
+			}
+		});
+
+		autorun(() => {
+			if (
+				this.props.store &&
+				this.props.store.auth &&
 				this.props.store.auth.user
 			) {
 				if (!isServer && window.analytics) {

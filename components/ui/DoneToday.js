@@ -8,18 +8,22 @@ const Odometer = dynamic(import("react-odometerjs"), {
 	loading: ValuePlaceholder,
 });
 
-export default function Streak({ days, animated = false, text = false }) {
+export default function DoneToday({
+	count = 0,
+	animated = false,
+	text = false,
+}) {
 	return (
 		<span>
-			{days === 0 ? "😔" : days === 1 ? "✨" : "🔥"}
+			✅
 			{animated ? (
 				<span className="inline-flex">
-					<Odometer value={days} />
+					<Odometer value={count} />
 				</span>
 			) : (
-				<>&nbsp;{days}</>
+				<>&nbsp;{count}</>
 			)}
-			{text ? " day streak" : ""}
+			{text ? " today" : ""}
 		</span>
 	);
 }

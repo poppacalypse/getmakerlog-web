@@ -16,6 +16,7 @@ import OutboundLink from "components/seo/OutboundLink";
 import FeedbackModal from "components/feedback/FeedbackModal";
 import config from "config";
 import AdminBar from "./AdminBar";
+import AchievementBar from "components/stats/AchievementBar";
 
 function Navbar() {
 	const { pathname } = useRouter();
@@ -32,6 +33,7 @@ function Navbar() {
 
 	return (
 		<>
+			<AchievementBar user={user} />
 			{user && user.is_staff && <AdminBar />}
 			<nav className="flex-none bg-white dark:bg-dark-100 mt-safe-top">
 				<div className="fixed top-0 left-0 z-50 w-full bg-green-500 h-safe-top"></div>

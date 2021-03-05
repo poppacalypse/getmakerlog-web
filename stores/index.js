@@ -2,6 +2,7 @@ import axios from "utils/axios";
 import nookies from "nookies";
 import { getRootStore as root } from "./RootStore";
 import { getAuthStore as auth } from "./AuthStore";
+import { getStatsStore as stats } from "./StatsStore";
 
 export async function onStoreInit(ctx) {
 	/**
@@ -26,6 +27,7 @@ const config = {
 	stores: {
 		root,
 		auth,
+		stats,
 	},
 	persist: [],
 };

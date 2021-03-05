@@ -3,30 +3,18 @@ import OutboundLink from "components/seo/OutboundLink";
 import Card from "components/ui/Card";
 import RestDays from "components/ui/RestDays";
 import Streak from "components/ui/Streak";
-import React, { useEffect } from "react";
+import React from "react";
 import { useAuth } from "stores/AuthStore";
 import { getTwitterShareUrl } from "utils/stats";
 import SidebarItem from "./SidebarItem";
-import createPersistedState from "use-persisted-state";
-
-const usePreviousStreakState = createPersistedState("user__previous_streak");
+import { useStats } from "stores/StatsStore";
 
 export default function MyStreakCard() {
 	const { user } = useAuth();
-	const [previousStreak, setPreviousStreak] = usePreviousStreakState(null);
-
-	useEffect(() => {
-		if (previousStreak !== user.streak) {
-			let timer = setTimeout(() => {
-				setPreviousStreak(user.streak);
-			}, 2000);
-			return () => {
-				clearTimeout(timer);
-			};
-		}
-	}, [previousStreak, setPreviousStreak, user.streak]);
+	const { stats } = useStats();
 
 	if (!user) return null;
+	const days = stats ? stats.streak : user.streak;
 
 	return (
 		<SidebarItem
@@ -40,11 +28,7 @@ export default function MyStreakCard() {
 			<Card>
 				<Card.Content>
 					<h1 className="font-bold text-gray-900">
-						<Streak
-							days={user.streak}
-							animated
-							previous={previousStreak}
-						/>
+						<Streak days={days} animated />
 						{user.rest_days ? (
 							<RestDays days={user.rest_days} />
 						) : null}
