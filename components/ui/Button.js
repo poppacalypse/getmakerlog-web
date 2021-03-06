@@ -57,7 +57,8 @@ function getSizeForSpinner(props) {
 }
 
 function getSpinnerColor(props) {
-	if (props.primary || props.secondary || props.danger) return "#fff";
+	if (props.secondary) return "#00AD71";
+	if (props.primary || props.danger) return "#fff";
 	return "#00AD71";
 }
 
@@ -93,7 +94,14 @@ class Button extends React.Component {
 						: false
 				}
 				className={getClassNames(props)}
-				style={props.loading ? { color: "transparent" } : {}}
+				style={
+					props.loading
+						? {
+								color: "transparent",
+								...(props.style ? props.style : {}),
+						  }
+						: { ...(props.style ? props.style : {}) }
+				}
 				{...omit(props, [
 					"className",
 					"loading",
@@ -107,6 +115,7 @@ class Button extends React.Component {
 					"anchorElem",
 					"div",
 					"danger",
+					"style",
 				])}
 				{...extraProps}
 			>

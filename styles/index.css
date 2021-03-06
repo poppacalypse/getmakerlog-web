@@ -69,6 +69,7 @@ small {
 
 input,
 input[type="text"],
+input[type="time"],
 input[type="password"],
 textarea {
 	@apply appearance-none bg-white dark:bg-dark-100 px-2.5 py-1.5 rounded-md w-full block shadow-xs border border-gray-300 dark:border-dark-300 focus:ring-1 focus:ring-green-500 outline-none transition-all;

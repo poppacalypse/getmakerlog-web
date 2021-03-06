@@ -35,6 +35,12 @@ import config from "config";
 import Button from "components/ui/Button";
 import { Link } from "routes";
 import { useRoot } from "stores/RootStore";
+import dynamic from "next/dynamic";
+
+const RemindersCard = dynamic(
+	() => import("../components/reminders/RemindersCard"),
+	{ ssr: false }
+);
 
 function HomePage() {
 	const { data: frontpage } = useFrontpage();
@@ -249,6 +255,7 @@ function FeedPage() {
 						</Card>
 						{feed === FEEDS.FRONTPAGE && (
 							<>
+								<RemindersCard />
 								<div className="mb-4">
 									<DayView small withHeader={false} />
 								</div>
