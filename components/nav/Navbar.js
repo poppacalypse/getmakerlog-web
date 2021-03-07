@@ -169,12 +169,17 @@ function Navbar() {
 															</Dropdown.Item>
 														</Link>
 													) : null}
-													<Link route="settings">
+													<Link route="reminders">
 														<Dropdown.Item>
 															<Dropdown.Item.Icon>
-																<FontAwesomeIcon icon="cogs" />
+																<FontAwesomeIcon
+																	icon={[
+																		"fab",
+																		"twitter",
+																	]}
+																/>
 															</Dropdown.Item.Icon>{" "}
-															Settings
+															Reminders
 														</Dropdown.Item>
 													</Link>
 													<Dropdown.Item
@@ -185,6 +190,14 @@ function Navbar() {
 														</Dropdown.Item.Icon>{" "}
 														Send feedback
 													</Dropdown.Item>
+													<Link route="settings">
+														<Dropdown.Item>
+															<Dropdown.Item.Icon>
+																<FontAwesomeIcon icon="cogs" />
+															</Dropdown.Item.Icon>{" "}
+															Settings
+														</Dropdown.Item>
+													</Link>
 													<Link route="logout">
 														<Dropdown.Item>
 															<Dropdown.Item.Icon>

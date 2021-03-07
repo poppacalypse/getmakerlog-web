@@ -74,6 +74,7 @@ const routerHelper = routes()
 	.add("event", "/events/[slug]")
 	.add("events-create", "/events/create")
 	.add("patron", "/patron")
+	.add("reminders", "/reminders")
 	.add("not-implemented", "/not-implemented")
 	.add("milestones", "/milestones")
 	.add("milestone", "/milestones/[slug]");

@@ -154,7 +154,7 @@ function TimeStep({ payload, next, setPayload = () => {} }) {
 	);
 }*/
 
-function OnboardingStep({ next, setOpen = () => {} }) {
+function OnboardingStep({ next, setOpen = () => {}, force = false }) {
 	return (
 		<>
 			<h3 className="font-bold text-gray-900">Set up reminders</h3>
@@ -169,21 +169,23 @@ function OnboardingStep({ next, setOpen = () => {} }) {
 						&nbsp;Get started
 					</Button>
 				</div>
-				<div>
-					<Button
-						onClick={() => {
-							setOpen(false);
-						}}
-					>
-						Later
-					</Button>
-				</div>
+				{!force && (
+					<div>
+						<Button
+							onClick={() => {
+								setOpen(false);
+							}}
+						>
+							Later
+						</Button>
+					</div>
+				)}
 			</div>
 		</>
 	);
 }
 
-export default function RemindersCard() {
+export default function RemindersCard({ onCreated = null, force = false }) {
 	const [open, setOpen] = useLocalStorage(
 		"reminders__reminderscard__open",
 		true
@@ -201,19 +203,24 @@ export default function RemindersCard() {
 
 	const onFinish = async () => {
 		await mutate(payload);
+		if (onCreated) onCreated();
 	};
 
 	useEffect(() => {
 		trackEvent("Reminders Card Opened");
 	}, []);
 
-	if (!open) return null;
+	if (!open && !force) return null;
 
 	return (
 		<Card>
 			<Card.Content>
 				{step === 0 && (
-					<OnboardingStep next={() => setStep(1)} setOpen={setOpen} />
+					<OnboardingStep
+						force={force}
+						next={() => setStep(1)}
+						setOpen={setOpen}
+					/>
 				)}
 				{step === 1 && (
 					<TwitterStep
