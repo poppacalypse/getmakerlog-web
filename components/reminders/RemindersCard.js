@@ -207,10 +207,6 @@ export default function RemindersCard() {
 		trackEvent("Reminders Card Opened");
 	}, []);
 
-	useEffect(() => {
-		if (isSuccess) trackEvent("Reminders Card Succeeded");
-	}, [isSuccess]);
-
 	if (!open) return null;
 
 	return (
@@ -232,6 +228,7 @@ export default function RemindersCard() {
 						next={() => {
 							onFinish();
 							setStep(3);
+							trackEvent("Reminders Card Succeeded");
 						}}
 						setPayload={(delta) => {
 							setPayload({ ...payload, ...delta });
