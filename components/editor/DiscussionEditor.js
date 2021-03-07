@@ -2,22 +2,35 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Avatar from "components/ui/Avatar";
 import { useAuth } from "stores/AuthStore";
-import { onCmdEnter } from "utils/random";
+import { onCmdEnter, openTweetWindow } from "utils/random";
 import Button from "components/ui/Button";
 import MarkdownEnabled from "components/ui/MarkdownEnabled";
 import { useCreateThread } from "queries/discussions";
 import ErrorMessageList from "components/error/ErrorMessageList";
 import { useCallback } from "react";
 import { Router } from "routes";
+import { getTwitterShareUrl } from "utils/discussions";
+import { trackEvent } from "vendor/segment";
 
 function DiscussionEditor({ onFinish }) {
 	const { user } = useAuth();
 	const [title, setTitle] = useState("");
 	const [body, setBody] = useState("");
 	const [mutate, { isLoading, error, isSuccess }] = useCreateThread();
+	const [shouldTweet, setShouldTweet] = useState(false);
+
+	const tweetAfterPost = (item) => {
+		trackEvent("Tweeted After Post", { kind: "discussion" });
+		const url = getTwitterShareUrl(item);
+		openTweetWindow(url);
+	};
 
 	const onCreate = async () => {
 		const discussion = await mutate({ title, body });
+		if (shouldTweet) {
+			tweetAfterPost(discussion);
+			setShouldTweet(false);
+		}
 		Router.pushRoute("discussions-thread", { slug: discussion.slug });
 	};
 
@@ -62,11 +75,25 @@ function DiscussionEditor({ onFinish }) {
 							<ErrorMessageList error={error} />
 						</div>
 					)}
-					<div className="flex flex-row w-full mt-4">
+					<div className="flex flex-row items-center w-full mt-4">
 						<div className="flex-none">
 							<MarkdownEnabled />
 						</div>
 						<div className="flex-grow"></div>
+
+						<div className="mr-4 text-sm text-gray-700">
+							<input
+								type="checkbox"
+								checked={shouldTweet}
+								className="cursor-pointer"
+								id="shouldTweet"
+								onChange={(e) =>
+									setShouldTweet(e.target.checked)
+								}
+								name="shouldTweet"
+							/>
+							<label htmlFor="shouldTweet"> Tweet</label>
+						</div>
 						<div className="flex-none">
 							<Button
 								primary

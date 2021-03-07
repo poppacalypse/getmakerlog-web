@@ -47,3 +47,12 @@ export function getRelativeDate(date) {
 
 	return calendarDate;
 }
+
+export function openTweetWindow(url, windowName) {
+	if (isServer) return;
+	let newwindow = window.open(url, windowName, "height=400,width=600");
+	if (window.focus && newwindow) {
+		newwindow.focus();
+	}
+	return false;
+}

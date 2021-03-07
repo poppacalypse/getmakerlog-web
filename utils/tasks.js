@@ -3,6 +3,7 @@ import groupBy from "lodash/groupBy";
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { buildAbsoluteUrl } from "./random";
+import config from "config";
 
 export const DoneStates = {
 	DONE: 0,
@@ -71,6 +72,17 @@ export function getTwitterShareUrl(tasks, me = null) {
 	let user = tasks[0].user;
 	let name = user.twitter_handle ? `@${user.twitter_handle}` : user.username;
 	let text = `Done today by ${name} on @GetMakerlog:\n`;
+	if (tasks.length === 1) {
+		const task = tasks[0];
+		text = `✅ ${task.content}`;
+		if (task.description) {
+			text += `\n\n${task.description}`;
+		}
+		text += `\n\n${config.BASE_URL}/tasks/${task.id}`;
+		return `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+			text
+		)}`;
+	}
 	if (me && me.id === user.id) {
 		text = `Done today on @GetMakerlog:\n`;
 	}

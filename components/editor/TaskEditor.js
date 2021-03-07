@@ -8,6 +8,7 @@ import {
 	DoneStates,
 	getDeltaFromDoneState,
 	getHumanStateFromDoneState,
+	getTwitterShareUrl,
 	useAttachmentInput,
 } from "utils/tasks";
 import TaskIcon from "components/tasks/TaskIcon";
@@ -15,11 +16,12 @@ import Dropdown from "components/ui/Dropdown";
 import { useCreateTask } from "queries/tasks";
 import ErrorMessageList from "components/error/ErrorMessageList";
 import { useEffect } from "react";
-import { onCmdEnter } from "utils/random";
+import { onCmdEnter, openTweetWindow } from "utils/random";
 import { useCallback } from "react";
 import VideoThumbnail from "react-video-thumbnail";
 import Message from "components/ui/Message";
 import Spinner from "components/ui/Spinner";
+import { trackEvent } from "vendor/segment";
 
 function dataURLtoBlob(dataurl) {
 	var arr = dataurl.split(","),
@@ -45,6 +47,7 @@ function TaskEditor({ onFinish }) {
 	const [mutate, { isSuccess, isLoading, error }] = useCreateTask();
 	const [loadingVThumb, setLoadingVThumb] = useState(false);
 	const [vThumb, setVThumb] = useState(null);
+	const [shouldTweet, setShouldTweet] = useState(false);
 
 	const {
 		attachmentState,
@@ -82,6 +85,12 @@ function TaskEditor({ onFinish }) {
 		}
 	}, [setLoadingVThumb, attachmentState]);
 
+	const tweetAfterPost = (task) => {
+		trackEvent("Tweeted After Post", { kind: "task" });
+		const url = getTwitterShareUrl([task]);
+		openTweetWindow(url);
+	};
+
 	const onCreate = async (e) => {
 		e.preventDefault();
 		e.stopPropagation();
@@ -94,7 +103,11 @@ function TaskEditor({ onFinish }) {
 				payload["video"] = attachmentState.attachment;
 			}
 		}
-		await mutate(payload);
+		const task = await mutate(payload);
+		if (shouldTweet) {
+			tweetAfterPost(task);
+			setShouldTweet(false);
+		}
 	};
 
 	const onVThumbGenerated = async (t) => {
@@ -223,7 +236,7 @@ function TaskEditor({ onFinish }) {
 							)}
 						</div>
 					)}
-					<div className="flex flex-row w-full mt-4">
+					<div className="flex flex-row items-center w-full mt-4">
 						<div className="flex-none space-x-2">
 							<Button sm onClick={open} className="truncate">
 								<Button.Icon>
@@ -249,6 +262,19 @@ function TaskEditor({ onFinish }) {
 							<input {...getInputProps()}></input>
 						</div>
 						<div className="flex-grow"></div>
+						<div className="mr-4 text-sm text-gray-700">
+							<input
+								type="checkbox"
+								checked={shouldTweet}
+								className="cursor-pointer"
+								id="shouldTweet"
+								onChange={(e) =>
+									setShouldTweet(e.target.checked)
+								}
+								name="shouldTweet"
+							/>
+							<label htmlFor="shouldTweet"> Tweet</label>
+						</div>
 						<div className="flex-none">
 							<Button
 								primary

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Avatar from "components/ui/Avatar";
 import { useAuth } from "stores/AuthStore";
-import { onCmdEnter } from "utils/random";
+import { onCmdEnter, openTweetWindow } from "utils/random";
 import Button from "components/ui/Button";
 import MarkdownEnabled from "components/ui/MarkdownEnabled";
 import ErrorMessageList from "components/error/ErrorMessageList";
@@ -11,6 +11,8 @@ import TextareaAutosize from "react-autosize-textarea";
 import { useCreateMilestone } from "queries/milestones";
 import ProductSelector from "components/products/ProductSelector";
 import { Router } from "routes";
+import { getTwitterShareUrl } from "utils/milestones";
+import { trackEvent } from "vendor/segment";
 
 function MilestoneEditor({ onFinish }) {
 	const { user } = useAuth();
@@ -18,9 +20,20 @@ function MilestoneEditor({ onFinish }) {
 	const [body, setBody] = useState("");
 	const [product, setProduct] = useState(null);
 	const [mutate, { isLoading, error, isSuccess }] = useCreateMilestone();
+	const [shouldTweet, setShouldTweet] = useState(false);
+
+	const tweetAfterPost = (item) => {
+		trackEvent("Tweeted After Post", { kind: "milestone" });
+		const url = getTwitterShareUrl(item);
+		openTweetWindow(url);
+	};
 
 	const onCreate = async () => {
 		const milestone = await mutate({ title, body, product });
+		if (shouldTweet) {
+			tweetAfterPost(milestone);
+			setShouldTweet(false);
+		}
 		Router.pushRoute("milestone", { slug: milestone.slug });
 	};
 
@@ -107,11 +120,23 @@ function MilestoneEditor({ onFinish }) {
 						<ErrorMessageList error={error} />
 					</div>
 				)}
-				<div className="flex flex-row w-full mt-4">
+				<div className="flex flex-row items-center w-full mt-4">
 					<div className="flex-none">
 						<MarkdownEnabled text="Markdown and task links supported." />
 					</div>
 					<div className="flex-grow"></div>
+
+					<div className="mr-4 text-sm text-gray-700">
+						<input
+							type="checkbox"
+							checked={shouldTweet}
+							className="cursor-pointer"
+							id="shouldTweet"
+							onChange={(e) => setShouldTweet(e.target.checked)}
+							name="shouldTweet"
+						/>
+						<label htmlFor="shouldTweet"> Tweet</label>
+					</div>
 					<div className="flex-none">
 						<Button
 							primary
