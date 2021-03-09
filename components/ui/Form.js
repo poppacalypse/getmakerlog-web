@@ -31,7 +31,7 @@ export function FormField({
 	className = "",
 }) {
 	return (
-		<div className={`col-span-${span} ` + className}>
+		<div className={`col-span-12 sm:col-span-${span} ` + className}>
 			{label ? (
 				<label
 					htmlFor={name}
