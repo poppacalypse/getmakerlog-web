@@ -88,7 +88,7 @@ function MilestoneEditor({ onFinish }) {
 					placeholder="Write away..."
 				/>
 
-				<div className="mt-4 prose prose-sm">
+				<div className="mt-4 prose prose-sm dark:prose-dark">
 					<strong>What's a milestone? 🤔</strong>
 					<p style={{ marginTop: 0 }}>
 						Milestones are a great way to share something awesome
