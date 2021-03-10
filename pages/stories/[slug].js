@@ -30,6 +30,7 @@ import { getErrorResponse } from "utils/error";
 import ThreadReplies from "components/discussions/ThreadReplies";
 import { ThreadReplyCreateForm } from "components/discussions/ThreadReplyForm";
 import Card from "components/ui/Card";
+import { trackEvent } from "vendor/segment";
 
 function StoriesPostPage() {
 	const {
@@ -45,6 +46,10 @@ function StoriesPostPage() {
 		data: storyMetadata,
 	} = useStoryMetadata(slug);
 	const repliesEnd = useRef(null);
+
+	useEffect(() => {
+		trackEvent("Story Viewed");
+	}, []);
 
 	if (isLoading) return <Spinner text="Loading stories..." />;
 
