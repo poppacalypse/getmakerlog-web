@@ -30,7 +30,7 @@ function ProductLetter({ product }) {
 }
 
 function ProductIcon({ size, product, className = "" }) {
-	const optSize = size >= 32 ? 128 : 32;
+	//const optSize = size >= 32 ? 128 : 32;
 	return (
 		<figure
 			className={
@@ -41,7 +41,7 @@ function ProductIcon({ size, product, className = "" }) {
 			{product.icon ? (
 				<img
 					className={`rounded-md w-full h-full ` + className}
-					src={imageUrl(product.icon, optSize)}
+					src={imageUrl(product.icon)}
 					alt={product.name}
 				/>
 			) : (
