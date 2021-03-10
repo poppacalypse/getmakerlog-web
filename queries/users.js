@@ -75,6 +75,25 @@ export async function follow(username) {
 	return data;
 }
 
+export async function changeUsername(username, check = false) {
+	const { data } = await axiosWrapper(
+		axios.post,
+		check
+			? `/accounts/change_username/?check=true`
+			: `/accounts/change_username/`,
+		{ username }
+	);
+	return data;
+}
+
+export async function checkUsername(username) {
+	const { data } = await axiosWrapper(
+		axios.get,
+		`/accounts/change_username/?username=${username}`
+	);
+	return data;
+}
+
 export function useUser(username) {
 	return useQuery([USER_QUERIES.getUser, { username }], getUser, {
 		staleTime: 1000 * 60 * 5,
@@ -149,6 +168,22 @@ export function useFollow() {
 		},
 		onSuccess: (data) => {
 			log(`Toggled folow: (#${JSON.stringify(data)})`);
+		},
+	});
+}
+
+export function useChangeUsername() {
+	return useMutation(changeUsername, {
+		onSuccess: (data) => {
+			log(`Change username. ${JSON.stringify(data)}`);
+		},
+	});
+}
+
+export function useCheckUsername() {
+	return useMutation(checkUsername, {
+		onSuccess: (data) => {
+			log(`Checked username. ${JSON.stringify(data)}`);
 		},
 	});
 }

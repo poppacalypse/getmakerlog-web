@@ -17,6 +17,7 @@ import { useSubData } from "queries/patron";
 import Spinner from "components/ui/Spinner";
 import { Link } from "routes";
 import { useEffect } from "react";
+import ChangeUsernameField from "components/auth/ChangeUsernameField";
 
 function SettingsPage() {
 	const { patching, patchUser, user, errorMessages } = useAuth();
@@ -34,7 +35,7 @@ function SettingsPage() {
 	const [payload, setPayload] = useState({
 		first_name: user.first_name ? user.first_name : "",
 		last_name: user.last_name ? user.last_name : "",
-		email: user.email ? user.email : "",
+		// email: user.email ? user.email : "",
 		description: user.description ? user.description : "",
 		website: user.website ? user.website : "",
 		twitter_handle: user.twitter_handle ? user.twitter_handle : "",
@@ -137,6 +138,9 @@ function SettingsPage() {
 									open={openAvatar}
 									attachmentState={avatarState}
 								/>
+							</Form.Field>
+							<Form.Field label="Username" span={6}>
+								<ChangeUsernameField />
 							</Form.Field>
 						</Form.Group>
 
