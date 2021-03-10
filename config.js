@@ -126,6 +126,7 @@ const AWESOME_CLUB = [
 	"jivings",
 	"lori",
 	"Mike_Miner",
+	"gabriel4649",
 ];
 
 const config = {
