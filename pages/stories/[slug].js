@@ -1,5 +1,5 @@
 import NarrowLayout from "layouts/NarrowLayout";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Container from "components/ui/Container";
 import {
 	getPost,
