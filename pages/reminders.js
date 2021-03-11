@@ -45,7 +45,7 @@ function RemindersSettings({ reminders, onDelete = () => {} }) {
 				>
 					<Form.Group
 						title="General"
-						subtitle="At what time should we remind you?"
+						subtitle="At what time should we remind you? We'll send you a tweet on Twitter.com."
 					>
 						<Form.Field span={12} label="Time">
 							<div className="flex space-x-2">
