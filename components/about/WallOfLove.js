@@ -37,6 +37,36 @@ export default function WallOfLove() {
 				<Masonry gutter="1rem">
 					<img src="/img/cool-pictures/image10.jpeg" alt="" />
 					<div>
+						<Tweet id={"1369786016391921670"} />
+					</div>
+					<div>
+						<Tweet id={"1369661727013539848"} />
+					</div>
+					<div>
+						<Tweet id={"1369661728112394244"} />
+					</div>
+					<div>
+						<Tweet id={"1369659237840912390"} />
+					</div>
+					<div>
+						<Tweet id={"1369782372397416459"} />
+					</div>
+					<div>
+						<Tweet id={"1369662806287548420"} />
+					</div>
+					<div>
+						<Tweet id={"1369862655670894592"} />
+					</div>
+					<div>
+						<Tweet id={"1369824243026780164"} />
+					</div>
+					<div>
+						<Tweet id={"1369665393741152256"} />
+					</div>
+					<div>
+						<Tweet id={"1369783722761986051"} />
+					</div>
+					<div>
 						<Tweet id={"1126918454676561920"} />
 					</div>
 					<div>
