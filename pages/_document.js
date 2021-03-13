@@ -70,6 +70,11 @@ class AlphaDocument extends Document {
 									__html: this.renderSegment(),
 								}}
 							/>
+							<script
+								dangerouslySetInnerHTML={{
+									__html: `window.$crisp=[];window.CRISP_WEBSITE_ID="5c4829a7-2df8-4db7-a179-a35621e614a8";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`,
+								}}
+							/>
 						</>
 					)}
 				</Head>
