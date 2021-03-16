@@ -26,8 +26,7 @@ function SocialAuthCompletePage() {
 				throw new Error("No method found for this provider.");
 			}
 			const { token } = await method(...params);
-			if (token) loginWithToken(token);
-			Router.pushRoute("index");
+			if (token) loginWithToken(token, null, true);
 			setLoading(false);
 			setCompleted(true);
 		} catch (e) {

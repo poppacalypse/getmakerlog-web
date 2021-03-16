@@ -3,7 +3,7 @@ import Form from "components/ui/Form";
 import Button from "components/ui/Button";
 import ErrorMessageList from "components/error/ErrorMessageList";
 import { requireUnauthed } from "utils/auth";
-import { Link, Router } from "routes";
+import { Link } from "routes";
 import { useAuth } from "stores/AuthStore";
 import NarrowLayout from "layouts/NarrowLayout";
 import Card from "components/ui/Card";
@@ -20,10 +20,13 @@ function LoginPage() {
 
 	const onLogin = async () => {
 		setRedirecting(true);
-		const loggedIn = await loginWithCredentials(username, password);
-		if (loggedIn) {
-			Router.pushRoute("index");
-		} else {
+		const loggedIn = await loginWithCredentials(
+			username,
+			password,
+			null,
+			true
+		);
+		if (!loggedIn) {
 			setRedirecting(false);
 		}
 	};
@@ -49,16 +52,14 @@ function LoginPage() {
 						}}
 					>
 						<Form.Controls>
-							{!config.IS_WL && (
-								<div className="flex flex-col justify-center mt-4 text-center space-y-2 sm:space-y-0 sm:space-x-2 sm:flex-row col-span-6">
-									<div>
-										<TwitterLogin />
-									</div>
-									<div>
-										<FacebookLogin />
-									</div>
+							<div className="flex flex-col justify-center mt-4 text-center space-y-2 sm:space-y-0 sm:space-x-2 sm:flex-row col-span-6">
+								<div>
+									<TwitterLogin />
 								</div>
-							)}
+								<div>
+									<FacebookLogin />
+								</div>
+							</div>
 
 							{errorMessages && (
 								<div className="col-span-6">
@@ -115,7 +116,7 @@ function LoginPage() {
 LoginPage.getInitialProps = async () => {
 	return {
 		layout: {
-			className: config.WL_BG_COLOR,
+			className: "bg-green-500",
 		},
 	};
 };

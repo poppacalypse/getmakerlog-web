@@ -30,7 +30,12 @@ class AuthStore extends BaseStore {
 		return this.token && this.user;
 	}
 
-	loginWithCredentials = flow(function* (username, password, ctx = null) {
+	loginWithCredentials = flow(function* (
+		username,
+		password,
+		ctx = null,
+		redir = false
+	) {
 		try {
 			this.loading = true;
 			// this.errorMessages = null;
@@ -47,6 +52,8 @@ class AuthStore extends BaseStore {
 			this.user = yield getUser();
 			if (this.user && this.user.needs_setup && !isServer) {
 				Router.pushRoute("onboarding");
+			} else if (redir) {
+				Router.pushRoute("index");
 			}
 			this.loading = false;
 			this.errorMessages = null;
@@ -62,7 +69,7 @@ class AuthStore extends BaseStore {
 		}
 	});
 
-	loginWithToken = flow(function* (token, ctx = null) {
+	loginWithToken = flow(function* (token, ctx = null, redir = false) {
 		try {
 			this.loading = true;
 			// this.errorMessages = null;
@@ -79,6 +86,8 @@ class AuthStore extends BaseStore {
 			this.user = yield getUser();
 			if (this.user && this.user.needs_setup && !isServer) {
 				Router.pushRoute("onboarding");
+			} else if (redir) {
+				Router.pushRoute("index");
 			}
 			this.loading = false;
 			this.errorMessages = null;

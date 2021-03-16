@@ -7,7 +7,6 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useActivateUser } from "queries/users";
 import React, { useEffect } from "react";
-import { Router } from "routes";
 import { useAuth } from "stores/AuthStore";
 
 function ConfirmPage() {
@@ -20,7 +19,6 @@ function ConfirmPage() {
 			const data = await mutate({ uid: query.uid, token: query.token });
 			if (data && data.token) {
 				loginWithToken(data.token);
-				Router.pushRoute("onboarding");
 			}
 		};
 		if (query.uid && query.token) {
