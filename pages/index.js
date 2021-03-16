@@ -61,9 +61,8 @@ function HomePage() {
 							How makers stay productive
 						</h1>
 						<p className="mb-8 text-gray-700">
-							Makerlog is your task list made public. Get
-							feedback, stay accountable and ship better products
-							with us.
+							Your task list made public. Get feedback, stay
+							accountable and ship better products with us.
 						</p>
 						<div className="flex flex-col space-y-2">
 							<div className="flex-initial">
