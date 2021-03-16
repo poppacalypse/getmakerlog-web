@@ -10,7 +10,7 @@ export function FormActions({
 		<div
 			className={
 				"mt-4 border-t border-gray-200 pt-4 " +
-				(span ? ` col-span-${span} ` : ``) +
+				(span ? ` col-span-12 sm:col-span-${span} ` : ``) +
 				className
 			}
 		>
