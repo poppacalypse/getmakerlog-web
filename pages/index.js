@@ -56,33 +56,23 @@ function HomePage() {
 				}}
 			>
 				<div className="flex items-stretch items-center w-full text-center sm:text-left">
-					<div className="flex-1 flex-shrink-0 py-12 sm:pr-6 sm:py-24">
+					<div className="flex-1 flex-shrink-0 py-12 sm:pr-6 sm:py-48">
 						<h1 className="text-2xl font-extrabold sm:text-4xl">
-							Learn, build, and grow with us.
+							How makers stay productive
 						</h1>
 						<p className="mb-8 text-gray-700">
-							Build software publicly, earn a streak, and grow
-							with a community that has your back, every step of
-							the way.
+							Makerlog is your task list made public. Get
+							feedback, stay accountable and ship better products
+							with us.
 						</p>
-						{config.IS_WL ? (
-							<Link route="register">
-								<Button secondary anchorElem>
-									Join {config.WL_FULL_NAME}
-								</Button>
-							</Link>
-						) : (
-							<>
-								<div className="flex flex-col space-y-2">
-									<div className="flex-initial">
-										<TwitterLogin />
-									</div>
-									<div className="flex-initial">
-										<FacebookLogin />
-									</div>
-								</div>
-							</>
-						)}
+						<div className="flex flex-col space-y-2">
+							<div className="flex-initial">
+								<TwitterLogin />
+							</div>
+							<div className="flex-initial">
+								<FacebookLogin />
+							</div>
+						</div>
 					</div>
 					<div className="flex-1 flex-shrink-0 hidden w-full sm:block"></div>
 				</div>
