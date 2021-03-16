@@ -45,6 +45,9 @@ class AuthStore extends BaseStore {
 				}
 			);
 			this.user = yield getUser();
+			if (this.user && this.user.needs_setup && !isServer) {
+				Router.pushRoute("onboarding");
+			}
 			this.loading = false;
 			this.errorMessages = null;
 			if (!ctx) log("Logged in with credentials.");
@@ -74,6 +77,9 @@ class AuthStore extends BaseStore {
 				}
 			);
 			this.user = yield getUser();
+			if (this.user && this.user.needs_setup && !isServer) {
+				Router.pushRoute("onboarding");
+			}
 			this.loading = false;
 			this.errorMessages = null;
 			if (!ctx) log("Logged in with token.");

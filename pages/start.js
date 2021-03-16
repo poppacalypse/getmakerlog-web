@@ -41,12 +41,6 @@ function SignupPage() {
 								</div>
 							</div>
 
-							<div className="flex items-center w-full py-4">
-								<hr className="flex-1" />
-								<span className="px-4 text-gray-700">or</span>
-								<hr className="flex-1" />
-							</div>
-
 							<EmailRegisterForm />
 						</>
 					)}

@@ -181,7 +181,9 @@ class KeyActivityFeed extends Component {
 						this.props.noActivityComponent
 					) : (
 						<center>
-							<h3>There's nothing here yet.</h3>
+							<span className="text-xs text-gray-400">
+								<strong>Tasks will show up here. 🔥</strong>
+							</span>
 						</center>
 					)
 				}

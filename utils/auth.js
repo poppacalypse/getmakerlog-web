@@ -172,5 +172,5 @@ export function getAuthProvider(query) {
 }
 
 export function requiresOnboarding(user) {
-	return !user.email;
+	return user.needs_setup || !user.email;
 }

@@ -4,6 +4,7 @@ import { MobXProviderContext } from "mobx-react";
 import { useDropzone } from "react-dropzone";
 import { useCommonTags, useSuggestedTags } from "queries/tags";
 import union from "lodash/union";
+import uniqBy from "lodash/uniqBy";
 
 export function useStores() {
 	return React.useContext(MobXProviderContext);
@@ -154,7 +155,35 @@ export function useTagAutocomplete(type, initialTags = []) {
 		commonTags ? commonTags : [],
 		suggestedTags ? suggestedTags : []
 	);
+
 	suggestions = suggestions.map((name, id) => ({ id, name }));
+
+	return {
+		suggestions,
+		tags,
+		onAddition,
+		onDelete,
+		onInput: (query) => setQuery(query),
+	};
+}
+
+export function useSkillAutocomplete(type, initialTags = []) {
+	const [query, setQuery] = useState("");
+	const debouncedQuery = useDebounce(query, 300);
+	const [tags, setTags] = useState(initialTags);
+	//const { data: commonTags } = useCommonTags(type);
+	const { data: suggestedTags } = useSuggestedTags(type, debouncedQuery);
+
+	const onAddition = (tag) => {
+		setTags([].concat(tags, tag));
+	};
+
+	const onDelete = (i) => {
+		const newTags = tags.filter((t) => t.id !== i);
+		setTags(newTags);
+	};
+
+	let suggestions = uniqBy(suggestedTags ? suggestedTags : [], "id");
 
 	return {
 		suggestions,

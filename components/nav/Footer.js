@@ -42,6 +42,9 @@ export default function Footer() {
 											<Link route="patron">Patrons</Link>
 										</li>
 										<li>
+											<Link route={"chats"}>Chats</Link>
+										</li>
+										<li>
 											<Link route={"book-ad"}>
 												Advertise
 											</Link>

@@ -60,24 +60,6 @@ function LoginPage() {
 								</div>
 							)}
 
-							{!config.IS_WL && (
-								<div className="col-span-6">
-									<div className="flex items-center w-full py-2">
-										<div className="flex-grow">
-											<hr />
-										</div>
-										<div>
-											<p className="px-2 text-xs font-semibold tracking-wider text-gray-500 uppercase leading-4">
-												or
-											</p>
-										</div>
-										<div className="flex-grow">
-											<hr />
-										</div>
-									</div>
-								</div>
-							)}
-
 							{errorMessages && (
 								<div className="col-span-6">
 									<ErrorMessageList error={errorMessages} />

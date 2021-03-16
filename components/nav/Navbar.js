@@ -182,6 +182,14 @@ function Navbar() {
 															Reminders
 														</Dropdown.Item>
 													</Link>
+													<Link route="onboarding">
+														<Dropdown.Item>
+															<Dropdown.Item.Icon>
+																<FontAwesomeIcon icon="chalkboard" />
+															</Dropdown.Item.Icon>{" "}
+															Tutorial
+														</Dropdown.Item>
+													</Link>
 													<Dropdown.Item
 														onClick={toggleFeedback}
 													>
@@ -278,6 +286,13 @@ function Navbar() {
 									activeClassName={config.WL_TEXT_COLOR}
 								>
 									<a className="mr-4 font-medium">About</a>
+								</ActiveLink>{" "}
+								<ActiveLink
+									route="chats"
+									inactiveClassName={"text-gray-500"}
+									activeClassName={config.WL_TEXT_COLOR}
+								>
+									<a className="mr-4 font-medium">Chats</a>
 								</ActiveLink>
 								{!config.IS_WL ? (
 									<ActiveLink

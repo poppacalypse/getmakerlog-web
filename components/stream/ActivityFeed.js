@@ -76,8 +76,8 @@ class ActivityFeed extends React.Component {
 					{!this.props.hasMore &&
 						!this.props.isSyncing &&
 						!this.props.failed && (
-							<center className="ActivityFeed--section">
-								All done. Go have some mango juice.
+							<center className="text-xs text-gray-400 ActivityFeed--section">
+								That's all.
 							</center>
 						)}
 				</div>

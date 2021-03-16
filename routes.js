@@ -77,7 +77,11 @@ const routerHelper = routes()
 	.add("reminders", "/reminders")
 	.add("not-implemented", "/not-implemented")
 	.add("milestones", "/milestones")
-	.add("milestone", "/milestones/[slug]");
+	.add("milestone", "/milestones/[slug]")
+	.add("onboarding", "/onboarding")
+	.add("onboarding-profile", "/onboarding/profile")
+	.add("onboarding-finished", "/onboarding/finished")
+	.add("chats", "/about/chats");
 
 const { Link, Router, useRouter, withRouter } = routerHelper;
 

@@ -3,7 +3,7 @@ import TaskEditor from "./TaskEditor";
 import DiscussionEditor from "./DiscussionEditor";
 import MilestoneEditor from "./MilestoneEditor";
 
-function Editor({ onFinish = () => {}, defaultTab = 0 }) {
+function Editor({ onFinish = () => {}, defaultTab = 0, forceOpen = false }) {
 	/**
 	 * Four tabs!
 	 * - Completed
@@ -46,9 +46,15 @@ function Editor({ onFinish = () => {}, defaultTab = 0 }) {
 					</a>
 				</small>
 			</div>
-			{tab === 0 && <TaskEditor onFinish={onFinish} />}
-			{tab === 1 && <MilestoneEditor onFinish={onFinish} />}
-			{tab === 2 && <DiscussionEditor onFinish={onFinish} />}
+			{tab === 0 && (
+				<TaskEditor forceOpen={forceOpen} onFinish={onFinish} />
+			)}
+			{tab === 1 && (
+				<MilestoneEditor forceOpen={forceOpen} onFinish={onFinish} />
+			)}
+			{tab === 2 && (
+				<DiscussionEditor forceOpen={forceOpen} onFinish={onFinish} />
+			)}
 		</div>
 	);
 }

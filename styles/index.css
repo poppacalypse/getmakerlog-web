@@ -9,6 +9,7 @@
 	--c-heatmap-2: #80d9be;
 	--c-heatmap-3: #33c297;
 	--c-heatmap-4: #008f64;
+	--reactour-accent: #00ad71 !important;
 }
 
 [data-theme="dark"] {
@@ -324,6 +325,12 @@ th {
 
 .bg-bubbles {
 	background-image: url(/img/bubble-bg.png) !important;
+	background-size: cover;
+	background-position: center;
+}
+
+.bg-bubbles-large {
+	background-image: url(/img/bg-bubbles-larger.png) !important;
 	background-size: cover;
 	background-position: center;
 }
@@ -707,4 +714,11 @@ table.table-auto td {
 }
 .slide-exit-active {
 	transform: translateY(100%);
+}
+
+.unstyled-input {
+	@apply p-0 border-0 shadow-none focus:border-transparent focus:ring-0 focus:ring-opacity-0 focus:ring-transparent focus:shadow-none;
+}
+.unstyled-input:focus {
+	box-shadow: none !important;
 }

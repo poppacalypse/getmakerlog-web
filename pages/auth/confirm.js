@@ -9,11 +9,9 @@ import { useActivateUser } from "queries/users";
 import React, { useEffect } from "react";
 import { Router } from "routes";
 import { useAuth } from "stores/AuthStore";
-import { useRoot } from "stores/RootStore";
 
 function ConfirmPage() {
 	const { query } = useRouter();
-	const { setOnboarding } = useRoot();
 	const { loginWithToken } = useAuth();
 	const [mutate, { isLoading, error }] = useActivateUser();
 
@@ -22,8 +20,7 @@ function ConfirmPage() {
 			const data = await mutate({ uid: query.uid, token: query.token });
 			if (data && data.token) {
 				loginWithToken(data.token);
-				setOnboarding(true);
-				Router.pushRoute("index");
+				Router.pushRoute("onboarding");
 			}
 		};
 		if (query.uid && query.token) {

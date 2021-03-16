@@ -5,6 +5,10 @@ import ProductMedia from "components/products/ProductMedia";
 import orderBy from "lodash/orderBy";
 import UserHeatmap from "components/stats/UserHeatmap";
 import SocialsCard from "./SocialsCard";
+import { useUserSkills } from "queries/tags";
+import Spinner from "components/ui/Spinner";
+import SkillList from "components/users/skills/SkillList";
+import Skill from "components/users/skills/Skill";
 
 function ProductsCard({ products }) {
 	if (!products) return null;
@@ -43,6 +47,33 @@ function HeatmapCard({ user }) {
 	);
 }
 
+function SkillsCard({ user }) {
+	const { data, isLoading, error } = useUserSkills(
+		user ? user.username : null
+	);
+	if (!user || error) return null;
+
+	return (
+		<SidebarItem title="Skills">
+			<Card>
+				<Card.Content>
+					{isLoading && <Spinner small text="Loading skills..." />}
+					{data && (
+						<SkillList>
+							{data.map((skill) => (
+								<Skill key={skill.id} skill={skill} readOnly />
+							))}
+						</SkillList>
+					)}
+					{data && data.length === 0 && (
+						<p className="help">No skills yet.</p>
+					)}
+				</Card.Content>
+			</Card>
+		</SidebarItem>
+	);
+}
+
 export default function ProfileSidebar({
 	user,
 	products = null,
@@ -55,6 +86,7 @@ export default function ProfileSidebar({
 				<>
 					<SocialsCard object={user} />
 					<HeatmapCard user={user} />
+					<SkillsCard user={user} />
 				</>
 			)}
 			{!left && <ProductsCard products={products} />}

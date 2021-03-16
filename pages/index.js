@@ -36,6 +36,7 @@ import Button from "components/ui/Button";
 import { Link } from "routes";
 import { useRoot } from "stores/RootStore";
 import dynamic from "next/dynamic";
+import OnboardingChecklistCard from "components/sidebars/OnboardingChecklistCard";
 
 const RemindersCard = dynamic(
 	() => import("../components/reminders/RemindersCard"),
@@ -237,6 +238,7 @@ function FeedPage() {
 				rightSidebar={
 					<>
 						<MyStreakCard />
+						<OnboardingChecklistCard />
 						<StdSidebar />
 						<TopStreaksCard />
 						<RisingMakersCard />

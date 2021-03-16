@@ -100,6 +100,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons/faStar";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons/faStar";
 import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons/faAngleDoubleDown";
+import { faChalkboard } from "@fortawesome/free-solid-svg-icons/faChalkboard";
 
 library.add(
 	faInstagram,
@@ -199,5 +200,6 @@ library.add(
 	faRedo,
 	faTimes,
 	faChevronRight,
-	faAngleDoubleDown
+	faAngleDoubleDown,
+	faChalkboard
 );

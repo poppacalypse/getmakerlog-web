@@ -5,14 +5,13 @@ import Form from "components/ui/Form";
 import AvatarUpload from "components/users/AvatarUpload";
 import React, { useState } from "react";
 import { useAuth } from "stores/AuthStore";
-import { useRoot } from "stores/RootStore";
-import { requiresOnboarding } from "utils/auth";
 import { useImageUpload } from "utils/hooks";
 import { getLogger } from "utils/logging";
+import ChangeUsernameField from "./ChangeUsernameField";
 
 const log = getLogger("onboarding");
 
-function OnboardingCard() {
+function OnboardingCard({ forceOpen = false }) {
 	const {
 		patching: loading,
 		patchUser,
@@ -20,7 +19,6 @@ function OnboardingCard() {
 		isLoggedIn,
 		user,
 	} = useAuth();
-	const { setOnboarding, isOnboarding } = useRoot();
 	const { getInputProps, open, attachmentState } = useImageUpload();
 	const [payload, setPayload] = useState({
 		first_name: user && user.first_name ? user.first_name : "",
@@ -29,8 +27,7 @@ function OnboardingCard() {
 		timezone: user && user.timezone ? user.timezone : "UTC",
 	});
 
-	if (!isLoggedIn || (!requiresOnboarding(user) && !isOnboarding))
-		return null;
+	if (!isLoggedIn && !forceOpen) return null;
 
 	async function onSubmit() {
 		let finalPayload = { ...payload };
@@ -42,18 +39,22 @@ function OnboardingCard() {
 			log(`Timezone detected as ${timezone}.`);
 		}
 		await patchUser(finalPayload);
-		setOnboarding(false);
 	}
 
 	return (
 		<Card>
 			<Card.Content>
-				<h3 className="font-bold text-gray-900">
-					Welcome to Makerlog!{" "}
-				</h3>
-				<p className="mb-4 text-gray-700">
-					You're only one step away from joining the maker community.
-				</p>
+				{!forceOpen && (
+					<>
+						<h3 className="font-bold text-gray-900">
+							Welcome to Makerlog!{" "}
+						</h3>
+						<p className="mb-4 text-gray-700">
+							You're only one step away from joining the maker
+							community.
+						</p>
+					</>
+				)}
 
 				<Form onSubmit={onSubmit}>
 					{errorMessages && (
@@ -95,6 +96,25 @@ function OnboardingCard() {
 								/>
 							</Form.Field>
 						)}
+
+						<Form.Field span={6} label="Tagline">
+							<input
+								onChange={(e) => {
+									setPayload({
+										...payload,
+										description: e.target.value,
+									});
+								}}
+								value={payload.description}
+							/>
+							<p className="help">
+								Briefly describe yourself and what you do.
+							</p>
+						</Form.Field>
+
+						<Form.Field label="Username" span={6}>
+							<ChangeUsernameField />
+						</Form.Field>
 						<Form.Field span={3} label="Profile picture">
 							<AvatarUpload
 								attachmentState={attachmentState}
@@ -105,7 +125,7 @@ function OnboardingCard() {
 						</Form.Field>
 						<Form.Actions span={6}>
 							<Button loading={loading} primary type="submit">
-								Finish
+								Save
 							</Button>
 						</Form.Actions>
 					</Form.Controls>

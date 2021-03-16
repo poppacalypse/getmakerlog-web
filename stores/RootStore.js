@@ -8,7 +8,6 @@ const log = getLogger("root");
 
 class RootStore extends BaseStore {
 	@observable ready = false;
-	@observable isOnboarding = false;
 	@observable editorOpen = false;
 	@observable editorDefaultTab = 0;
 	@observable searchOpen = false;
@@ -38,10 +37,6 @@ class RootStore extends BaseStore {
 		this.feedbackOpen = !this.feedbackOpen;
 	}
 
-	@action.bound setOnboarding(value) {
-		this.isOnboarding = value;
-	}
-
 	@action.bound setReady(value) {
 		this.ready = value;
 	}
@@ -53,7 +48,6 @@ export function useRoot() {
 	const { root } = useStores();
 	return useObserver(() => ({
 		ready: root.ready,
-		isOnboarding: root.isOnboarding,
 		editorOpen: root.editorOpen,
 		editorDefaultTab: root.editorDefaultTab,
 		searchOpen: root.searchOpen,
@@ -61,6 +55,5 @@ export function useRoot() {
 		toggleEditor: root.toggleEditor,
 		toggleSearch: root.toggleSearch,
 		toggleFeedback: root.toggleFeedback,
-		setOnboarding: root.setOnboarding,
 	}));
 }

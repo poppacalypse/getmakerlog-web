@@ -10,17 +10,22 @@ function ProfileHeader({
 	stats = null,
 	bottomNav = null,
 	halfWidth = false,
+	thirdWidth = false,
 }) {
 	return (
 		<>
 			<div className="bg-white border-b border-gray-200">
 				{!user.header ? (
-					<div className="flex items-center justify-center object-cover w-full h-64 bg-green-500"></div>
+					<div
+						className={`flex items-center justify-center object-cover w-full bg-green-500 ${
+							halfWidth ? "h-32" : thirdWidth ? "h-16" : "h-64"
+						}`}
+					></div>
 				) : (
 					<img
 						src={user.header}
 						className={`object-cover w-full ${
-							halfWidth ? "h-32" : "h-64"
+							halfWidth ? "h-32" : thirdWidth ? "h-16" : "h-64"
 						}`}
 						alt=""
 					/>

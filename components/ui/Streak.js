@@ -10,8 +10,8 @@ const Odometer = dynamic(import("react-odometerjs"), {
 
 export default function Streak({ days, animated = false, text = false }) {
 	return (
-		<span>
-			{days === 0 ? "😔" : days === 1 ? "✨" : "🔥"}
+		<span className="streak">
+			🔥
 			{animated ? (
 				<span className="inline-flex">
 					<Odometer value={days} />

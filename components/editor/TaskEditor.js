@@ -39,7 +39,7 @@ function getExtension(filename) {
 	return parts[parts.length - 1];
 }
 
-function TaskEditor({ onFinish }) {
+function TaskEditor({ onFinish, forceOpen = false }) {
 	const { user } = useAuth();
 	const [content, setContent] = useState("");
 	const [description, setDescription] = useState("");
@@ -143,6 +143,7 @@ function TaskEditor({ onFinish }) {
 					/>
 				</span>
 				<input
+					id="task-editor"
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
 					onKeyDown={(e) => onCmdEnter(e, () => onCreate(e))}
@@ -210,7 +211,7 @@ function TaskEditor({ onFinish }) {
 					</div>
 				)}
 			</div>
-			{isOpen && (
+			{(isOpen || forceOpen) && (
 				<>
 					{isDragActive ? (
 						<div className="flex items-center justify-center h-32 mt-2 bg-gray-100 border border-gray-200 border-dashed rounded-md">
@@ -238,7 +239,12 @@ function TaskEditor({ onFinish }) {
 					)}
 					<div className="flex flex-row items-center w-full mt-4">
 						<div className="flex-none space-x-2">
-							<Button sm onClick={open} className="truncate">
+							<Button
+								sm
+								onClick={open}
+								className="truncate"
+								id="upload-button"
+							>
 								<Button.Icon>
 									<FontAwesomeIcon icon="camera" />
 								</Button.Icon>

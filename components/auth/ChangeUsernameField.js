@@ -23,6 +23,7 @@ export default function ChangeUsernameField() {
 		},
 	] = useCheckUsername();
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const checkUsername = useCallback(
 		debounce((e) => {
 			check(e.target.value, true);

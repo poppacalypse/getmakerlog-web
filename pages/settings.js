@@ -18,6 +18,7 @@ import Spinner from "components/ui/Spinner";
 import { Link } from "routes";
 import { useEffect } from "react";
 import ChangeUsernameField from "components/auth/ChangeUsernameField";
+import SkillSelector from "components/users/skills/SkillSelector";
 
 function SettingsPage() {
 	const { patching, patchUser, user, errorMessages } = useAuth();
@@ -217,6 +218,12 @@ function SettingsPage() {
 							</Form.Field>
 							<Form.Field span={6} label="Preview">
 								<ProfileHeader halfWidth user={user} />
+							</Form.Field>
+						</Form.Group>
+
+						<Form.Group title="Skills">
+							<Form.Field span={6}>
+								<SkillSelector />
 							</Form.Field>
 						</Form.Group>
 
