@@ -10,7 +10,6 @@ import Card from "components/ui/Card";
 import TwitterLogin from "components/auth/TwitterLogin";
 import FacebookLogin from "components/auth/FacebookLogin";
 import { NextSeo } from "next-seo";
-import config from "config";
 
 function LoginPage() {
 	const { loginWithCredentials, loading, errorMessages } = useAuth();

@@ -6,6 +6,7 @@ import OnboardingCard from "components/auth/OnboardingCard";
 import { Link } from "routes";
 import OnboardingLayout from "layouts/OnboardingLayout";
 import SkillSelector from "components/users/skills/SkillSelector";
+import { NextSeo } from "next-seo";
 
 function OnboardingProfile() {
 	return (
@@ -50,6 +51,7 @@ function OnboardingProfile() {
 					</Card.Content>
 				</Card>
 			</OnboardingLayout.Action>
+			<NextSeo title="Onboarding" />
 		</OnboardingLayout>
 	);
 }

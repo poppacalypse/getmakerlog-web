@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import KeyActivityFeed from "components/stream/KeyActivityFeed";
 import { Link } from "routes";
 import OnboardingLayout from "layouts/OnboardingLayout";
+import { NextSeo } from "next-seo";
 
 const Joyride = dynamic(() => import("react-joyride"), { ssr: false });
 
@@ -113,6 +114,7 @@ function OnboardingIndex() {
 				</div>
 				<KeyActivityFeed userId={user.id} feed="tasks" />
 			</OnboardingLayout.Action>
+			<NextSeo title="Onboarding" />
 		</OnboardingLayout>
 	);
 }

@@ -6,6 +6,7 @@ import { Link } from "routes";
 import OutboundLink from "components/seo/OutboundLink";
 import { TwitterFollowButton } from "react-twitter-embed";
 import OnboardingLayout from "layouts/OnboardingLayout";
+import { NextSeo } from "next-seo";
 
 function OnboardingFinished() {
 	const { patchUser } = useAuth();
@@ -93,6 +94,7 @@ function OnboardingFinished() {
 			<OnboardingLayout.Action className="relative bg-green-900 bg-bubbles-large">
 				<div className="absolute top-0 left-0 w-full h-full bg-green-900 opacity-75"></div>
 			</OnboardingLayout.Action>
+			<NextSeo title="Onboarding" />
 		</OnboardingLayout>
 	);
 }
