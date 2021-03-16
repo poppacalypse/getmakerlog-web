@@ -58,7 +58,7 @@ function SkillsCard({ user }) {
 			<Card>
 				<Card.Content>
 					{isLoading && <Spinner small text="Loading skills..." />}
-					{data && (
+					{data && data.length > 0 && (
 						<SkillList>
 							{data.map((skill) => (
 								<Skill key={skill.id} skill={skill} readOnly />
