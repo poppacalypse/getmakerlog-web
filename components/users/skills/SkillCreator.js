@@ -120,7 +120,7 @@ export default function SkillCreator() {
 	return (
 		<span
 			onClick={() => setOpen(true)}
-			className="inline-flex items-center text-sm font-medium text-gray-800 bg-gray-100 space-x-2 px-2.5 py-0.5 rounded-md"
+			className="inline-flex items-center text-sm font-medium text-gray-800 bg-gray-100 dark:bg-dark-200 space-x-2 px-2.5 py-0.5 rounded-md"
 		>
 			<span>
 				<FontAwesomeIcon icon="plus" />
