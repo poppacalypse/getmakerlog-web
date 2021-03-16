@@ -1,7 +1,7 @@
 import Editor from "components/editor/Editor";
 import Button from "components/ui/Button";
 import Card from "components/ui/Card";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "stores/AuthStore";
 import { requireAuth } from "utils/auth";
 import dynamic from "next/dynamic";
@@ -9,6 +9,7 @@ import KeyActivityFeed from "components/stream/KeyActivityFeed";
 import { Link } from "routes";
 import OnboardingLayout from "layouts/OnboardingLayout";
 import { NextSeo } from "next-seo";
+import { trackEvent } from "vendor/segment";
 
 const Joyride = dynamic(() => import("react-joyride"), { ssr: false });
 
@@ -27,13 +28,22 @@ function OnboardingIndex() {
 	// We patch the user to disable needs_setup.
 	const { user, patchUser } = useAuth();
 
+	useEffect(() => {
+		trackEvent("Onboarding Opened");
+	}, []);
+
 	return (
 		<OnboardingLayout>
 			<OnboardingLayout.Progress className="w-1/3" />
 			<OnboardingLayout.Tutorial
 				buttons={
 					<div className="flex w-full">
-						<div onClick={() => patchUser({})}>
+						<div
+							onClick={() => {
+								patchUser({});
+								trackEvent("Onboarding Skipped");
+							}}
+						>
 							<Link route="index">
 								<Button>Skip</Button>
 							</Link>

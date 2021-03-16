@@ -7,6 +7,7 @@ import OutboundLink from "components/seo/OutboundLink";
 import { TwitterFollowButton } from "react-twitter-embed";
 import OnboardingLayout from "layouts/OnboardingLayout";
 import { NextSeo } from "next-seo";
+import { trackEvent } from "vendor/segment";
 
 function OnboardingFinished() {
 	const { patchUser } = useAuth();
@@ -23,7 +24,12 @@ function OnboardingFinished() {
 							</div>
 						</Link>
 						<div className="flex-grow"></div>
-						<div onClick={() => patchUser({})}>
+						<div
+							onClick={() => {
+								patchUser({});
+								trackEvent("Onboarding Finished");
+							}}
+						>
 							<Link route="index">
 								<Button primary>Done</Button>
 							</Link>
