@@ -3,16 +3,16 @@ import ErrorCard from "components/ui/ErrorCard";
 import Spinner from "components/ui/Spinner";
 import { useFeed } from "queries/feeds";
 import React from "react";
-import { ErrorBoundary } from "react-error-boundary";
+// import { ErrorBoundary } from "react-error-boundary";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useAuth } from "stores/AuthStore";
 import { sortStreamByActivity } from "utils/feeds";
 import { extractResultsFromGroups } from "utils/random";
 import FeedSection from "./FeedSection";
 
-function ErrorFallback({ componentStack }) {
-	return <ErrorCard trace={componentStack} />;
-}
+//function ErrorFallback({ componentStack }) {
+//	return <ErrorCard trace={componentStack} />;
+//}
 
 export default function Feed({ indexUrl = "/feeds/world/", live = true }) {
 	const { user, token } = useAuth();
@@ -58,15 +58,13 @@ export default function Feed({ indexUrl = "/feeds/world/", live = true }) {
 					/>
 				)}
 
-				<ErrorBoundary FallbackComponent={ErrorFallback}>
-					{Object.keys(grouped).map((key) => (
-						<FeedSection
-							key={JSON.stringify(key)}
-							date={key}
-							activities={grouped[key]}
-						/>
-					))}
-				</ErrorBoundary>
+				{Object.keys(grouped).map((key) => (
+					<FeedSection
+						key={JSON.stringify(key)}
+						date={key}
+						activities={grouped[key]}
+					/>
+				))}
 
 				{canFetchMore && (
 					<center>
