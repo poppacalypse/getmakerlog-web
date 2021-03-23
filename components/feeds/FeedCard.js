@@ -20,7 +20,7 @@ export default function FeedCard({ objects }) {
 	if (tasks.length === 0) return null;
 
 	const time = tasks[0].updated_at;
-	const groupedTasks = groupTasksByDone(orderByDate(tasks));
+	const groupedTasks = groupTasksByDone(uniqBy(orderByDate(tasks), "id"));
 
 	return (
 		<Card>
