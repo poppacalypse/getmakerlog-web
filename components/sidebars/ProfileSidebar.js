@@ -9,6 +9,8 @@ import { useUserSkills } from "queries/tags";
 import Spinner from "components/ui/Spinner";
 import SkillList from "components/users/skills/SkillList";
 import Skill from "components/users/skills/Skill";
+import { useAuth } from "stores/AuthStore";
+import { Link } from "routes";
 
 function ProductsCard({ products }) {
 	if (!products) return null;
@@ -48,6 +50,7 @@ function HeatmapCard({ user }) {
 }
 
 function SkillsCard({ user }) {
+	const { user: authedUser } = useAuth();
 	const { data, isLoading, error } = useUserSkills(
 		user ? user.username : null
 	);
@@ -66,7 +69,14 @@ function SkillsCard({ user }) {
 						</SkillList>
 					)}
 					{data && data.length === 0 && (
-						<p className="help">No skills yet.</p>
+						<p className="help">
+							No skills yet.{" "}
+							{user.id === authedUser.id && (
+								<Link route="settings">
+									<a>Add your skills &raquo;</a>
+								</Link>
+							)}{" "}
+						</p>
 					)}
 				</Card.Content>
 			</Card>

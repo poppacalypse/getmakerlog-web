@@ -13,7 +13,12 @@ const log = getLogger("PraiseButton");
 
 // TODO: On click, redirect to sign in if not logged in.
 
-function PraiseButton({ indexUrl, initialCount, disabled = false }) {
+function PraiseButton({
+	indexUrl,
+	initialCount,
+	disabled = false,
+	small = false,
+}) {
 	const { isLoggedIn, user } = useAuth();
 	const [clicked, setClicked] = useState(false);
 	const { isLoading, error, data } = usePraise(
@@ -22,7 +27,9 @@ function PraiseButton({ indexUrl, initialCount, disabled = false }) {
 	);
 	const [mutate] = usePraiseMutation(initialCount, user);
 
-	const onPraise = async () => {
+	const onPraise = async (e) => {
+		e.stopPropagation();
+		e.nativeEvent.stopImmediatePropagation();
 		if (!isLoggedIn && !isServer) {
 			log(`User is not signed in. Redirecting...`);
 			Router.pushRoute("login");
@@ -61,18 +68,18 @@ function PraiseButton({ indexUrl, initialCount, disabled = false }) {
 			<Button.Icon>
 				<PraiseIcon />
 			</Button.Icon>
-			<span>
-				{value && value.praised ? (
+			{value && value.praised ? (
+				small ? null : (
 					<span className="font-medium">Praised</span>
-				) : (
-					"Praise"
-				)}
-			</span>
+				)
+			) : small ? null : (
+				<span>Praise</span>
+			)}
 			<span className="text-gray-500">
 				{value ? (
-					<span className="ml-2">{value.total}</span>
+					<span className={small ? "" : "ml-2"}>{value.total}</span>
 				) : (
-					<span className="ml-2">{initialCount}</span>
+					<span className={small ? "" : "ml-2"}>{initialCount}</span>
 				)}
 			</span>
 			{value && value.praised_by !== null && value.praised_by.length > 0 && (

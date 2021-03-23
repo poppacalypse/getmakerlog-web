@@ -31,12 +31,10 @@ import Container from "components/ui/Container";
 import FacebookLogin from "components/auth/FacebookLogin";
 import TwitterLogin from "components/auth/TwitterLogin";
 import ContentLayout from "layouts/ContentLayout";
-import config from "config";
-import Button from "components/ui/Button";
-import { Link } from "routes";
 import { useRoot } from "stores/RootStore";
 import dynamic from "next/dynamic";
 import OnboardingChecklistCard from "components/sidebars/OnboardingChecklistCard";
+import Feed from "components/feeds/Feed";
 
 const RemindersCard = dynamic(
 	() => import("../components/reminders/RemindersCard"),
@@ -268,10 +266,7 @@ function FeedPage() {
 
 								<PopularToday frontpage={frontpage} />
 
-								<h3 className="mb-2 font-semibold">
-									Latest tasks
-								</h3>
-								<KeyActivityFeed userId={-1} feed="site" />
+								<Feed />
 							</>
 						)}
 						{feed === FEEDS.POPULAR_TODAY && (
@@ -299,24 +294,20 @@ function FeedPage() {
 								)}
 							</>
 						)}
-						{feed === FEEDS.ALL_TASKS && (
-							<KeyActivityFeed userId={-1} feed="site" />
-						)}
 						{feed === FEEDS.USER_TASKS && (
 							<>
 								<div className="mb-4">
 									<DayView withHeader={false} />
 								</div>
-								<h3 className="mb-2 font-semibold">Your log</h3>
-								<KeyActivityFeed
-									userId={user.id}
-									feed="tasks"
+
+								<Feed
+									indexUrl={`/feeds/user/${user.username}/`}
 								/>
 							</>
 						)}
 						{feed === FEEDS.DISCUSSIONS && <LatestThreads />}
 						{feed === FEEDS.FOLLOWING && (
-							<KeyActivityFeed userId={user.id} feed="timeline" />
+							<Feed indexUrl={`/feeds/following/`} />
 						)}
 					</>
 				)}

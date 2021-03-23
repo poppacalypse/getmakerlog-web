@@ -6,6 +6,7 @@ import "react-responsive-modal/styles.css";
 import "react-colorful/dist/index.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "emoji-mart/css/emoji-mart.css";
+import "react-slidedown/lib/slidedown.css";
 import "mobx-react-lite/batchingForReactDom";
 import "axios-debug-log";
 

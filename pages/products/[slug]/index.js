@@ -7,12 +7,12 @@ import React from "react";
 import { makeQueryCache } from "react-query";
 import NarrowLayout from "layouts/NarrowLayout";
 import ProductSidebar from "components/sidebars/ProductSidebar";
-import KeyActivityFeed from "components/stream/KeyActivityFeed";
 import ProductHeader from "components/products/ProductHeader";
 import { NextSeo } from "next-seo";
 import config from "config";
 import { dehydrate } from "react-query/hydration";
 import { getErrorResponse } from "utils/error";
+import Feed from "components/feeds/Feed";
 
 function ProductPage() {
 	const router = useRouter();
@@ -37,7 +37,11 @@ function ProductPage() {
 						<ProductSidebar product={product} left={false} />
 					}
 				>
-					<KeyActivityFeed userId={product.id} feed="product" />
+					<Feed
+						key={product.slug}
+						indexUrl={`/feeds/product/${product.slug}/`}
+						live={false}
+					/>
 				</NarrowLayout>
 			</Container>
 

@@ -80,6 +80,7 @@
 		"react-query-devtools": "^2.4.4",
 		"react-responsive-masonry": "^2.1.0",
 		"react-responsive-modal": "^5.1.0",
+		"react-slidedown": "^2.4.5",
 		"react-tag-autocomplete": "^6.1.0",
 		"react-timeago": "^4.4.0",
 		"react-transition-group": "^4.4.1",

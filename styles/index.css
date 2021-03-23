@@ -722,3 +722,12 @@ table.table-auto td {
 .unstyled-input:focus {
 	box-shadow: none !important;
 }
+
+.Task:hover .actions-container {
+	@apply opacity-100;
+}
+
+.react-slidedown {
+	transition-duration: 150ms !important;
+	transition-timing-function: ease-in-out;
+}

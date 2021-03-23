@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Button from "components/ui/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PraiseButton from "components/praise/PraiseButton";
-import TaskComments from "./TaskComments";
 import { useAuth } from "stores/AuthStore";
 import Dropdown from "components/ui/Dropdown";
 import copy from "clipboard-copy";
@@ -342,13 +341,18 @@ function TaskMoreDropdown({ task, onDelete, onUpdate }) {
 	);
 }
 
-function TaskActions({ task, stream = false, embed = false }) {
+function TaskActions({
+	task,
+	stream = false,
+	small = false,
+	embed = false,
+	setCommentsOpen = () => {},
+}) {
 	// We allow this to be false, favoring a boolean op below.
 	// This allows for autofocus on click.
-	const { user } = useAuth();
+	const { isLoggedIn, user } = useAuth();
 	const [updateMutation] = useUpdateTask(task);
 	const [deleteMutation] = useDeleteTask(task);
-	const [commentsOpen, setCommentsOpen] = useState(false);
 	if (!task) return;
 
 	const updateTask = async (delta) => {
@@ -361,57 +365,49 @@ function TaskActions({ task, stream = false, embed = false }) {
 		log(`Task #${task.id} has been deleted.`);
 	};
 
-	if (stream) {
+	if (embed) {
+		return null;
+	} else if (stream) {
 		return (
 			<div>
 				<span className="inline-flex md:flex space-x-2">
 					<span>
 						<PraiseButton
+							small={small}
 							disabled={user && task.user.id === user.id}
 							initialCount={task.praise}
 							indexUrl={`/tasks/${task.id}`}
 						/>
 					</span>
-					{!embed && (
-						<span>
-							<Button
-								xs
-								onClick={() => {
-									setCommentsOpen(true);
-								}}
-							>
-								<Button.Icon>
-									<FontAwesomeIcon icon="comment" />
-								</Button.Icon>
-								Comment
-							</Button>
-						</span>
-					)}
-					{!embed && (
-						<span>
-							<TaskMoreDropdown
-								task={task}
-								onUpdate={updateTask}
-								onDelete={deleteTask}
-							/>
-						</span>
-					)}
+					<span>
+						<Button
+							xs
+							onClick={() => {
+								setCommentsOpen(true);
+							}}
+						>
+							<Button.Icon>
+								<FontAwesomeIcon icon="comment" />
+							</Button.Icon>
+							{small ? task.comment_count : "Comment"}
+						</Button>
+					</span>
 				</span>
-				{(commentsOpen || task.comment_count > 0) && !embed && (
-					<div className="mt-2">
-						<TaskComments task={task} focused={commentsOpen} />
-					</div>
-				)}
 			</div>
 		);
 	} else {
 		return (
 			<div>
-				<span className="inline-flex">
-					<span className="mr-2">
-						<TaskStateDropdown task={task} onUpdate={updateTask} />
-					</span>
-					<span className="mr-2">
+				<span className="inline-flex space-x-2">
+					{isLoggedIn && user.id === task.user.id && (
+						<span>
+							<TaskStateDropdown
+								task={task}
+								onUpdate={updateTask}
+							/>
+						</span>
+					)}
+					<span>
 						<TaskMoreDropdown
 							task={task}
 							onUpdate={updateTask}

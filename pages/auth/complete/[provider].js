@@ -7,7 +7,6 @@ import ErrorMessageList from "components/error/ErrorMessageList";
 import Card from "components/ui/Card";
 import NarrowLayout from "layouts/NarrowLayout";
 import Spinner from "components/ui/Spinner";
-import { Router } from "routes";
 import { NextSeo } from "next-seo";
 
 function SocialAuthCompletePage() {

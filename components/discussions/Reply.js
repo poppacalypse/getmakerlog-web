@@ -69,7 +69,7 @@ function Reply({
 				) : (
 					<>
 						<ModStatus reply={reply} />
-						<div>
+						<div className="text-sm">
 							{!reply.hidden ? (
 								<DiscussionsTextRenderer object={reply} />
 							) : null}

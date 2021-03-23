@@ -18,7 +18,7 @@ function TaskComments({ task, focused }) {
 	}
 
 	return (
-		<div className="w-full">
+		<div className="w-full px-2 py-4 border border-gray-200 rounded-md bg-gray-50">
 			{task.comment_count > 0 && isLoading && (
 				<div className="mb-2 text-gray-500">
 					<Spinner small text="Loading comments, hold on..." />
@@ -32,7 +32,7 @@ function TaskComments({ task, focused }) {
 				</Message>
 			)}
 			{data && !isLoading && !error && data.length > 0 && (
-				<div className="px-2 py-4 mb-2 border-l border-gray-200 bg-gray-50">
+				<div>
 					{orderBy(value, "created_at", "asc").map((comment) => (
 						<Comment
 							indexUrl={indexUrl}
@@ -42,7 +42,9 @@ function TaskComments({ task, focused }) {
 					))}
 				</div>
 			)}
-			<CommentInput indexUrl={indexUrl} focused={focused} />
+			<div className="mt-2 first:mt-0">
+				<CommentInput indexUrl={indexUrl} focused={focused} />
+			</div>
 		</div>
 	);
 }

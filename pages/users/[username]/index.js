@@ -16,6 +16,7 @@ import {
 	useUserProducts,
 } from "queries/products";
 import { getErrorResponse } from "utils/error";
+import Feed from "components/feeds/Feed";
 
 // TODO: make sure profiles only work if it's at the last of the routing stack
 // TODO: make sure they throw 404 for user not found cause fuck bitches
@@ -54,7 +55,7 @@ function ProfilePage() {
 				bottomNav: <ProfileMenu user={user} />,
 			}}
 		>
-			<KeyActivityFeed key={user.id} userId={user.id} feed={"user"} />
+			<Feed key={user.id} indexUrl={`/feeds/user/${user.username}/`} />
 		</ProfileLayout>
 	);
 }
