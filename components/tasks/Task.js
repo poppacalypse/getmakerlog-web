@@ -108,7 +108,12 @@ function Task({
 					{task.description ? <div>{task.description}</div> : null}
 					{renderAttachments()}
 					<div className="flex items-center mt-4 first:mt-0">
-						<TaskActions small={false} stream task={task} />
+						<TaskActions
+							small={false}
+							stream
+							task={task}
+							setCommentsOpen={setCommentsOpen}
+						/>
 						<div className="flex-grow"></div>
 						{withStreamActions && <TaskActions task={task} />}
 					</div>
