@@ -44,9 +44,7 @@ function TaskPage() {
 			<Card>
 				<Card.Content>
 					<Task task={task} />
-					<div
-						className="mt-2 mb-2 last:mb-0"
-					>
+					<div className="mt-2 mb-2 last:mb-0">
 						<small className="text-xs text-gray-300">
 							Added <TimeAgo date={task.created_at} />{" "}
 							{task.done_at ? (
@@ -56,7 +54,6 @@ function TaskPage() {
 							) : null}
 						</small>
 					</div>
-					<TaskComments task={task} />
 				</Card.Content>
 			</Card>
 
