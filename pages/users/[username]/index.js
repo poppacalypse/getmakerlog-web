@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import Spinner from "components/ui/Spinner";
 import ErrorCard from "components/ui/ErrorCard";
 import ProfileSidebar from "components/sidebars/ProfileSidebar";
-import KeyActivityFeed from "components/stream/KeyActivityFeed";
 import ProfileMenu from "components/users/ProfileMenu";
 import { getUserStats, STATS_QUERIES } from "queries/stats";
 import ProfileLayout from "components/users/ProfileLayout";

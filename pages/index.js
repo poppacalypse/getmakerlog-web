@@ -1,5 +1,4 @@
 import Card from "../components/ui/Card";
-import KeyActivityFeed from "components/stream/KeyActivityFeed";
 import { useAuth } from "stores/AuthStore";
 import Editor from "components/editor/Editor";
 import NarrowLayout from "layouts/NarrowLayout";
@@ -166,8 +165,7 @@ function HomePage() {
 				<LatestMilestones frontpage={frontpage} />
 				<LatestDiscussions frontpage={frontpage} />
 				<PopularToday frontpage={frontpage} />
-				<h3 className="mb-2 font-semibold">Latest tasks</h3>
-				<KeyActivityFeed userId={-1} feed="site" />
+				<Feed indexUrl={`/feeds/world/`} live={false} />
 			</ContentLayout>
 		</div>
 	);
