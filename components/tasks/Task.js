@@ -84,20 +84,23 @@ function Task({
 						<TaskTextRenderer task={task} />
 					</div>
 				</div>
-				<div
-					className="flex-none"
-					style={{ minHeight: 30, width: 1 }}
-				></div>
-				<div
-					className={
-						"flex-none ml-1 transition-opacity " +
-						(panelOpen
-							? "opacity-0"
-							: "actions-container opacity-75 hover:opacity-100")
-					}
-				>
-					{(withActions || withStreamActions) && renderActions()}
-				</div>
+				{!forceOpen && (
+					<>
+						<div
+							className="flex-none hidden sm:block"
+							style={{ minHeight: 30, width: 1 }}
+						></div>
+						<div
+							className={
+								"mb-2 sm:mb-0 flex-none ml-1 transition-opacity " +
+								"actions-container opacity-75 hover:opacity-100"
+							}
+						>
+							{(withActions || withStreamActions) &&
+								renderActions()}
+						</div>
+					</>
+				)}
 			</div>
 			<SlideDown closed={!panelOpen}>
 				<p

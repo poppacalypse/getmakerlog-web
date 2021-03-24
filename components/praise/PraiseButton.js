@@ -70,16 +70,20 @@ function PraiseButton({
 			</Button.Icon>
 			{value && value.praised ? (
 				small ? null : (
-					<span className="font-medium">Praised</span>
+					<span className="hidden font-medium sm:block">Praised</span>
 				)
 			) : small ? null : (
-				<span>Praise</span>
+				<span className="hidden sm:block">Praise</span>
 			)}
 			<span className="text-gray-500">
 				{value ? (
-					<span className={small ? "" : "ml-2"}>{value.total}</span>
+					<span className={small ? "" : "sm:ml-2"}>
+						{value.total}
+					</span>
 				) : (
-					<span className={small ? "" : "ml-2"}>{initialCount}</span>
+					<span className={small ? "" : "sm:ml-2"}>
+						{initialCount}
+					</span>
 				)}
 			</span>
 			{value && value.praised_by !== null && value.praised_by.length > 0 && (

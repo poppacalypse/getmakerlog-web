@@ -370,8 +370,8 @@ function TaskActions({
 	} else if (stream) {
 		return (
 			<div>
-				<span className="inline-flex md:flex space-x-2">
-					<span>
+				<span className="inline-flex flex-wrap md:flex space-x-2">
+					<span className="flex-none">
 						<PraiseButton
 							small={small}
 							disabled={user && task.user.id === user.id}
@@ -379,7 +379,7 @@ function TaskActions({
 							indexUrl={`/tasks/${task.id}`}
 						/>
 					</span>
-					<span>
+					<span className="flex-none">
 						<Button
 							xs
 							onClick={() => {
@@ -389,7 +389,7 @@ function TaskActions({
 							<Button.Icon>
 								<FontAwesomeIcon icon="comment" />
 							</Button.Icon>
-							{small ? task.comment_count : "Comment"}
+							{task.comment_count}
 						</Button>
 					</span>
 				</span>
@@ -398,16 +398,16 @@ function TaskActions({
 	} else {
 		return (
 			<div>
-				<span className="inline-flex space-x-2">
+				<span className="inline-flex flex-wrap space-x-2">
 					{isLoggedIn && user.id === task.user.id && (
-						<span>
+						<span className="flex-none">
 							<TaskStateDropdown
 								task={task}
 								onUpdate={updateTask}
 							/>
 						</span>
 					)}
-					<span>
+					<span className="flex-none">
 						<TaskMoreDropdown
 							task={task}
 							onUpdate={updateTask}
