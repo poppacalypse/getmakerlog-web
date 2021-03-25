@@ -24,7 +24,7 @@ import LatestDiscussions from "components/frontpage/LatestDiscussions";
 import LatestMilestones from "components/frontpage/LatestMilestones";
 import FeaturedStory from "components/frontpage/FeaturedStory";
 import { dehydrate } from "react-query/hydration";
-import { makeQueryCache } from "react-query";
+import { QueryClient } from "react-query";
 import Hero from "components/ui/Hero";
 import Container from "components/ui/Container";
 import FacebookLogin from "components/auth/FacebookLogin";
@@ -322,12 +322,12 @@ function IndexPage() {
 }
 
 IndexPage.getInitialProps = async () => {
-	const queryCache = makeQueryCache();
+	const queryClient = new QueryClient();
 
-	await queryCache.prefetchQuery([STATS_QUERIES.getFrontpage], getFrontpage);
+	await queryClient.prefetchQuery([STATS_QUERIES.getFrontpage], getFrontpage);
 
 	return {
-		dehydratedState: dehydrate(queryCache),
+		dehydratedState: dehydrate(queryClient),
 		layout: {
 			footer: false,
 			contained: false,

@@ -25,7 +25,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 
 function TodoistUninstallButton() {
-	const [mutate, { isLoading, isSuccess }] = useUnlinkTodoist();
+	const { mutate, isLoading, isSuccess } = useUnlinkTodoist();
 
 	if (isSuccess) {
 		return <Message success>All done.</Message>;
@@ -40,7 +40,7 @@ function TodoistUninstallButton() {
 
 function TodoistLinksTableRow({ link }) {
 	const [deleted, setDeleted] = useState(false);
-	const [mutate, { isLoading }] = useDeleteTodoistLink();
+	const { mutate, isLoading } = useDeleteTodoistLink();
 
 	if (deleted) return null;
 
@@ -99,12 +99,12 @@ function TodoistProjectLinker() {
 		data: todoistProjects,
 		error: errorTodoistProjects,
 	} = useTodoistProjects();
-	const [mutate, mutationState] = useLinkTodoistProjects();
+	const { mutate, ...mutationState } = useLinkTodoistProjects();
 	const [todoistProject, setTodoistProject] = useState(null);
 	const [makerlogProject, setMakerlogProject] = useState(null);
 
 	const onLink = async () => {
-		await mutate({ todoistProject, makerlogProject });
+		mutate({ todoistProject, makerlogProject });
 	};
 
 	const error = errorProjects || errorTodoistProjects || mutationState.error;
@@ -244,12 +244,18 @@ export default function TodoistIntegrationPage() {
 		isSuccess: isSuccessApps,
 		refetch: refetchApps,
 	} = useApps();
-	const [mutate, queryState] = useLinkTodoist();
+	const { mutate, ...queryState } = useLinkTodoist();
 
 	useEffect(() => {
 		const onKey = async (k) => {
-			await mutate({ key: k });
-			await refetchApps();
+			mutate(
+				{ key: k },
+				{
+					onSuccess: () => {
+						refetchApps();
+					},
+				}
+			);
 		};
 
 		if (

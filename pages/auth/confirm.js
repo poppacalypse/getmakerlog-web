@@ -12,17 +12,20 @@ import { useAuth } from "stores/AuthStore";
 function ConfirmPage() {
 	const { query } = useRouter();
 	const { loginWithToken } = useAuth();
-	const [mutate, { isLoading, error }] = useActivateUser();
+	const { mutate, isLoading, error } = useActivateUser();
 
 	useEffect(() => {
-		const onLoad = async () => {
-			const data = await mutate({ uid: query.uid, token: query.token });
-			if (data && data.token) {
-				loginWithToken(data.token);
-			}
-		};
 		if (query.uid && query.token) {
-			onLoad();
+			mutate(
+				{ uid: query.uid, token: query.token },
+				{
+					onSuccess: (data) => {
+						if (data && data.token) {
+							loginWithToken(data.token);
+						}
+					},
+				}
+			);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [query]);

@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "components/ui/Container";
-import { makeQueryCache } from "react-query";
+import { QueryClient } from "react-query";
 import {
 	COMMON_TAGS,
 	getFeatured,
@@ -132,14 +132,14 @@ function StoriesPage() {
 }
 
 StoriesPage.getInitialProps = async () => {
-	const queryCache = makeQueryCache();
+	const queryClient = new QueryClient();
 
-	await queryCache.prefetchQuery(
+	await queryClient.prefetchQuery(
 		[STORY_QUERIES.getFeatured, { limit: 1 }],
 		getFeatured
 	);
 
-	await queryCache.prefetchQuery(
+	await queryClient.prefetchQuery(
 		[
 			STORY_QUERIES.getTags,
 			{
@@ -151,7 +151,7 @@ StoriesPage.getInitialProps = async () => {
 		getTags
 	);
 
-	await queryCache.prefetchQuery(
+	await queryClient.prefetchQuery(
 		[
 			STORY_QUERIES.getTags,
 			{
@@ -163,7 +163,7 @@ StoriesPage.getInitialProps = async () => {
 		getTags
 	);
 
-	await queryCache.prefetchQuery(
+	await queryClient.prefetchQuery(
 		[
 			STORY_QUERIES.getTags,
 			{
@@ -176,7 +176,7 @@ StoriesPage.getInitialProps = async () => {
 	);
 
 	return {
-		dehydratedState: dehydrate(queryCache),
+		dehydratedState: dehydrate(queryClient),
 		layout: {
 			contained: false,
 		},

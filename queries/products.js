@@ -16,7 +16,8 @@ export const PRODUCT_QUERIES = {
 	getRecentlyLaunched: "products.getRecentlyLaunched",
 };
 
-export async function getProduct(key, { slug }) {
+export async function getProduct({ queryKey }) {
+	const [_key, { slug }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `/products/${slug}/`);
 	// const { value, error } = productSchema.validate(data);
 	// if (error) throw new StdErrorCollection(error);
@@ -30,12 +31,14 @@ export async function getMyProducts() {
 	return data;
 }
 
-export async function getProductMakers(key, { slug }) {
+export async function getProductMakers({ queryKey }) {
+	const [_key, { slug }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `/products/${slug}/people/`);
 	return data;
 }
 
-export async function getRelatedProducts(key, { slug }) {
+export async function getRelatedProducts({ queryKey }) {
+	const [_key, { slug }] = queryKey;
 	const { data } = await axiosWrapper(
 		axios.get,
 		`/products/${slug}/related_products/`
@@ -43,12 +46,14 @@ export async function getRelatedProducts(key, { slug }) {
 	return data;
 }
 
-export async function getProductStats(key, { slug }) {
+export async function getProductStats({ queryKey }) {
+	const [_key, { slug }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `/products/${slug}/stats/`);
 	return data;
 }
 
-export async function getUserProducts(key, { username }) {
+export async function getUserProducts({ queryKey }) {
+	const [_key, { username }] = queryKey;
 	const { data } = await axiosWrapper(
 		axios.get,
 		`/users/${username}/products/`
@@ -58,7 +63,7 @@ export async function getUserProducts(key, { username }) {
 	return value;
 }
 
-export async function getRecentlyLaunched(key, next = null) {
+export async function getRecentlyLaunched({ pageParam: next = null }) {
 	const { data } = await axiosWrapper(axios.get, next ? next : `/launches/`);
 	return data;
 }
@@ -159,7 +164,7 @@ export function useRecentlyLaunched() {
 		PRODUCT_QUERIES.getRecentlyLaunched,
 		getRecentlyLaunched,
 		{
-			getFetchMore: (lastGroup) => {
+			getNextPageParam: (lastGroup) => {
 				return lastGroup.next;
 			},
 		}

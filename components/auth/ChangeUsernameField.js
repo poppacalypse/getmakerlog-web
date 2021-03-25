@@ -9,19 +9,18 @@ import Message from "components/ui/Message";
 export default function ChangeUsernameField() {
 	const { user, setUser } = useAuth();
 	const [username, setUsername] = useState(user ? user.username : "");
-	const [
-		mutate,
-		{ isLoading: isChangingUsername, isSuccess: isChanged },
-	] = useChangeUsername();
-	const [
-		check,
-		{
-			isLoading: isChecking,
-			isSuccess: isChecked,
-			error: isErrorChecked,
-			reset,
-		},
-	] = useCheckUsername();
+	const {
+		mutateAsync,
+		isLoading: isChangingUsername,
+		isSuccess: isChanged,
+	} = useChangeUsername();
+	const {
+		mutate: check,
+		isLoading: isChecking,
+		isSuccess: isChecked,
+		error: isErrorChecked,
+		reset,
+	} = useCheckUsername();
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const checkUsername = useCallback(
@@ -32,7 +31,7 @@ export default function ChangeUsernameField() {
 	);
 
 	const onChange = async () => {
-		const newUser = await mutate(username);
+		const newUser = await mutateAsync(username);
 		setUser(newUser);
 		reset();
 	};

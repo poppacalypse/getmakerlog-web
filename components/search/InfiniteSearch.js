@@ -10,11 +10,11 @@ import Message from "components/ui/Message";
 export default function InfiniteSearch({ queryState, renderData = () => {} }) {
 	const {
 		data,
-		fetchMore,
-		canFetchMore,
+		fetchNextPage,
+		hasNextPage,
 		status,
 		isFetching,
-		isFetchingMore,
+		isFetchingNextPage,
 	} = queryState;
 	const items = orderBy(extractResultsFromGroups(data), "desc", "rank").map(
 		(r) => r.item
@@ -23,8 +23,8 @@ export default function InfiniteSearch({ queryState, renderData = () => {} }) {
 	return (
 		<InfiniteScroll
 			dataLength={items.length}
-			next={() => fetchMore()} // important!
-			hasMore={canFetchMore}
+			next={() => fetchNextPage()} // important!
+			hasMore={hasNextPage}
 			style={{ overflow: "none" }}
 		>
 			{status === "loading" ? (
@@ -38,7 +38,7 @@ export default function InfiniteSearch({ queryState, renderData = () => {} }) {
 						<Button
 							primary
 							loading={isFetching}
-							onClick={fetchMore}
+							onClick={fetchNextPage}
 						>
 							Retry
 						</Button>
@@ -54,13 +54,13 @@ export default function InfiniteSearch({ queryState, renderData = () => {} }) {
 							<Message info>No results.</Message>
 						)}
 					</div>
-					{canFetchMore && (
+					{hasNextPage && (
 						<div className="mt-4">
 							<center>
 								<Button
 									small
-									onClick={() => fetchMore()}
-									loading={isFetchingMore}
+									onClick={() => fetchNextPage()}
+									loading={isFetchingNextPage}
 								>
 									Load more results
 								</Button>

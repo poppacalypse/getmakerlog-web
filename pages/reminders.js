@@ -18,19 +18,28 @@ import { requireAuth } from "utils/auth";
 
 function RemindersSettings({ reminders, onDelete = () => {} }) {
 	const reminder = reminders[0];
-	const [mutate, { isLoading, isSuccess, error }] = useUpdateReminder();
-	const [deleteMutation, { isLoading: isDeleting }] = useDeleteReminder();
+	const { mutate, isLoading, isSuccess, error } = useUpdateReminder();
+	const {
+		mutate: deleteMutation,
+		isLoading: isDeleting,
+	} = useDeleteReminder();
 	const [payload, setPayload] = useState({
 		time: reminder.time ? reminder.time : "18:00",
 	});
 
 	const onSave = async () => {
-		await mutate({ id: reminder.id, payload });
+		mutate({ id: reminder.id, payload });
 	};
 
 	const onClickDelete = async () => {
-		await deleteMutation({ id: reminder.id });
-		if (onDelete) onDelete();
+		deleteMutation(
+			{ id: reminder.id },
+			{
+				onSuccess: () => {
+					if (onDelete) onDelete();
+				},
+			}
+		);
 	};
 
 	return (

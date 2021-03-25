@@ -4,7 +4,7 @@ import { useDeleteWebhook } from "queries/integrations";
 import React from "react";
 
 function WebhookRow({ webhook }) {
-	const [mutate, { isLoading, isSuccess }] = useDeleteWebhook();
+	const { mutate, isLoading, isSuccess } = useDeleteWebhook();
 
 	if (isSuccess) return null;
 

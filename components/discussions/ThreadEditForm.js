@@ -8,11 +8,17 @@ import Button from "components/ui/Button";
 
 function ThreadEditForm({ thread, onFinish = () => {} }) {
 	const [body, setBody] = useState(thread.body);
-	const [mutate, { isLoading, error }] = useUpdateThread(thread.slug);
+	const { mutate, isLoading, error } = useUpdateThread(thread.slug);
 
 	const onSubmit = async () => {
-		await mutate({ slug: thread.slug, body });
-		if (onFinish) onFinish();
+		mutate(
+			{ slug: thread.slug, body },
+			{
+				onSuccess: () => {
+					if (onFinish) onFinish();
+				},
+			}
+		);
 	};
 
 	return (

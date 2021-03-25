@@ -19,7 +19,7 @@ function MilestoneEditor({ onFinish }) {
 	const [title, setTitle] = useState("");
 	const [body, setBody] = useState("");
 	const [product, setProduct] = useState(null);
-	const [mutate, { isLoading, error, isSuccess }] = useCreateMilestone();
+	const { mutate, isLoading, error, isSuccess } = useCreateMilestone();
 	const [shouldTweet, setShouldTweet] = useState(false);
 
 	const tweetAfterPost = (item) => {
@@ -29,12 +29,18 @@ function MilestoneEditor({ onFinish }) {
 	};
 
 	const onCreate = async () => {
-		const milestone = await mutate({ title, body, product });
-		if (shouldTweet) {
-			tweetAfterPost(milestone);
-			setShouldTweet(false);
-		}
-		Router.pushRoute("milestone", { slug: milestone.slug });
+		mutate(
+			{ title, body, product },
+			{
+				onSuccess: (milestone) => {
+					if (shouldTweet) {
+						tweetAfterPost(milestone);
+						setShouldTweet(false);
+					}
+					Router.pushRoute("milestone", { slug: milestone.slug });
+				},
+			}
+		);
 	};
 
 	// Hack. Memoize onFinish, else infinite loop.

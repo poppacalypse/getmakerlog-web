@@ -11,7 +11,7 @@ import {
 	useMilestone,
 } from "queries/milestones";
 import React from "react";
-import { makeQueryCache } from "react-query";
+import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import { Router, useRouter } from "routes";
 import { getErrorResponse } from "utils/error";
@@ -120,10 +120,10 @@ function MilestonePage() {
 }
 
 MilestonePage.getInitialProps = async ({ res, query: { slug } }) => {
-	const queryCache = makeQueryCache();
+	const queryClient = new QueryClient();
 
 	try {
-		await queryCache.prefetchQuery(
+		await queryClient.prefetchQuery(
 			[MILESTONE_QUERIES.getMilestone, { slug }],
 			getMilestone,
 			{},
@@ -133,7 +133,7 @@ MilestonePage.getInitialProps = async ({ res, query: { slug } }) => {
 		);
 
 		return {
-			dehydratedState: dehydrate(queryCache),
+			dehydratedState: dehydrate(queryClient),
 			layout: {
 				contained: false,
 				bgClassName: "bg-white",

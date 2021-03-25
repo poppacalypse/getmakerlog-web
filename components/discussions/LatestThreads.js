@@ -14,9 +14,9 @@ function LatestThreads() {
 		error,
 		data,
 		isFetching,
-		isFetchingMore,
-		fetchMore,
-		canFetchMore,
+		isFetchingNextPage,
+		fetchNextPage,
+		hasNextPage,
 	} = useLatestThreads();
 
 	const { errors, value } = threadsSchema.validate(
@@ -30,8 +30,8 @@ function LatestThreads() {
 	return (
 		<InfiniteScroll
 			dataLength={discussions.length}
-			next={() => fetchMore()}
-			hasMore={canFetchMore !== null}
+			next={() => fetchNextPage()}
+			hasMore={hasNextPage !== null}
 			style={{ overflow: "none" }}
 			//key={isServer}
 		>
@@ -39,17 +39,17 @@ function LatestThreads() {
 				<Thread key={d.slug} thread={d} />
 			))}
 
-			{canFetchMore && discussions.length > 0 && (
+			{hasNextPage && discussions.length > 0 && (
 				<center>
 					<Button
-						loading={isFetching || isFetchingMore}
-						onClick={() => fetchMore()}
+						loading={isFetching || isFetchingNextPage}
+						onClick={() => fetchNextPage()}
 					>
 						Load more activity...
 					</Button>
 				</center>
 			)}
-			{isFetching && !isFetchingMore && (
+			{isFetching && !isFetchingNextPage && (
 				<div className={"center ActivityFeed--section"}>
 					<Spinner text="Loading the makerness..." />
 				</div>
@@ -61,8 +61,8 @@ function LatestThreads() {
 					actions={
 						<Button
 							primary
-							loading={isFetching || isFetchingMore}
-							onClick={() => fetchMore()}
+							loading={isFetching || isFetchingNextPage}
+							onClick={() => fetchNextPage()}
 						>
 							Retry
 						</Button>

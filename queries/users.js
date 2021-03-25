@@ -1,5 +1,5 @@
 import axios, { axiosWrapper } from "utils/axios";
-import { useMutation, useQuery, useQueryCache } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { userSchema } from "schemas/user";
 import { StdErrorCollection } from "utils/error";
 import { getLogger } from "utils/logging";
@@ -11,14 +11,16 @@ export const USER_QUERIES = {
 	getIsFollowing: "users.getIsFollowing",
 };
 
-export async function getUser(key, { username }) {
+export async function getUser({ queryKey }) {
+	const [_key, { username }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `/users/${username}/`);
 	const { value, error } = userSchema.validate(data);
 	if (error) throw new StdErrorCollection(error);
 	return value;
 }
 
-export async function getIsFollowing(key, { username }) {
+export async function getIsFollowing({ queryKey }) {
+	const [_key, { username }] = queryKey;
 	const { data } = await axiosWrapper(
 		axios.get,
 		`/users/${username}/is_following/`
@@ -143,15 +145,15 @@ export function useChangePassword() {
 }
 
 export function useFollow() {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	return useMutation(follow, {
 		onMutate: async (username) => {
 			const query = [USER_QUERIES.getIsFollowing, { username }];
-			await queryCache.cancelQueries(query);
+			await queryClient.cancelQueries(query);
 			// Snapshot the previous value
-			const previousState = queryCache.getQueryData(query);
+			const previousState = queryClient.getQueryData(query);
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, !previousState);
+			queryClient.setQueryData(query, !previousState);
 
 			// Return a context object with the snapshotted value
 			return { previousState };
@@ -159,12 +161,12 @@ export function useFollow() {
 		// If the mutation fails, use the context returned from onMutate to roll back
 		onError: (err, username, context) => {
 			const query = [USER_QUERIES.getIsFollowing, { username }];
-			queryCache.setQueryData(query, context.previousState);
+			queryClient.setQueryData(query, context.previousState);
 		},
 		// Always refetch after error or success:
 		onSettled: (data, err, username) => {
 			const query = [USER_QUERIES.getIsFollowing, { username }];
-			queryCache.invalidateQueries(query);
+			queryClient.invalidateQueries(query);
 		},
 		onSuccess: (data) => {
 			log(`Toggled folow: (#${JSON.stringify(data)})`);

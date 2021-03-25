@@ -8,7 +8,7 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { getProduct, PRODUCT_QUERIES, useProduct } from "queries/products";
 import React from "react";
-import { makeQueryCache } from "react-query";
+import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import { Link } from "routes";
 import { requireAuth } from "utils/auth";
@@ -52,9 +52,9 @@ EditProductPage.getInitialProps = async ({
 	store: { auth },
 	query: { slug },
 }) => {
-	const queryCache = makeQueryCache();
+	const queryClient = new QueryClient();
 
-	const product = await queryCache.prefetchQuery(
+	const product = await queryClient.fetchQuery(
 		[PRODUCT_QUERIES.getProduct, { slug }],
 		getProduct
 	);
@@ -65,7 +65,7 @@ EditProductPage.getInitialProps = async ({
 		};
 	}
 
-	return { dehydratedState: dehydrate(queryCache) };
+	return { dehydratedState: dehydrate(queryClient) };
 };
 
 export default requireAuth(EditProductPage);

@@ -6,7 +6,7 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { COMMON_TAGS, getTags, STORY_QUERIES, useTags } from "queries/stories";
 import React from "react";
-import { makeQueryCache } from "react-query";
+import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import { getErrorResponse } from "utils/error";
 
@@ -39,10 +39,10 @@ function StoriesTagPage() {
 }
 
 StoriesTagPage.getInitialProps = async ({ res, query: { slug } }) => {
-	const queryCache = makeQueryCache();
+	const queryClient = new QueryClient();
 
 	try {
-		await queryCache.prefetchQuery(
+		await queryClient.prefetchQuery(
 			[
 				STORY_QUERIES.getTags,
 				{
@@ -58,7 +58,7 @@ StoriesTagPage.getInitialProps = async ({ res, query: { slug } }) => {
 		);
 
 		return {
-			dehydratedState: dehydrate(queryCache),
+			dehydratedState: dehydrate(queryClient),
 			layout: {
 				bgClassName: "bg-white",
 			},

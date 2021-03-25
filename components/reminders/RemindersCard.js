@@ -190,10 +190,7 @@ export default function RemindersCard({ onCreated = null, force = false }) {
 		"reminders__reminderscard__open",
 		true
 	);
-	const [
-		mutate,
-		{ error, isLoading, reset, isSuccess },
-	] = useCreateReminder();
+	const { mutate, error, isLoading, reset, isSuccess } = useCreateReminder();
 	const [payload, setPayload] = useState({
 		type: "twitter",
 		frequency: "daily",
@@ -202,8 +199,11 @@ export default function RemindersCard({ onCreated = null, force = false }) {
 	const [step, setStep] = useState(0);
 
 	const onFinish = async () => {
-		await mutate(payload);
-		if (onCreated) onCreated();
+		mutate(payload, {
+			onSuccess: () => {
+				if (onCreated) onCreated();
+			},
+		});
 	};
 
 	useEffect(() => {

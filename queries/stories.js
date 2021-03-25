@@ -52,7 +52,8 @@ export async function getNewsPosts(limit = "all") {
 	});
 }
 
-export async function getInterviews(key, { limit = "all" }) {
+export async function getInterviews({ queryKey }) {
+	const [_key, { limit = "all" }] = queryKey;
 	return await blogApi.posts.browse({
 		limit,
 		include: "tags",
@@ -60,14 +61,16 @@ export async function getInterviews(key, { limit = "all" }) {
 	});
 }
 
-export async function getPost(key, { slug }) {
+export async function getPost({ queryKey }) {
+	const [_key, { slug }] = queryKey;
 	return await blogApi.posts.read({
 		slug,
 		include: "tags",
 	});
 }
 
-export async function getFeatured(key, { limit = 1 }) {
+export async function getFeatured({ queryKey }) {
+	const [_key, { limit = 1 }] = queryKey;
 	return await blogApi.posts.browse({
 		limit,
 		include: "tags",
@@ -75,7 +78,8 @@ export async function getFeatured(key, { limit = 1 }) {
 	});
 }
 
-export async function getTags(key, { tags, limit = "all", filters = [] }) {
+export async function getTags({ queryKey }) {
+	const [_key, { tags, limit = "all", filters = [] }] = queryKey;
 	return await blogApi.posts.browse({
 		limit: limit,
 		include: "tags",
@@ -83,10 +87,8 @@ export async function getTags(key, { tags, limit = "all", filters = [] }) {
 	});
 }
 
-export async function getRelatedPosts(
-	key,
-	{ slug, primary_tag_slug, limit = 3 }
-) {
+export async function getRelatedPosts({ queryKey }) {
+	const [_key, { slug, primary_tag_slug, limit = 3 }] = queryKey;
 	return await blogApi.posts.browse({
 		limit,
 		include: "tags",
@@ -94,7 +96,8 @@ export async function getRelatedPosts(
 	});
 }
 
-export async function getStoryMetadata(key, { slug }) {
+export async function getStoryMetadata({ queryKey }) {
+	const [_key, { slug }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `/stories/${slug}/`);
 	return data;
 }

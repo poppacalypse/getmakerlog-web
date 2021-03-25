@@ -1,5 +1,5 @@
 import { default as axios, axiosWrapper } from "utils/axios";
-import { useQuery, useMutation, useQueryCache } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getLogger } from "utils/logging";
 import omit from "lodash/omit";
 
@@ -10,7 +10,8 @@ export const MILESTONE_QUERIES = {
 	getUserMilestones: "milestones.getUserMilestones",
 };
 
-export async function getMilestone(key, { slug }) {
+export async function getMilestone({ queryKey }) {
+	const [_key, { slug }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `/milestones/${slug}/`);
 	return data;
 }
@@ -60,25 +61,25 @@ export function useCreateMilestone() {
 }
 
 export function useUpdateMilestone(milestone) {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	const query = [MILESTONE_QUERIES.getMilestone, { slug: milestone.slug }];
 
 	return useMutation(updateMilestone, {
 		onMutate: (payload) => {
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-			queryCache.cancelQueries(query);
+			queryClient.cancelQueries(query);
 
 			// Snapshot the previous value
-			const previousMilestone = queryCache.getQueryData(query);
+			const previousMilestone = queryClient.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) => {
+			queryClient.setQueryData(query, (old) => {
 				// otherwise product gets set to slug
 				return { ...old, ...omit(payload, "product") };
 			});
 
 			// Return the snapshotted value
-			return () => queryCache.setQueryData(query, previousMilestone);
+			return () => queryClient.setQueryData(query, previousMilestone);
 		},
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err, content, rollback) => {
@@ -87,7 +88,7 @@ export function useUpdateMilestone(milestone) {
 		},
 		// Always refetch after error or success:
 		onSettled: () => {
-			queryCache.invalidateQueries(query);
+			queryClient.invalidateQueries(query);
 		},
 	});
 }

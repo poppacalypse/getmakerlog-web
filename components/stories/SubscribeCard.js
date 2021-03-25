@@ -4,12 +4,12 @@ import { useSubscribe } from "queries/stories";
 import React, { useState } from "react";
 
 export default function SubscribeCard() {
-	const [mutate, { isLoading, error, isSuccess }] = useSubscribe();
+	const { mutate, isLoading, error, isSuccess } = useSubscribe();
 	const [value, setValue] = useState("");
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		await mutate(value);
+		mutate(value);
 	};
 
 	return (

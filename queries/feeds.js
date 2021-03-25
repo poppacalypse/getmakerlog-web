@@ -1,5 +1,5 @@
 import { default as axios, axiosWrapper } from "utils/axios";
-import { useInfiniteQuery, useQueryCache } from "react-query";
+import { useInfiniteQuery, useQueryClient } from "react-query";
 import { getLogger } from "utils/logging";
 import useWebSocket from "react-use-websocket";
 import { buildSocketUrl } from "utils/random";
@@ -12,13 +12,14 @@ export const FEED_QUERIES = {
 	getFeed: "feeds.getFeed",
 };
 
-export async function getFeed(key, { indexUrl }, next = null) {
+export async function getFeed({ queryKey, pageParam: next = null }) {
+	const [_key, { indexUrl }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, next ? next : indexUrl);
 	return data;
 }
 
 export function useFeed(indexUrl, live = true, token = null) {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	const query = useMemo(() => [FEED_QUERIES.getFeed, { indexUrl }], [
 		indexUrl,
 	]);
@@ -39,30 +40,41 @@ export function useFeed(indexUrl, live = true, token = null) {
 			log("Received WS message.", parsed);
 			switch (parsed.type) {
 				case "day.push":
-					queryCache.setQueryData(query, (old) => {
+					queryClient.setQueryData(query, (old) => {
+						// TODO: watch
 						// Assume all updates are in the past 24 hours, then push to top of stack.
 						// Avoids a lengthy search op.
-						if (!old)
+						let pages = old.pages;
+						if (!pages)
 							return [{ next: null, results: [parsed.payload] }];
-						if (old.length > 0) {
-							old[0].results = uniqBy(
-								[parsed.payload, ...old[0].results],
+						if (pages.length > 0) {
+							pages[0].results = uniqBy(
+								[parsed.payload, ...pages[0].results],
 								"id"
 							);
 						}
-						return old;
+						return {
+							pages,
+							pageParams: old.pageParams,
+						};
 					});
 					return;
 				case "day.pull":
-					queryCache.setQueryData(query, (old) => {
+					queryClient.setQueryData(query, (old) => {
 						// Assume all updates are in the past 24 hours, then push to top of stack.
 						// Avoids a lengthy search op.
-						if (!old) return;
-						return old.filter((d) => d.id !== parsed.payload.id);
+						let pages = old.pages;
+						if (!old) return old;
+						return {
+							pages: pages.filter(
+								(d) => d.id !== parsed.payload.id
+							),
+							pageParams: old.pageParams,
+						};
 					});
 			}
 		},
-		[queryCache, query]
+		[queryClient, query]
 	);
 
 	useEffect(() => {
@@ -72,7 +84,7 @@ export function useFeed(indexUrl, live = true, token = null) {
 	}, [latestMessage, onNewMessage]);
 
 	return useInfiniteQuery(query, getFeed, {
-		getFetchMore: (lastGroup) => {
+		getNextPageParam: (lastGroup) => {
 			return lastGroup.next;
 		},
 	});

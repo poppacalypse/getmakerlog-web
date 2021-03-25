@@ -33,6 +33,7 @@
 				]
 			}
 		],
+		"no-unused-vars": ["error", { "vars": "all", "args": "after-used", "varsIgnorePattern": "_key" }],
 		"react/react-in-jsx-scope": 0,
 		"react/prop-types": 0,
 		"react/no-unescaped-entities": 0,

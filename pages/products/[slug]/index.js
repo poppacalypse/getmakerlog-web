@@ -4,7 +4,7 @@ import Spinner from "components/ui/Spinner";
 import { useRouter } from "next/router";
 import { getProduct, PRODUCT_QUERIES, useProduct } from "queries/products";
 import React from "react";
-import { makeQueryCache } from "react-query";
+import { QueryClient } from "react-query";
 import NarrowLayout from "layouts/NarrowLayout";
 import ProductSidebar from "components/sidebars/ProductSidebar";
 import ProductHeader from "components/products/ProductHeader";
@@ -63,10 +63,10 @@ function ProductPage() {
 }
 
 ProductPage.getInitialProps = async ({ res, query: { slug } }) => {
-	const queryCache = makeQueryCache();
+	const queryClient = new QueryClient();
 
 	try {
-		await queryCache.prefetchQuery(
+		await queryClient.prefetchQuery(
 			[PRODUCT_QUERIES.getProduct, { slug }],
 			getProduct,
 			{},
@@ -74,7 +74,7 @@ ProductPage.getInitialProps = async ({ res, query: { slug } }) => {
 		);
 
 		return {
-			dehydratedState: dehydrate(queryCache),
+			dehydratedState: dehydrate(queryClient),
 			layout: {
 				contained: false,
 			},

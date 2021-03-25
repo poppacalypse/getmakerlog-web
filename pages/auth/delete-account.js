@@ -12,11 +12,17 @@ import { useAuth } from "stores/AuthStore";
 function DeleteAccountPage() {
 	const { user, logout } = useAuth();
 	const [username, setUsername] = useState("");
-	const [mutate, { isLoading, isSuccess }] = useDeleteUser();
+	const { mutate, isLoading, isSuccess } = useDeleteUser();
 
 	const onDeleteAccount = async () => {
-		await mutate({ repeatUsername: username });
-		logout();
+		mutate(
+			{ repeatUsername: username },
+			{
+				onSuccess: () => {
+					logout();
+				},
+			}
+		);
 	};
 
 	return (

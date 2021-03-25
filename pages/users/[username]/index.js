@@ -1,7 +1,7 @@
 import React from "react";
-import { makeQueryCache } from "react-query";
+import { QueryClient } from "react-query";
 import { getUser, USER_QUERIES, useUser } from "queries/users";
-import { dehydrate } from "react-query/dist/hydration/react-query-hydration.development";
+import { dehydrate } from "react-query/hydration";
 import { useRouter } from "next/router";
 import Spinner from "components/ui/Spinner";
 import ErrorCard from "components/ui/ErrorCard";
@@ -60,28 +60,28 @@ function ProfilePage() {
 }
 
 ProfilePage.getInitialProps = async ({ res, query: { username } }) => {
-	const queryCache = makeQueryCache();
+	const queryClient = new QueryClient();
 
 	try {
-		await queryCache.prefetchQuery(
+		await queryClient.prefetchQuery(
 			[USER_QUERIES.getUser, { username }],
 			getUser,
 			{},
 			{ throwOnError: true }
 		);
 
-		await queryCache.prefetchQuery(
+		await queryClient.prefetchQuery(
 			[PRODUCT_QUERIES.getUserProducts, { username }],
 			getUserProducts
 		);
 
-		await queryCache.prefetchQuery(
+		await queryClient.prefetchQuery(
 			[STATS_QUERIES.getUserStats, { username }],
 			getUserStats
 		);
 
 		return {
-			dehydratedState: dehydrate(queryCache),
+			dehydratedState: dehydrate(queryClient),
 			layout: {
 				allowGuest: true,
 				contained: false,

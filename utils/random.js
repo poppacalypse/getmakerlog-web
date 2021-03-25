@@ -12,7 +12,10 @@ export function buildSocketUrl(path) {
 }
 
 export function extractResultsFromGroups(data) {
-	return data ? flatten(data ? data.map(({ results }) => results) : []) : [];
+	// see: https://react-query.tanstack.com/guides/migrating-to-react-query-3#useinfinitequery-is-now-bi-directional
+	return data
+		? flatten(data ? data.pages.map(({ results }) => results) : [])
+		: [];
 }
 
 export function onCmdEnter(e, callback) {

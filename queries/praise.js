@@ -1,5 +1,5 @@
 import axios, { axiosWrapper } from "utils/axios";
-import { useQuery, useMutation, useQueryCache } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getLogger } from "utils/logging";
 import uniqBy from "lodash/uniqBy";
 
@@ -9,7 +9,8 @@ export const PRAISE_QUERIES = {
 	getPraise: "praise.getPraise",
 };
 
-export async function getPraise(key, { indexUrl }) {
+export async function getPraise({ queryKey }) {
+	const [_key, { indexUrl }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `${indexUrl}/praise/`);
 	return data;
 }
@@ -27,20 +28,20 @@ export function usePraise(indexUrl, enabled) {
 }
 
 export function usePraiseMutation(initialCount, user) {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	return useMutation(setPraise, {
 		// When mutate is called:
 		onMutate: (indexUrl) => {
 			const query = [PRAISE_QUERIES.getPraise, { indexUrl }];
 			log(`Praising ${indexUrl} optimisitically.`);
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-			queryCache.cancelQueries();
+			queryClient.cancelQueries();
 
 			// Snapshot the previous value
-			const previousPraiseState = queryCache.getQueryData(query);
+			const previousPraiseState = queryClient.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) => {
+			queryClient.setQueryData(query, (old) => {
 				if (!old && initialCount === 0) {
 					return {
 						praised: true,
@@ -67,7 +68,7 @@ export function usePraiseMutation(initialCount, user) {
 
 			// Return the snapshotted value
 			return () => {
-				queryCache.setQueryData(query, previousPraiseState);
+				queryClient.setQueryData(query, previousPraiseState);
 			};
 		},
 		// If the mutation fails, use the value returned from onMutate to roll back
@@ -77,7 +78,7 @@ export function usePraiseMutation(initialCount, user) {
 		},
 		onSettled: () => {
 			// Honestly let's just not give a flying fuck and just keep it locally
-			// queryCache.invalidateQueries(query);
+			// queryClient.invalidateQueries(query);
 		},
 	});
 }

@@ -39,7 +39,7 @@ function SlackLinker({ queryState: { isLoading, error, isSuccess } }) {
 
 export default function SlackIntegrationPage() {
 	const router = useRouter();
-	const [mutate, queryState] = useLinkSlack();
+	const { mutate, ...queryState } = useLinkSlack();
 	const { data: apps } = useApps();
 	const { code } = router.query;
 

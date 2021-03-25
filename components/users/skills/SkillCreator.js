@@ -16,7 +16,7 @@ export default function SkillCreator() {
 	const [name, setName] = useState("");
 	const { suggestions, onInput } = useSkillAutocomplete("users");
 	// TODO: Error state.
-	const [mutate, { isLoading, isSuccess, data, reset }] = useCreateSkill();
+	const { mutate, isLoading, isSuccess, data, reset } = useCreateSkill();
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -43,7 +43,7 @@ export default function SkillCreator() {
 			};
 		}
 		payload = { ...payload, username: user.username };
-		await mutate(payload);
+		mutate(payload);
 	};
 
 	const handleKeyDown = (event) => {

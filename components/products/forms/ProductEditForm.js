@@ -37,11 +37,12 @@ function ProductEditForm({ product }) {
 		open: openIcon,
 		attachmentState: iconState,
 	} = useImageUpload();
-	const [mutate, { isLoading, error, isSuccess }] = useEditProduct();
-	const [
-		deleteMutation,
-		{ isLoading: isDeleting, isSuccess: isDeleted },
-	] = useDeleteProduct();
+	const { mutate, isLoading, error, isSuccess } = useEditProduct();
+	const {
+		mutate: deleteMutation,
+		isLoading: isDeleting,
+		isSuccess: isDeleted,
+	} = useDeleteProduct();
 	const {
 		suggestions,
 		tags,
@@ -75,16 +76,29 @@ function ProductEditForm({ product }) {
 			// Set up categories array
 			let productTags = tags.map((t) => t.name);
 			finalPayload = { ...finalPayload, projects, tags: productTags };
-			await mutate({ payload: finalPayload, slug: product.slug });
-			if (product) Router.pushRoute("product", { slug: product.slug });
+			mutate(
+				{ payload: finalPayload, slug: product.slug },
+				{
+					onSuccess: (product) => {
+						if (product)
+							Router.pushRoute("product", { slug: product.slug });
+					},
+				}
+			);
 		} catch (e) {
 			setTaggingError(e);
 		}
 	};
 
 	const onDelete = async () => {
-		await deleteMutation({ slug: product.slug });
-		Router.pushRoute("products");
+		deleteMutation(
+			{ slug: product.slug },
+			{
+				onSuccess: () => {
+					Router.pushRoute("products");
+				},
+			}
+		);
 	};
 
 	const onChangeField = useCallback(

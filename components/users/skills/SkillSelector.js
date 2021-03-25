@@ -22,8 +22,8 @@ export default function SkillSelector() {
 		isLoading: isLoadingCommonSkills,
 		error: errorCommonSkills,
 	} = useCommonTags("users");
-	const [addSkill] = useCreateSkill(user ? user.username : null);
-	const [deleteSkill] = useDeleteSkill(user ? user.username : null);
+	const { mutate: addSkill } = useCreateSkill(user ? user.username : null);
+	const { mutate: deleteSkill } = useDeleteSkill(user ? user.username : null);
 
 	const onAdd = (name, emoji) => {
 		addSkill({ name, emoji, username: user.username });

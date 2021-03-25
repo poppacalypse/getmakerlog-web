@@ -10,7 +10,7 @@ import Message from "components/ui/Message";
 
 export default function FeedbackModal({ open, onClose }) {
 	const [body, setBody] = useState("");
-	const [mutate, { isLoading, error, isSuccess, reset }] = useSendFeedback();
+	const { mutate, isLoading, error, isSuccess, reset } = useSendFeedback();
 	const { user } = useAuth();
 
 	useEffect(() => {

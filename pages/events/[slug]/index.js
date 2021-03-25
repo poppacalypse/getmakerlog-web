@@ -5,7 +5,7 @@ import NarrowLayout from "layouts/NarrowLayout";
 import { NextSeo } from "next-seo";
 import { EVENTS_QUERIES, getEvent, useEvent } from "queries/events";
 import React from "react";
-import { makeQueryCache } from "react-query";
+import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import { useRouter } from "routes";
 import { getErrorResponse } from "utils/error";
@@ -33,17 +33,17 @@ function EventPage() {
 }
 
 EventPage.getInitialProps = async ({ res, query: { slug } }) => {
-	const queryCache = makeQueryCache();
+	const queryClient = new QueryClient();
 
 	try {
-		await queryCache.prefetchQuery(
+		await queryClient.prefetchQuery(
 			[EVENTS_QUERIES.getThread, { slug }],
 			getEvent,
 			{},
 			{ throwOnError: true }
 		);
 
-		return { dehydratedState: dehydrate(queryCache) };
+		return { dehydratedState: dehydrate(queryClient) };
 	} catch (e) {
 		return getErrorResponse(e, res);
 	}

@@ -44,7 +44,7 @@ function TelegramLinker({ queryState: { isLoading, error, isSuccess } }) {
 
 export default function TelegramIntegrationPage() {
 	const router = useRouter();
-	const [mutate, queryState] = useLinkTelegram();
+	const { mutate, ...queryState } = useLinkTelegram();
 	const { key } = router.query;
 
 	useEffect(() => {

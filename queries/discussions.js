@@ -3,7 +3,7 @@ import {
 	useInfiniteQuery,
 	useQuery,
 	useMutation,
-	useQueryCache,
+	useQueryClient,
 } from "react-query";
 import { getLogger } from "utils/logging";
 import omit from "lodash/omit";
@@ -17,7 +17,7 @@ export const DISCUSSION_QUERIES = {
 	getThreadRepliers: "discussions.getThreadRepliers",
 };
 
-export async function getLatestThreads(key, next = null) {
+export async function getLatestThreads({ pageParam: next = null }) {
 	const { data } = await axiosWrapper(
 		axios.get,
 		next ? next : `/discussions/`
@@ -25,7 +25,8 @@ export async function getLatestThreads(key, next = null) {
 	return data;
 }
 
-export async function getThreadReplies(key, { slug }) {
+export async function getThreadReplies({ queryKey }) {
+	const [_key, { slug }] = queryKey;
 	const { data } = await axiosWrapper(
 		axios.get,
 		`/discussions/${slug}/replies/`
@@ -33,7 +34,8 @@ export async function getThreadReplies(key, { slug }) {
 	return data;
 }
 
-export async function getThreadRepliers(key, { slug }) {
+export async function getThreadRepliers({ queryKey }) {
+	const [_key, { slug }] = queryKey;
 	const { data } = await axiosWrapper(
 		axios.get,
 		`/discussions/${slug}/replies/people/?exclude_owner=true`
@@ -41,7 +43,8 @@ export async function getThreadRepliers(key, { slug }) {
 	return data;
 }
 
-export async function getThread(key, { slug }) {
+export async function getThread({ queryKey }) {
+	const [_key, { slug }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `/discussions/${slug}/`);
 	return data;
 }
@@ -103,7 +106,7 @@ export function useLatestThreads() {
 		DISCUSSION_QUERIES.getLatestThreads,
 		getLatestThreads,
 		{
-			getFetchMore: (lastGroup) => {
+			getNextPageParam: (lastGroup) => {
 				return lastGroup.next;
 			},
 		}
@@ -137,13 +140,13 @@ export function useCreateThread() {
 }
 
 export function useCreateThreadReply() {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 
 	return useMutation(createThreadReply, {
 		onSuccess: (data) => {
 			log(`Created new replt (#${data.id}, parent: ${data.parent})`);
 			const slug = data.parent;
-			queryCache.setQueryData(
+			queryClient.setQueryData(
 				[DISCUSSION_QUERIES.getThreadReplies, { slug }],
 				(oldData) => {
 					if (!oldData) return [data];
@@ -155,26 +158,26 @@ export function useCreateThreadReply() {
 }
 
 export function useUpdateThreadReply(slug) {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	const query = [DISCUSSION_QUERIES.getThreadReplies, { slug }];
 
 	return useMutation(updateThreadReply, {
 		onMutate: ({ id, body }) => {
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-			queryCache.cancelQueries(query);
+			queryClient.cancelQueries(query);
 
 			// Snapshot the previous value
-			const previousReplies = queryCache.getQueryData(query);
+			const previousReplies = queryClient.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) => {
+			queryClient.setQueryData(query, (old) => {
 				return old.map((reply) =>
 					reply.id === id ? { ...reply, body } : reply
 				);
 			});
 
 			// Return the snapshotted value
-			return () => queryCache.setQueryData(query, previousReplies);
+			return () => queryClient.setQueryData(query, previousReplies);
 		},
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err, content, rollback) => {
@@ -183,31 +186,31 @@ export function useUpdateThreadReply(slug) {
 		},
 		// Always refetch after error or success:
 		onSettled: () => {
-			queryCache.invalidateQueries(query);
+			queryClient.invalidateQueries(query);
 		},
 	});
 }
 
 export function useUpdateThread(slug) {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	const query = [DISCUSSION_QUERIES.getThread, { slug }];
 
 	return useMutation(updateThread, {
 		onMutate: (payload) => {
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-			queryCache.cancelQueries(query);
+			queryClient.cancelQueries(query);
 
 			// Snapshot the previous value
-			const previousThread = queryCache.getQueryData(query);
+			const previousThread = queryClient.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) => {
+			queryClient.setQueryData(query, (old) => {
 				if (!old) return old;
 				return { ...old, ...omit(payload, "slug") };
 			});
 
 			// Return the snapshotted value
-			return () => queryCache.setQueryData(query, previousThread);
+			return () => queryClient.setQueryData(query, previousThread);
 		},
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err, content, rollback) => {
@@ -216,7 +219,7 @@ export function useUpdateThread(slug) {
 		},
 		// Always refetch after error or success:
 		onSettled: () => {
-			queryCache.invalidateQueries(query);
+			queryClient.invalidateQueries(query);
 		},
 	});
 }
@@ -224,23 +227,23 @@ export function useUpdateThread(slug) {
 export function useDeleteThread() {
 	const query = [DISCUSSION_QUERIES.getLatestThreads];
 
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	return useMutation(deleteThread, {
 		onMutate: ({ slug }) => {
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-			queryCache.cancelQueries(query);
+			queryClient.cancelQueries(query);
 
 			// Snapshot the previous value
-			const previousThreads = queryCache.getQueryData(query);
+			const previousThreads = queryClient.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) => {
+			queryClient.setQueryData(query, (old) => {
 				if (!old) return old;
 				return old.filter((t) => t.slug !== slug);
 			});
 
 			// Return the snapshotted value
-			return () => queryCache.setQueryData(query, previousThreads);
+			return () => queryClient.setQueryData(query, previousThreads);
 		},
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err, content, rollback) => {
@@ -249,30 +252,30 @@ export function useDeleteThread() {
 		},
 		// Always refetch after error or success:
 		onSettled: () => {
-			queryCache.invalidateQueries(query);
+			queryClient.invalidateQueries(query);
 		},
 	});
 }
 
 export function useDeleteThreadReply(slug) {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	const query = [DISCUSSION_QUERIES.getThreadReplies, { slug }];
 
 	return useMutation(deleteThreadReply, {
 		onMutate: ({ id }) => {
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-			queryCache.cancelQueries(query);
+			queryClient.cancelQueries(query);
 
 			// Snapshot the previous value
-			const previousReplies = queryCache.getQueryData(query);
+			const previousReplies = queryClient.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) =>
+			queryClient.setQueryData(query, (old) =>
 				old.filter((reply) => reply.id !== id)
 			);
 
 			// Return the snapshotted value
-			return () => queryCache.setQueryData(query, previousReplies);
+			return () => queryClient.setQueryData(query, previousReplies);
 		},
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err, payload, rollback) => {
@@ -281,7 +284,7 @@ export function useDeleteThreadReply(slug) {
 		},
 		// Always refetch after error or success:
 		onSettled: () => {
-			queryCache.invalidateQueries(query);
+			queryClient.invalidateQueries(query);
 		},
 	});
 }

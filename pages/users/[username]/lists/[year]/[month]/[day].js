@@ -12,7 +12,7 @@ import {
 	useUserDayTasksTz,
 } from "queries/tasks";
 import React from "react";
-import { makeQueryCache } from "react-query";
+import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import { Link, useRouter } from "routes";
 import { getErrorResponse } from "utils/error";
@@ -94,14 +94,14 @@ UserTasksDayListView.getInitialProps = async ({
 	res,
 	query: { username, year, month, day },
 }) => {
-	const queryCache = makeQueryCache();
+	const queryClient = new QueryClient();
 
 	try {
 		const date = `${year}-${month.padStart(2, "0")}-${day.padStart(
 			2,
 			"0"
 		)}`;
-		await queryCache.prefetchQuery(
+		await queryClient.prefetchQuery(
 			[TASK_QUERIES.getTasksUserDay, { username, date }],
 			getTasksUserDay,
 			{},
@@ -109,7 +109,7 @@ UserTasksDayListView.getInitialProps = async ({
 		);
 
 		return {
-			dehydratedState: dehydrate(queryCache),
+			dehydratedState: dehydrate(queryClient),
 			layout: {
 				allowGuest: true,
 				contained: false,

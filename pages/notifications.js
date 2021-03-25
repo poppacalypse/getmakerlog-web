@@ -24,15 +24,15 @@ function NotificationsPage() {
 		error,
 		data,
 		isFetching,
-		fetchMore,
-		canFetchMore,
+		fetchNextPage,
+		hasNextPage,
 	} = useNotifications();
-	const [markAllReadMutation] = useMarkAllReadNotifications();
+	const { mutate: markAllReadMutation } = useMarkAllReadNotifications();
 
 	data = extractResultsFromGroups(data);
 
 	const markAllRead = useCallback(async () => {
-		await markAllReadMutation();
+		markAllReadMutation();
 	}, [markAllReadMutation]);
 
 	useEffect(() => {
@@ -57,8 +57,8 @@ function NotificationsPage() {
 				<Card.Content>
 					<InfiniteScroll
 						dataLength={data.length}
-						next={() => fetchMore()}
-						hasMore={canFetchMore !== null}
+						next={() => fetchNextPage()}
+						hasMore={hasNextPage !== null}
 						style={{ overflow: "none" }}
 						//key={isServer}
 					>

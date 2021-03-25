@@ -13,7 +13,7 @@ export default function WebhookCreator({ event = "webhook" }) {
 		data: projects,
 		error: errorProjects,
 	} = useProjects();
-	const [mutate, mutationState] = useCreateWebhook();
+	const { mutate, ...mutationState } = useCreateWebhook();
 	const [project, setProject] = useState(null);
 
 	if (isLoadingProjects) return <Spinner text="Loading your tags..." />;

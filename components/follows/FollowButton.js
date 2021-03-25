@@ -14,7 +14,7 @@ export default function FollowButton({
 	const { isLoading, data: isFollowing } = useIsFollowing(user.username, {
 		enabled: isLoggedIn,
 	});
-	const [mutate] = useFollow(user.username);
+	const { mutate } = useFollow(user.username);
 	if (!user || (isLoggedIn && user.id === currentUser.id)) return null;
 
 	const onClickFollow = async () => {

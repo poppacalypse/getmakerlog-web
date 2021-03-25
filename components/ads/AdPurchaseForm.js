@@ -88,7 +88,7 @@ function AdPurchaseForm() {
 	const [text, setText] = useState("");
 	const [url, setUrl] = useState("");
 	const { getInputProps, open, attachmentState } = useImageUpload();
-	const [mutate, { error, isLoading, reset }] = useCreateBooking();
+	const { mutateAsync, error, isLoading, reset } = useCreateBooking();
 	const { user } = useAuth();
 
 	const onClose = () => {
@@ -106,7 +106,7 @@ function AdPurchaseForm() {
 		if (!product) return;
 		try {
 			setPurchasing(true);
-			const booking = await mutate({
+			const booking = await mutateAsync({
 				text,
 				image: attachmentState.attachment,
 				url,

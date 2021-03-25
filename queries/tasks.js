@@ -1,5 +1,5 @@
 import axios, { axiosWrapper } from "utils/axios";
-import { useQuery, useMutation, useQueryCache } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getLogger } from "utils/logging";
 import { format } from "date-fns";
 
@@ -11,7 +11,8 @@ export const TASK_QUERIES = {
 	getTasksUserDay: "tasks.getTasksUserDay",
 };
 
-export async function getTask(key, { id }) {
+export async function getTask({ queryKey }) {
+	const [_key, { id }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `/tasks/${id}`);
 	return data;
 }
@@ -40,7 +41,8 @@ export async function deleteTask({ id }) {
 	return response.data;
 }
 
-export async function getTasksForDateRange(key, { startDate, endDate }) {
+export async function getTasksForDateRange({ queryKey }) {
+	const [_key, { startDate, endDate }] = queryKey;
 	let page = 0;
 	log(
 		`Fetching tasks. (page: ${page}, startDate: ${startDate}, endDate: ${endDate})`
@@ -79,7 +81,8 @@ export async function updateTask({ id, payload }) {
 	return response.data;
 }
 
-export async function getTasksUserDay(key, { username, date }) {
+export async function getTasksUserDay({ queryKey }) {
+	const [_key, { username, date }] = queryKey;
 	const { data } = await axiosWrapper(
 		axios.get,
 		`/users/${username}/tasks_for_day/?day=${date}`
@@ -110,7 +113,7 @@ export function useTasks(startDate, endDate) {
 }
 
 export function useUpdateTask(task, startDate = null, endDate = null) {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	const queries = [
 		startDate && endDate ? getQueryForDate(startDate, endDate) : null,
 		!startDate || !endDate
@@ -128,10 +131,10 @@ export function useUpdateTask(task, startDate = null, endDate = null) {
 				if (!query) return;
 				log(`Task mutation, updating query '${query}'.`);
 				// Snapshot the previous value
-				const previousTasks = queryCache.getQueryData(query);
+				const previousTasks = queryClient.getQueryData(query);
 
 				// Optimistically update to the new value
-				queryCache.setQueryData(query, (old) => {
+				queryClient.setQueryData(query, (old) => {
 					if (!old) return old;
 					return old.map((task) =>
 						task.id === id ? { ...task, ...payload } : task
@@ -139,7 +142,7 @@ export function useUpdateTask(task, startDate = null, endDate = null) {
 				});
 
 				// Return the snapshotted value
-				return () => queryCache.setQueryData(query, previousTasks);
+				return () => queryClient.setQueryData(query, previousTasks);
 			});
 
 			return () => {
@@ -161,18 +164,18 @@ export function useUpdateTask(task, startDate = null, endDate = null) {
 			// CAUTION! Not doing this, keeping the optimistic task behind, could cause problems
 			// e.g. key duplication (duplicate task ids)
 			queries.map((query) => {
-				if (query) queryCache.invalidateQueries(query);
+				if (query) queryClient.invalidateQueries(query);
 			});
 		},
 	});
 }
 
 export function useCreateTask() {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	return useMutation(createTask, {
 		onSuccess: (newTask) => {
 			log(`Created new task #${newTask.id}.`);
-			queryCache.setQueryData(
+			queryClient.setQueryData(
 				getQueryForDate(
 					newTask.created_at
 						? new Date(newTask.created_at)
@@ -196,7 +199,7 @@ export function useCreateTask() {
 }
 
 export function useDeleteTask(task, startDate = null, endDate = null) {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	const queries = [
 		startDate && endDate ? getQueryForDate(startDate, endDate) : null,
 		!startDate && !endDate
@@ -214,16 +217,16 @@ export function useDeleteTask(task, startDate = null, endDate = null) {
 				if (!query) return;
 				log(`Task mutation (delete), updating query '${query}'.`);
 				// Snapshot the previous value
-				const previousTasks = queryCache.getQueryData(query);
+				const previousTasks = queryClient.getQueryData(query);
 
 				// Optimistically update to the new value
-				queryCache.setQueryData(query, (old) => {
+				queryClient.setQueryData(query, (old) => {
 					if (!old) return old;
 					return old.filter((t) => t.id !== id);
 				});
 
 				// Return the snapshotted value
-				return () => queryCache.setQueryData(query, previousTasks);
+				return () => queryClient.setQueryData(query, previousTasks);
 			});
 
 			return () => {
@@ -243,7 +246,7 @@ export function useDeleteTask(task, startDate = null, endDate = null) {
 		// Always refetch after error or success:
 		onSettled: () => {
 			queries.map((query) => {
-				if (query) queryCache.invalidateQueries(query);
+				if (query) queryClient.invalidateQueries(query);
 			});
 		},
 	});

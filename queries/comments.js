@@ -1,5 +1,5 @@
 import axios, { axiosWrapper } from "utils/axios";
-import { useQuery, useMutation, useQueryCache } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getLogger } from "utils/logging";
 
 const log = getLogger("commments");
@@ -8,7 +8,8 @@ export const COMMENT_QUERIES = {
 	getComments: "comments.getComments",
 };
 
-export async function getComments(key, { indexUrl }) {
+export async function getComments({ queryKey }) {
+	const [_key, { indexUrl }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `${indexUrl}/comments/`);
 	return data;
 }
@@ -44,19 +45,19 @@ export function useComments(indexUrl) {
 }
 
 export function useCreateComment(indexUrl, user) {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	const query = [COMMENT_QUERIES.getComments, { indexUrl }];
 
 	return useMutation(createComment, {
 		onMutate: ({ content }) => {
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-			queryCache.cancelQueries(query);
+			queryClient.cancelQueries(query);
 
 			// Snapshot the previous value
-			const previousComments = queryCache.getQueryData(query);
+			const previousComments = queryClient.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) => {
+			queryClient.setQueryData(query, (old) => {
 				if (!old)
 					return [
 						{
@@ -78,7 +79,7 @@ export function useCreateComment(indexUrl, user) {
 			});
 
 			// Return the snapshotted value
-			return () => queryCache.setQueryData(query, previousComments);
+			return () => queryClient.setQueryData(query, previousComments);
 		},
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err, content, rollback) => {
@@ -87,32 +88,32 @@ export function useCreateComment(indexUrl, user) {
 		},
 		// Always refetch after error or success:
 		onSettled: () => {
-			queryCache.invalidateQueries(query);
+			queryClient.invalidateQueries(query);
 		},
 	});
 }
 
 export function useUpdateComment(indexUrl) {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	const query = [COMMENT_QUERIES.getComments, { indexUrl }];
 
 	return useMutation(updateComment, {
 		onMutate: ({ content, id }) => {
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-			queryCache.cancelQueries(query);
+			queryClient.cancelQueries(query);
 
 			// Snapshot the previous value
-			const previousComments = queryCache.getQueryData(query);
+			const previousComments = queryClient.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) => {
+			queryClient.setQueryData(query, (old) => {
 				return old.map((comment) =>
 					comment.id === id ? { ...comment, content } : comment
 				);
 			});
 
 			// Return the snapshotted value
-			return () => queryCache.setQueryData(query, previousComments);
+			return () => queryClient.setQueryData(query, previousComments);
 		},
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err, content, rollback) => {
@@ -121,30 +122,30 @@ export function useUpdateComment(indexUrl) {
 		},
 		// Always refetch after error or success:
 		onSettled: () => {
-			queryCache.invalidateQueries(query);
+			queryClient.invalidateQueries(query);
 		},
 	});
 }
 
 export function useDeleteComment(indexUrl) {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	const query = [COMMENT_QUERIES.getComments, { indexUrl }];
 
 	return useMutation(deleteComment, {
 		onMutate: ({ id }) => {
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-			queryCache.cancelQueries(query);
+			queryClient.cancelQueries(query);
 
 			// Snapshot the previous value
-			const previousComments = queryCache.getQueryData(query);
+			const previousComments = queryClient.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) =>
+			queryClient.setQueryData(query, (old) =>
 				old.filter((comment) => comment.id !== id)
 			);
 
 			// Return the snapshotted value
-			return () => queryCache.setQueryData(query, previousComments);
+			return () => queryClient.setQueryData(query, previousComments);
 		},
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err, payload, rollback) => {
@@ -153,7 +154,7 @@ export function useDeleteComment(indexUrl) {
 		},
 		// Always refetch after error or success:
 		onSettled: () => {
-			queryCache.invalidateQueries(query);
+			queryClient.invalidateQueries(query);
 		},
 	});
 }

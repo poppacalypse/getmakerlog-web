@@ -27,12 +27,12 @@ function Comment({ comment, indexUrl }) {
 	const [editing, setEditing] = useState(false);
 	const { user } = useAuth();
 
-	const [deleteMutation] = useDeleteComment(indexUrl);
-	const [updateMutation] = useUpdateComment(indexUrl);
+	const { mutate: deleteMutation } = useDeleteComment(indexUrl);
+	const { mutate: updateMutation } = useUpdateComment(indexUrl);
 
 	const onEdit = async (content) => {
 		setEditing(false);
-		await updateMutation({
+		updateMutation({
 			indexUrl,
 			content,
 			id: comment.id,
@@ -40,7 +40,7 @@ function Comment({ comment, indexUrl }) {
 	};
 
 	const onDelete = async () => {
-		await deleteMutation({
+		deleteMutation({
 			indexUrl,
 			id: comment.id,
 		});

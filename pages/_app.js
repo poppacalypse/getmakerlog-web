@@ -14,17 +14,18 @@ import React from "react";
 import App from "next/app";
 import { Provider, useStaticRendering } from "mobx-react";
 
+// eslint-disable-next-line no-unused-vars
+import * as Sentry from "@sentry/nextjs";
 import { isServer, isDev, DEFAULT_SEO_CONFIG } from "../config";
 import config, { onStoreInit } from "stores";
 import { configureMobx } from "utils/mobx";
 import Shell from "layouts/Shell";
-import { ReactQueryDevtools } from "react-query-devtools";
+import { ReactQueryDevtools } from "react-query/devtools";
 import NProgressContainer from "vendor/nprogress";
 import { configure, autorun } from "mobx";
-import { ReactQueryCacheProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Hydrate } from "react-query/hydration";
 import { DefaultSeo } from "next-seo";
-import * as Sentry from "@sentry/react";
 import Head from "next/head";
 import { setDarkMode } from "utils/patron";
 import { Router } from "routes";
@@ -41,12 +42,6 @@ useStaticRendering(isServer); // NOT `true` value
 
 Router.events.on("routeChangeComplete", (url) => {
 	if (!isServer && window.analytics) window.analytics.page(url);
-});
-
-// Set up GA, Sentry
-Sentry.init({
-	enabled: !config.isDev,
-	dsn: config.SENTRY_DSN,
 });
 
 class Makerlog extends App {
@@ -74,6 +69,12 @@ class Makerlog extends App {
 		}
 
 		return { pageProps };
+	}
+
+	constructor(props) {
+		super(props);
+
+		this.queryClientRef = React.createRef();
 	}
 
 	componentDidMount() {
@@ -119,6 +120,9 @@ class Makerlog extends App {
 	}
 
 	render() {
+		if (!this.queryClientRef.current) {
+			this.queryClientRef.current = new QueryClient();
+		}
 		const { Component, pageProps, store } = this.props;
 		const { statusCode, errorMessage } = pageProps;
 		const layoutProps = pageProps.layout ? pageProps.layout : {};
@@ -136,7 +140,7 @@ class Makerlog extends App {
 					/>
 				</Head>
 				<DefaultSeo {...DEFAULT_SEO_CONFIG} />
-				<ReactQueryCacheProvider>
+				<QueryClientProvider client={this.queryClientRef.current}>
 					<Hydrate state={pageProps.dehydratedState}>
 						<Provider {...store}>
 							<Shell
@@ -150,7 +154,7 @@ class Makerlog extends App {
 							<ReactQueryDevtools />
 						</Provider>
 					</Hydrate>
-				</ReactQueryCacheProvider>
+				</QueryClientProvider>
 			</>
 		);
 	}

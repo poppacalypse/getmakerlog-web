@@ -25,7 +25,8 @@ export async function getUpcomingEvents() {
 	return data;
 }
 
-export async function getEvent(key, { slug }) {
+export async function getEvent({ queryKey }) {
+	const [key, { slug }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `/events/${slug}/`);
 	return data;
 }

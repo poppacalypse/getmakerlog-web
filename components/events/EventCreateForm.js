@@ -17,10 +17,10 @@ export default function EventCreateForm() {
 		starts_at: null,
 		ends_at: null,
 	});
-	const [mutate, { isLoading, error, isSuccess }] = useCreateEvent();
+	const { mutate, isLoading, error, isSuccess } = useCreateEvent();
 
 	const onCreate = async () => {
-		await mutate({
+		mutate({
 			...payload,
 			starts_at: payload.starts_at.toISOString(),
 			ends_at: payload.ends_at.toISOString(),

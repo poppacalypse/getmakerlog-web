@@ -44,7 +44,7 @@ function TaskEditor({ onFinish, forceOpen = false }) {
 	const [content, setContent] = useState("");
 	const [description, setDescription] = useState("");
 	const [doneState, setDoneState] = useState(DoneStates.DONE);
-	const [mutate, { isSuccess, isLoading, error }] = useCreateTask();
+	const { mutate, isSuccess, isLoading, error } = useCreateTask();
 	const [loadingVThumb, setLoadingVThumb] = useState(false);
 	const [vThumb, setVThumb] = useState(null);
 	const [shouldTweet, setShouldTweet] = useState(false);
@@ -103,11 +103,14 @@ function TaskEditor({ onFinish, forceOpen = false }) {
 				payload["video"] = attachmentState.attachment;
 			}
 		}
-		const task = await mutate(payload);
-		if (shouldTweet) {
-			tweetAfterPost(task);
-			setShouldTweet(false);
-		}
+		mutate(payload, {
+			onSuccess: (task) => {
+				if (shouldTweet) {
+					tweetAfterPost(task);
+					setShouldTweet(false);
+				}
+			},
+		});
 	};
 
 	const onVThumbGenerated = async (t) => {

@@ -11,7 +11,7 @@ import {
 import { useRouter } from "next/router";
 import Spinner from "components/ui/Spinner";
 import ErrorCard from "components/ui/ErrorCard";
-import { makeQueryCache } from "react-query";
+import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import PostHeading from "components/stories/PostHeading";
 import SubscribeCard from "components/stories/SubscribeCard";
@@ -219,10 +219,10 @@ function StoriesPostPage() {
 }
 
 StoriesPostPage.getInitialProps = async ({ res, query: { slug } }) => {
-	const queryCache = makeQueryCache();
+	const queryClient = new QueryClient();
 
 	try {
-		await queryCache.prefetchQuery(
+		await queryClient.prefetchQuery(
 			[STORY_QUERIES.getPost, { slug }],
 			getPost,
 			{},
@@ -230,7 +230,7 @@ StoriesPostPage.getInitialProps = async ({ res, query: { slug } }) => {
 		);
 
 		return {
-			dehydratedState: dehydrate(queryCache),
+			dehydratedState: dehydrate(queryClient),
 			layout: {
 				contained: false,
 			},

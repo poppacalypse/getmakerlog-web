@@ -79,16 +79,22 @@ export function ThreadReplyCreateForm({
 	onFinish = () => {},
 }) {
 	const [body, setBody] = useState("");
-	const [mutate, { isLoading, error, isSuccess }] = useCreateThreadReply();
+	const { mutate, isLoading, error, isSuccess } = useCreateThreadReply();
 	const prevReplyingTo = usePrevious(replyingTo);
 
 	const onCreate = async () => {
-		await mutate({
-			slug: threadSlug,
-			body,
-			parentReply: parentReply ? parentReply.id : null,
-		});
-		onFinish();
+		mutate(
+			{
+				slug: threadSlug,
+				body,
+				parentReply: parentReply ? parentReply.id : null,
+			},
+			{
+				onSuccess: () => {
+					onFinish();
+				},
+			}
+		);
 	};
 
 	useEffect(() => {

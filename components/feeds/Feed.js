@@ -17,10 +17,10 @@ import FeedSection from "./FeedSection";
 export default function Feed({ indexUrl = "/feeds/world/", live = true }) {
 	const { user, token } = useAuth();
 	const {
-		fetchMore,
-		isFetchingMore,
+		fetchNextPage,
+		isFetchingNextPage,
 		isFetching,
-		canFetchMore,
+		hasNextPage,
 		data,
 		error,
 	} = useFeed(indexUrl, live, token);
@@ -30,17 +30,15 @@ export default function Feed({ indexUrl = "/feeds/world/", live = true }) {
 		user ? user.timezone : null
 	);
 
-	if (extractedData.length === 0 && !canFetchMore && !isFetching) {
+	if (extractedData.length === 0 && !hasNextPage && !isFetching) {
 		return <div>No activity here.</div>;
 	}
 
-	console.log(error);
-
 	return (
 		<InfiniteScroll
-			dataLength={data ? data.length : 0}
-			next={() => fetchMore()}
-			hasMore={canFetchMore}
+			dataLength={extractedData ? extractedData.length : 0}
+			next={() => fetchNextPage()}
+			hasMore={hasNextPage}
 			style={{ overflow: "none" }}
 			//key={isServer}
 		>
@@ -51,8 +49,8 @@ export default function Feed({ indexUrl = "/feeds/world/", live = true }) {
 						actions={
 							<Button
 								primary
-								loading={isFetchingMore}
-								onClick={() => fetchMore()}
+								loading={isFetchingNextPage}
+								onClick={() => fetchNextPage()}
 							>
 								Retry
 							</Button>
@@ -68,26 +66,28 @@ export default function Feed({ indexUrl = "/feeds/world/", live = true }) {
 					/>
 				))}
 
-				{canFetchMore && (
+				{hasNextPage && (
 					<center>
 						<Button
-							loading={isFetchingMore || isFetching}
-							onClick={() => fetchMore()}
+							loading={isFetchingNextPage || isFetching}
+							onClick={() => fetchNextPage()}
 						>
 							Load more activity...
 						</Button>
 					</center>
 				)}
-				{!canFetchMore && (isFetchingMore || isFetching) && (
+				{!hasNextPage && (isFetchingNextPage || isFetching) && (
 					<div className={"center ActivityFeed--section"}>
 						<Spinner text="Loading the makerness..." />
 					</div>
 				)}
-				{!canFetchMore && !(isFetchingMore || isFetching) && !error && (
-					<center className="text-xs text-gray-400 ActivityFeed--section">
-						That's all.
-					</center>
-				)}
+				{!hasNextPage &&
+					!(isFetchingNextPage || isFetching) &&
+					!error && (
+						<center className="text-xs text-gray-400 ActivityFeed--section">
+							That's all.
+						</center>
+					)}
 			</div>
 		</InfiniteScroll>
 	);

@@ -22,12 +22,18 @@ function Thread({
 }) {
 	const [editing, setEditing] = useState(false);
 	const [deleted, setDeleted] = useState(false);
-	const [deleteMutation] = useDeleteThread();
+	const { mutate: deleteMutation } = useDeleteThread();
 
 	const onDelete = async () => {
-		await deleteMutation({ slug: thread.slug });
-		setDeleted(true);
-		if (!isServer) Router.pushRoute("discussions");
+		deleteMutation(
+			{ slug: thread.slug },
+			{
+				onSuccess: () => {
+					setDeleted(true);
+					if (!isServer) Router.pushRoute("discussions");
+				},
+			}
+		);
 	};
 
 	if (!thread) return null;

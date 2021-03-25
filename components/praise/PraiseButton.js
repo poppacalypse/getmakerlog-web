@@ -25,7 +25,7 @@ function PraiseButton({
 		indexUrl,
 		initialCount > 0 || clicked
 	);
-	const [mutate] = usePraiseMutation(initialCount, user);
+	const { mutate } = usePraiseMutation(initialCount, user);
 
 	const onPraise = async (e) => {
 		e.stopPropagation();
@@ -36,8 +36,7 @@ function PraiseButton({
 			return;
 		}
 		setClicked(true);
-		const data = await mutate(indexUrl);
-		return data;
+		mutate(indexUrl);
 	};
 
 	useEffect(() => {

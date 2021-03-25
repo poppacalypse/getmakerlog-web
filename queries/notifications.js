@@ -1,5 +1,5 @@
 import axios, { axiosWrapper } from "utils/axios";
-import { useInfiniteQuery, useMutation, useQueryCache } from "react-query";
+import { useInfiniteQuery, useMutation, useQueryClient } from "react-query";
 import { getLogger } from "utils/logging";
 import useWebSocket from "react-use-websocket";
 import { usePrevious } from "utils/hooks";
@@ -14,7 +14,7 @@ const NOTIFICATION_QUERIES = {
 	getNotifications: "notifications.getNotifications",
 };
 
-export async function getNotifications(key, next = null) {
+export async function getNotifications({ pageParam: next = null }) {
 	const { data } = await axiosWrapper(
 		axios.get,
 		next ? next : `/notifications/`
@@ -35,7 +35,7 @@ export function useNotifications() {
 		[NOTIFICATION_QUERIES.getNotifications],
 		getNotifications,
 		{
-			getFetchMore: (lastGroup) => {
+			getNextPageParam: (lastGroup) => {
 				return lastGroup.next;
 			},
 		}
@@ -43,34 +43,34 @@ export function useNotifications() {
 }
 
 export function useMarkAllReadNotifications() {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	const query = [NOTIFICATION_QUERIES.getNotifications];
 
 	return useMutation(markAllRead, {
 		onMutate: () => {
-			queryCache.cancelQueries(query);
-			const previous = queryCache.getQueryData(query);
-			queryCache.setQueryData(query, (old) => {
+			queryClient.cancelQueries(query);
+			const previous = queryClient.getQueryData(query);
+			queryClient.setQueryData(query, (old) => {
 				if (!old) return old;
 				return old.map((notification) => ({
 					...notification,
 					read: true,
 				}));
 			});
-			return () => queryCache.setQueryData(query, previous);
+			return () => queryClient.setQueryData(query, previous);
 		},
 		onError: (err, content, rollback) => {
 			log(`Failed to mark notifications as read. (${err})`);
 			if (rollback) rollback();
 		},
 		onSettled: () => {
-			queryCache.invalidateQueries(query);
+			queryClient.invalidateQueries(query);
 		},
 	});
 }
 
 export function useStreamNotifications(token) {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 	const [socketUrl, setSocketUrl] = useState(
 		buildSocketUrl(`/notifications/?token=${token}`)
 	);
@@ -82,8 +82,8 @@ export function useStreamNotifications(token) {
 
 	const clearNotificationCache = useCallback(() => {
 		const query = [NOTIFICATION_QUERIES.getNotifications];
-		queryCache.invalidateQueries(query);
-	}, [queryCache]);
+		queryClient.invalidateQueries(query);
+	}, [queryClient]);
 
 	useEffect(() => {
 		if (prevToken !== token) {

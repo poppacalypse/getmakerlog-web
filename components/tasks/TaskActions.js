@@ -138,9 +138,12 @@ function TaskDeleteAction({ task, onDelete }) {
 }
 
 function TaskEditModal({ task, open, onClose }) {
-	const [updateMutation, { isLoading, error, isSuccess }] = useUpdateTask(
-		task
-	);
+	const {
+		mutate: updateMutation,
+		isLoading,
+		error,
+		isSuccess,
+	} = useUpdateTask(task);
 	const [content, setContent] = useState(task.content);
 	const [description, setDescription] = useState(
 		task.description ? task.description : ""
@@ -351,18 +354,30 @@ function TaskActions({
 	// We allow this to be false, favoring a boolean op below.
 	// This allows for autofocus on click.
 	const { isLoggedIn, user } = useAuth();
-	const [updateMutation] = useUpdateTask(task);
-	const [deleteMutation] = useDeleteTask(task);
+	const { mutate: updateMutation } = useUpdateTask(task);
+	const { mutate: deleteMutation } = useDeleteTask(task);
 	if (!task) return;
 
 	const updateTask = async (delta) => {
-		await updateMutation({ payload: delta, id: task.id });
-		log(`Task #${task.id} has been updated. (${delta})`);
+		updateMutation(
+			{ payload: delta, id: task.id },
+			{
+				onSuccess: () => {
+					log(`Task #${task.id} has been updated. (${delta})`);
+				},
+			}
+		);
 	};
 
 	const deleteTask = async () => {
-		await deleteMutation({ id: task.id });
-		log(`Task #${task.id} has been deleted.`);
+		deleteMutation(
+			{ id: task.id },
+			{
+				onSuccess: () => {
+					log(`Task #${task.id} has been deleted.`);
+				},
+			}
+		);
 	};
 
 	if (embed) {

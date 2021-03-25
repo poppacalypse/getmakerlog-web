@@ -27,20 +27,28 @@ function Reply({
 	const [editing, setEditing] = useState(false);
 	const [body, setBody] = useState(reply.body);
 	const [replyingTo, setReplyingTo] = useState(null);
-	const [deleteReply] = useDeleteThreadReply(reply.parent);
-	const [update, { isLoading, error }] = useUpdateThreadReply(reply.parent);
+	const { mutate: deleteReply } = useDeleteThreadReply(reply.parent);
+	const { mutate: update, isLoading, error } = useUpdateThreadReply(
+		reply.parent
+	);
 	childrenReplies = orderBy(childrenReplies, "created_at", "asc");
 
 	const { errors } = replySchema.validate(reply);
 	if (errors) return null;
 
 	const onEdit = async () => {
-		await update({ slug: reply.parent, id: reply.id, body });
-		setEditing(false);
+		update(
+			{ slug: reply.parent, id: reply.id, body },
+			{
+				onSuccess: () => {
+					setEditing(false);
+				},
+			}
+		);
 	};
 
 	const onDelete = async () => {
-		await deleteReply({ slug: reply.parent, id: reply.id });
+		deleteReply({ slug: reply.parent, id: reply.id });
 	};
 
 	return (

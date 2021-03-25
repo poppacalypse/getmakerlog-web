@@ -15,11 +15,17 @@ function ChangePasswordPage() {
 	const [oldPassword, setOldPassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 	const [repeatPassword, setRepeatPassword] = useState("");
-	const [mutate, { isLoading, error, isSuccess }] = useChangePassword();
+	const { mutate, isLoading, error, isSuccess } = useChangePassword();
 
 	const onChangePassword = async () => {
-		await mutate({ oldPassword, newPassword });
-		logout();
+		mutate(
+			{ oldPassword, newPassword },
+			{
+				onSuccess: () => {
+					logout();
+				},
+			}
+		);
 	};
 
 	return (

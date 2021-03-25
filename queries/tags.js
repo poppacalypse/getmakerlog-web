@@ -1,5 +1,5 @@
 import axios, { axiosWrapper } from "utils/axios";
-import { useMutation, useQuery, useQueryCache } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getLogger } from "utils/logging";
 import uniqBy from "lodash/uniqBy";
 
@@ -11,12 +11,14 @@ export const TAGS_QUERIES = {
 	getSuggestedTags: "tags.getSuggestedTags",
 };
 
-export async function getCommonTags(key, { type }) {
+export async function getCommonTags({ queryKey }) {
+	const [_key, { type }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `/${type}/common_tags/`);
 	return data;
 }
 
-export async function getSuggestedTags(key, { type, query }) {
+export async function getSuggestedTags({ queryKey }) {
+	const [_key, { type, query }] = queryKey;
 	const { data } = await axiosWrapper(
 		axios.get,
 		`/${type}/suggest_tags/?q=${query}`
@@ -24,7 +26,8 @@ export async function getSuggestedTags(key, { type, query }) {
 	return data;
 }
 
-export async function getUserSkills(key, { username }) {
+export async function getUserSkills({ queryKey }) {
+	const [_key, { username }] = queryKey;
 	const { data } = await axiosWrapper(
 		axios.get,
 		`/users/${username}/skills/`
@@ -66,24 +69,24 @@ export function useSuggestedTags(type, query) {
 }
 
 export function useCreateSkill() {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 
 	return useMutation(createSkill, {
 		onMutate: ({ username, name, emoji }) => {
 			const query = [TAGS_QUERIES.getUserSkills, { username }];
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-			queryCache.cancelQueries(query);
+			queryClient.cancelQueries(query);
 
 			// Snapshot the previous value
-			const previousSkills = queryCache.getQueryData(query);
+			const previousSkills = queryClient.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) => {
+			queryClient.setQueryData(query, (old) => {
 				return uniqBy([...old, { id: -1, name, emoji }], "name");
 			});
 
 			// Return the snapshotted value
-			return () => queryCache.setQueryData(query, previousSkills);
+			return () => queryClient.setQueryData(query, previousSkills);
 		},
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err, content, rollback) => {
@@ -93,30 +96,30 @@ export function useCreateSkill() {
 		// Always refetch after error or success:
 		onSettled: (data, err, { username }) => {
 			const query = [TAGS_QUERIES.getUserSkills, { username }];
-			queryCache.invalidateQueries(query);
+			queryClient.invalidateQueries(query);
 		},
 	});
 }
 
 export function useDeleteSkill() {
-	const queryCache = useQueryCache();
+	const queryClient = useQueryClient();
 
 	return useMutation(deleteSkill, {
 		onMutate: ({ username, id }) => {
 			const query = [TAGS_QUERIES.getUserSkills, { username }];
 			// Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-			queryCache.cancelQueries(query);
+			queryClient.cancelQueries(query);
 
 			// Snapshot the previous value
-			const previousSkills = queryCache.getQueryData(query);
+			const previousSkills = queryClient.getQueryData(query);
 
 			// Optimistically update to the new value
-			queryCache.setQueryData(query, (old) => {
+			queryClient.setQueryData(query, (old) => {
 				return old.filter((t) => t.id !== id);
 			});
 
 			// Return the snapshotted value
-			return () => queryCache.setQueryData(query, previousSkills);
+			return () => queryClient.setQueryData(query, previousSkills);
 		},
 		// If the mutation fails, use the value returned from onMutate to roll back
 		onError: (err, content, rollback) => {
@@ -126,7 +129,7 @@ export function useDeleteSkill() {
 		// Always refetch after error or success:
 		onSettled: (data, err, { username }) => {
 			const query = [TAGS_QUERIES.getUserSkills, { username }];
-			queryCache.invalidateQueries(query);
+			queryClient.invalidateQueries(query);
 		},
 	});
 }

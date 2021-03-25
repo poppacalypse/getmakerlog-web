@@ -3,7 +3,7 @@ import { useThread, getThread, DISCUSSION_QUERIES } from "queries/discussions";
 import { useRouter } from "next/router";
 import ErrorCard from "components/ui/ErrorCard";
 import Spinner from "components/ui/Spinner";
-import { makeQueryCache } from "react-query";
+import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import Thread from "components/discussions/Thread";
 import { Link } from "routes";
@@ -84,10 +84,10 @@ function DiscussionThreadPage() {
 }
 
 DiscussionThreadPage.getInitialProps = async ({ res, query: { slug } }) => {
-	const queryCache = makeQueryCache();
+	const queryClient = new QueryClient();
 
 	try {
-		await queryCache.prefetchQuery(
+		await queryClient.prefetchQuery(
 			[DISCUSSION_QUERIES.getThread, { slug }],
 			getThread,
 			{},
@@ -97,7 +97,7 @@ DiscussionThreadPage.getInitialProps = async ({ res, query: { slug } }) => {
 		);
 
 		return {
-			dehydratedState: dehydrate(queryCache),
+			dehydratedState: dehydrate(queryClient),
 			layout: {
 				layout: "app",
 				allowGuest: true,

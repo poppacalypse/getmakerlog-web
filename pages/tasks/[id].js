@@ -7,8 +7,8 @@ import ProfileLayout from "components/users/ProfileLayout";
 import { useRouter } from "next/router";
 import { getTask, TASK_QUERIES, useTask } from "queries/tasks";
 import React from "react";
-import { makeQueryCache } from "react-query";
-import { dehydrate } from "react-query/dist/hydration/react-query-hydration.development";
+import { QueryClient } from "react-query";
+import { dehydrate } from "react-query/hydration";
 import { Link } from "routes";
 import TimeAgo from "react-timeago";
 import { getErrorResponse } from "utils/error";
@@ -76,10 +76,10 @@ function TaskPage() {
 }
 
 TaskPage.getInitialProps = async ({ res, query: { id } }) => {
-	const queryCache = makeQueryCache();
+	const queryClient = new QueryClient();
 
 	try {
-		await queryCache.prefetchQuery(
+		await queryClient.prefetchQuery(
 			[TASK_QUERIES.getTask, { id }],
 			getTask,
 			{},
@@ -87,7 +87,7 @@ TaskPage.getInitialProps = async ({ res, query: { id } }) => {
 		);
 
 		return {
-			dehydratedState: dehydrate(queryCache),
+			dehydratedState: dehydrate(queryClient),
 			layout: {
 				allowGuest: true,
 				contained: false,

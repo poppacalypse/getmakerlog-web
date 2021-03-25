@@ -16,10 +16,10 @@ function CommentInput({ indexUrl, focused = false }) {
 	const textInput = useRef(null);
 	const prevFocused = usePrevious(focused);
 
-	const [createMutation, { isLoading: isCreating }] = useCreateComment(
-		indexUrl,
-		user
-	);
+	const {
+		mutateAsync: createMutation,
+		isLoading: isCreating,
+	} = useCreateComment(indexUrl, user);
 
 	const onSubmit = async () => {
 		await createMutation({

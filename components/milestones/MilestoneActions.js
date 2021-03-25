@@ -41,10 +41,12 @@ function MilestonePermalinkAction({ milestone }) {
 }
 
 function MilestoneEditModal({ milestone, open, onClose }) {
-	const [
-		updateMutation,
-		{ isLoading, error, isSuccess },
-	] = useUpdateMilestone(milestone);
+	const {
+		mutate: updateMutation,
+		isLoading,
+		error,
+		isSuccess,
+	} = useUpdateMilestone(milestone);
 	const [title, setTitle] = useState(milestone.title);
 	const [body, setBody] = useState(milestone.body);
 	const [product, setProduct] = useState(
@@ -57,7 +59,7 @@ function MilestoneEditModal({ milestone, open, onClose }) {
 	}, [previousIsSuccess, isSuccess, onClose]);
 
 	const onSubmit = async () => {
-		await updateMutation({
+		updateMutation({
 			slug: milestone.slug,
 			title,
 			body,
@@ -197,21 +199,32 @@ function MilestoneActions({
 	// We allow this to be false, favoring a boolean op below.
 	// This allows for autofocus on click.
 	const { user } = useAuth();
-	const [updateMutation] = useUpdateMilestone(milestone);
-	const [deleteMutation] = useDeleteMilestone(milestone);
+	const { mutate: updateMutation } = useUpdateMilestone(milestone);
+	const { mutate: deleteMutation } = useDeleteMilestone(milestone);
 	const [commentsOpen, setCommentsOpen] = useState(false);
 	if (!milestone) return;
 
 	const updateTask = async (delta) => {
-		await updateMutation(delta);
-		log(`Milestone #${milestone.slug} has been updated. (${delta})`);
-		onUpdate();
+		updateMutation(delta, {
+			onSuccess: () => {
+				log(
+					`Milestone #${milestone.slug} has been updated. (${delta})`
+				);
+				onUpdate();
+			},
+		});
 	};
 
 	const deleteTask = async () => {
-		await deleteMutation({ slug: milestone.slug });
-		log(`Milestone #${milestone.slug} has been deleted.`);
-		onDelete();
+		deleteMutation(
+			{ slug: milestone.slug },
+			{
+				onSuccess: () => {
+					log(`Milestone #${milestone.slug} has been deleted.`);
+					onDelete();
+				},
+			}
+		);
 	};
 
 	if (stream) {

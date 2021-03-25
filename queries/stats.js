@@ -12,7 +12,9 @@ export const STATS_QUERIES = {
 
 export async function getFrontpage() {
 	// !!NOTICE!! Fragile code.
-	let featuredPost = await getFeatured("random.key", { limit: 1 });
+	let featuredPost = await getFeatured({
+		queryKey: ["random.key", { limit: 1 }],
+	});
 	if (featuredPost) {
 		featuredPost = featuredPost[0];
 		featuredPost =
@@ -32,7 +34,8 @@ export async function getWorldStats() {
 	return data;
 }
 
-export async function getUserHeatmap(key, { username }) {
+export async function getUserHeatmap({ queryKey }) {
+	const [_key, { username }] = queryKey;
 	const { data } = await axiosWrapper(
 		axios.get,
 		`/users/${username}/activity_graph/`
@@ -40,7 +43,8 @@ export async function getUserHeatmap(key, { username }) {
 	return data;
 }
 
-export async function getUserStats(key, { username }) {
+export async function getUserStats({ queryKey }) {
+	const [_key, { username }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `/users/${username}/stats/`);
 	return data;
 }

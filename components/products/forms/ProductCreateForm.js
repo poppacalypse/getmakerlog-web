@@ -32,7 +32,7 @@ function ProductCreateForm() {
 		open: openIcon,
 		attachmentState: iconState,
 	} = useImageUpload();
-	const [mutate, { isLoading, error, isSuccess }] = useCreateProduct();
+	const { mutate, isLoading, error, isSuccess } = useCreateProduct();
 	const { suggestions, tags, onAddition, onDelete } = useTagAutocomplete(
 		"products"
 	);
@@ -58,8 +58,15 @@ function ProductCreateForm() {
 			// Set up categories array
 			let productTags = tags.map((t) => t.name);
 			finalPayload = { ...finalPayload, projects, tags: productTags };
-			const product = await mutate({ payload: finalPayload });
-			if (product) Router.pushRoute("product", { slug: product.slug });
+			mutate(
+				{ payload: finalPayload },
+				{
+					onSuccess: (product) => {
+						if (product)
+							Router.pushRoute("product", { slug: product.slug });
+					},
+				}
+			);
 		} catch (e) {
 			setTaggingError(e);
 		}

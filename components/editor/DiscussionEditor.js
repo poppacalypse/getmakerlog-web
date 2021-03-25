@@ -16,7 +16,7 @@ function DiscussionEditor({ onFinish }) {
 	const { user } = useAuth();
 	const [title, setTitle] = useState("");
 	const [body, setBody] = useState("");
-	const [mutate, { isLoading, error, isSuccess }] = useCreateThread();
+	const { mutate, isLoading, error, isSuccess } = useCreateThread();
 	const [shouldTweet, setShouldTweet] = useState(false);
 
 	const tweetAfterPost = (item) => {
@@ -26,12 +26,20 @@ function DiscussionEditor({ onFinish }) {
 	};
 
 	const onCreate = async () => {
-		const discussion = await mutate({ title, body });
-		if (shouldTweet) {
-			tweetAfterPost(discussion);
-			setShouldTweet(false);
-		}
-		Router.pushRoute("discussions-thread", { slug: discussion.slug });
+		mutate(
+			{ title, body },
+			{
+				onSuccess: (discussion) => {
+					if (shouldTweet) {
+						tweetAfterPost(discussion);
+						setShouldTweet(false);
+					}
+					Router.pushRoute("discussions-thread", {
+						slug: discussion.slug,
+					});
+				},
+			}
+		);
 	};
 
 	// Hack. Memoize onFinish, else infinite loop.

@@ -6,14 +6,14 @@ import { useCreateUser } from "queries/users";
 import React, { useState } from "react";
 
 export default function EmailRegisterForm() {
-	const [mutate, { isLoading, error, isSuccess }] = useCreateUser();
+	const { mutate, isLoading, error, isSuccess } = useCreateUser();
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [repeatPassword, setRepeatPassword] = useState("");
 
 	const onSubmit = async () => {
-		await mutate({
+		mutate({
 			username,
 			email,
 			password,

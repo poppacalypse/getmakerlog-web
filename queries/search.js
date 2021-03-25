@@ -8,7 +8,8 @@ export const SEARCH_QUERIES = {
 	searchDiscussions: "search.searchDiscussions",
 };
 
-export async function searchUsers(key, { query }, next = null) {
+export async function searchUsers({ pageParam: next = null, queryKey }) {
+	const [_key, { query }] = queryKey;
 	const { data } = await axiosWrapper(
 		axios.get,
 		next ? next : `/search/users/?q=${query}`
@@ -16,7 +17,8 @@ export async function searchUsers(key, { query }, next = null) {
 	return data;
 }
 
-export async function searchProducts(key, { query }, next = null) {
+export async function searchProducts({ pageParam: next = null, queryKey }) {
+	const [_key, { query }] = queryKey;
 	const { data } = await axiosWrapper(
 		axios.get,
 		next ? next : `/search/products/?q=${query}`
@@ -24,7 +26,8 @@ export async function searchProducts(key, { query }, next = null) {
 	return data;
 }
 
-export async function searchTasks(key, { query }, next = null) {
+export async function searchTasks({ pageParam: next = null, queryKey }) {
+	const [_key, { query }] = queryKey;
 	const { data } = await axiosWrapper(
 		axios.get,
 		next ? next : `/search/tasks/?q=${query}`
@@ -32,7 +35,8 @@ export async function searchTasks(key, { query }, next = null) {
 	return data;
 }
 
-export async function searchDiscussions(key, { query }, next = null) {
+export async function searchDiscussions({ pageParam: next = null, queryKey }) {
+	const [_key, { query }] = queryKey;
 	const { data } = await axiosWrapper(
 		axios.get,
 		next ? next : `/search/discussions/?q=${query}`
@@ -46,7 +50,7 @@ export function useSearchUsers(query) {
 		searchUsers,
 		{
 			enabled: query.length > 0,
-			getFetchMore: (lastGroup) => {
+			getNextPageParam: (lastGroup) => {
 				return lastGroup.next;
 			},
 		}
@@ -59,7 +63,7 @@ export function useSearchProducts(query) {
 		searchProducts,
 		{
 			enabled: query.length > 0,
-			getFetchMore: (lastGroup) => {
+			getNextPageParam: (lastGroup) => {
 				return lastGroup.next;
 			},
 		}
@@ -72,7 +76,7 @@ export function useSearchTasks(query) {
 		searchTasks,
 		{
 			enabled: query.length > 0,
-			getFetchMore: (lastGroup) => {
+			getNextPageParam: (lastGroup) => {
 				return lastGroup.next;
 			},
 		}
@@ -85,7 +89,7 @@ export function useSearchDiscussions(query) {
 		searchDiscussions,
 		{
 			enabled: query.length > 0,
-			getFetchMore: (lastGroup) => {
+			getNextPageParam: (lastGroup) => {
 				return lastGroup.next;
 			},
 		}
