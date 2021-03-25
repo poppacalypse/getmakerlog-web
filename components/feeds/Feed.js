@@ -34,6 +34,8 @@ export default function Feed({ indexUrl = "/feeds/world/", live = true }) {
 		return <div>No activity here.</div>;
 	}
 
+	console.log(error);
+
 	return (
 		<InfiniteScroll
 			dataLength={data ? data.length : 0}

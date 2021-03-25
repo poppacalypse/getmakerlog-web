@@ -16,11 +16,11 @@ export default function FeedCard({ objects }) {
 
 	if (!actor) return null;
 
-	const tasks = flatten(objects.map((obj) => obj.tasks));
+	let tasks = flatten(objects.map((obj) => obj.tasks));
 	if (tasks.length === 0) return null;
-
+	tasks = uniqBy(orderByDate(tasks), "id");
 	const time = tasks[0].updated_at;
-	const groupedTasks = groupTasksByDone(uniqBy(orderByDate(tasks), "id"));
+	const groupedTasks = groupTasksByDone(tasks);
 
 	return (
 		<Card>
