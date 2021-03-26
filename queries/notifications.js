@@ -52,10 +52,13 @@ export function useMarkAllReadNotifications() {
 			const previous = queryClient.getQueryData(query);
 			queryClient.setQueryData(query, (old) => {
 				if (!old) return old;
-				return old.map((notification) => ({
-					...notification,
-					read: true,
-				}));
+				return {
+					pages: old.pages.map((notification) => ({
+						...notification,
+						read: true,
+					})),
+					pageParams: old.pageParams,
+				};
 			});
 			return () => queryClient.setQueryData(query, previous);
 		},
