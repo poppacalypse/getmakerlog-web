@@ -1,5 +1,9 @@
 import React from "react";
 
+// eslint-disable-next-line no-unused-vars
+const classNames =
+	"sm:col-span-3 sm:col-span-6 sm:col-span-12 col-span-12 col-span-3 col-span-6";
+
 export function FormActions({
 	children,
 	span = null,
