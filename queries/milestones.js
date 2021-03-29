@@ -39,7 +39,8 @@ export async function deleteMilestone({ slug }) {
 	return response.data;
 }
 
-export async function getUserMilestones(key, { username }) {
+export async function getUserMilestones({ queryKey }) {
+	const [_key, { username }] = queryKey;
 	const response = await axiosWrapper(
 		axios.get,
 		`/users/${username}/milestones/`
