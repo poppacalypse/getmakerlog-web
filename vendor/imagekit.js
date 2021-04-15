@@ -1,6 +1,7 @@
 import config from "config";
 
 export function imageUrl(src, sz = null, optimOnly = false) {
+	if (!src) return src;
 	if (src.startsWith("/media/")) return `${config.API_URL}${src}`;
 	if (!config.IMGOPT_ENABLED) return src;
 	if (src.startsWith("data:")) return src;
