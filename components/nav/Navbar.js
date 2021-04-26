@@ -66,7 +66,7 @@ function Navbar() {
 								<input
 									onClick={() => toggleSearch()}
 									className=" w-full"
-									placeholder="Search products, makers, stories..."
+									placeholder="Search products, makers..."
 								/>
 							</div>
 							<div
@@ -97,17 +97,6 @@ function Navbar() {
 								>
 									<a className="flex-1 hidden py-4 mr-0 font-semibold text-center sm:flex sm:mr-4 sm:py-0 sm:flex-initial">
 										Patrons
-									</a>
-								</ActiveLink>
-								<ActiveLink
-									route="stories"
-									wildcard
-									notPath={["index", "about", "_error"]}
-									inactiveClassName={"text-gray-500"}
-									activeClassName={config.WL_TEXT_COLOR}
-								>
-									<a className="flex-1 py-4 mr-0 font-semibold text-center sm:mr-4 sm:py-0 sm:flex-initial">
-										Stories
 									</a>
 								</ActiveLink>
 								<ActiveLink
@@ -234,49 +223,7 @@ function Navbar() {
 						</div>
 					</Container>
 				</div>
-				{pathname.startsWith("/stories") ? (
-					<div className="border-b border-gray-200 dark:border-dark-200">
-						<Container className="py-2">
-							<div className="flex flex-auto max-w-full px-4 -mx-4 overflow-x-auto box-content">
-								<ActiveLink
-									route="stories"
-									inactiveClassName={"text-gray-500"}
-									activeClassName={config.WL_TEXT_COLOR}
-								>
-									<a className="mr-4 font-medium">
-										Frontpage
-									</a>
-								</ActiveLink>
-								<ActiveLink
-									route="stories-tag"
-									params={{ slug: "interviews" }}
-									inactiveClassName={"text-gray-500"}
-									activeClassName={config.WL_TEXT_COLOR}
-								>
-									<a className="mr-4 font-medium">
-										Interviews
-									</a>
-								</ActiveLink>
-								<ActiveLink
-									route="stories-tag"
-									params={{ slug: "culture" }}
-									inactiveClassName={"text-gray-500"}
-									activeClassName={config.WL_TEXT_COLOR}
-								>
-									<a className="mr-4 font-medium">Culture</a>
-								</ActiveLink>
-								<ActiveLink
-									route="stories-tag"
-									params={{ slug: "news" }}
-									inactiveClassName={"text-gray-500"}
-									activeClassName={config.WL_TEXT_COLOR}
-								>
-									<a className="mr-4 font-medium">News</a>
-								</ActiveLink>
-							</div>
-						</Container>
-					</div>
-				) : pathname.startsWith("/about") ? (
+				{pathname.startsWith("/about") ? (
 					<div className="border-b border-gray-200 dark:border-dark-200">
 						<Container className="py-2">
 							<div className="flex flex-auto max-w-full px-4 -mx-4 overflow-x-auto box-content">
