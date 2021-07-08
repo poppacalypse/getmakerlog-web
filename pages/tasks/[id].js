@@ -1,5 +1,4 @@
 import Task from "components/tasks/Task";
-import TaskComments from "components/tasks/TaskComments";
 import Card from "components/ui/Card";
 import ErrorCard from "components/ui/ErrorCard";
 import Spinner from "components/ui/Spinner";
