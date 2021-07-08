@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"scripts": {
 		"dev": "DEBUG='makerlog*,axios' next",
-		"build": "next build",
+		"build": "NODE_OPTIONS=--max_old_space_size=2048 next build",
 		"start": "NODE_ENV=production next start -p $PORT",
 		"render-start": "NODE_ENV=production next start -H 0.0.0.0",
 		"type-check": "tsc",
