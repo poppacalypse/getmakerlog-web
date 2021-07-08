@@ -4,7 +4,7 @@
 	"scripts": {
 		"dev": "DEBUG='makerlog*,axios' next",
 		"build": "next build",
-		"start": "NODE_ENV=production next start",
+		"start": "NODE_ENV=production next start -p $PORT",
 		"render-start": "NODE_ENV=production next start -H 0.0.0.0",
 		"type-check": "tsc",
 		"lint": "eslint . --ext .js,.jsx; exit 0",
