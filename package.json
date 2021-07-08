@@ -132,5 +132,8 @@
 		"*.js": "eslint --fix",
 		"*.jsx": "eslint --fix",
 		"*.{js,jsx;}": "eslint --cache --fix"
-	}
+	},
+	"cacheDirectories": [
+		".next/cache"
+	]
 }
