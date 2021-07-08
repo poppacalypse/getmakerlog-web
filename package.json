@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"scripts": {
 		"dev": "DEBUG='makerlog*,axios' next",
-		"build": "NODE_OPTIONS=--max_old_space_size=4096 next build",
+		"build": "next build",
 		"start": "NODE_ENV=production next start",
 		"render-start": "NODE_ENV=production next start -H 0.0.0.0",
 		"type-check": "tsc",
@@ -122,7 +122,7 @@
 		"useTabs": true
 	},
 	"engines": {
-		"node": "12.19.0"
+		"node": "14.x"
 	},
 	"husky": {
 		"hooks": {
