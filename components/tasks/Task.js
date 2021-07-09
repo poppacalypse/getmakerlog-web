@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import taskSchema from "schemas/task";
-import { getLogger } from "utils/logging";
 import TaskIcon, { getColorForTask } from "./TaskIcon";
 import TaskActions from "./TaskActions";
 
@@ -8,8 +6,6 @@ import TaskTextRenderer from "./TaskTextRenderer";
 import TaskAttachments from "./TaskAttachments";
 import TaskComments from "./TaskComments";
 import { SlideDown } from "react-slidedown";
-
-const log = getLogger("Task");
 
 // TODO: When link parsing is implemented, break-all anchor tags only.
 // go back to break-words.
@@ -29,12 +25,6 @@ function Task({
 }) {
 	const [forceOpen, setForceOpen] = useState(false);
 	const [commentsOpen, setCommentsOpen] = useState(false);
-
-	const { errors } = taskSchema.validate(task);
-	if (errors) {
-		log(`Task #${task.id ? task.id : null} failed validation. ${errors}`);
-		return null;
-	}
 
 	const hasAttachment = () => {
 		return task.video || task.attachment;

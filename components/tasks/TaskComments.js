@@ -4,18 +4,12 @@ import CommentInput from "components/comments/CommentInput";
 import Spinner from "components/ui/Spinner";
 import Button from "components/ui/Button";
 import Message from "components/ui/Message";
-import { commentsSchema } from "schemas/comments";
 import orderBy from "lodash/orderBy";
 import Comment from "components/comments/Comment";
 
 function TaskComments({ task, focused }) {
 	const indexUrl = `/tasks/${task.id}`;
 	const { data, isLoading, error, refetch } = useComments(indexUrl);
-
-	const { errors, value } = commentsSchema.validate(data);
-	if (errors) {
-		return <Message title="Invalid comments data." danger></Message>;
-	}
 
 	return (
 		<div className="w-full px-2 py-4 border border-gray-200 rounded-md bg-gray-50">
@@ -33,7 +27,7 @@ function TaskComments({ task, focused }) {
 			)}
 			{data && !isLoading && !error && data.length > 0 && (
 				<div>
-					{orderBy(value, "created_at", "asc").map((comment) => (
+					{orderBy(data, "created_at", "asc").map((comment) => (
 						<Comment
 							indexUrl={indexUrl}
 							comment={comment}

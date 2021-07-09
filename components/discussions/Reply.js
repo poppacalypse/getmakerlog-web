@@ -11,7 +11,6 @@ import {
 } from "queries/discussions";
 import { useAuth } from "stores/AuthStore";
 import Dropdown from "components/ui/Dropdown";
-import { replySchema } from "schemas/discussions";
 import ModStatus from "./ModStatus";
 import DiscussionsTextRenderer from "./DiscussionsTextRenderer";
 import TimeAgo from "react-timeago";
@@ -28,13 +27,12 @@ function Reply({
 	const [body, setBody] = useState(reply.body);
 	const [replyingTo, setReplyingTo] = useState(null);
 	const { mutate: deleteReply } = useDeleteThreadReply(reply.parent);
-	const { mutate: update, isLoading, error } = useUpdateThreadReply(
-		reply.parent
-	);
+	const {
+		mutate: update,
+		isLoading,
+		error,
+	} = useUpdateThreadReply(reply.parent);
 	childrenReplies = orderBy(childrenReplies, "created_at", "asc");
-
-	const { errors } = replySchema.validate(reply);
-	if (errors) return null;
 
 	const onEdit = async () => {
 		update(

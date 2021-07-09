@@ -6,7 +6,7 @@ import { useAuth } from "stores/AuthStore";
 import { useSkillAutocomplete } from "utils/hooks";
 import Skill from "./Skill";
 import SkillList from "./SkillList";
-import { Picker } from "emoji-mart";
+import { Picker } from "emoji-mart/dist-modern";
 
 export default function SkillCreator() {
 	const { user, isLoggedIn } = useAuth();

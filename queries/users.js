@@ -1,7 +1,5 @@
 import axios, { axiosWrapper } from "utils/axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { userSchema } from "schemas/user";
-import { StdErrorCollection } from "utils/error";
 import { getLogger } from "utils/logging";
 
 const log = getLogger("auth");
@@ -14,9 +12,7 @@ export const USER_QUERIES = {
 export async function getUser({ queryKey }) {
 	const [_key, { username }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `/users/${username}/`);
-	const { value, error } = userSchema.validate(data);
-	if (error) throw new StdErrorCollection(error);
-	return value;
+	return data;
 }
 
 export async function getIsFollowing({ queryKey }) {

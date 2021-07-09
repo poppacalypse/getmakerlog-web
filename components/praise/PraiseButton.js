@@ -5,7 +5,6 @@ import { getLogger } from "utils/logging";
 import FaceStack from "components/ui/FaceStack";
 import { isServer } from "config";
 import { Router } from "routes";
-import praiseSchema from "schemas/praise";
 import PraiseIcon from "./PraiseIcon";
 import { useAuth } from "stores/AuthStore";
 
@@ -45,13 +44,6 @@ function PraiseButton({
 		}
 	}, [error, indexUrl]);
 
-	// This is the one place where errors are acceptable.
-	// We don't inform the user of errors. They will occur.
-	// Except schema errors, those break the site...
-
-	const { errors, value } = praiseSchema.validate(data);
-	if (errors) return null;
-
 	return (
 		<Button
 			loading={isLoading}
@@ -59,7 +51,7 @@ function PraiseButton({
 			xs
 			onClick={onPraise}
 			className={
-				value && value.praised
+				data && data.praised
 					? "force-praise-color praised"
 					: "force-praise-color"
 			}
@@ -67,7 +59,7 @@ function PraiseButton({
 			<Button.Icon>
 				<PraiseIcon />
 			</Button.Icon>
-			{value && value.praised ? (
+			{data && data.praised ? (
 				small ? null : (
 					<span className="hidden font-medium sm:block">Praised</span>
 				)
@@ -75,19 +67,17 @@ function PraiseButton({
 				<span className="hidden sm:block">Praise</span>
 			)}
 			<span className="text-gray-500">
-				{value ? (
-					<span className={small ? "" : "sm:ml-2"}>
-						{value.total}
-					</span>
+				{data ? (
+					<span className={small ? "" : "sm:ml-2"}>{data.total}</span>
 				) : (
 					<span className={small ? "" : "sm:ml-2"}>
 						{initialCount}
 					</span>
 				)}
 			</span>
-			{value && value.praised_by !== null && value.praised_by.length > 0 && (
+			{data && data.praised_by !== null && data.praised_by.length > 0 && (
 				<span className="ml-2">
-					<FaceStack size={4} users={value.praised_by} />
+					<FaceStack size={4} users={data.praised_by} />
 				</span>
 			)}
 		</Button>

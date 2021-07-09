@@ -15,7 +15,6 @@ import App from "next/app";
 import { Provider, useStaticRendering } from "mobx-react";
 
 // eslint-disable-next-line no-unused-vars
-import * as Sentry from "@sentry/nextjs";
 import { isServer, isDev, DEFAULT_SEO_CONFIG } from "../config";
 import config, { onStoreInit } from "stores";
 import { configureMobx } from "utils/mobx";

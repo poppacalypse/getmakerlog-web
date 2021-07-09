@@ -51,4 +51,7 @@ const config = {
 	analyticsId: "badKEl4FENXOC6WuM8na6CFg2Vl",
 };
 
-module.exports = withOffline(config);
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+	enabled: process.env.ANALYZE === "true",
+});
+module.exports = withBundleAnalyzer(withOffline(config));

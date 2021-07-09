@@ -4,18 +4,12 @@ import CommentInput from "components/comments/CommentInput";
 import Spinner from "components/ui/Spinner";
 import Button from "components/ui/Button";
 import Message from "components/ui/Message";
-import { commentsSchema } from "schemas/comments";
 import orderBy from "lodash/orderBy";
 import Comment from "components/comments/Comment";
 
 function MilestoneComments({ milestone, focused }) {
 	const indexUrl = `/milestones/${milestone.slug}`;
 	const { data, isLoading, error, refetch } = useComments(indexUrl);
-
-	const { errors, value } = commentsSchema.validate(data);
-	if (errors) {
-		return <Message title="Invalid comments data." danger></Message>;
-	}
 
 	return (
 		<div className="w-full">
@@ -33,7 +27,7 @@ function MilestoneComments({ milestone, focused }) {
 			)}
 			{data && !isLoading && !error && data.length > 0 && (
 				<div className="px-2 py-4 mb-2 border-l border-gray-200 bg-gray-50">
-					{orderBy(value, "created_at", "asc").map((comment) => (
+					{orderBy(data, "created_at", "asc").map((comment) => (
 						<Comment
 							indexUrl={indexUrl}
 							comment={comment}

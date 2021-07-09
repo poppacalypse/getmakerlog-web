@@ -1,7 +1,5 @@
 import axios, { axiosWrapper } from "utils/axios";
 import { useInfiniteQuery, useMutation, useQuery } from "react-query";
-import { StdErrorCollection } from "utils/error";
-import { productsSchema } from "schemas/products";
 import { getLogger } from "utils/logging";
 
 const log = getLogger("products");
@@ -19,15 +17,11 @@ export const PRODUCT_QUERIES = {
 export async function getProduct({ queryKey }) {
 	const [_key, { slug }] = queryKey;
 	const { data } = await axiosWrapper(axios.get, `/products/${slug}/`);
-	// const { value, error } = productSchema.validate(data);
-	// if (error) throw new StdErrorCollection(error);
 	return data;
 }
 
 export async function getMyProducts() {
 	const { data } = await axiosWrapper(axios.get, `/products/me/`);
-	//const { value, error } = productsSchema.validate(data);
-	//if (error) throw new StdErrorCollection(error);
 	return data;
 }
 
@@ -58,9 +52,7 @@ export async function getUserProducts({ queryKey }) {
 		axios.get,
 		`/users/${username}/products/`
 	);
-	const { value, error } = productsSchema.validate(data);
-	if (error) throw new StdErrorCollection(error);
-	return value;
+	return data;
 }
 
 export async function getRecentlyLaunched({ pageParam: next = null }) {

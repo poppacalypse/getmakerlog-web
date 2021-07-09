@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"scripts": {
 		"dev": "DEBUG='makerlog*,axios' next",
-		"build": "next build",
+		"build": "next build --debug",
 		"start": "NODE_ENV=production next start",
 		"render-start": "NODE_ENV=production next start -H 0.0.0.0",
 		"type-check": "tsc",
@@ -25,6 +25,7 @@
 		"@fortawesome/react-fontawesome": "^0.1.11",
 		"@fuelrats/next-named-routes": "^3.1.1",
 		"@fullhuman/postcss-purgecss": "^2.3.0",
+		"@next/bundle-analyzer": "^11.0.1",
 		"@segment/snippet": "^4.13.1",
 		"@sentry/nextjs": "^6.3.0-beta.3",
 		"@sentry/react": "^5.27.6",
