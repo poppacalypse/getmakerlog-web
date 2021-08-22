@@ -15,7 +15,6 @@ import { useRouter } from "next/router";
 import OutboundLink from "components/seo/OutboundLink";
 import FeedbackModal from "components/feedback/FeedbackModal";
 import config from "config";
-import AdminBar from "./AdminBar";
 import AchievementBar from "components/stats/AchievementBar";
 
 function Navbar() {
@@ -34,7 +33,6 @@ function Navbar() {
 	return (
 		<>
 			<AchievementBar user={user} />
-			{user && user.is_staff && <AdminBar />}
 			<nav className="flex-none bg-white dark:bg-dark-100 mt-safe-top">
 				<div className="fixed top-0 left-0 z-50 w-full bg-green-500 h-safe-top"></div>
 				{user && user.is_staff ? (
@@ -158,19 +156,6 @@ function Navbar() {
 															</Dropdown.Item>
 														</Link>
 													) : null}
-													<Link route="reminders">
-														<Dropdown.Item>
-															<Dropdown.Item.Icon>
-																<FontAwesomeIcon
-																	icon={[
-																		"fab",
-																		"twitter",
-																	]}
-																/>
-															</Dropdown.Item.Icon>{" "}
-															Reminders
-														</Dropdown.Item>
-													</Link>
 													<Link route="onboarding">
 														<Dropdown.Item>
 															<Dropdown.Item.Icon>
@@ -212,9 +197,6 @@ function Navbar() {
 								</>
 							) : (
 								<>
-									<Link route="register">
-										<Button primary>Share your work</Button>
-									</Link>
 									<Link route="login">
 										<Button className="ml-2">Log in</Button>
 									</Link>
@@ -289,39 +271,12 @@ function Navbar() {
 										<a className="mr-4 font-medium">Feed</a>
 									</ActiveLink>
 									<ActiveLink
-										route="milestones"
-										inactiveClassName={"text-gray-500"}
-										activeClassName={config.WL_TEXT_COLOR}
-									>
-										<a className="mr-4 font-medium">
-											Milestones
-										</a>
-									</ActiveLink>
-									<ActiveLink
-										route="discussions"
-										inactiveClassName={"text-gray-500"}
-										activeClassName={config.WL_TEXT_COLOR}
-									>
-										<a className="mr-4 font-medium">
-											Discussions
-										</a>
-									</ActiveLink>
-									<ActiveLink
 										route="products"
 										inactiveClassName={"text-gray-500"}
 										activeClassName={config.WL_TEXT_COLOR}
 									>
 										<a className="mr-4 font-medium">
 											Products
-										</a>
-									</ActiveLink>
-									<ActiveLink
-										route="events"
-										inactiveClassName={"text-gray-500"}
-										activeClassName={config.WL_TEXT_COLOR}
-									>
-										<a className="mr-4 font-medium">
-											Events
 										</a>
 									</ActiveLink>
 									{isLoggedIn && (

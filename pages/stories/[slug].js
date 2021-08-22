@@ -17,8 +17,6 @@ import PostHeading from "components/stories/PostHeading";
 import SubscribeCard from "components/stories/SubscribeCard";
 import PostGrid from "components/stories/PostGrid";
 import PlaceholderState from "components/ui/PlaceholderState";
-import Message from "components/ui/Message";
-import { Link } from "routes";
 import Button from "components/ui/Button";
 import UserMedia from "components/ui/UserMedia";
 import ProductMedia from "components/products/ProductMedia";
@@ -41,10 +39,8 @@ function StoriesPostPage() {
 		slug,
 		post && post.primary_tag ? post.primary_tag.slug : "uncategorized"
 	);
-	const {
-		isLoading: isLoadingMetadata,
-		data: storyMetadata,
-	} = useStoryMetadata(slug);
+	const { isLoading: isLoadingMetadata, data: storyMetadata } =
+		useStoryMetadata(slug);
 	const repliesEnd = useRef(null);
 
 	useEffect(() => {
@@ -175,15 +171,6 @@ function StoriesPostPage() {
 
 							<div ref={repliesEnd}></div>
 						</div>
-					)}
-					{storyMetadata && storyMetadata.threads.length === 0 && (
-						<Message info title="No threads yet.">
-							<Link route="discussions">
-								<Button anchorElem sm>
-									Start the conversation &raquo;
-								</Button>
-							</Link>
-						</Message>
 					)}
 					{isLoadingMetadata && (
 						<PlaceholderState>

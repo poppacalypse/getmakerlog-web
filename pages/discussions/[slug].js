@@ -6,7 +6,6 @@ import Spinner from "components/ui/Spinner";
 import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import Thread from "components/discussions/Thread";
-import { Link } from "routes";
 import ThreadReplies from "components/discussions/ThreadReplies";
 import { ThreadReplyCreateForm } from "components/discussions/ThreadReplyForm";
 import Card from "components/ui/Card";
@@ -30,11 +29,6 @@ function DiscussionThreadPage() {
 
 	return (
 		<NarrowLayout>
-			<div className="flex flex-row w-full mb-2 text-sm">
-				<Link route="discussions">
-					<a>← Discussions</a>
-				</Link>
-			</div>
 			<div className="mb-4">
 				<Thread
 					full

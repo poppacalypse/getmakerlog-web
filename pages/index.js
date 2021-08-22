@@ -5,24 +5,11 @@ import NarrowLayout from "layouts/NarrowLayout";
 import { requiresOnboarding } from "utils/auth";
 import OnboardingCard from "components/auth/OnboardingCard";
 import { NextSeo } from "next-seo";
-import SidebarNav from "components/ui/SidebarNav";
-import { useState } from "react";
-import LatestThreads from "components/discussions/LatestThreads";
-import { getFrontpage, STATS_QUERIES, useFrontpage } from "queries/stats";
-import StubTaskActivity from "components/tasks/StubTaskActivity";
 import DayView from "components/tasks/DayView";
-import PlaceholderState from "components/ui/PlaceholderState";
-import Spinner from "components/ui/Spinner";
 import MyStreakCard from "components/sidebars/MyStreakCard";
 import StdSidebar from "components/sidebars/StdSidebar";
 import TopStreaksCard from "components/sidebars/TopStreaksCard";
 import RisingMakersCard from "components/sidebars/RisingMakersCard";
-import UpcomingEventsCard from "components/sidebars/UpcomingEventsCard";
-import PopularToday from "components/frontpage/PopularToday";
-import RecentLaunches from "components/frontpage/RecentLaunches";
-import LatestDiscussions from "components/frontpage/LatestDiscussions";
-import LatestMilestones from "components/frontpage/LatestMilestones";
-import FeaturedStory from "components/frontpage/FeaturedStory";
 import { dehydrate } from "react-query/hydration";
 import { QueryClient } from "react-query";
 import Hero from "components/ui/Hero";
@@ -31,18 +18,11 @@ import FacebookLogin from "components/auth/FacebookLogin";
 import TwitterLogin from "components/auth/TwitterLogin";
 import ContentLayout from "layouts/ContentLayout";
 import { useRoot } from "stores/RootStore";
-import dynamic from "next/dynamic";
 import OnboardingChecklistCard from "components/sidebars/OnboardingChecklistCard";
 import Feed from "components/feeds/Feed";
-
-const RemindersCard = dynamic(
-	() => import("../components/reminders/RemindersCard"),
-	{ ssr: false }
-);
+import Message from "components/ui/Message";
 
 function HomePage() {
-	const { data: frontpage } = useFrontpage();
-
 	return (
 		<div>
 			<Hero
@@ -52,7 +32,7 @@ function HomePage() {
 					marginBottom: 0,
 				}}
 			>
-				<div className="flex items-stretch items-center w-full text-center sm:text-left">
+				<div className="flex items-stretch w-full text-center sm:text-left">
 					<div className="flex-1 flex-shrink-0 py-12 sm:pr-6 sm:py-48">
 						<h1 className="text-2xl font-extrabold sm:text-4xl">
 							How makers stay productive
@@ -61,14 +41,11 @@ function HomePage() {
 							Your task list made public. Get feedback, stay
 							accountable and ship better products with us.
 						</p>
-						<div className="flex flex-col space-y-2">
-							<div className="flex-initial">
-								<TwitterLogin />
-							</div>
-							<div className="flex-initial">
-								<FacebookLogin />
-							</div>
-						</div>
+
+						<Message warning>
+							Sign ups are temporarily closed for product updates.
+							Stay tuned on Twitter for updates.
+						</Message>
 					</div>
 					<div className="flex-1 flex-shrink-0 hidden w-full sm:block"></div>
 				</div>
@@ -156,15 +133,9 @@ function HomePage() {
 						<StdSidebar />
 						<TopStreaksCard />
 						<RisingMakersCard />
-						<UpcomingEventsCard />
 					</>
 				}
 			>
-				<FeaturedStory frontpage={frontpage} />
-				<RecentLaunches frontpage={frontpage} />
-				<LatestMilestones frontpage={frontpage} />
-				<LatestDiscussions frontpage={frontpage} />
-				<PopularToday frontpage={frontpage} />
 				<Feed indexUrl={`/feeds/world/`} live={false} />
 			</ContentLayout>
 		</div>
@@ -172,62 +143,23 @@ function HomePage() {
 }
 
 function FeedPage() {
-	const FEEDS = {
-		FRONTPAGE: 1,
-		USER_TASKS: 2,
-		DISCUSSIONS: 3,
-		ALL_TASKS: 4,
-		POPULAR_TODAY: 5,
-		FOLLOWING: 6,
-	};
 	const { isOnboarding } = useRoot();
-	const [feed, setFeed] = useState(FEEDS.FRONTPAGE);
 	const { user } = useAuth();
-	const { isLoading, data: frontpage } = useFrontpage();
 
 	return (
 		<Container className="py-4">
 			<NarrowLayout
 				leftSidebar={
-					requiresOnboarding(user) || isOnboarding ? null : (
-						<SidebarNav>
-							<p className="heading">Feeds</p>
-							<SidebarNav.Button
-								onClick={() => setFeed(FEEDS.FRONTPAGE)}
-								active={feed === FEEDS.FRONTPAGE}
-							>
-								Everyone
-							</SidebarNav.Button>
-							<SidebarNav.Button
-								onClick={() => setFeed(FEEDS.FOLLOWING)}
-								active={feed === FEEDS.FOLLOWING}
-							>
-								Following
-							</SidebarNav.Button>
-							<SidebarNav.Button
-								onClick={() => setFeed(FEEDS.POPULAR_TODAY)}
-								active={feed === FEEDS.POPULAR_TODAY}
-							>
-								Top today
-							</SidebarNav.Button>
-							<p className="mt-2 heading">You</p>
-							<SidebarNav.Button
-								onClick={() => setFeed(FEEDS.USER_TASKS)}
-								active={feed === FEEDS.USER_TASKS}
-							>
-								Tasks
-							</SidebarNav.Button>
-						</SidebarNav>
-					)
+					<>
+						<StdSidebar />
+						<OnboardingChecklistCard />
+					</>
 				}
 				rightSidebar={
 					<>
 						<MyStreakCard />
-						<OnboardingChecklistCard />
-						<StdSidebar />
 						<TopStreaksCard />
 						<RisingMakersCard />
-						<UpcomingEventsCard />
 					</>
 				}
 			>
@@ -235,78 +167,60 @@ function FeedPage() {
 					<OnboardingCard />
 				) : (
 					<>
+						<Message warning>
+							<p className="text-sm text-yellow-500 prose">
+								<p>Hi. Sergio here. We need to talk.</p>
+								<p>
+									In order to contain a community quality
+									crisis and prepare for upcoming product
+									updates, I've taken the following measures
+									effective now. This is a little sudden, but
+									I have no choice.
+								</p>
+								<ul>
+									<li>
+										Opening new accounts is now disabled.
+										Makerlog will become invite-only.
+									</li>
+									<li>
+										Discussion pages are now read-only due
+										to abuse.
+									</li>
+									<li>
+										Milestones are now read-only due to
+										abuse.
+									</li>
+									<li>
+										Todoist, Webhook, and Trello
+										integrations will be disabled soon, as
+										they bring little value to the
+										community.
+									</li>
+									<li>
+										Reminders are broken, they have been
+										disabled for now.
+									</li>
+								</ul>
+								<p>
+									In short: only core functionality is
+									enabled.
+								</p>
+								<p>
+									What's the plan for Makerlog, you may
+									wonder? More information coming in a tweet
+									or blog post soon.
+								</p>
+							</p>
+						</Message>
 						<Card>
 							<Card.Content>
 								<Editor />
 							</Card.Content>
 						</Card>
-						{feed === FEEDS.FRONTPAGE && (
-							<>
-								<RemindersCard />
-								<div className="mb-4">
-									<DayView small withHeader={false} />
-								</div>
-
-								{isLoading && (
-									<PlaceholderState>
-										<Spinner
-											text="Curating the makerness..."
-											small
-										/>
-									</PlaceholderState>
-								)}
-
-								<FeaturedStory frontpage={frontpage} />
-
-								<LatestMilestones frontpage={frontpage} />
-
-								<LatestDiscussions frontpage={frontpage} />
-
-								<PopularToday frontpage={frontpage} />
-
-								<Feed />
-							</>
-						)}
-						{feed === FEEDS.POPULAR_TODAY && (
-							<>
-								{isLoading && (
-									<PlaceholderState>
-										<Spinner
-											text="Curating the makerness..."
-											small
-										/>
-									</PlaceholderState>
-								)}
-								{frontpage && frontpage.tasks && (
-									<div className="mb-4">
-										<h3 className="mb-2 font-semibold">
-											Top tasks today
-										</h3>
-										{frontpage.tasks.map((task) => (
-											<StubTaskActivity
-												task={task}
-												key={task.id}
-											/>
-										))}
-									</div>
-								)}
-							</>
-						)}
-						{feed === FEEDS.USER_TASKS && (
-							<>
-								<div className="mb-4">
-									<DayView withHeader={false} />
-								</div>
-
-								<Feed
-									indexUrl={`/feeds/user/${user.username}/`}
-								/>
-							</>
-						)}
-						{feed === FEEDS.DISCUSSIONS && <LatestThreads />}
-						{feed === FEEDS.FOLLOWING && (
-							<Feed indexUrl={`/feeds/following/`} />
-						)}
+						<div className="mb-4">
+							<DayView small withHeader={false} />
+						</div>
+						<Feed />
 					</>
 				)}
 				<NextSeo title="Feed" />
@@ -323,9 +237,6 @@ function IndexPage() {
 
 IndexPage.getInitialProps = async () => {
 	const queryClient = new QueryClient();
-
-	await queryClient.prefetchQuery([STATS_QUERIES.getFrontpage], getFrontpage);
-
 	return {
 		dehydratedState: dehydrate(queryClient),
 		layout: {

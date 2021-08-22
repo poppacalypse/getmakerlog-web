@@ -7,7 +7,6 @@ import UserLine from "components/ui/UserLine";
 import ContentLayout from "layouts/ContentLayout";
 import { NextSeo } from "next-seo";
 import React from "react";
-import { Link } from "routes";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 function AboutPage() {
@@ -17,7 +16,7 @@ function AboutPage() {
 				<Container>
 					<h1>Learn, build, and grow with us.</h1>
 					<p className="text-gray-700">
-						Makerlog is a community of 7,000+ makers building
+						Makerlog is a community of 8,000+ makers building
 						software products publicly, together.
 					</p>
 				</Container>
@@ -38,7 +37,7 @@ function AboutPage() {
 											</small>
 										</div>
 										<div className="flex-1 text-center">
-											<h4 className="font-bold">7k+</h4>
+											<h4 className="font-bold">8k+</h4>
 											<small className="text-xs text-gray-700">
 												Makers
 											</small>
@@ -158,8 +157,7 @@ function AboutPage() {
 										description: "Maker of Makerlog.",
 										verified: true,
 										private: false,
-										avatar:
-											"https://ik.imagekit.io/makerlog/media/uploads/avatars/2020/07/22/IMG-20200623-WA0106.jpg",
+										avatar: "https://ik.imagekit.io/makerlog/media/uploads/avatars/2020/07/22/IMG-20200623-WA0106.jpg",
 										streak: 723,
 										timezone: "America/Puerto_Rico",
 										week_tda: 3,
@@ -170,8 +168,7 @@ function AboutPage() {
 										telegram_handle: "matteing",
 										nomadlist_handle: "",
 										bmc_handle: "mattei",
-										header:
-											"https://ik.imagekit.io/makerlog/media/uploads/headers/2020/10/19/sale_1.png",
+										header: "https://ik.imagekit.io/makerlog/media/uploads/headers/2020/10/19/sale_1.png",
 										is_staff: true,
 										donor: false,
 										shipstreams_handle: "sergiomattei",
@@ -199,93 +196,6 @@ function AboutPage() {
 			</ContentLayout>
 			<div className="py-8 bg-white border-t border-gray-200">
 				<Container>
-					<h1>The Team</h1>
-					<p className="text-gray-700">
-						We're a team of folks passionate about pushing the maker
-						movement forward.
-					</p>
-					<div className="mt-2 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
-						<div className="flex flex-col flex-1 p-8 text-center">
-							<img
-								className="flex-shrink-0 w-48 h-48 mx-auto bg-black rounded-full"
-								src="/img/team/sergio.png"
-							/>
-							<h3 className="mt-6 text-lg font-medium font-bold text-gray-900 leading-5">
-								Sergio Mattei
-							</h3>
-							<dl className="flex flex-col justify-between flex-grow mt-1">
-								<dd className="text-sm text-gray-500 leading-5">
-									Founder, CEO
-								</dd>
-							</dl>
-							<Link
-								route="profile"
-								params={{ username: "sergio" }}
-							>
-								<a className="mt-2 text-xs">View profile</a>
-							</Link>
-						</div>{" "}
-						<div className="flex flex-col flex-1 p-8 text-center">
-							<img
-								className="flex-shrink-0 w-48 h-48 mx-auto bg-black rounded-full"
-								src="/img/team/hector.png"
-							/>
-							<h3 className="mt-6 text-lg font-medium font-bold text-gray-900 leading-5">
-								Hector Soto
-							</h3>
-							<dl className="flex flex-col justify-between flex-grow mt-1">
-								<dd className="text-sm text-gray-500 leading-5">
-									Co-founder, COO
-								</dd>
-							</dl>
-							<Link
-								route="profile"
-								params={{ username: "hector" }}
-							>
-								<a className="mt-2 text-xs">View profile</a>
-							</Link>
-						</div>
-						<div className="flex flex-col flex-1 p-8 text-center">
-							<img
-								className="flex-shrink-0 w-48 h-48 mx-auto bg-black rounded-full"
-								src="/img/team/leilany.png"
-							/>
-							<h3 className="mt-6 text-lg font-medium font-bold text-gray-900 leading-5">
-								Leilany Casillas
-							</h3>
-							<dl className="flex flex-col justify-between flex-grow mt-1">
-								<dd className="text-sm text-gray-500 leading-5">
-									Storytelling
-								</dd>
-							</dl>
-							<Link
-								route="profile"
-								params={{ username: "leilacasillas" }}
-							>
-								<a className="mt-2 text-xs">View profile</a>
-							</Link>
-						</div>{" "}
-						<div className="flex flex-col flex-1 p-8 text-center">
-							<img
-								className="flex-shrink-0 w-48 h-48 mx-auto bg-black rounded-full"
-								src="/img/team/monday.jpeg"
-							/>
-							<h3 className="mt-6 text-lg font-medium font-bold text-gray-900 leading-5">
-								Monday
-							</h3>
-							<dl className="flex flex-col justify-between flex-grow mt-1">
-								<dd className="text-sm text-gray-500 leading-5">
-									Head of Cats
-								</dd>
-							</dl>
-							<Link
-								route="profile"
-								params={{ username: "monday" }}
-							>
-								<a className="mt-2 text-xs">View profile</a>
-							</Link>
-						</div>
-					</div>
 					<h1>Wall of Love</h1>
 					<p className="text-gray-700">
 						This is the maker community.

@@ -74,30 +74,6 @@ function IntegrationsPage() {
 							}}
 						/>
 						<IntegrationMedia
-							name="Todoist"
-							description="Log done tasks straight from Todoist."
-							logo={"/img/integrations/todoist.png"}
-							linkParams={{
-								route: "integration-todoist",
-							}}
-						/>
-						<IntegrationMedia
-							name="GitHub"
-							description="Log your daily commits from GitHub."
-							logo={"/img/integrations/github.png"}
-							linkParams={{
-								route: "integration-github",
-							}}
-						/>
-						<IntegrationMedia
-							name="GitLab"
-							description="Log your daily commits from GitLab."
-							logo={"/img/integrations/gitlab.png"}
-							linkParams={{
-								route: "integration-gitlab",
-							}}
-						/>
-						<IntegrationMedia
 							name="Webhooks"
 							description="Log from basically anywhere."
 							logo={"/img/integrations/webhooks.png"}
