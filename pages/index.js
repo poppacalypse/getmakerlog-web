@@ -14,8 +14,6 @@ import { dehydrate } from "react-query/hydration";
 import { QueryClient } from "react-query";
 import Hero from "components/ui/Hero";
 import Container from "components/ui/Container";
-import FacebookLogin from "components/auth/FacebookLogin";
-import TwitterLogin from "components/auth/TwitterLogin";
 import ContentLayout from "layouts/ContentLayout";
 import { useRoot } from "stores/RootStore";
 import OnboardingChecklistCard from "components/sidebars/OnboardingChecklistCard";
