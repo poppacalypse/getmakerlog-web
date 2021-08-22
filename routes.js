@@ -14,34 +14,10 @@ const routerHelper = routes()
 	.add("auth-change-password", "/auth/change-password/")
 	.add("auth-wl-onboarding", "/auth/wl-onboarding/")
 	.add("task", "/tasks/[id]")
-	.add("profile", ({ username, ...query }) => {
-		return {
-			href: "/users/[username]",
-			as: `/@${username}`,
-			query,
-		};
-	})
-	.add("profile-products", ({ username, ...query }) => {
-		return {
-			href: "/users/[username]/products",
-			as: `/@${username}/products`,
-			query,
-		};
-	})
-	.add("profile-milestones", ({ username, ...query }) => {
-		return {
-			href: "/users/[username]/milestones",
-			as: `/@${username}/milestones`,
-			query,
-		};
-	})
-	.add("profile-tasks-day", ({ username, year, month, day, ...query }) => {
-		return {
-			href: "/users/[username]/lists/[year]/[month]/[day]",
-			as: `/@${username}/lists/${year}/${month}/${day}`,
-			query,
-		};
-	})
+	.add("profile", "/users/[username]")
+	.add("profile-products", "/users/[username]/products")
+	.add("profile-milestones", "/users/[username]/milestones")
+	.add("profile-tasks-day", "/users/[username]/lists/[year]/[month]/[day]")
 	.add("settings", "/settings")
 	.add("logout", "/logout")
 	.add("tasks", "/tasks")
