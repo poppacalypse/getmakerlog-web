@@ -1,0 +1,14 @@
+name: Ahoy, frens
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    deploy:
+        name: Deploy
+        runs-on: ubuntu-latest
+        steps:
+            - name: Dokku
+              uses: dokku/github-action@v1.0.1
