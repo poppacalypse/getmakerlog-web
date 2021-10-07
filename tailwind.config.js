@@ -1,10 +1,15 @@
 // tailwind.config.js
 module.exports = {
+	mode: "jit",
 	future: {
 		removeDeprecatedGapUtilities: true,
 	},
 	darkMode: "class",
-	purge: ["./**/*.html", "./**/*.vue", "./**/*.jsx", "./**/*.js"],
+	purge: [
+		"./pages/**/*.{js,ts,jsx,tsx}",
+		"./components/**/*.{js,ts,jsx,tsx}",
+		"./layouts/**/*.{js,ts,jsx,tsx}",
+	],
 	plugins: [
 		require("@tailwindcss/forms"),
 		require("@tailwindcss/typography"),
