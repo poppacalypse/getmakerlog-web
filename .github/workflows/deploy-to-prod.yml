@@ -1,4 +1,4 @@
-name: Ahoy, frens
+name: Deploy to Production
 
 on:
     push:
@@ -7,11 +7,15 @@ on:
 
 jobs:
     deploy:
-        name: Deploy
-        runs-on: ubuntu-latest
-        steps:
-            - name: Dokku
-              uses: dokku/github-action@v1.0.1
-              with:
-                  git_remote_url: ${{ secrets.GIT_REMOTE_URL }}
-                  ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        - name: Cloning repo
+          uses: actions/checkout@v2
+          with:
+              fetch-depth: 0
+        - name: Push to Dokku
+          runs-on: ubuntu-latest
+          steps:
+              - name: Dokku
+                uses: dokku/github-action@v1.0.1
+                with:
+                    git_remote_url: ${{ secrets.GIT_REMOTE_URL }}
+                    ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
