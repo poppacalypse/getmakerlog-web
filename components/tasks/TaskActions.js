@@ -125,14 +125,19 @@ function TaskPermalinkAction({ task }) {
 function TaskDeleteAction({ task, onDelete }) {
 	const { isLoggedIn, user } = useAuth();
 
-	if (!isLoggedIn || user.id !== task.user.id) return null;
+	if (
+		!isLoggedIn ||
+		user.id !== task.user.id ||
+		(!user.is_moderator && !user.is_staff)
+	)
+		return null;
 
 	return (
 		<Dropdown.Item onClick={onDelete}>
 			<Dropdown.Item.Icon>
 				<FontAwesomeIcon icon="trash" />
 			</Dropdown.Item.Icon>
-			Delete
+			Delete {user.is_moderator || user.is_staff ? "(Admin)" : null}
 		</Dropdown.Item>
 	);
 }
