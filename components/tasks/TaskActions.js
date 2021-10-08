@@ -127,8 +127,7 @@ function TaskDeleteAction({ task, onDelete }) {
 
 	if (
 		!isLoggedIn ||
-		user.id !== task.user.id ||
-		(!user.is_moderator && !user.is_staff)
+		(user.id !== task.user.id && !(user.is_moderator || user.is_staff))
 	)
 		return null;
 
