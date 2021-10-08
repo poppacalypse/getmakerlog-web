@@ -4,7 +4,7 @@ An all-new Makerlog, designed from the ground up for speed & simplicity.
 
 # Contributing
 
-Contributions are welcome. A CLA must be signed before any pull request is merged. Contribution standards are in the works.
+Contributions are welcome. A CLA must be signed before any pull request is merged. Contribution standards and tutorials are in the works.
 
 # License
 
