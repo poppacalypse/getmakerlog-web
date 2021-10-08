@@ -165,51 +165,6 @@ function FeedPage() {
 					<OnboardingCard />
 				) : (
 					<>
-						<Message warning>
-							<p className="text-sm text-yellow-500 prose">
-								<p>Hi. Sergio here. We need to talk.</p>
-								<p>
-									In order to contain a community quality
-									crisis and prepare for upcoming product
-									updates, I've taken the following measures
-									effective now. This is a little sudden, but
-									I have no choice.
-								</p>
-								<ul>
-									<li>
-										Opening new accounts is now disabled.
-										Makerlog will become invite-only.
-									</li>
-									<li>
-										Discussion pages are now read-only due
-										to abuse.
-									</li>
-									<li>
-										Milestones are now read-only due to
-										abuse.
-									</li>
-									<li>
-										Todoist, Webhook, and Trello
-										integrations will be disabled soon, as
-										they bring little value to the
-										community.
-									</li>
-									<li>
-										Reminders are broken, they have been
-										disabled for now.
-									</li>
-								</ul>
-								<p>
-									In short: only core functionality is
-									enabled.
-								</p>
-								<p>
-									What's the plan for Makerlog, you may
-									wonder? More information coming in a tweet
-									or blog post soon.
-								</p>
-							</p>
-						</Message>
 						<Card>
 							<Card.Content>
 								<Editor />

@@ -9,8 +9,7 @@
 		"type-check": "tsc",
 		"lint": "eslint . --ext .js,.jsx; exit 0",
 		"lint:staged": "lint-staged",
-		"lint:fix": "eslint  . --ext .js,.jsx --fix; exit 0",
-		"deploy": "NODE_ENV=production API_URL=https://api.getmakerlog.com next build && eb deploy"
+		"lint:fix": "eslint  . --ext .js,.jsx --fix; exit 0"
 	},
 	"dependencies": {
 		"@babel/core": "^7.12.9",
